@@ -81,7 +81,7 @@ const Header = () => {
             <ul className="space-y-8 text-center">
               <li><Link href="/" className="text-white text-2xl hover:text-gray-300 transition-colors" onClick={() => setIsMenuOpen(false)}>Inicio</Link></li>
               <li><Link href="/equipo" className="text-white text-2xl hover:text-gray-300 transition-colors" onClick={() => setIsMenuOpen(false)}>Team</Link></li>
-              <li><Link href="/equipo" className="text-white text-2xl hover:text-gray-300 transition-colors" onClick={() => setIsMenuOpen(false)}>Eliac</Link></li>             
+              <li><Link href="https://eliac-org.github.io/" className="text-white text-2xl hover:text-gray-300 transition-colors" onClick={() => setIsMenuOpen(false)}>Eliac</Link></li>             
              {/*  <li><Link href="/sponsors" className="text-white text-2xl hover:text-gray-300 transition-colors" onClick={() => setIsMenuOpen(false)}>Patrocinadores</Link></li>
         */}
            
