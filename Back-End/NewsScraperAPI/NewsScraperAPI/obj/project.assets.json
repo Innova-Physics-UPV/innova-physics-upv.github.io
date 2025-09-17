@@ -497,11 +497,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\programines\\Web-Innova-Physics\\Back-End\\NewsScraperAPI\\NewsScraperAPI\\NewsScraperAPI.csproj",
+      "projectUniqueName": "D:\\BlackBerry\\programines\\Web-Innova-Physics\\Back-End\\NewsScraperAPI\\NewsScraperAPI\\NewsScraperAPI.csproj",
       "projectName": "NewsScraperAPI",
-      "projectPath": "D:\\programines\\Web-Innova-Physics\\Back-End\\NewsScraperAPI\\NewsScraperAPI\\NewsScraperAPI.csproj",
+      "projectPath": "D:\\BlackBerry\\programines\\Web-Innova-Physics\\Back-End\\NewsScraperAPI\\NewsScraperAPI\\NewsScraperAPI.csproj",
       "packagesPath": "C:\\Users\\Juan Manuel\\.nuget\\packages\\",
-      "outputPath": "D:\\programines\\Web-Innova-Physics\\Back-End\\NewsScraperAPI\\NewsScraperAPI\\obj\\",
+      "outputPath": "D:\\BlackBerry\\programines\\Web-Innova-Physics\\Back-End\\NewsScraperAPI\\NewsScraperAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
