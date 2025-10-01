@@ -58,7 +58,7 @@ const Gallery: React.FC<GalleryProps> = ({ photos, autoPlayInterval = 5000 }) =>
   const dashOffset = circumference - (progress / 100) * circumference;
   
   return (
-    <div className="gallery-container relative w-full h-96 md:h-[500px]">
+    <div className="gallery-container relative w-full h-40 md:h-[500px]">
       <div className="relative h-full w-full">
         {photos.map((photo, index) => {
           const useSecondUrl = imageErrors[index];
@@ -84,7 +84,7 @@ const Gallery: React.FC<GalleryProps> = ({ photos, autoPlayInterval = 5000 }) =>
         
         {/* Caption sin animación */}
         <div 
-          className="absolute bottom-16 right-4 inline-block max-w-xs rounded-md bg-gray-800 bg-opacity-40 border border-gray-700"
+          className="absolute bottom-16 right-4 inline-block max-w-xs rounded-md bg-gray-800 bg-opacity-40 border border-gray-700 backdrop-blur-sm"
           style={{ padding: '0.25rem 0.75rem' }}
         >
           <p className="text-gray-300 text-sm text-right whitespace-nowrap m-0 leading-normal"

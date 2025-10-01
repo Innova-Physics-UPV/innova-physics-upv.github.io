@@ -10,13 +10,6 @@ const sponsors = [
     tier: "",
   },
   {
-    id: "2",
-    name: "UPV",
-    logo: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747391949/UPV_lswqut.png",
-    url: "https://www.upv.es/",
-    tier: "",
-  },
-  {
     id: "3",
     name: "Escuela superior de telecomunicaciones",
     logo: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747391947/ETSIT_pax9tw.png",
@@ -36,8 +29,8 @@ const sponsors = [
 const SponsorsSection: React.FC = () => {
   return (
     <BaseSection title="SPONSORS">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {sponsors.map((s) => (
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {sponsors.map((s) => (
           <a
             key={s.id}
             href={s.url}
