@@ -42,7 +42,7 @@ export const teamMembers = [
   { name: "Lucas Tarragó Mahiques", role: "Gestión", department: "Administrative", image: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747155890/Lucas_Tarrag%C3%B3_Mahiques_rh2yws.png" },
   { name: "Marc Sanchis Llinares", role: "Hardware", department: "Hardware", image: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747262038/Marc_Sanchis_Llinares_rceyzb.png" },
   { name: "Marco Nieto Pérez", role: "Gestión", department: "Administrative", image: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747155885/Marco_Nieto_P%C3%A9rez_rk9kxr.png" },
-  { name: "Mari Carmen Rea Rejia", role: "Software", department: "Software", image: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747155881/Mari_Carmen_Rea_Rejia_vvqq8v.png" },
+  { name: "Mari Carmen Rea Mejia", role: "Software", department: "Software", image: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747155881/Mari_Carmen_Rea_Mejia_vvqq8v.png" },
   { name: "María Morón Romero", role: "Físico", department: "Applied Physics" },
   { name: "Marta Molés Herrero", role: "Estructuras", department: "Structures & Design", image: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747155872/Marta_Mol%C3%A9s_Herrero_sp1ryy.png" },
   { name: "Mateo Gajić Sales", role: "Dirección", department: "Applied Physics", image: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747155879/Mateo_Gaji%C4%87_Sales_yiw7jt.png" },
