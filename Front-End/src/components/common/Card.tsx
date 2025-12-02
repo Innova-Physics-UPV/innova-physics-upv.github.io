@@ -44,6 +44,7 @@ const Card: React.FC<CardProps> = ({
         <img
           src={src}
           alt={title}
+          loading="lazy"
           className="w-full h-full object-cover"
           onError={() => setSrc(fallbackAvatar)}
         />

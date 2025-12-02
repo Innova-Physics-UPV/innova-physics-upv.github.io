@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 interface Photo {
   url1: string;
@@ -56,29 +57,51 @@ const Gallery: React.FC<GalleryProps> = ({ photos, autoPlayInterval = 5000 }) =>
   const radius = 12; // Radio del círculo SVG
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (progress / 100) * circumference;
+
+  // Renderizamos la primera imagen fuera del map para que sea SSR
+  const firstPhoto = photos[0];
   
   return (
     <div className="gallery-container relative w-full h-40 md:h-[500px]">
       <div className="relative h-full w-full">
+        {/* Primera imagen renderizada desde SSR */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <Image
+            src={firstPhoto.url1}
+            alt={firstPhoto.alt}
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+            loading="eager"
+          />
+        </div>
+        {/* Resto de la galería (client-side) */}
         {photos.map((photo, index) => {
+          if (index === 0) return null; // ya renderizada
           const useSecondUrl = imageErrors[index];
           const imageUrl = useSecondUrl ? photo.url2 : photo.url1;
           
           return (
-            <img
+            <div
               key={`${photo.url1}-${index}`}
-              src={imageUrl}
-              alt={photo.alt}
-              className={`absolute top-0 left-0 w-full h-full object-cover rounded-lg transition-opacity duration-300 ${
+              className={`absolute top-0 left-0 w-full h-full transition-opacity duration-300 ${
                 index === currentIndex ? "opacity-100" : "opacity-0"
               }`}
-              onError={() => {
-                // Si hay un error con url1 y url2 existe, intenta con url2
-                if (!useSecondUrl && photo.url2) {
-                  setImageErrors(prev => ({...prev, [index]: true}));
-                }
-              }}
-            />
+            >
+              <Image
+                src={imageUrl}
+                alt={photo.alt}
+                fill
+                style={{ objectFit: "cover" }}
+                onError={() => {
+                  if (!useSecondUrl && photo.url2) {
+                    setImageErrors((prev) => ({ ...prev, [index]: true }));
+                  }
+                }}
+                priority={index === 0} // solo la primera imagen se carga de inmediato
+                loading={index === 0 ? "eager" : "lazy"} // lazy-load para el resto
+              />
+            </div>
           );
         })}
         
@@ -128,6 +151,7 @@ const Gallery: React.FC<GalleryProps> = ({ photos, autoPlayInterval = 5000 }) =>
                 <button
                   onClick={() => handleManualChange(index)}
                   className="w-2.5 h-2.5 rounded-full border border-white bg-transparent"
+                  aria-label={`Ver imagen ${index + 1}`}
                 />
               )}
             </div>

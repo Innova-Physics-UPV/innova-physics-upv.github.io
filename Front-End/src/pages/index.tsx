@@ -1,12 +1,19 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import TeamSection from '@/components/sections/TeamSection';
 import SponsorSection from '@/components/sections/SponsorSection';
 import AboutUsSection from '@/components/sections/AboutUsSection';
 import { useScroll } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import type { GetStaticProps } from 'next';
+import { Coordinadores } from '@/data/departmentData';
 
-export default function Home() {
+interface HomeProps {
+  coordinadores: typeof Coordinadores;
+}
+
+export default function Home({ coordinadores }: HomeProps) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ container: ref });
 
@@ -52,12 +59,15 @@ export default function Home() {
         <meta name="description" content="Innova Physics web" />
       </Head>
       <main className="relative z-10 space-y-10">
+        {/* Hero Section */}
         <div className="relative h-screen w-full" id="logotipo">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-60 z-20">
-            <img
-              src="logos/logotipo_WHITE.svg"
-              alt="Logotipo"
-              className="w-auto h-auto filter"
+            <Image
+              src="/logos/logotipo_WHITE.svg"
+              alt="Logotipo de Innova Physics UPV"
+              width={300}
+              height={300}
+              priority // carga inmediata, importante para el logo
             />
           </div>
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20">
@@ -65,9 +75,19 @@ export default function Home() {
           </div>
         </div>
         <AboutUsSection />
-        <TeamSection />
+        {/* Pasamos los datos como props para SSG */}
+        <TeamSection coordinadores={coordinadores} />
          <SponsorSection /> 
       </main>
     </>
   );
 }
+
+// SSG: genera HTML con los datos de Coordinadores
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      coordinadores: Coordinadores,
+    },
+  };
+};
