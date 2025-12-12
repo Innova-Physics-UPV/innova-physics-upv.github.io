@@ -1,4 +1,4 @@
-name: Deploy Next.js estático a GitHub Pages
+name: Deploy Next.js estático a GitHub Pages y Medición de Performance
 
 on:
   push:
@@ -32,8 +32,26 @@ jobs:
         working-directory: ./Front-End
 
       - name: Build estático
-        run: npm run build
+        run: npm run build && npm run export
         working-directory: ./Front-End
+
+     
+      - name: Instala Lighthouse CI
+        run: npm install -g @lhci/cli http-server
+
+      - name: Inicia servidor temporal
+        working-directory: ./Front-End/out
+        run: |
+          npx http-server -p 8080 &
+          sleep 5
+
+      - name: Ejecuta Lighthouse CI
+        working-directory: ./Front-End
+        run: |
+          lhci autorun \
+            --collect.url=http://localhost:8080 \
+            --upload.target=temporary-public-storage
+
 
       - name: Configura Pages
         uses: actions/configure-pages@v5
@@ -45,5 +63,10 @@ jobs:
         with:
           path: Front-End/out
 
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Publica en GitHub Pages
         uses: actions/deploy-pages@v4
