@@ -53,20 +53,32 @@ jobs:
             --upload.target=temporary-public-storage
 
 
-      - name: Configura Pages
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
-
       - name: Sube artefacto
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: static-site
           path: Front-End/out
+
 
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
+      - name: Descargar artefacto
+        uses: actions/download-artifact@v4
+        with:
+          name: static-site
+          path: ./out
+
+      - name: Configura Pages
+        uses: actions/configure-pages@v5
+
+      - name: Sube artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
       - name: Publica en GitHub Pages
         uses: actions/deploy-pages@v4
+        
