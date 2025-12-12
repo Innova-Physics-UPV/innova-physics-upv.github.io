@@ -1,4 +1,4 @@
-name: Deploy Next.js estático a GitHub Pages y Medición de Performance
+name: Deploy Next.js estático a GitHub Pages y Medición de Performance.
 
 on:
   push:
