@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -81,4 +81,3 @@ jobs:
 
       - name: Publica en GitHub Pages
         uses: actions/deploy-pages@v4
-        
