@@ -2,22 +2,22 @@ import React from "react";
 import BaseSection from "@/components/common/BaseSection";
 
 const sponsors = [
+  // {
+  //   id: "1",
+  //   name: "Generación espontanea",
+  //   logo: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747391948/GeneracionEspontanea_rqny7g.png",
+  //   url: "https://www.upv.es/entidades/adge/",
+  //   tier: "",
+  // },
   {
     id: "1",
-    name: "Generación espontanea",
-    logo: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747391948/GeneracionEspontanea_rqny7g.png",
-    url: "https://www.upv.es/entidades/adge/",
-    tier: "",
-  },
-  {
-    id: "3",
     name: "Escuela superior de telecomunicaciones",
     logo: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747391947/ETSIT_pax9tw.png",
     url: "https://www.upv.es/entidades/etsit/",
     tier: "",
   },
   {
-    id: "4",
+    id: "2",
     name: "Instituto de matematica pura y aplicada",
     logo: "https://res.cloudinary.com/dpdcyfjnv/image/upload/v1747391948/IUMPA_ovdz1t.png",
     url: "https://www.upv.es/entidades/IMPA/",
@@ -29,7 +29,7 @@ const sponsors = [
 const SponsorsSection: React.FC = () => {
   return (
     <BaseSection title="SPONSORS">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 gap-6">
             {sponsors.map((s) => (
           <a
             key={s.id}
@@ -47,8 +47,6 @@ const SponsorsSection: React.FC = () => {
           </a>
         ))}
       </div>
-
-      {/* Si quieres reactivar el botón más adelante */}
       {/*
       <div className="mt-8 text-center">
         <button
