@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: true, // no optimizamos porque es export estático
   },
 };
 

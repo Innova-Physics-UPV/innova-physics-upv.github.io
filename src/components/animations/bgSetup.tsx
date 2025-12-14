@@ -93,6 +93,8 @@ const NeonDrawingEffect = ({ activePage }: { activePage: string }) => {
       window.addEventListener('click', onClick);
     }
 
+
+
     // ---- Animación ----
     let startTime = Date.now();
     const animate = () => {

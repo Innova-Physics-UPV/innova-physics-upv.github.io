@@ -1,20 +1,28 @@
 import React from "react";
 import BaseSection from "../common/BaseSection";
 import Card from "../common/Card";
-import { teamMembers, subDeptStructure ,Coordinadores} from '@/data/departmentData';
+//import { teamMembers, subDeptStructure ,Coordinadores} from '@/data/departmentData';
+// Definimos la interfaz de props
+interface TeamSectionProps {
+  coordinadores: {
+    name: string;
+    role: string;
+    department: string;
+    image: string;
+  }[];
+}
 
-
-const TeamSection: React.FC =  () => {
+const TeamSection: React.FC<TeamSectionProps> = ({ coordinadores }) => {  
   return (
     <BaseSection title="EQUIPO" className="relative z-10">
       {/* Responsive Grid Layout */}
       <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-8">
-        {Coordinadores.map(({name,role,department,image},index) => (
+        {coordinadores.map(({name,role,department,image},index) => (
           <Card
             key={index}
             image={image}
             title={name}
-            subtitle={role + "\n" + department}
+            subtitle={`${role}\n${department}`}
           />
         ))}
       </div>
