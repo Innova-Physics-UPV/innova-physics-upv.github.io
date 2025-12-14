@@ -43,7 +43,7 @@ jobs:
       - name: Sube artefacto
         uses: actions/upload-pages-artifact@v3
         with:
-          path: /out
+          path: ./out
 
       - name: Publica en GitHub Pages
         uses: actions/deploy-pages@v4
