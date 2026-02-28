@@ -41,6 +41,7 @@ const SponsorsSection: React.FC = () => {
             <img
               src={s.logo}
               alt={s.name}
+              loading="lazy"
               className="max-h-16 object-contain"
             />
           </a>
