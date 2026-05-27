@@ -39,13 +39,12 @@
   .no-padding-bottom {
     padding-bottom: 0;
   }
-
-  .bleed-row {
+.bleed-row {
     display: grid;
     grid-template-columns: 
       minmax(var(--space-section-inline), 1fr) 
-      minmax(0, calc(var(--container) / 2 - --space-section-inline)) 
-      minmax(0, calc(var(--container) / 2 - --space-section-inline)) 
+      minmax(0, calc(var(--container) / 2 - 1.5rem)) 
+      minmax(0, calc(var(--container) / 2 - 1.5rem)) 
       minmax(var(--space-section-inline), 1fr);
     gap: 3rem;
     align-items: center;

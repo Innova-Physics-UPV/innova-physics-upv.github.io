@@ -1,0 +1,161 @@
+---
+
+---
+<section class="contenedor layout-gap overflow-wrapper">
+  <div>
+    <div class="heading-align left">
+      <div class="title-wrapper arrow-left">
+        <h2>The problem</h2>
+      </div>
+    </div>
+    
+    <ul class="custom-list">
+      <li>Accelerator physics is critical for medicine, industry, and research.</li>
+      <li>There is a gap between student training and the real needs of the sector.</li>
+      <li>Most universities do not have access to accelerators due to cost, complexity, and security.</li>
+    </ul>
+  </div>
+
+  <div class="btn-container">
+    <a href="#solution" class="btn">See how we address this</a>
+  </div>
+
+  <div id="solution">
+    <div class="heading-align right">
+      <div class="title-wrapper arrow-right">
+        <h2>The solution</h2>
+      </div>
+    </div>
+    
+    <div class="grid-2-col cards-grid">
+      <div class="card card-centered">
+        <h3 class="card-title">ALOHA</h3>
+        <img src="/aloha.jpg" alt="ALOHA Accelerator" class="card-img" width="300" height="200" style="background-color: rgba(255,255,255,0.1); object-fit: contain;" />
+        <p class="card-subtitle">A safe, modular, and affordable desktop accelerator.</p>
+      </div>
+      
+      <div class="card card-centered">
+        <h3 class="card-title">The ELIAC<br/>competition</h3>
+        <img src="/eliac.jpg" alt="ELIAC Competition" class="card-img" width="300" height="200" style="background-color: rgba(255,255,255,0.1);" />
+        <p class="card-subtitle">Teams of European students designing and simulating their own LINACs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Evita que las líneas expansivas generen scroll horizontal */
+  .overflow-wrapper {
+    overflow-x: hidden;
+  }
+
+  .layout-gap {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  /* Alineación de encabezados */
+  .heading-align { 
+    display: flex; 
+    margin-bottom: 3rem; 
+  }
+  .heading-align.left { justify-content: flex-start; }
+  .heading-align.right { justify-content: flex-end; }
+
+  /* Títulos con flechas y líneas degradadas */
+  .title-wrapper {
+    position: relative;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  .arrow-left::after, .arrow-right::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+  }
+
+  /* Flecha de izquierda a derecha */
+  .arrow-left::after {
+    left: -1000px; /* Longitud arbitraria larga para que se pierda por la izquierda */
+    right: -20px;
+    background: linear-gradient(90deg, transparent 0%, var(--c-red) 100%);
+  }
+  .arrow-left::before {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    right: -25px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 10px solid var(--c-red);
+    z-index: 1;
+  }
+
+  /* Flecha de derecha a izquierda */
+  .arrow-right::after {
+    right: -1000px; /* Longitud arbitraria larga para que se pierda por la derecha */
+    left: -20px;
+    background: linear-gradient(270deg, transparent 0%, var(--c-red) 100%);
+  }
+  .arrow-right::before {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: -25px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 10px solid var(--c-red);
+    z-index: 1;
+  }
+
+  /* Lista personalizada (cuadrados en lugar de círculos) */
+  .custom-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-left: 3.5rem;
+    max-width: 800px;
+    margin-left: 2rem;
+  }
+
+  .custom-list li {
+    position: relative;
+    font-family: var(--ff-accent);
+    font-weight: 600;
+  }
+
+  .custom-list li::before {
+    content: "▪";
+    position: absolute;
+    left: -1.5rem;
+    color: var(--c-text);
+    font-size: 1.2em; /* Hace el cuadrado ligeramente más visible */
+    line-height: 1.2;
+  }
+
+  /* Tarjetas centradas */
+  .cards-grid {
+    gap: 2.5rem;
+    max-width: 850px;
+    margin-inline: auto;
+  }
+
+  .card-centered {
+    align-items: center;
+    text-align: center;
+    background: rgba(30, 30, 50, 0.4); /* Leve ajuste para que resalte del fondo como en la foto */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Ajustes Mobile */
+  @media (max-width: 768px) {
+    .custom-list {
+      margin-left: 0;
+      padding-left: 1.5rem;
+    }
+  }
+</style>
