@@ -1,0 +1,88 @@
+---
+// DemocratizingAccelerator.astro
+---
+<section class="section-full-bleed">
+  <div class="contenedor no-padding-bottom">
+    <h2>Democratizing Accelerator<br />Physics Education</h2>
+  </div>
+
+  <div class="bleed-row">
+    <div class="content-left">
+      <p>Innova Physics UPV develops learning tools, competitions and open-access technologies to bridge the global skills gap in accelerator science.</p>
+    </div>
+    <img src="/equipo.jpg" alt="Innova Physics Team" class="img-curve-left image-right" />
+  </div>
+
+  <div class="bleed-row">
+    <img src="/dispositivo.png" alt="Accelerator Device" class="img-curve-right image-left" />
+    <div class="content-right btn-container">
+      <div class="flex-col-center">
+        <p class="text-accent text-small">Dou you want to join?</p>
+        <a href="/join" class="btn">Join the mission</a>
+      </div>
+      <div class="flex-col-center">
+        <p class="text-accent text-small">See what we do</p>
+        <a href="/projects" class="btn">Explore the projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-full-bleed {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    padding-block: var(--space-section);
+  }
+
+  .no-padding-bottom {
+    padding-bottom: 0;
+  }
+
+  .bleed-row {
+    display: grid;
+    grid-template-columns: 
+      minmax(var(--space-section-inline), 1fr) 
+      minmax(0, calc(var(--container) / 2 - --space-section-inline)) 
+      minmax(0, calc(var(--container) / 2 - --space-section-inline)) 
+      minmax(var(--space-section-inline), 1fr);
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .content-left { grid-column: 2 / 3; }
+  
+  .image-right { 
+    grid-column: 3 / 5; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
+  .image-left { 
+    grid-column: 1 / 3; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
+  .content-right { grid-column: 3 / 4; }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 768px) {
+    .bleed-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .content-left, .content-right {
+      padding-inline: var(--space-section-inline);
+    }
+
+    .image-left, .image-right {
+      width: 100%;
+      /* En móvil no queremos el borde curvo asimétrico si ocupa el 100% */
+      border-radius: 35px; 
+    }
+  }
+</style>

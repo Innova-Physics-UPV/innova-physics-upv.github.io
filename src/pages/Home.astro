@@ -1,0 +1,24 @@
+---
+import Layout from "../Layout/layout.astro"
+import HeroHome from "../Components/Home/HeroHome.astro"
+import DemocratizingAccelerator from "../Components/Home/DemocratizingAccelerator.astro"
+---
+
+<html lang="es">
+	<Layout>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Home</title>
+	</head>
+
+    <HeroHome/>
+    <DemocratizingAccelerator/>
+    <div class="contenedor no-padding-bottom">
+    <h2>Our Partners</h2>
+  </div>
+	</Layout>
+</html>
