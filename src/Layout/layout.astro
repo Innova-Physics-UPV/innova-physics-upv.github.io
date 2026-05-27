@@ -1,0 +1,118 @@
+---
+// Layout.astro
+import '../styles/globals.css';
+import BackgroundWave from '../Components/BackgroundWave.astro';
+---
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Innova Physics</title>
+</head>
+<body>
+  <header class="contenedor grid-justified">
+    <img src="/logo-innova.svg" alt="Logo Innova Physics" class="logo" />
+    <nav class="nav-links text-accent">
+      <a href="/">Home</a>
+      </nav>
+  </header>
+<div class="bg-container">
+    <BackgroundWave />
+  </div>
+  
+  <main>
+    
+    <slot />
+  </main>
+
+  <footer class="contenedor grid-2-col footer-align">
+    <div>
+      <img src="/logo-innova-blanco.svg" alt="Logo Innova Physics" class="logo logo-large" />
+      <address class="text-small">
+        <p>Universitat Politècnica de València</p>
+        <p>Avinguda Emilio Attard, Algirós,</p>
+        <p>46022 València, Valencia</p>
+      </address>
+    </div>
+
+    <div class="footer-info">
+      <nav class="nav-links text-accent">
+        <a href="/">Home</a>
+        </nav>
+
+      <ul class="text-accent text-small social-links">
+        <li><img src="/icono-instagram.svg" alt="Instagram" class="logo icon" /> @innovaphysicsupv</li>
+        <li><img src="/icono-linkedin.svg" alt="LinkedIn" class="logo icon" /> Innova Physiscs UPV</li>
+        <li><img src="/icono-email.svg" alt="Email" class="logo icon" /> info@innovaphysicsupv.com</li>
+      </ul>
+
+      <div class="sponsors">
+        <img src="/logo-upv.svg" alt="Logo UPV" class="logo" />
+        <img src="/logo-generacion.svg" alt="Logo Generación" class="logo" />
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+    /* ─── Fondo Animado ─────────────────────────────────────── */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; 
+  overflow: hidden;
+  pointer-events: none; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animated-wave {
+  width: 150vw; 
+  height: auto;
+  min-width: 1200px;
+  opacity: 0.6; 
+  animation: moveWave 15s ease-in-out infinite alternate;
+}
+
+/* Definición de la animación */
+@keyframes moveWave {
+  0% {
+    transform: translate(-5%, -5%) scale(1);
+  }
+  100% {
+    transform: translate(5%, 5%) scale(1.1);
+  }
+}
+
+  /* Logos */
+  .logo { object-fit: contain; width: auto; max-width: 200px; }
+  .logo-large { max-width: 250px; margin-bottom: 2rem; }
+  .icon { width: 28px; }
+
+  /* Navegación */
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { color: var(--c-text); }
+  
+  /* Footer Layout */
+  .footer-align { 
+    align-items: start; 
+    gap: 2rem; 
+    border-top: 4px solid;
+    border-image-source: linear-gradient(90deg, #CB0B3C 0%, #FFFFFF 50%, #AC174F 100%);
+    border-image-slice: 1;
+    padding-top: 3rem; 
+  }
+  .footer-info { display: flex; flex-direction: column; gap: 1.5rem; }
+  
+  /* Tipografía específica */
+  .text-small { font-size: var(--fs-small); font-style: normal; line-height: 2; padding: 0; }
+  
+  /* Listas y Patrocinadores */
+  .social-links li { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+  .sponsors { display: flex; gap: 1.5rem; height: 45px; }
+</style>
