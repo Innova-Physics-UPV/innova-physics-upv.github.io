@@ -10,6 +10,24 @@ html { font-size: 100%; scroll-behavior: smooth; }
 /* ─── Fuentes ───────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
+/* Alfabet Regular*/
+@font-face {
+  font-family: 'Alfabet';
+  src: url('/Alfabet/fonts/fonnts.com-Alfabet_Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Alfabet Bold*/
+@font-face {
+  font-family: 'Alfabet';
+  src: url('/Alfabet/fonts/fonnts.com-Alfabet_Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── Design Tokens — Desktop (min-width: 1512px) ──────── */
 :root {
   /* Tipografía */
