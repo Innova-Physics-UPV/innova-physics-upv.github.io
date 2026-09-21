@@ -24,57 +24,154 @@ const Sponsors = [
 ]
 
 ---
-<section class="Title">
-    <div class="title-text"><h2>Sponsorships</h2></div>
-    <button class="btn">Download the dossier</button>
-</section>
+<section class="sponsorships-section" aria-labelledby="sponsorships-title">
+  <div class="section-heading">
+    <h2 id="sponsorships-title">Sponsorships</h2>
+    <button class="btn dossier-button" type="button">Download the dossier</button>
+  </div>
 
-<div class="grid-4-col table-header">
-  <span>Level (ascending)</span>
-  <span>Net contribution</span>
-  <span>In kind (estimated)</span>
-  <span>In educational/technological kind</span>
-</div>
+  <div class="table-scroll" role="region" aria-label="Sponsorship levels" tabindex="0">
+    <div class="sponsorship-table" role="table">
+      <div class="table-header" role="row">
+        <span role="columnheader">Level <small>(ascending)</small></span>
+        <span role="columnheader">Net contribution</span>
+        <span role="columnheader">In kind <small>(estimated)</small></span>
+        <span role="columnheader">Educational / technological kind</span>
+      </div>
 
-<section class="flex-rows-container">
-
-  {Sponsors.map((row) => (
-    <div class="sponsor-row row-highlight">
-      <div class="grid-4-col" style={{ color: row.color }}>
-        <h3>{row.Level}</h3>
-        <p>≥ {row.NC} €</p>
-        <p>≥ {row.IK} €</p>
-        <p>≥ {row.ET} €</p>
+      <div class="table-body">
+        {Sponsors.map((row) => (
+          <div class="sponsor-row" role="row">
+            <strong class="level-name" style={{ color: row.color }}>{row.Level}</strong>
+            <span role="cell">≥ {row.NC} €</span>
+            <span role="cell">≥ {row.IK} €</span>
+            <span role="cell">≥ {row.ET} €</span>
+          </div>
+        ))}
       </div>
     </div>
-  ))}
+  </div>
 </section>
 
 <style>
-    .Title{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        align-items:center;
-        justify-content:left;
-        gap:4rem;
-        padding-bottom:6rem;
-    }
-    .Types{
-        padding-left:13.25rem;
-        padding-right:13.25rem;
+  .sponsorships-section {
+    width: 100%;
+    padding: 0 0 3rem;
+    text-align: left;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+  }
+
+  .dossier-button {
+    flex: 0 0 auto;
+    margin-top: 0.35rem;
+  }
+
+  .table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    padding: 0.25rem;
+    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  }
+
+  .sponsorship-table {
+    min-width: 52rem;
+  }
+
+  .table-header,
+  .sponsor-row {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr 1.2fr;
+    align-items: center;
+    column-gap: 2rem;
+  }
+
+  .table-header {
+    min-height: 3rem;
+    padding: 0 1.5rem 0.75rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-family: var(--ff-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .table-header small {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  .table-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sponsor-row {
+    min-height: 4.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.75rem;
+    background: linear-gradient(180deg, rgba(30, 34, 49, 0.78) 0%, rgba(21, 24, 35, 0.9) 100%);
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.18);
+    color: rgba(255, 255, 255, 0.92);
+    font-family: var(--ff-accent);
+    font-size: 0.875rem;
+  }
+
+  .sponsor-row:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    transform: translateY(-1px);
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .level-name {
+    font-family: var(--ff-main);
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 700px) {
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    .row-highlight {
-    background: linear-gradient(180deg, rgba(30, 34, 49, 0.6) 0%, rgba(21, 24, 35, 0.8) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Un borde casi invisible muy fino */
-    border-radius: 0.75rem;                       /* Bordes redondeados como la imagen */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);    /* Sombra suave para darle profundidad */
+    .dossier-button {
+      width: auto;
+    }
+
+    .table-header,
+    .sponsor-row {
+      column-gap: 1.25rem;
     }
 
     .table-header {
-    margin-bottom: 0.75rem;
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: #ffffff;
+      padding-inline: 1rem;
+      font-size: 0.75rem;
     }
+
+    .sponsor-row {
+      min-height: 4.25rem;
+      padding-inline: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .level-name {
+      font-size: 1.1rem;
+    }
+  }
 </style>

@@ -2,6 +2,7 @@
 import '../styles/globals.css'
 import BotonesPartners from '../components/common/BotonesComunes.astro'
 import Sponsorships from '../components/sections/Sponsorships.astro'
+import OurPartners from '../components/sections/OurPartners.astro'
 ---
 
 <html lang="en">
@@ -14,20 +15,57 @@ import Sponsorships from '../components/sections/Sponsorships.astro'
 		<title>Partners</title>
 	</head>
 	<body>
-		<section class="flex-col-center">
+		<main class="partners-page flex-col-center">
 			<div class="title-text"><h1>Partner</h1></div>
 			<div class="subtitle-text"><h2>Our projects</h2></div>
 			<BotonesPartners/>
 			<Sponsorships/>
-		</section>
+			<OurPartners/>
+		</main>
 	</body>
 </html>
 
 <style>
+	.partners-page {
+		width: min(100%, 75rem);
+		margin: 0 auto;
+		padding-inline: 2rem;
+		--fs-hero: 5rem;
+		--fs-h2: 2.5rem;
+		--fs-h3: 1.25rem;
+		--fs-body: 1rem;
+		font-size: var(--fs-body);
+	}
+
 	.title-text{
-		padding-top: 11.5rem
+		padding-top: 8rem;
 	}
 	.subtitle-text{
-		padding: 3rem 0rem 12.5rem 0rem
+		padding: 2rem 0rem 5rem 0rem;
+	}
+
+	.partners-page .btn {
+		font-size: 0.75rem;
+	}
+
+	@media (max-width: 700px) {
+		.partners-page {
+			padding-inline: 0;
+		}
+
+		.title-text {
+			padding-top: 6rem;
+		}
+
+		.partners-page {
+			--fs-hero: 3.5rem;
+			--fs-h2: 2rem;
+			--fs-h3: 1.125rem;
+			--fs-body: 0.95rem;
+		}
+
+		.subtitle-text {
+			padding: 1.5rem 1.25rem 4rem;
+		}
 	}
 </style>
