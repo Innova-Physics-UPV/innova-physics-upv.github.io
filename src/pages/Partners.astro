@@ -1,5 +1,7 @@
 ---
-
+import '../styles/globals.css'
+import BotonesPartners from '../components/common/BotonesComunes.astro'
+import Sponsorships from '../components/sections/Sponsorships.astro'
 ---
 
 <html lang="en">
@@ -12,6 +14,20 @@
 		<title>Partners</title>
 	</head>
 	<body>
-		<h1>Partners</h1>
+		<section class="flex-col-center">
+			<div class="title-text"><h1>Partner</h1></div>
+			<div class="subtitle-text"><h2>Our projects</h2></div>
+			<BotonesPartners/>
+			<Sponsorships/>
+		</section>
 	</body>
 </html>
+
+<style>
+	.title-text{
+		padding-top: 11.5rem
+	}
+	.subtitle-text{
+		padding: 3rem 0rem 12.5rem 0rem
+	}
+</style>

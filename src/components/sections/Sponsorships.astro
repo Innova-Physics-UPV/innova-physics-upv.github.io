@@ -1,0 +1,80 @@
+---
+const Sponsors = [
+    {
+        Level: "Neutrino",
+        NC: "500",
+        IK: "1000",
+        ET: "2000",
+        color: "#CDA7F5"
+    },
+    {
+        Level: "Quark",
+        NC: "2000",
+        IK: "3000",
+        ET: "6000",
+        color: "#69CAE5"
+    },
+    {
+        Level: "Photon",
+        NC: "7000",
+        IK: "10000",
+        ET: "20000",
+        color: "#1EF3DE"
+    }
+]
+
+---
+<section class="Title">
+    <div class="title-text"><h2>Sponsorships</h2></div>
+    <button class="btn">Download the dossier</button>
+</section>
+
+<div class="grid-4-col table-header">
+  <span>Level (ascending)</span>
+  <span>Net contribution</span>
+  <span>In kind (estimated)</span>
+  <span>In educational/technological kind</span>
+</div>
+
+<section class="flex-rows-container">
+
+  {Sponsors.map((row) => (
+    <div class="sponsor-row row-highlight">
+      <div class="grid-4-col" style={{ color: row.color }}>
+        <h3>{row.Level}</h3>
+        <p>≥ {row.NC} €</p>
+        <p>≥ {row.IK} €</p>
+        <p>≥ {row.ET} €</p>
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+    .Title{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items:center;
+        justify-content:left;
+        gap:4rem;
+        padding-bottom:6rem;
+    }
+    .Types{
+        padding-left:13.25rem;
+        padding-right:13.25rem;
+    }
+
+    .row-highlight {
+    background: linear-gradient(180deg, rgba(30, 34, 49, 0.6) 0%, rgba(21, 24, 35, 0.8) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Un borde casi invisible muy fino */
+    border-radius: 0.75rem;                       /* Bordes redondeados como la imagen */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);    /* Sombra suave para darle profundidad */
+    }
+
+    .table-header {
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #ffffff;
+    }
+</style>
