@@ -54,6 +54,7 @@ h3 { font-family: var(--ff-main); font-size: var(--fs-h3); line-height: 1.3; }
   font-family: var(--ff-accent);
 }
 
+
 /* ─── Contenedor ───────────────────────────────────────── */
 .contenedor {
   width: 100%;
@@ -100,6 +101,20 @@ h3 { font-family: var(--ff-main); font-size: var(--fs-h3); line-height: 1.3; }
   align-items: center;
   text-align: center;
 }
+
+/* ─── Layout General (Header, Footer, Navegación) ───────── */
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { color: var(--c-text); transition: opacity 0.2s ease; }
+.nav-links a:hover { opacity: 0.8; }
+
+.logo { object-fit: contain; width: auto; max-width: 200px; }
+.logo-large { max-width: 250px; margin-bottom: 2rem; }
+.icon { width: 28px; }
+
+.footer-align { align-items: start; gap: 4rem; }
+.footer-info { display: flex; flex-direction: column; gap: 2.5rem; }
+.social-links li { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+.sponsors { display: flex; gap: 1.5rem; height: 45px; }
 
 /* ─── Imágenes ──────────────────────────────────────────── */
 img {
@@ -212,5 +227,19 @@ img {
   .img-curve-left,
   .img-curve-right {
     border-radius: 35px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .footer-align {
+    gap: 2rem;
+  }
+  .sponsors {
+    flex-wrap: wrap;
+    height: auto;
   }
 }
