@@ -8,8 +8,23 @@
 <style>
     .salto{
         width: 100%;
-        gap: 3rem;
+        max-width: 48rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        justify-content: center;
+        justify-items: center;
+        gap: 1.5rem;
         padding-bottom: 7rem;
+        margin-inline: auto;
+    }
+
+    @media (max-width: 850px) {
+        .salto {
+            grid-template-columns: 1fr;
+        }
+
+        .salto .btn {
+            justify-self: center;
+        }
     }
 
     @media (max-width: 700px) {

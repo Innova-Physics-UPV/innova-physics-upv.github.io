@@ -1,0 +1,35 @@
+[1mdiff --git a/src/pages/Partners.astro b/src/pages/Partners.astro[m
+[1mindex 79177a8..878b54e 100644[m
+[1m--- a/src/pages/Partners.astro[m
+[1m+++ b/src/pages/Partners.astro[m
+[36m@@ -1,5 +1,7 @@[m
+ ---[m
+[31m-[m
+[32m+[m[32mimport '../styles/globals.css'[m
+[32m+[m[32mimport BotonesPartners from '../components/common/BotonesComunes.astro'[m
+[32m+[m[32mimport Sponsorships from '../components/sections/Sponsorships.astro'[m
+ ---[m
+ [m
+ <html lang="en">[m
+[36m@@ -12,6 +14,20 @@[m
+ 		<title>Partners</title>[m
+ 	</head>[m
+ 	<body>[m
+[31m-		<h1>Partners</h1>[m
+[32m+[m		[32m<section class="flex-col-center">[m
+[32m+[m			[32m<div class="title-text"><h1>Partner</h1></div>[m
+[32m+[m			[32m<div class="subtitle-text"><h2>Our projects</h2></div>[m
+[32m+[m			[32m<BotonesPartners/>[m
+[32m+[m			[32m<Sponsorships/>[m
+[32m+[m		[32m</section>[m
+ 	</body>[m
+ </html>[m
+[32m+[m
+[32m+[m[32m<style>[m
+[32m+[m	[32m.title-text{[m
+[32m+[m		[32mpadding-top: 11.5rem[m
+[32m+[m	[32m}[m
+[32m+[m	[32m.subtitle-text{[m
+[32m+[m		[32mpadding: 3rem 0rem 12.5rem 0rem[m
+[32m+[m	[32m}[m
+[32m+[m[32m</style>[m
