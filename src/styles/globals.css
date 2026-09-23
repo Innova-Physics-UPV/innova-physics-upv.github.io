@@ -120,6 +120,34 @@ h3 { font-family: var(--ff-main); font-size: var(--fs-h3); line-height: 1.3; }
 .social-links li { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
 .sponsors { display: flex; gap: 1.5rem; height: 45px; }
 
+
+/* ─── Clases Utilitarias para Fondos con Imagen ─────────── */
+.bg-wrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.bg-image-percent {
+  position: absolute;
+  top: var(--top, 0%);
+  bottom: var(--bottom, 0%);
+  left: var(--left, 0%);
+  right: var(--right, 0%);
+  
+  width: 100%; 
+  height: 40%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  background-position: top;
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 1;
+}
+
 /* ─── Componente Hero ───────────────────────────────────── */
 .hero-section {
   min-height: 80vh;
@@ -132,6 +160,8 @@ h3 { font-family: var(--ff-main); font-size: var(--fs-h3); line-height: 1.3; }
   line-height: 1;
   letter-spacing: -2px;
 }
+
+
 
 /* ─── Botones ───────────────────────────────── */
 .btn-container {
