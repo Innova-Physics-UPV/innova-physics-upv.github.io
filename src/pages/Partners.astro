@@ -1,5 +1,6 @@
 ---
 import Layout from "../Layout/layout.astro"
+import { FORM_URL } from '../consts' 
 import BotonesPartners from '../Components/common/BotonesComunes.astro'
 import Sponsorships from '../Components/sections/Sponsorships.astro'
 import OurPartners from '../Components/sections/OurPartners.astro'
@@ -14,7 +15,7 @@ import OurPartners from '../Components/sections/OurPartners.astro'
 		<Sponsorships/>
 		<section class="sponsorship-cta" aria-label="Sponsorship follow-up">
 			<p>Comparative table of financial contribution according to sponsorship level</p>
-			<button class="btn" type="button">Fill out the Form</button>
+			<a class="btn" href={FORM_URL} target="_blank" rel="noopener noreferrer">Fill out the Form</a>
 		</section>
 		<OurPartners/>
 	</main>

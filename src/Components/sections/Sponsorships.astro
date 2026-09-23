@@ -1,4 +1,6 @@
 ---
+import { DOSSIER_URL } from '../../consts'
+
 const Sponsors = [
     {
         Level: "Neutrino",
@@ -27,7 +29,7 @@ const Sponsors = [
 <section class="sponsorships-section" aria-labelledby="sponsorships-title">
   <div class="section-heading">
     <h2 id="sponsorships-title">Sponsorships</h2>
-    <button class="btn dossier-button" type="button">Download the dossier</button>
+    <a class="btn dossier-button" href={DOSSIER_URL} download>Download the dossier</a>
   </div>
 
   <div class="table-scroll" role="region" aria-label="Sponsorship levels">

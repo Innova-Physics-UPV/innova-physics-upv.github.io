@@ -18,18 +18,16 @@ const otherPartners = [
   <div class="top-partners">
     <div class="subsection-heading">
       <h3>Top Partners</h3>
-      <p>Click to know their histories</p>
     </div>
 
     {topPartners.map(({ level, partners, color }) => (
       <article class="partner-level">
         <div class="level-heading">
           <h4 style={{ color }}>{level}</h4>
-          <span class="level-arrow" aria-hidden="true">→</span>
         </div>
         <div class="partner-list">
           {partners.map((partner) => (
-            <button class="partner-item" type="button">{partner}</button>
+            <span class="partner-item">{partner}</span>
           ))}
         </div>
       </article>
@@ -46,7 +44,7 @@ const otherPartners = [
           <h4 style={{ color }}>{level}</h4>
           <div class="other-partners-grid">
             {partners.map((partner) => (
-              <button class="partner-item" type="button">{partner}</button>
+              <span class="partner-item">{partner}</span>
             ))}
           </div>
         </div>
@@ -115,10 +113,6 @@ const otherPartners = [
     margin-bottom: 0.35rem;
   }
 
-  .level-arrow {
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
 
   .partner-list,
   .other-partners-grid {
@@ -136,22 +130,13 @@ const otherPartners = [
   }
 
   .partner-item {
+    display: block;
     min-height: 2.5rem;
     padding: 0.5rem 0;
-    border: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    background: transparent;
     color: var(--c-text);
     font: 600 0.875rem var(--ff-main);
     text-align: left;
-    cursor: pointer;
-  }
-
-  .partner-item:hover,
-  .partner-item:focus-visible {
-    border-color: var(--c-red);
-    color: var(--c-red);
-    outline: none;
   }
 
   @media (max-width: 700px) {
