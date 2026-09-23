@@ -1,150 +1,18 @@
 ---
-import '../styles/globals.css';
+import Layout from "../Layout/layout.astro"
 import HeroHome from "../Components/Home/HeroHome.astro"
-import HomeSection1 from   "../Components/Home/HomeSection1.astro"
-import HomeSection2 from   "../Components/Home/HomeSection2.astro"
-import HomeSection3 from   "../Components/Home/HomeSection3.astro"
+import HomeSection1 from "../Components/Home/HomeSection1.astro"
+import HomeSection2 from "../Components/Home/HomeSection2.astro"
 ---
 
-<html lang="es">
-   
-       <head>
-            <meta charset="utf-8" />
-            <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-            <link rel="icon" href="/favicon.ico" />
-            <meta name="viewport" content="width=device-width" />
-            <meta name="generator" content={Astro.generator} />
-            <title>Home</title>
-        </head>
-<body>
-  <!-- Contenedor principal para toda la página -->
-  <div class="bg-wrapper">
-    
-    <!-- Aquí puedes añadir todas las curvas que necesites -->
-    <img src="/curves1.webp" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
-    <img src="/curves2.webp" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
-    <img src="/curves3.webp" class="bg-image-percent" style="--top: 60%; --bottom: 0%; --left: 0%; --right: 0%;" alt="">
-    <img src="/curves4.webp" class="bg-image-percent" style="--top: 30%; --bottom: 30%; --left: 0%; --right: 0%;" alt="">
+<Layout title="Home">
+  <main>
+    <HeroHome/>
+    <HomeSection1/>
+    <HomeSection2/>
 
-    <!-- Capa que contiene el contenido real, por encima de las curvas -->
-    <div class="content-overlay">
-      
-      <header class="contenedor grid-justified">
-        <img src="/logo-innova.svg" alt="Logo Innova Physics" class="logo" />
-        <nav class="nav-links text-accent">
-          <a href="/">Home</a>
-        </nav>
-      </header>  
-
-      <main>
-        <HeroHome/>
-        <HomeSection1/>
-        <HomeSection2/>
-
-        <div class="contenedor no-padding-bottom">
-          <h2>Our Partners</h2>
-        </div>
-      </main>
-
-      <footer class="contenedor grid-2-col footer-align">
-        <div>
-          <img src="/logo-innova-blanco.svg" alt="Logo Innova Physics" class="logo logo-large" />
-          <address class="text-small">
-            <p>Universitat Politècnica de València</p>
-            <p>Camino de Vera, s/n</p>
-            <p>46022 València, Valencia</p>
-          </address>
-        </div>
-
-        <div class="footer-info">
-          <nav class="nav-links text-accent">
-            <a href="/">Home</a>
-          </nav>
-          <ul class="text-accent social-links">
-            <li><a href="https://www.instagram.com/innovaphysicsupv/" target="_blank" class="nav-links"><img src="/instagram.svg" alt="Instagram" class="logo icon" />@innovaphysicsupv</a></li>
-            <li><a href="https://www.linkedin.com/company/innovaphysicsupv/posts/?feedView=all" target="_blank" class="nav-links"><img src="/linkedin.svg" alt="LinkedIn" class="logo icon" /> Innova Physiscs UPV</a></li>
-            <li><a href="mailto:info@innovaphysicsupv.com" target="_blank" class="nav-links"><img src="/correo.svg" alt="Email" class="logo icon" /> info@innovaphysicsupv.com</a></li>
-          </ul>
-          <div class="sponsors">
-            <img src="/upv.svg" alt="Logo UPV" class="logo logo-large" />
-            <img src="/ge.svg" alt="Logo Generación" class="logo logo-large" />
-          </div>
-        </div>
-      </footer>
-
+    <div class="contenedor no-padding-bottom">
+      <h2>Our Partners</h2>
     </div>
-  </div>
-</body>
-</html>
-
-</html>
-
-<style>
-    /* ─── Fondo Animado ─────────────────────────────────────── */
-  /* Header Flotante
-  header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50; 
-  } 
-  */
-.bg-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1; 
-  overflow: hidden;
-  pointer-events: none; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.animated-wave {
-  width: 150vw; 
-  height: auto;
-  min-width: 1200px;
-  opacity: 0.6; 
-  animation: moveWave 15s ease-in-out infinite alternate;
-}
-
-/* Definición de la animación */
-@keyframes moveWave {
-  0% {
-    transform: translate(-5%, -5%) scale(1);
-  }
-  100% {
-    transform: translate(5%, 5%) scale(1.1);
-  }
-}
-
-  /* Logos */
-  .logo { object-fit: contain; width: auto; max-width: 100px; }
-  .logo-large { max-width: 250px; margin-bottom: 2rem; }
-  .icon { width: 28px; }
-
-  /* Navegación */
-  .nav-links { display: flex; gap: 2rem; color: var(--c-text);}
-  
-  /* Footer Layout */
-  .footer-align { 
-    align-items: start; 
-    gap: 2rem; 
-    border-top: 4px solid;
-    border-image-source: linear-gradient(90deg, #CB0B3C 0%, #FFFFFF 50%, #AC174F 100%);
-    border-image-slice: 1;
-    padding-top: 3rem; 
-  }
-  .footer-info { display: flex; flex-direction: column; gap: 1.5rem; }
-  
-  /* Tipografía específica */
-  .text-small { font-size: var(--fs-small); font-style: normal; line-height: 2; padding: 0; }
-  
-  /* Listas y Patrocinadores */
-  .social-links li { display: flex; gap: 1 rem; align-items: center; margin-bottom: 1rem; heigth: 120px; }
-  .sponsors { display: flex; gap: 1.125 rem; height: 250px; }
-</style>
+  </main>
+</Layout>

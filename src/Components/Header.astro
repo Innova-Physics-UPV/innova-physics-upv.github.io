@@ -1,0 +1,19 @@
+---
+const { pathname } = Astro.url;
+const isActive = (href) => pathname === href || pathname === href + '/';
+---
+
+<header class="contenedor grid-justified">
+  <a href="/" class="logo-link"><img src="/logo-innova.svg" alt="Logo Innova Physics" class="logo" /></a>
+  <nav class="nav-links text-accent">
+    <a href="/" class={isActive('/') ? 'active' : undefined}>Home</a>
+    <a href="/Partners" class={isActive('/Partners') ? 'active' : undefined}>Partners</a>
+  </nav>
+</header>
+
+<style>
+  .logo { object-fit: contain; width: auto; max-width: 100px; }
+  .logo-link { display: inline-flex; }
+  .nav-links { display: flex; gap: 2rem; color: var(--c-text); }
+  .nav-links a.active { opacity: 1; text-decoration: underline; text-underline-offset: 0.4rem; }
+</style>

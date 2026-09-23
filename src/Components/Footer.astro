@@ -1,0 +1,57 @@
+---
+---
+
+<footer class="contenedor grid-2-col footer-align">
+  <div>
+    <img src="/logo-innova-blanco.svg" alt="Logo Innova Physics" class="logo logo-large" />
+    <address class="text-small">
+      <p>Universitat Politècnica de València</p>
+      <p>Camino de Vera, s/n</p>
+      <p>46022 València, Valencia</p>
+    </address>
+  </div>
+
+  <div class="footer-info">
+    <nav class="nav-links text-accent">
+      <a href="/">Home</a>
+      <a href="/Partners">Partners</a>
+    </nav>
+    <ul class="text-accent social-links">
+      <li><a href="https://www.instagram.com/innovaphysicsupv/" target="_blank" class="nav-links"><img src="/instagram.svg" alt="Instagram" class="logo icon" />@innovaphysicsupv</a></li>
+      <li><a href="https://www.linkedin.com/company/innovaphysicsupv/posts/?feedView=all" target="_blank" class="nav-links"><img src="/linkedin.svg" alt="LinkedIn" class="logo icon" /> Innova Physiscs UPV</a></li>
+      <li><a href="mailto:info@innovaphysicsupv.com" target="_blank" class="nav-links"><img src="/correo.svg" alt="Email" class="logo icon" /> info@innovaphysicsupv.com</a></li>
+    </ul>
+    <div class="sponsors">
+      <img src="/upv.svg" alt="Logo UPV" class="logo logo-large" />
+      <img src="/ge.svg" alt="Logo Generación" class="logo logo-large" />
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* Logos */
+  .logo { object-fit: contain; width: auto; max-width: 100px; }
+  .logo-large { max-width: 250px; margin-bottom: 2rem; }
+  .icon { width: 28px; }
+
+  /* Navegación */
+  .nav-links { display: flex; gap: 2rem; color: var(--c-text); }
+
+  /* Footer Layout */
+  .footer-align {
+    align-items: start;
+    gap: 2rem;
+    border-top: 4px solid;
+    border-image-source: linear-gradient(90deg, #CB0B3C 0%, #FFFFFF 50%, #AC174F 100%);
+    border-image-slice: 1;
+    padding-top: 3rem;
+  }
+  .footer-info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* Tipografía específica */
+  .text-small { font-size: var(--fs-small); font-style: normal; line-height: 2; padding: 0; }
+
+  /* Listas y Patrocinadores */
+  .social-links li { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+  .sponsors { display: flex; gap: 1.125rem; height: 250px; }
+</style>
