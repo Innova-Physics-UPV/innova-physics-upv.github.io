@@ -1,46 +1,24 @@
 ---
-import '../styles/globals.css'
+import Layout from "../Layout/layout.astro"
 import BotonesPartners from '../Components/common/BotonesComunes.astro'
 import Sponsorships from '../Components/sections/Sponsorships.astro'
 import OurPartners from '../Components/sections/OurPartners.astro'
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Partners</title>
-	</head>
-	<body>
-		<div class="bg-wrapper">
-
-			<!-- Mismas curvas de marca que Home -->
-			<img src="/curves1.webp" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
-			<img src="/curves2.webp" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
-			<img src="/curves4.webp" class="bg-image-percent" style="--top: 40%; --bottom: 20%; --left: 0%; --right: 0%;" alt="">
-			<img src="/curves3.webp" class="bg-image-percent" style="--top: 70%; --bottom: 0%; --left: 0%; --right: 0%;" alt="">
-
-			<div class="content-overlay">
-				<main class="partners-page flex-col-center">
-					<div class="title-text"><h1 class="title-hero">Partner</h1></div>
-					<div class="subtitle-text"><h2>Our projects</h2></div>
-					<BotonesPartners/>
-					<div class="scroll-marker" aria-hidden="true">↓</div>
-					<Sponsorships/>
-					<section class="sponsorship-cta" aria-label="Sponsorship follow-up">
-						<p>Comparative table of financial contribution according to sponsorship level</p>
-						<button class="btn" type="button">Fill out the Form</button>
-					</section>
-					<OurPartners/>
-				</main>
-			</div>
-
-		</div>
-	</body>
-</html>
+<Layout title="Partners" lang="en">
+	<main class="partners-page flex-col-center">
+		<div class="title-text"><h1 class="title-hero">Partner</h1></div>
+		<div class="subtitle-text"><h2>Our projects</h2></div>
+		<BotonesPartners/>
+		<div class="scroll-marker" aria-hidden="true">↓</div>
+		<Sponsorships/>
+		<section class="sponsorship-cta" aria-label="Sponsorship follow-up">
+			<p>Comparative table of financial contribution according to sponsorship level</p>
+			<button class="btn" type="button">Fill out the Form</button>
+		</section>
+		<OurPartners/>
+	</main>
+</Layout>
 
 <style>
 	.partners-page {
