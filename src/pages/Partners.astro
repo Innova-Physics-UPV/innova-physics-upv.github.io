@@ -15,18 +15,30 @@ import OurPartners from '../Components/sections/OurPartners.astro'
 		<title>Partners</title>
 	</head>
 	<body>
-		<main class="partners-page flex-col-center">
-			<div class="title-text"><h1>Partner</h1></div>
-			<div class="subtitle-text"><h2>Our projects</h2></div>
-			<BotonesPartners/>
-			<div class="scroll-marker" aria-hidden="true">↓</div>
-			<Sponsorships/>
-			<section class="sponsorship-cta" aria-label="Sponsorship follow-up">
-				<p>Comparative table of financial contribution according to sponsorship level</p>
-				<button class="btn" type="button">Fill out the Form</button>
-			</section>
-			<OurPartners/>
-		</main>
+		<div class="bg-wrapper">
+
+			<!-- Mismas curvas de marca que Home -->
+			<img src="/curves1.webp" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
+			<img src="/curves2.webp" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
+			<img src="/curves4.webp" class="bg-image-percent" style="--top: 40%; --bottom: 20%; --left: 0%; --right: 0%;" alt="">
+			<img src="/curves3.webp" class="bg-image-percent" style="--top: 70%; --bottom: 0%; --left: 0%; --right: 0%;" alt="">
+
+			<div class="content-overlay">
+				<main class="partners-page flex-col-center">
+					<div class="title-text"><h1>Partner</h1></div>
+					<div class="subtitle-text"><h2>Our projects</h2></div>
+					<BotonesPartners/>
+					<div class="scroll-marker" aria-hidden="true">↓</div>
+					<Sponsorships/>
+					<section class="sponsorship-cta" aria-label="Sponsorship follow-up">
+						<p>Comparative table of financial contribution according to sponsorship level</p>
+						<button class="btn" type="button">Fill out the Form</button>
+					</section>
+					<OurPartners/>
+				</main>
+			</div>
+
+		</div>
 	</body>
 </html>
 
