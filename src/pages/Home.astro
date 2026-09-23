@@ -23,12 +23,14 @@ import HomeSection3 from   "../Components/Home/HomeSection3.astro"
     <!-- Aquí puedes añadir todas las curvas que necesites -->
     <img src="/curves1.png" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
     <img src="/curves2.png" class="bg-image-percent" style="--top: 0%; --bottom: 60%; --left: 0%; --right: 0%;" alt="">
+    <img src="/curves3.png" class="bg-image-percent" style="--top: 60%; --bottom: 0%; --left: 0%; --right: 0%;" alt="">
+    <img src="/curves4.png" class="bg-image-percent" style="--top: 30%; --bottom: 30%; --left: 0%; --right: 0%;" alt="">
 
     <!-- Capa que contiene el contenido real, por encima de las curvas -->
     <div class="content-overlay">
       
       <header class="contenedor grid-justified">
-        <img src="/logo-innova.svg" alt="Logo Innova Physics" class="logo" />
+        <img src="/logo-innova.png" alt="Logo Innova Physics" class="logo" />
         <nav class="nav-links text-accent">
           <a href="/">Home</a>
         </nav>
@@ -58,14 +60,14 @@ import HomeSection3 from   "../Components/Home/HomeSection3.astro"
           <nav class="nav-links text-accent">
             <a href="/">Home</a>
           </nav>
-          <ul class="text-accent text-small social-links">
-            <li><img src="/icono-instagram.svg" alt="Instagram" class="logo icon" /> @innovaphysicsupv</li>
-            <li><img src="/icono-linkedin.svg" alt="LinkedIn" class="logo icon" /> Innova Physiscs UPV</li>
-            <li><img src="/icono-email.svg" alt="Email" class="logo icon" /> info@innovaphysicsupv.com</li>
+          <ul class="text-accent social-links">
+            <li><a href="https://www.instagram.com/innovaphysicsupv/" target="_blank" class="nav-links"><img src="/instagram.svg" alt="Instagram" class="logo icon" />@innovaphysicsupv</a></li>
+            <li><a href="https://www.linkedin.com/company/innovaphysicsupv/posts/?feedView=all" target="_blank" class="nav-links"><img src="/linkedin.svg" alt="LinkedIn" class="logo icon" /> Innova Physiscs UPV</a></li>
+            <li><a href="mailto:info@innovaphysicsupv.com" target="_blank" class="nav-links"><img src="/correo.svg" alt="Email" class="logo icon" /> info@innovaphysicsupv.com</a></li>
           </ul>
           <div class="sponsors">
-            <img src="/logo-upv.svg" alt="Logo UPV" class="logo" />
-            <img src="/logo-generacion.svg" alt="Logo Generación" class="logo" />
+            <img src="/upv.svg" alt="Logo UPV" class="logo logo-large" />
+            <img src="/ge.svg" alt="Logo Generación" class="logo logo-large" />
           </div>
         </div>
       </footer>
@@ -126,8 +128,7 @@ import HomeSection3 from   "../Components/Home/HomeSection3.astro"
   .icon { width: 28px; }
 
   /* Navegación */
-  .nav-links { display: flex; gap: 2rem; }
-  .nav-links a { color: var(--c-text); }
+  .nav-links { display: flex; gap: 2rem; color: var(--c-text);}
   
   /* Footer Layout */
   .footer-align { 
@@ -144,6 +145,6 @@ import HomeSection3 from   "../Components/Home/HomeSection3.astro"
   .text-small { font-size: var(--fs-small); font-style: normal; line-height: 2; padding: 0; }
   
   /* Listas y Patrocinadores */
-  .social-links li { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
-  .sponsors { display: flex; gap: 1.5rem; height: 45px; }
+  .social-links li { display: flex; gap: 1 rem; align-items: center; margin-bottom: 1rem; heigth: 120px; }
+  .sponsors { display: flex; gap: 1.125 rem; height: 250px; }
 </style>
