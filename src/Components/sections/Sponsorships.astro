@@ -1,0 +1,322 @@
+---
+const Sponsors = [
+    {
+        Level: "Neutrino",
+        NC: "500",
+        IK: "1000",
+        ET: "2000",
+        color: "#CDA7F5"
+    },
+    {
+        Level: "Quark",
+        NC: "2000",
+        IK: "3000",
+        ET: "6000",
+        color: "#69CAE5"
+    },
+    {
+        Level: "Photon",
+        NC: "7000",
+        IK: "10000",
+        ET: "20000",
+        color: "#1EF3DE"
+    }
+]
+
+---
+<section class="sponsorships-section" aria-labelledby="sponsorships-title">
+  <div class="section-heading">
+    <h2 id="sponsorships-title">Sponsorships</h2>
+    <button class="btn dossier-button" type="button">Download the dossier</button>
+  </div>
+
+  <div class="table-scroll" role="region" aria-label="Sponsorship levels">
+    <div class="sponsorship-table" role="table">
+      <div class="table-header" role="row">
+        <span role="columnheader">Level</span>
+        <span role="columnheader">Net contribution</span>
+        <span role="columnheader">In kind <small>(estimated)</small></span>
+        <span role="columnheader">Educational / technological kind</span>
+      </div>
+
+      <div class="table-body">
+        <span class="mobile-row-label label-lev">Level</span>
+        <span class="mobile-row-label label-net">Net contribution</span>
+        <span class="mobile-row-label label-kind">In kind  <small>(estimated)</small></span>
+        <span class="mobile-row-label label-educational">Educational / technological</span>
+        {Sponsors.map((row) => (
+            <div class={`sponsor-row sponsor-${row.Level.toLowerCase()}`} role="row">
+              <strong class="level-name" style={{ color: row.color }}>{row.Level}</strong>
+              <span role="cell" data-label="Net contribution">≥ {row.NC} €</span>
+              <span role="cell" data-label="In kind (estimated)">≥ {row.IK} €</span>
+              <span role="cell" data-label="Educational / technological">≥ {row.ET} €</span>
+            </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .sponsorships-section {
+    width: 100%;
+    padding: 0 0 1.5rem;
+    text-align: left;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+  }
+
+  .dossier-button {
+    flex: 0 0 auto;
+    margin-top: 0.35rem;
+  }
+
+  .table-scroll {
+    width: 100%;
+    padding: 0.25rem 0;
+    overflow-x: hidden;
+  }
+
+  .sponsorship-table {
+    width: 100%;
+  }
+
+  .table-header,
+  .sponsor-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    align-items: center;
+    column-gap: 2rem;
+  }
+
+  .table-header > *,
+  .sponsor-row > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .table-header {
+    min-height: 3rem;
+    padding: 0 1.5rem 0.75rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-family: var(--ff-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .table-header small {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  .table-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-row-label {
+    display: none;
+  }
+
+  .sponsor-row {
+    min-height: 4.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.75rem;
+    background: linear-gradient(180deg, rgba(30, 34, 49, 0.78) 0%, rgba(21, 24, 35, 0.9) 100%);
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.18);
+    color: rgba(255, 255, 255, 0.92);
+    font-family: var(--ff-accent);
+    font-size: 0.875rem;
+  }
+
+  .sponsor-neutrino {
+    background: linear-gradient(90deg, rgba(205, 167, 245, 0.22) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
+  }
+
+  .sponsor-neutrino > span {
+    color: #CDA7F5;
+  }
+
+  .sponsor-quark {
+    background: linear-gradient(90deg, rgba(105, 202, 229, 0.22) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
+  }
+
+  .sponsor-quark > span {
+    color: #69CAE5;
+  }
+
+  .sponsor-photon {
+    background: linear-gradient(90deg, rgba(30, 243, 222, 0.2) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
+  }
+
+  .sponsor-photon > span {
+    color: #1EF3DE;
+  }
+
+  .sponsor-row:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    transform: translateY(-1px);
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .level-name {
+    font-family: var(--ff-main);
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 850px) {
+    .section-heading {
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .dossier-button {
+      width: auto;
+    }
+
+    .table-header {
+      display: none;
+    }
+
+    .sponsorship-table {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 0.75rem;
+      background: linear-gradient(180deg, rgba(30, 34, 49, 0.78) 0%, rgba(21, 24, 35, 0.92) 100%);
+    }
+
+    .table-body {
+      display: grid;
+      grid-template-columns: minmax(6.5rem, 1.35fr) repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(4, auto);
+      gap: 0;
+    }
+
+    .sponsor-row {
+      display: contents;
+    }
+
+    .sponsor-row .level-name,
+    .sponsor-row > span {
+      min-width: 0;
+      min-height: 3.25rem;
+      padding: 0.65rem 0.4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      overflow-wrap: anywhere;
+    }
+
+    .sponsor-neutrino .level-name { grid-column: 2; grid-row: 1; }
+    .sponsor-quark .level-name { grid-column: 3; grid-row: 1; }
+    .sponsor-photon .level-name { grid-column: 4; grid-row: 1; }
+
+    .sponsor-neutrino > span:nth-of-type(1) { grid-column: 2; grid-row: 2; }
+    .sponsor-neutrino > span:nth-of-type(2) { grid-column: 2; grid-row: 3; }
+    .sponsor-neutrino > span:nth-of-type(3) { grid-column: 2; grid-row: 4; }
+    .sponsor-quark > span:nth-of-type(1) { grid-column: 3; grid-row: 2; }
+    .sponsor-quark > span:nth-of-type(2) { grid-column: 3; grid-row: 3; }
+    .sponsor-quark > span:nth-of-type(3) { grid-column: 3; grid-row: 4; }
+    .sponsor-photon > span:nth-of-type(1) { grid-column: 4; grid-row: 2; }
+    .sponsor-photon > span:nth-of-type(2) { grid-column: 4; grid-row: 3; }
+    .sponsor-photon > span:nth-of-type(3) { grid-column: 4; grid-row: 4; }
+
+    .sponsor-row .level-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .sponsor-neutrino .level-name,
+    .sponsor-neutrino > span {
+      background: rgba(205, 167, 245, 0.13);
+      color: #CDA7F5;
+    }
+
+    .sponsor-quark .level-name,
+    .sponsor-quark > span {
+      background: rgba(105, 202, 229, 0.13);
+      color: #69CAE5;
+    }
+
+    .sponsor-photon .level-name,
+    .sponsor-photon > span {
+      background: rgba(30, 243, 222, 0.12);
+      color: #1EF3DE;
+    }
+
+    .sponsor-row > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      font-family: var(--ff-accent);
+      font-size: 0.7rem;
+      text-align: center;
+    }
+
+    .mobile-row-label {
+      display: flex;
+      align-items: center;
+      padding: 0.65rem 0.55rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.72);
+      font-family: var(--ff-accent);
+      font-size: 0.68rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .label-lev {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .label-net {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .label-kind {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    .label-educational {
+      grid-column: 1;
+      grid-row: 4;
+    }
+
+    .mobile-row-label small {
+      display: flex;
+      font-size: 0.6rem;
+      opacity: 0.7;
+    }
+
+    .level-name {
+      font-size: 1.1rem;
+    }
+  }
+
+</style>
