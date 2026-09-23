@@ -50,6 +50,13 @@ a { text-decoration: none; }
 
   --c-text:     #FFFFFF;
   --c-red:      #E4032E;
+
+  /* Niveles de partner: rampa frío→cálido sobre los dos tonos de marca
+     (#3D3C8F azul → #E4032E rojo), de menor a mayor aportación */
+  --c-tier-neutrino: #9B9AD4;
+  --c-tier-quark:    #8A87D6;
+  --c-tier-photon:   #D96E9E;
+  --c-tier-higgs:    #F2647E;
   
   --container: 100rem;     
   --space-section: 3.75rem;

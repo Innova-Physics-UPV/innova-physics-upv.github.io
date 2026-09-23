@@ -5,21 +5,21 @@ const Sponsors = [
         NC: "500",
         IK: "1000",
         ET: "2000",
-        color: "#CDA7F5"
+        color: "var(--c-tier-neutrino)"
     },
     {
         Level: "Quark",
         NC: "2000",
         IK: "3000",
         ET: "6000",
-        color: "#69CAE5"
+        color: "var(--c-tier-quark)"
     },
     {
         Level: "Photon",
         NC: "7000",
         IK: "10000",
         ET: "20000",
-        color: "#1EF3DE"
+        color: "var(--c-tier-photon)"
     }
 ]
 
@@ -137,7 +137,7 @@ const Sponsors = [
     min-height: 4.5rem;
     padding: 0.75rem 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     background: linear-gradient(180deg, rgba(30, 34, 49, 0.78) 0%, rgba(21, 24, 35, 0.9) 100%);
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.18);
     color: rgba(255, 255, 255, 0.92);
@@ -146,27 +146,27 @@ const Sponsors = [
   }
 
   .sponsor-neutrino {
-    background: linear-gradient(90deg, rgba(205, 167, 245, 0.22) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
+    background: linear-gradient(90deg, rgba(155, 154, 212, 0.22) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
   }
 
   .sponsor-neutrino > span {
-    color: #CDA7F5;
+    color: var(--c-tier-neutrino);
   }
 
   .sponsor-quark {
-    background: linear-gradient(90deg, rgba(105, 202, 229, 0.22) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
+    background: linear-gradient(90deg, rgba(138, 135, 214, 0.22) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
   }
 
   .sponsor-quark > span {
-    color: #69CAE5;
+    color: var(--c-tier-quark);
   }
 
   .sponsor-photon {
-    background: linear-gradient(90deg, rgba(30, 243, 222, 0.2) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
+    background: linear-gradient(90deg, rgba(217, 110, 158, 0.2) 0%, rgba(30, 34, 49, 0.78) 42%, rgba(21, 24, 35, 0.9) 100%);
   }
 
   .sponsor-photon > span {
-    color: #1EF3DE;
+    color: var(--c-tier-photon);
   }
 
   .sponsor-row:hover {
@@ -200,7 +200,7 @@ const Sponsors = [
     .sponsorship-table {
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 0.75rem;
+      border-radius: 1.25rem;
       background: linear-gradient(180deg, rgba(30, 34, 49, 0.78) 0%, rgba(21, 24, 35, 0.92) 100%);
     }
 
@@ -249,20 +249,20 @@ const Sponsors = [
 
     .sponsor-neutrino .level-name,
     .sponsor-neutrino > span {
-      background: rgba(205, 167, 245, 0.13);
-      color: #CDA7F5;
+      background: rgba(155, 154, 212, 0.13);
+      color: var(--c-tier-neutrino);
     }
 
     .sponsor-quark .level-name,
     .sponsor-quark > span {
-      background: rgba(105, 202, 229, 0.13);
-      color: #69CAE5;
+      background: rgba(138, 135, 214, 0.13);
+      color: var(--c-tier-quark);
     }
 
     .sponsor-photon .level-name,
     .sponsor-photon > span {
-      background: rgba(30, 243, 222, 0.12);
-      color: #1EF3DE;
+      background: rgba(217, 110, 158, 0.12);
+      color: var(--c-tier-photon);
     }
 
     .sponsor-row > span {

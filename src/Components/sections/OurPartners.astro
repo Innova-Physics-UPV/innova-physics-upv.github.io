@@ -1,12 +1,12 @@
 ---
 const topPartners = [
-  { level: 'Higgs', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: '#FFF958' },
-  { level: 'Photon', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: '#1EF3DE' },
+  { level: 'Higgs', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: 'var(--c-tier-higgs)' },
+  { level: 'Photon', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: 'var(--c-tier-photon)' },
 ]
 
 const otherPartners = [
-  { level: 'Quark', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: '#69CAE5' },
-  { level: 'Neutrino', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4', 'Nombre 5'], color: '#CDA7F5' },
+  { level: 'Quark', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: 'var(--c-tier-quark)' },
+  { level: 'Neutrino', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4', 'Nombre 5'], color: 'var(--c-tier-neutrino)' },
 ]
 ---
 
@@ -149,8 +149,8 @@ const otherPartners = [
 
   .partner-item:hover,
   .partner-item:focus-visible {
-    border-color: #1ef3de;
-    color: #1ef3de;
+    border-color: var(--c-red);
+    color: var(--c-red);
     outline: none;
   }
 
