@@ -50,6 +50,9 @@ a { text-decoration: none; }
 
   --c-text:     #FFFFFF;
   --c-red:      #E4032E;
+  /* Azul claro para la flecha sobre el tramo rojo del degradado:
+     el rojo de marca ahí queda en 1.6:1 y el azul marino en 1.2:1. */
+  --c-arrow-alt: #9BD4F0;
 
   /* Niveles de partner: rampa frío→cálido sobre los dos tonos de marca
      (#3D3C8F azul → #E4032E rojo), de menor a mayor aportación */
@@ -152,6 +155,65 @@ h3 { font-family: var(--ff-main); font-size: var(--fs-h3); line-height: 1.3; }
 
 .content-overlay {
   position: relative;
+  z-index: 1;
+}
+
+/* ─── Títulos con flecha ────────────────────────────────── */
+/* Patrón compartido por "The problem", "Projects" y "Partners".
+   El color se controla con --c-arrow: por defecto el rojo de marca,
+   pero sobre el tramo rojo del degradado hay que subirlo a un azul
+   claro (--c-arrow-alt) porque el rojo sobre rojo se pierde. */
+.overflow-wrapper { overflow-x: hidden; }
+
+.heading-align { display: flex; margin-bottom: 3rem; }
+.heading-align.left  { justify-content: flex-start; }
+.heading-align.right { justify-content: flex-end; }
+
+.title-wrapper {
+  position: relative;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+  --c-arrow: var(--c-red);
+}
+
+.arrow-left::after, .arrow-right::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+}
+
+/* Flecha de izquierda a derecha */
+.arrow-left::after {
+  left: -1000px;
+  right: -20px;
+  background: linear-gradient(90deg, transparent 0%, var(--c-arrow) 100%);
+}
+.arrow-left::before {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  right: -25px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 10px solid var(--c-arrow);
+  z-index: 1;
+}
+
+/* Flecha de derecha a izquierda */
+.arrow-right::after {
+  right: -1000px;
+  left: -20px;
+  background: linear-gradient(270deg, transparent 0%, var(--c-arrow) 100%);
+}
+.arrow-right::before {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: -25px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 10px solid var(--c-arrow);
   z-index: 1;
 }
 

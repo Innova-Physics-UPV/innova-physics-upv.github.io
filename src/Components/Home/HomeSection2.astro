@@ -41,9 +41,6 @@
 
 <style>
   /* Evita que las líneas expansivas generen scroll horizontal */
-  .overflow-wrapper {
-    overflow-x: hidden;
-  }
 
   .layout-gap {
     display: flex;
@@ -52,62 +49,7 @@
   }
 
   /* Alineación de encabezados */
-  .heading-align { 
-    display: flex; 
-    margin-bottom: 3rem; 
-  }
-  .heading-align.left { justify-content: flex-start; }
-  .heading-align.right { justify-content: flex-end; }
-
-  /* Títulos con flechas y líneas degradadas */
-  .title-wrapper {
-    position: relative;
-    padding-bottom: 0.5rem;
-    display: inline-block;
-  }
-
-  .arrow-left::after, .arrow-right::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-  }
-
-  /* Flecha de izquierda a derecha */
-  .arrow-left::after {
-    left: -1000px; /* Longitud arbitraria larga para que se pierda por la izquierda */
-    right: -20px;
-    background: linear-gradient(90deg, transparent 0%, var(--c-red) 100%);
-  }
-  .arrow-left::before {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    right: -25px;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 10px solid var(--c-red);
-    z-index: 1;
-  }
-
-  /* Flecha de derecha a izquierda */
-  .arrow-right::after {
-    right: -1000px; /* Longitud arbitraria larga para que se pierda por la derecha */
-    left: -20px;
-    background: linear-gradient(270deg, transparent 0%, var(--c-red) 100%);
-  }
-  .arrow-right::before {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: -25px;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-right: 10px solid var(--c-red);
-    z-index: 1;
-  }
-
-  /* Lista personalizada (cuadrados en lugar de círculos) */
+/* Lista personalizada (cuadrados en lugar de círculos) */
   .custom-list {
     list-style: none;
     display: flex;

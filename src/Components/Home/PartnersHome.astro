@@ -9,8 +9,12 @@ const partners = [
 ]
 ---
 
-<section class="contenedor" aria-labelledby="partners-title">
-  <h2 id="partners-title">Partners</h2>
+<section class="contenedor overflow-wrapper" aria-labelledby="partners-title">
+  <div class="heading-align left">
+    <div class="title-wrapper arrow-left">
+      <h2 id="partners-title">Partners</h2>
+    </div>
+  </div>
 
   <ul class="partner-grid">
     {partners.map(({ name, logo }) => (
@@ -22,6 +26,11 @@ const partners = [
 </section>
 
 <style>
+  /* Aquí el fondo ya es rojo, así que el rojo de marca no se vería. */
+  .title-wrapper { --c-arrow: var(--c-arrow-alt); }
+
+  .heading-align { margin-bottom: 0; }
+
   .partner-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
