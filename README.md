@@ -1,97 +1,97 @@
-# Web Innova Physics UPV
+# Innova Physics UPV website
 
-Web de [Innova Physics UPV](https://innova-physics-upv.github.io/), hecha con
-[Astro](https://astro.build/) y desplegada en GitHub Pages.
+Website for [Innova Physics UPV](https://innova-physics-upv.github.io/), built
+with [Astro](https://astro.build/) and deployed to GitHub Pages.
 
-**En producción:** https://innova-physics-upv.github.io/
+**Live:** https://innova-physics-upv.github.io/
 
-## Estado
+## Status
 
-Ahora mismo está publicada **solo la home**. El resto de páginas están
-empezadas pero sin terminar, así que viven en `src/pages/_wip/`: Astro no
-crea rutas para carpetas que empiezan por `_`, de modo que el trabajo se
-conserva sin que las páginas sean accesibles.
+Only the **home page** is published right now. The other pages have been
+started but are not finished, so they live in `src/pages/_wip/`: Astro does not
+create routes for folders starting with `_`, which keeps the work around
+without making the pages reachable.
 
-Para publicar una, basta con sacarla de `_wip/`:
+To publish one, move it out of `_wip/`:
 
 ```sh
 git mv src/pages/_wip/Partners.astro src/pages/Partners.astro
 ```
 
-…y volver a añadir su enlace en `src/Components/Header.astro` y
+…then add its link back to `src/Components/Header.astro` and
 `src/Components/Footer.astro`.
 
-## Poner en marcha el proyecto
+## Getting started
 
-Hace falta Node 18.20.8+, 20.3+ o 22+ (CI usa la 22).
+Requires Node 18.20.8+, 20.3+ or 22+ (CI uses 22).
 
 ```sh
 npm install
 npm run dev        # http://localhost:4321
 ```
 
-| Comando           | Qué hace                              |
+| Command           | What it does                          |
 | :---------------- | :------------------------------------ |
-| `npm install`     | Instala dependencias                  |
-| `npm run dev`     | Servidor local en `localhost:4321`    |
-| `npm run build`   | Compila el sitio a `./dist/`          |
-| `npm run preview` | Previsualiza el build antes de subirlo |
+| `npm install`     | Install dependencies                  |
+| `npm run dev`     | Local dev server at `localhost:4321`  |
+| `npm run build`   | Build the site to `./dist/`           |
+| `npm run preview` | Preview the build before shipping it  |
 
-## Estructura
+## Structure
 
 ```text
-public/                 Assets servidos tal cual desde la raíz del sitio
-├── partners/           Logos de partners (.svg)
-├── curves*.webp        Las curvas del fondo
-└── Alfabet/            Tipografía de marca
+public/                 Assets served as-is from the site root
+├── partners/           Partner logos (.svg)
+├── curves*.webp        The background curves
+└── Alfabet/            Brand typeface
 
 src/
 ├── pages/
-│   ├── index.astro     La home (única ruta publicada)
-│   └── _wip/           Páginas sin terminar, no se enrutan
-├── Layout/layout.astro Esqueleto de página: head, fondo, header y footer
+│   ├── index.astro     The home page (only published route)
+│   └── _wip/           Unfinished pages, not routed
+├── Layout/layout.astro Page shell: head, background, header and footer
 ├── Components/
 │   ├── Header.astro
 │   ├── Footer.astro
-│   └── Home/           Secciones de la home
-├── styles/globals.css  Design tokens y clases compartidas
-└── consts.ts           URLs compartidas (formulario, dossier)
+│   └── Home/           Home page sections
+├── styles/globals.css  Design tokens and shared classes
+└── consts.ts           Shared URLs (form, dossier)
 ```
 
-Todo lo que esté en `public/` se sirve desde la raíz: `public/partners/etsit.svg`
-queda en `/partners/etsit.svg`.
+Anything in `public/` is served from the root: `public/partners/teleco.svg`
+ends up at `/partners/teleco.svg`.
 
-### Sobre `globals.css`
+### About `globals.css`
 
-Ahí están los *design tokens* (tipografías, escala, colores, espaciado) y las
-utilidades que se repiten entre componentes: `.contenedor`, `.btn`, las rejillas,
-el sistema de curvas del fondo (`.bg-wrapper` / `.bg-image-percent`) y los
-títulos con flecha. Si algo se usa en más de un sitio, va aquí; si es de un
-componente concreto, en su `<style>`.
+It holds the design tokens (typefaces, scale, colours, spacing) and the
+utilities shared between components: `.contenedor`, `.btn`, the grids, the
+background curves system (`.bg-wrapper` / `.bg-image-percent`) and the headings
+with arrows. If something is used in more than one place it goes here; if it
+belongs to a single component, it goes in that component's `<style>`.
 
-## Despliegue
+## Deployment
 
-Cada push a `main` dispara `.github/workflows/astro.yml`, que hace `npm ci`,
-`npm run build` y publica `./dist/` en GitHub Pages. No hay que subir nada a
-mano ni commitear el build.
+Every push to `main` triggers `.github/workflows/astro.yml`, which runs
+`npm ci`, `npm run build` and publishes `./dist/` to GitHub Pages. Nothing has
+to be uploaded by hand, and the build output is never committed.
 
-## Ramas
+## Branches
 
-| Rama       | Qué es                                                        |
-| :--------- | :------------------------------------------------------------ |
-| `main`     | Lo que está publicado                                          |
-| `ip3-web`  | Rama de trabajo de esta versión                                |
-| `ip2-web`  | La web anterior (Next.js), guardada tal cual por si hace falta |
+| Branch     | What it is                                           |
+| :--------- | :--------------------------------------------------- |
+| `main`     | What is live                                          |
+| `ip3-web`  | Working branch for this version                       |
+| `ip2-web`  | The previous website (Next.js), kept as-is just in case |
 
-Las ramas `Home`, `Partners`, `Get-Involved` y `web-v3` ya están integradas en
-`ip3-web`; `testing` y `prueba` son de la versión antigua.
+`Home`, `Partners`, `Get-Involved` and `web-v3` are already folded into
+`ip3-web`; `testing` and `prueba` belong to the old version.
 
-## Pendiente
+## To do
 
-- Terminar las páginas de `src/pages/_wip/`.
-- Falta subir el dossier a `public/dossier.pdf` (ya está enlazado desde la
-  página de Partners, que aún no está publicada).
-- Los botones «Partner with Us» y «Apply to ELIAC» no llevan a ningún sitio
-  todavía; están marcados con un `TODO` en el código.
-- `@astrojs/svelte` está instalado pero no se usa ningún componente Svelte.
-  Si no va a hacer falta, se puede quitar.
+- Finish the pages in `src/pages/_wip/`.
+- The dossier still needs uploading to `public/dossier.pdf` (it is already
+  linked from the Partners page, which is not published yet).
+- The "Partner with Us" and "Apply to ELIAC" buttons do not lead anywhere yet;
+  they are marked with a `TODO` in the code.
+- `@astrojs/svelte` is installed but no Svelte component is used. If it is not
+  going to be needed, it can be removed.

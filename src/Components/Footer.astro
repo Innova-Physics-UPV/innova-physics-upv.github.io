@@ -33,7 +33,7 @@
   .logo-large { max-width: 250px; margin-bottom: 2rem; }
   .icon { width: 28px; }
 
-  /* Navegación */
+  /* Navigation */
   .nav-links { display: flex; gap: 2rem; color: var(--c-text); }
 
   /* Footer Layout */
@@ -47,16 +47,16 @@
   }
   .footer-info { display: flex; flex-direction: column; gap: 1.5rem; }
 
-  /* Tipografía específica */
+  /* Component-specific typography */
   .text-small { font-size: var(--fs-small); font-style: normal; line-height: 2; padding: 0; }
 
-  /* Listas y Patrocinadores */
+  /* Lists and sponsors */
   .social-links li { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
   .sponsors { display: flex; gap: 1.125rem; height: 250px; }
 
-  /* .grid-2-col solo colapsa por debajo de 480px, pero estas dos columnas
-     necesitan ~727px: entre 481 y 850px el footer se salía del viewport y
-     quedaba recortado por el overflow-x del .bg-wrapper. */
+  /* .grid-2-col only collapses below 480px, but these two columns need
+     ~727px: between 481 and 850px the footer ran past the viewport and was
+     clipped by .bg-wrapper's overflow-x. */
   @media (max-width: 850px) {
     .footer-align { grid-template-columns: 1fr; }
     .social-links li { flex-wrap: wrap; }
