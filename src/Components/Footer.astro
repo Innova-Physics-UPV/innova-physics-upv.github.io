@@ -53,4 +53,14 @@
   /* Listas y Patrocinadores */
   .social-links li { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
   .sponsors { display: flex; gap: 1.125rem; height: 250px; }
+
+  /* .grid-2-col solo colapsa por debajo de 480px, pero estas dos columnas
+     necesitan ~727px: entre 481 y 850px el footer se salía del viewport y
+     quedaba recortado por el overflow-x del .bg-wrapper. */
+  @media (max-width: 850px) {
+    .footer-align { grid-template-columns: 1fr; }
+    .social-links li { flex-wrap: wrap; }
+    .social-links a { overflow-wrap: anywhere; }
+    .sponsors { height: auto; flex-wrap: wrap; align-items: center; }
+  }
 </style>
