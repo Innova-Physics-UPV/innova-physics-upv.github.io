@@ -1,0 +1,80 @@
+---
+// Todos al mismo nivel: de momento no hay distinción por tier.
+// Los SVG viven en public/partners/ y se sirven desde /partners/<archivo>.
+const partners = [
+  { name: 'ETSIT',   logo: '/partners/etsit.svg' },
+  { name: 'IUMPA',   logo: '/partners/iumpa.svg' },
+  { name: 'iTEAM',   logo: '/partners/iteam.svg' },
+  { name: 'Edwards', logo: '/partners/edwards.svg' },
+]
+---
+
+<section class="contenedor overflow-wrapper" aria-labelledby="partners-title">
+  <div class="heading-align left">
+    <div class="title-wrapper arrow-left">
+      <h2 id="partners-title">Partners</h2>
+    </div>
+  </div>
+
+  <ul class="partner-grid">
+    {partners.map(({ name, logo }) => (
+      <li class="partner">
+        <img src={logo} alt={name} class="partner-logo" />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  /* Aquí el fondo ya es rojo, así que el rojo de marca no se vería. */
+  .title-wrapper { --c-arrow: var(--c-arrow-alt); }
+
+  .heading-align { margin-bottom: 0; }
+
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: 3rem;
+    margin-top: 5rem;
+  }
+
+  .partner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 6rem;
+  }
+
+  .partner-logo {
+    width: auto;
+    max-width: 100%;
+    max-height: 5rem;
+    aspect-ratio: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+  }
+
+  .partner-logo:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 850px) {
+    .partner-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .partner-grid {
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .partner-logo {
+      max-height: 3.5rem;
+    }
+  }
+</style>

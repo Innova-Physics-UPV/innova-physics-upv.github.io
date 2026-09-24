@@ -1,0 +1,162 @@
+---
+const topPartners = [
+  { level: 'Higgs', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: 'var(--c-tier-higgs)' },
+  { level: 'Photon', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: 'var(--c-tier-photon)' },
+]
+
+const otherPartners = [
+  { level: 'Quark', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4'], color: 'var(--c-tier-quark)' },
+  { level: 'Neutrino', partners: ['Nombre 1', 'Nombre 2', 'Nombre 3', 'Nombre 4', 'Nombre 5'], color: 'var(--c-tier-neutrino)' },
+]
+---
+
+<section class="partners-section" aria-labelledby="our-partners-title">
+  <div class="section-heading">
+    <h2 id="our-partners-title">Our partners</h2>
+  </div>
+
+  <div class="top-partners">
+    <div class="subsection-heading">
+      <h3>Top Partners</h3>
+    </div>
+
+    {topPartners.map(({ level, partners, color }) => (
+      <article class="partner-level">
+        <div class="level-heading">
+          <h4 style={{ color }}>{level}</h4>
+        </div>
+        <div class="partner-list">
+          {partners.map((partner) => (
+            <span class="partner-item">{partner}</span>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <article class="other-partners">
+    <div class="subsection-heading">
+      <h3>Other partners</h3>
+    </div>
+    <div class="other-partner-levels">
+      {otherPartners.map(({ level, partners, color }) => (
+        <div class="other-partner-row">
+          <h4 style={{ color }}>{level}</h4>
+          <div class="other-partners-grid">
+            {partners.map((partner) => (
+              <span class="partner-item">{partner}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </article>
+</section>
+
+<style>
+  .partners-section {
+    width: min(100%, 66rem);
+    padding: 4.5rem 0 6rem;
+    text-align: left;
+  }
+
+  .section-heading {
+    margin-bottom: 2.25rem;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+  }
+
+  .subsection-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .subsection-heading h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .subsection-heading p {
+    margin: 0;
+    font-family: var(--ff-accent);
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  .partner-level,
+  .other-partner-row {
+    padding: 0.95rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.28);
+  }
+
+  .level-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .level-heading h4,
+  .other-partner-row h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .other-partner-row h4 {
+    margin-bottom: 0.35rem;
+  }
+
+
+  .partner-list,
+  .other-partners-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .top-partners {
+    margin-bottom: 2.5rem;
+  }
+
+  .other-partners {
+    padding-top: 0;
+  }
+
+  .partner-item {
+    display: block;
+    min-height: 2.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--c-text);
+    font: 600 0.875rem var(--ff-main);
+    text-align: left;
+  }
+
+  @media (max-width: 700px) {
+    .partners-section {
+      padding: 5rem 1.25rem 6rem;
+    }
+
+    .section-heading {
+      margin-bottom: 2rem;
+    }
+
+    .subsection-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .partner-list,
+    .other-partners-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

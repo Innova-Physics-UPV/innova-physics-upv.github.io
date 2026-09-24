@@ -1,0 +1,117 @@
+---
+import Layout from "../Layout/layout.astro"
+import { FORM_URL } from '../consts' 
+import BotonesPartners from '../Components/common/BotonesComunes.astro'
+import Sponsorships from '../Components/sections/Sponsorships.astro'
+import OurPartners from '../Components/sections/OurPartners.astro'
+---
+
+<Layout title="Partners" lang="en">
+	<main class="partners-page flex-col-center">
+		<div class="title-text"><h1 class="title-hero">Partners</h1></div>
+		<div class="subtitle-text"><h2>Our projects</h2></div>
+		<BotonesPartners/>
+		<div class="scroll-marker" aria-hidden="true">↓</div>
+		<Sponsorships/>
+		<section class="sponsorship-cta" aria-label="Sponsorship follow-up">
+			<p>Comparative table of financial contribution according to sponsorship level</p>
+			<a class="btn" href={FORM_URL} target="_blank" rel="noopener noreferrer">Fill out the Form</a>
+		</section>
+		<OurPartners/>
+	</main>
+</Layout>
+
+<style>
+	.partners-page {
+		width: min(100%, 75rem);
+		margin: 0 auto;
+		padding-inline: 2rem;
+		--fs-hero: 5rem;
+		--fs-h2: 2.5rem;
+		--fs-h3: 1.25rem;
+		--fs-body: 1rem;
+		font-size: var(--fs-body);
+	}
+
+	.title-text{
+		padding-top: 8rem;
+	}
+	.subtitle-text{
+		padding: 2rem 0rem 5rem 0rem;
+	}
+
+	.scroll-marker {
+		display: grid;
+		place-items: center;
+		width: 1.5rem;
+		height: 1.5rem;
+		margin: -3rem auto 3rem;
+		border-radius: 50%;
+		background: #fff;
+		color: #1e2231;
+		font-size: 0.9rem;
+		font-weight: 700;
+	}
+
+	.sponsorship-cta {
+		width: min(100%, 24rem);
+		margin: 0 auto;
+		padding: 0 1rem 4rem;
+		text-align: center;
+	}
+
+	.sponsorship-cta p {
+		max-width: 22rem;
+		margin: 0 auto 1rem;
+		font-family: var(--ff-accent);
+		font-size: 0.875rem;
+		font-weight: 400;
+		line-height: 1.2;
+	}
+
+	.sponsorship-cta .btn {
+		width: auto;
+		min-width: 9.75rem;
+		height: 2.35rem;
+		padding-inline: 1rem;
+		font-size: 0.75rem;
+	}
+
+	.partners-page .btn {
+		font-size: 0.75rem;
+	}
+
+	@media (max-width: 700px) {
+		.partners-page {
+			padding-inline: 0;
+		}
+
+		.title-text {
+			padding-top: 6rem;
+		}
+
+		.partners-page {
+			--fs-hero: 3.5rem;
+			--fs-h2: 2rem;
+			--fs-h3: 1.125rem;
+			--fs-body: 0.95rem;
+		}
+
+		.subtitle-text {
+			padding: 1.5rem 1.25rem 4rem;
+		}
+
+		.scroll-marker {
+			margin: -2rem auto 3rem;
+		}
+
+		.sponsorship-cta {
+			padding: 0 1.25rem 3rem;
+		}
+
+		.sponsorship-cta p {
+			max-width: 19rem;
+			font-size: 0.8rem;
+		}
+	}
+</style>

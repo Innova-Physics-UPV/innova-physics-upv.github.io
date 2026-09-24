@@ -1,0 +1,42 @@
+---
+import { FORM_URL } from '../../consts';
+---
+
+<section class="grid-3-col salto">
+    <!-- TODO: sin destino todavía -->
+    <button class="btn">Partner with Us</button>
+    <a class="btn" href={FORM_URL} target="_blank" rel="noopener noreferrer">Join Innova Physics</a>
+    <!-- TODO: sin destino todavía (en Home estaba comentado apuntando a /apply, que no existe) -->
+    <button class="btn">Apply to ELIAC</button>
+</section>
+
+
+<style>
+    .salto{
+        width: 100%;
+        max-width: 48rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        justify-content: center;
+        justify-items: center;
+        gap: 1.5rem;
+        padding-bottom: 7rem;
+        margin-inline: auto;
+    }
+
+    @media (max-width: 850px) {
+        .salto {
+            grid-template-columns: 1fr;
+        }
+
+        .salto .btn {
+            justify-self: center;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .salto {
+            gap: 1.25rem;
+            padding: 0 1.25rem 4rem;
+        }
+    }
+</style>
