@@ -1,5 +1,7 @@
 # Innova Physics UPV website
 
+<img width="896" height="221" alt="innova_web_banner-fs8" src="https://github.com/user-attachments/assets/d4382211-5259-4b3e-8f1e-c25557fa01c8" />
+
 Website for [Innova Physics UPV](https://innova-physics-upv.github.io/), built
 with [Astro](https://astro.build/) and deployed to GitHub Pages.
 
