@@ -1,12 +1,5 @@
 ---
-// All at the same level: no tier distinction for now.
-// The SVGs live in public/partners/ and are served from /partners/<file>.
-const partners = [
-  { name: 'ETSIT',   logo: '/partners/teleco.svg' },
-  { name: 'IUMPA',   logo: '/partners/iumpa.svg' },
-  { name: 'iTEAM',   logo: '/partners/iteam.svg' },
-  { name: 'Edwards', logo: '/partners/edwards.svg' },
-]
+import { partners } from '../../data/partners';
 ---
 
 <section class="contenedor overflow-wrapper" aria-labelledby="partners-title">
@@ -17,12 +10,18 @@ const partners = [
   </div>
 
   <ul class="partner-grid">
-    {partners.map(({ name, logo }) => (
+    {partners.map(({ name, logo, url }) => (
       <li class="partner">
-        <img src={logo} alt={name} class="partner-logo" />
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          <img src={logo} alt={name} class="partner-logo" />
+        </a>
       </li>
     ))}
   </ul>
+
+  <div class="btn-container more-partners">
+    <a href="/partners" class="btn">Become a partner</a>
+  </div>
 </section>
 
 <style>
@@ -46,6 +45,13 @@ const partners = [
     min-height: 6rem;
   }
 
+  /* Full width, so the logo's max-width: 100% has something to resolve against. */
+  .partner a {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
   .partner-logo {
     width: auto;
     max-width: 100%;
@@ -59,6 +65,8 @@ const partners = [
   .partner-logo:hover {
     opacity: 1;
   }
+
+  .more-partners { margin-top: 4rem; }
 
   @media (max-width: 850px) {
     .partner-grid {

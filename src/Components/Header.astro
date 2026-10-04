@@ -7,6 +7,7 @@ const isActive = (href) => pathname === href || pathname === href + '/';
   <a href="/" class="logo-link"><img src="/logo-innova.svg" alt="Logo Innova Physics" class="logo" /></a>
   <nav class="nav-links text-accent">
     <a href="/" class={isActive('/') ? 'active' : undefined}>Home</a>
+    <a href="/partners" class={isActive('/partners') ? 'active' : undefined}>Partners</a>
   </nav>
 </header>
 
