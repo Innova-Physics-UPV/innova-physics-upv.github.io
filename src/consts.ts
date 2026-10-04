@@ -6,5 +6,8 @@
 // sign-ups that came from the website to Instagram.
 export const FORM_URL = 'https://app.formbricks.com/s/cmtu7yz8fjked01z5rk1eelti';
 
-// TODO: the PDF still needs uploading to public/dossier.pdf - until then this 404s.
+// The PDF goes in public/dossier.pdf. Until it is there, /partners hides the
+// download button instead of linking to a 404.
 export const DOSSIER_URL = '/dossier.pdf';
+
+export const CONTACT_EMAIL = 'innovaphysicsupv@gmail.com';
