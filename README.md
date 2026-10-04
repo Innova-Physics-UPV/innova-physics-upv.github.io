@@ -9,15 +9,16 @@ with [Astro](https://astro.build/) and deployed to GitHub Pages.
 
 ## Status
 
-Only the **home page** is published right now. The other pages have been
+The **home page** and **`/partners`** are published. The other pages have been
 started but are not finished, so they live in `src/pages/_wip/`: Astro does not
 create routes for folders starting with `_`, which keeps the work around
 without making the pages reachable.
 
-To publish one, move it out of `_wip/`:
+To publish one, move it out of `_wip/`. The file name becomes the URL, so use
+lowercase:
 
 ```sh
-git mv src/pages/_wip/Partners.astro src/pages/Partners.astro
+git mv src/pages/_wip/GetInvolved.astro src/pages/get-involved.astro
 ```
 
 …then add its link back to `src/Components/Header.astro` and
@@ -49,15 +50,20 @@ public/                 Assets served as-is from the site root
 
 src/
 ├── pages/
-│   ├── index.astro     The home page (only published route)
+│   ├── index.astro     The home page
+│   ├── partners.astro  /partners: partner logos, sponsorship levels beside them
 │   └── _wip/           Unfinished pages, not routed
 ├── Layout/layout.astro Page shell: head, background, header and footer
 ├── Components/
 │   ├── Header.astro
 │   ├── Footer.astro
-│   └── Home/           Home page sections
+│   ├── Home/           Home page sections
+│   └── Partners/       /partners sections
+├── data/
+│   ├── partners.ts     Partner list (home and /partners)
+│   └── sponsorship.ts  Sponsorship tiers and benefits
 ├── styles/globals.css  Design tokens and shared classes
-└── consts.ts           Shared URLs (form, dossier)
+└── consts.ts           Shared URLs (form, dossier, contact email)
 ```
 
 Anything in `public/` is served from the root: `public/partners/teleco.svg`
@@ -91,8 +97,14 @@ to be uploaded by hand, and the build output is never committed.
 ## To do
 
 - Finish the pages in `src/pages/_wip/`.
-- The dossier still needs uploading to `public/dossier.pdf` (it is already
-  linked from the Partners page, which is not published yet).
+- The tiers and benefits in `src/data/sponsorship.ts` come from the Partnership
+  Dossier 2026-27, which is `public/dossier.pdf`. The "Download the dossier"
+  button on `/partners` only appears while that file exists (checked at build
+  time), so there is never a link to a missing file. Update both together for
+  a new season.
+- To add a partner, drop its logo in `public/partners/` and add a line to
+  `src/data/partners.ts` with its tier; it shows up on both the home page and
+  `/partners` (grouped by tier there, Higgs first with the big cards).
 - The "Partner with Us" and "Apply to ELIAC" buttons do not lead anywhere yet;
   they are marked with a `TODO` in the code.
 - `@astrojs/svelte` is installed but no Svelte component is used. If it is not
