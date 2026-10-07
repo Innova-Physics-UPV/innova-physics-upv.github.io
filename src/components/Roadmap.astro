@@ -1,0 +1,144 @@
+---
+// This year's road: the milestones laid on a vermilion beam, in order. Wide
+// screens draw them across in five columns, alternately above and below the
+// beam, as on the canvas; narrow screens run the beam down the rail's line.
+// Solid markers are committed for this season, outlined ones depend on
+// sponsors; the words under each say which.
+import type { RoadItem } from '../data/machine';
+
+interface Props {
+  items: RoadItem[];
+  label: string;
+}
+
+const { items, label } = Astro.props;
+---
+
+<ol class="road" aria-label={label}>
+  {
+    items.map((item, i) => (
+      <li class:list={['road__item', i % 2 ? 'road__item--down' : 'road__item--up']} style={`--col: ${i + 1}`}>
+        <span class:list={['road__marker', `road__marker--${item.marker}`]} aria-hidden="true" />
+        <p class="label road__text">
+          {item.label}
+          <span class="road__when muted">{item.when}</span>
+        </p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .road {
+    position: relative;
+    margin: 48px 0 0;
+    padding: 0 0 0 var(--rail);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  /* The beam down the rail's line. */
+  .road::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--rail-line) - var(--beam) / 2);
+    top: 0;
+    bottom: 0;
+    width: var(--beam);
+    background: var(--accent, var(--vermilion));
+  }
+
+  .road__item {
+    position: relative;
+  }
+
+  .road__marker {
+    position: absolute;
+    top: 0;
+    left: calc(var(--rail-line) - 14px - var(--rail));
+    width: 28px;
+    height: 28px;
+  }
+
+  .road__marker--solid {
+    background: var(--figure, var(--ink));
+  }
+
+  .road__marker--outlined {
+    border: var(--hair) solid var(--figure, var(--ink));
+    background: var(--ground, var(--page));
+  }
+
+  .road__text {
+    margin: 0;
+    padding-top: 4px;
+  }
+
+  .road__when {
+    display: block;
+  }
+
+  /* Across, on wide screens: the beam runs through the middle row; markers
+     sit on it or hang under it, the labels above or below them. The items
+     share the rows (subgrid), so a label that wraps grows its row for all. */
+  @media (min-width: 900px) {
+    .road {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-rows: minmax(64px, auto) 72px minmax(64px, auto);
+      column-gap: 40px;
+      padding-left: 0;
+    }
+
+    .road::before {
+      position: static;
+      grid-row: 2;
+      grid-column: 1 / -1;
+      align-self: center;
+      width: auto;
+      height: var(--beam);
+      margin-inline: calc(-1 * var(--pad));
+    }
+
+    .road__item {
+      grid-column: var(--col);
+      grid-row: 1 / span 3;
+      display: grid;
+      grid-template-rows: subgrid;
+    }
+
+    .road__marker {
+      position: static;
+      grid-row: 2;
+      width: 88px;
+    }
+
+    .road__item--up .road__marker {
+      align-self: start;
+      margin-top: 4px;
+    }
+
+    .road__item--down .road__marker {
+      align-self: end;
+      margin-bottom: 4px;
+    }
+
+    .road__text {
+      padding-top: 0;
+    }
+
+    .road__item--up .road__text {
+      grid-row: 1;
+      align-self: end;
+      padding-bottom: 8px;
+    }
+
+    .road__item--down .road__text {
+      grid-row: 3;
+      align-self: start;
+      padding-top: 8px;
+    }
+  }
+</style>

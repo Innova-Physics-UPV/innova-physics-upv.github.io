@@ -1,0 +1,88 @@
+---
+// A stage in numbers: a real table, one quantity per row, its value with its
+// unit, and its status. No number appears without a unit and a status.
+import type { Spec } from '../data/machine';
+
+interface Props {
+  /** What the table is, for screen readers. */
+  caption: string;
+  rows: Spec[];
+}
+
+const { caption, rows } = Astro.props;
+---
+
+<table class="spec">
+  <caption class="visually-hidden">{caption}</caption>
+  <thead>
+    <tr>
+      <th scope="col" class="label">QUANTITY</th>
+      <th scope="col" class="label">VALUE</th>
+      <th scope="col" class="label">STATUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      rows.map((row) => (
+        <tr>
+          <th scope="row">{row.quantity}</th>
+          <td>
+            <span class="spec__number">{row.value}</span>
+            {row.unit && (
+              <>
+                {' '}
+                <span class="spec__unit">{row.unit}</span>
+              </>
+            )}
+          </td>
+          <td class="label">{row.status}</td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<style>
+  .spec {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: var(--hair) solid var(--figure, var(--ink));
+    text-align: left;
+  }
+
+  .spec th,
+  .spec td {
+    padding: 14px 16px 14px 0;
+    vertical-align: baseline;
+  }
+
+  .spec :is(th, td):last-child {
+    padding-right: 0;
+  }
+
+  .spec thead th {
+    padding-block: 12px;
+    font-weight: 400;
+    color: var(--figure-muted, var(--muted));
+  }
+
+  .spec tbody tr {
+    border-top: 1px solid var(--construction, var(--line));
+  }
+
+  .spec tbody th {
+    font-weight: 400;
+  }
+
+  .spec__number {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .spec__unit {
+    font-family: var(--mono);
+    font-size: 15px;
+  }
+</style>

@@ -24,6 +24,8 @@ export interface LatticeFigure {
   construction?: Box;
   /** The beam axis. */
   axis?: Box;
+  /** The beam itself, in the accent: on a cover, where the figure is the one vermilion element. */
+  beam?: Box;
   elements: LatticeElement[];
 }
 
@@ -89,4 +91,24 @@ export const aloha1Section: LatticeFigure = {
     cavity(1462, 50),
     cavity(1578, 50),
   ],
+};
+
+/** ALOHA-1 on a cover: the same line, full width, the beam running out of the right edge. */
+export const aloha1Line: LatticeFigure = {
+  ...aloha1Section,
+  viewBox: '0 0 1920 340',
+  label:
+    'ALOHA-1 on its beam. The electron source is hatched because it is simulated. The einzel lens, planned, and the four buncher and four accelerating cavities, design, are outlined. The beam reaches 1 MeV, a design target.',
+  construction: { x: 0, y: 149, w: 154, h: 2 },
+  axis: undefined,
+  beam: { x: 177.6, y: 146, w: 1742.4, h: 8 },
+};
+
+/** ALOHA-0 on a cover: the source full width, its beam running out of the right edge. */
+export const aloha0Line: LatticeFigure = {
+  ...aloha0Section,
+  viewBox: '0 -40 1920 380',
+  construction: { x: 0, y: 149, w: 290, h: 2 },
+  axis: undefined,
+  beam: { x: 330, y: 146, w: 1590, h: 8 },
 };

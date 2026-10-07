@@ -1,0 +1,314 @@
+---
+// The machine: ALOHA, stage by stage. An ultramarine cover with the whole
+// line drawn by status, the stages on gesso with their numbers (each with its
+// unit and status), this year's road, and the open licences as the closing
+// sheet. Content in src/data/machine.ts.
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Cover from '../components/Cover.astro';
+import Caption from '../components/Caption.astro';
+import Lattice from '../components/Lattice.astro';
+import Section from '../components/Section.astro';
+import Sheet from '../components/Sheet.astro';
+import SpecTable from '../components/SpecTable.astro';
+import StatusChip from '../components/StatusChip.astro';
+import Roadmap from '../components/Roadmap.astro';
+import Button from '../components/Button.astro';
+import { aloha0Section, aloha1Line } from '../data/figures';
+import { heroLabels, open, stages, year } from '../data/machine';
+
+const HERO_W = 1920;
+---
+
+<Base title="The machine" active="machine" description="ALOHA, a linear open-hardware accelerator, built in stages by students at the UPV: what is built, what is simulated and what is still on paper.">
+  <Cover
+    id="machine"
+    kicker="ALOHA · A LINEAR OPEN-HARDWARE ACCELERATOR"
+    shout={['THE MACHINE']}
+    lead="ALOHA, A Linear Open-Hardware Accelerator, is built in stages. Each one is designed, simulated, built and documented in the open before the next."
+  >
+    <Fragment slot="wide">
+      <!-- The whole line, drawn by status. Narrow screens scroll it sideways
+           inside its own frame; the labels ride with it. -->
+      <div class="hero" tabindex="0" role="region" aria-label="ALOHA-1, the whole line: scrolls sideways">
+        <div class="hero__canvas">
+          <Lattice figure={aloha1Line} id="machine-hero" />
+          {
+            heroLabels.map((l) => (
+              <p
+                class:list={['label', 'hero__label', l.top && 'hero__label--top']}
+                style={`left: ${((l.x / HERO_W) * 100).toFixed(3)}%`}
+                aria-hidden="true"
+              >
+                {l.lines[0]}
+                <span class="muted">{l.lines[1]}</span>
+              </p>
+            ))
+          }
+        </div>
+      </div>
+      <div class="legend">
+        <ul class="legend__key" aria-label="How the drawing shows status">
+          <li class="label"><span class="swatch swatch--solid" aria-hidden="true"></span>SOLID · BUILT OR MEASURED</li>
+          <li class="label"><span class="swatch swatch--hatched" aria-hidden="true"></span>HATCHED · SIMULATED</li>
+          <li class="label"><span class="swatch swatch--outlined" aria-hidden="true"></span>OUTLINE · DESIGN OR PLANNED</li>
+        </ul>
+        <Caption as="p" lead="ALOHA-1, the line." text="Schematic, not to scale." />
+      </div>
+    </Fragment>
+  </Cover>
+
+  <!-- The stages, one article each. -->
+  <section class="stages" aria-label="Stages">
+    <div class="stages__wrap">
+      {
+        stages.map((stage) => (
+          <article class="stage" id={stage.id} aria-labelledby={`${stage.id}-title`}>
+            <div class="stage__text">
+              <p class="label muted">{stage.kicker}</p>
+              <h2 id={`${stage.id}-title`} class="headline stage__title">
+                {stage.title}
+              </h2>
+              <StatusChip marker={stage.marker} class="stage__chip">
+                {stage.status}
+              </StatusChip>
+              <p class="stage__body measure">{stage.body}</p>
+            </div>
+            <div class="stage__facts">
+              <SpecTable caption={`${stage.title} in numbers`} rows={stage.specs} />
+              {stage.picture?.kind === 'photo' && (
+                <figure class="stage__picture">
+                  <Picture
+                    src={stage.picture.src}
+                    alt={stage.picture.alt}
+                    formats={['avif', 'webp']}
+                    widths={[560, 840, 1120, 1680]}
+                    sizes="(min-width: 1040px) 52vw, 100vw"
+                    class="stage__photo"
+                  />
+                  <Caption lead={stage.picture.caption.lead} text={stage.picture.caption.text} />
+                </figure>
+              )}
+              {stage.picture?.kind === 'figure' && (
+                <figure class="stage__picture">
+                  <Lattice figure={aloha0Section} id={`machine-${stage.id}`} />
+                  <Caption lead={stage.picture.caption.lead} text={stage.picture.caption.text} />
+                </figure>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <Section id="year" kicker={year.season} title={year.title}>
+    <p class="year__lead lead measure">{year.lead}</p>
+    <Roadmap items={year.road} label={`The road for ${year.season}`} />
+  </Section>
+
+  <Sheet id="open" labelledby="open-title">
+    <div class="open">
+      <p class="label muted">OPEN</p>
+      <h2 id="open-title" class="headline open__title">{open.title}</h2>
+      <ul class="open__items">
+        {
+          open.items.map((item) => (
+            <li class="open__item">
+              <h3 class="open__name">{item.title}</h3>
+              <p class="open__body">{item.body}</p>
+              {item.link && (
+                <p class="open__link">
+                  <Button href={item.link.href} variant="text">
+                    {item.link.label}
+                  </Button>
+                </p>
+              )}
+              {item.status && <p class="label muted open__status">{item.status}</p>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Sheet>
+</Base>
+
+<style>
+  /* The hero: the whole line, edge to edge, scrolling sideways inside its
+     own frame when the screen is narrower than the drawing can be read. */
+  .hero {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .hero:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .hero__canvas {
+    position: relative;
+    min-width: 1100px;
+    padding-bottom: 8px;
+  }
+
+  .hero__label {
+    position: absolute;
+    top: 82%;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .hero__label--top {
+    top: 22%;
+  }
+
+  .hero__label span {
+    display: block;
+  }
+
+  .legend {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: 32px var(--pad) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 40px;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .legend__key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 40px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .legend__key li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--figure-muted);
+  }
+
+  .legend :global(.caption) {
+    margin-top: 0;
+  }
+
+  .swatch {
+    width: 16px;
+    height: 16px;
+  }
+
+  .swatch--solid {
+    background: var(--figure);
+  }
+
+  .swatch--hatched {
+    background: repeating-linear-gradient(90deg, var(--figure) 0 2px, transparent 2px 4px);
+  }
+
+  .swatch--outlined {
+    border: var(--hair) solid var(--figure);
+  }
+
+  /* The stages */
+  .stages__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--section);
+  }
+
+  .stage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 80px;
+    align-items: flex-start;
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+
+  .stage__text {
+    flex: 1 1 340px;
+    max-width: 420px;
+  }
+
+  .stage__title {
+    margin-top: 12px;
+  }
+
+  .stage__text :global(.stage__chip) {
+    margin-top: 16px;
+  }
+
+  .stage__body {
+    margin-top: 24px;
+  }
+
+  .stage__facts {
+    flex: 2 1 560px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .stage__picture :global(.stage__photo) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  /* This year */
+  .year__lead {
+    margin-top: 16px;
+    color: var(--muted);
+  }
+
+  /* The closing sheet */
+  .open {
+    flex: 1 1 100%;
+  }
+
+  .open__title {
+    margin-top: 16px;
+  }
+
+  .open__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 40px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .open__item {
+    padding-top: 20px;
+    border-top: var(--hair) solid var(--figure);
+  }
+
+  .open__name {
+    font-family: var(--mono);
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 400;
+  }
+
+  .open__body {
+    margin-top: 12px;
+  }
+
+  .open__link {
+    margin-top: 12px;
+  }
+
+  .open__status {
+    margin-top: 12px;
+  }
+</style>

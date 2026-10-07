@@ -25,6 +25,7 @@ const box = (r: { x: number; y: number; w: number; h: number }) => ({ x: r.x, y:
   </defs>
   {figure.construction && <rect {...box(figure.construction)} style="fill: var(--construction, var(--line))" />}
   {figure.axis && <rect {...box(figure.axis)} style="fill: var(--figure, var(--ink))" />}
+  {figure.beam && <rect {...box(figure.beam)} style="fill: var(--accent, var(--vermilion))" />}
   {
     figure.elements.map((el) => {
       const stroke = el.stroke ?? (el.status === 'simulated' ? 1.5 : el.status === 'design' ? 3 : 0);
