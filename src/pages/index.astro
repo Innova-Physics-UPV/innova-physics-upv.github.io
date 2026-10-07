@@ -1,14 +1,45 @@
 ---
-// Placeholder while the new site is built on this branch: a type specimen.
+// Placeholder while the new site is built on this branch: a specimen of the
+// shared components.
 import Base from '../layouts/Base.astro';
+import Cover from '../components/Cover.astro';
+import Section from '../components/Section.astro';
+import Caption from '../components/Caption.astro';
+import Sheet from '../components/Sheet.astro';
+import Button from '../components/Button.astro';
+import Lattice from '../components/Lattice.astro';
+import { aloha0Section, aloha1Section } from '../data/figures';
 ---
 
 <Base active="home">
-  <main class="wrap" data-theme="gesso" style="padding-block: var(--section)">
-    <p class="label muted">INNOVA PHYSICS UPV · VALÈNCIA · SINCE 2023</p>
-    <h1 class="shout shout--home">BUILD THE<br />BEAM</h1>
-    <p class="lead measure">The new website is being built.</p>
-    <p class="art">A beam reads a painting <em>twice.</em></p>
-    <p class="label">W Lα 8.40 keV · Cu Kα 8.05 keV</p>
+  <Cover kicker="INNOVA PHYSICS UPV · VALÈNCIA · SINCE 2023" shout={['BUILD THE', 'BEAM']} home lead="The new website is being built.">
+    <Fragment slot="actions">
+      <Button href="/join/">Join the team</Button>
+      <Button href="#figures" variant="secondary">Follow the beam</Button>
+    </Fragment>
+  </Cover>
+  <main data-theme="gesso">
+    <Section id="figures" kicker="SPECIMEN" title="Shared components">
+      <figure style="margin-top: 48px; max-width: 520px">
+        <Lattice figure={aloha0Section} id="s-aloha0" />
+        <Caption lead="The source, in section." text="Cathode, Wehnelt and anode hatched: simulated. The einzel lens outlined: planned." />
+      </figure>
+      <figure style="margin-top: 48px; max-width: 520px">
+        <Lattice figure={aloha1Section} id="s-aloha1" />
+        <Caption lead="ALOHA-1, the design." text="The source, then four buncher and four accelerating cavities, outlined: not built yet." />
+      </figure>
+      <p style="margin-top: 32px"><Button href="#figures" variant="text">READ LOGBOOK 01</Button></p>
+    </Section>
+    <Sheet labelledby="sheet-title">
+      <div>
+        <p class="label muted">JOIN · 2026-27</p>
+        <h2 id="sheet-title" class="headline" style="margin-top: 24px">Build it with us</h2>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap">
+        <Button href="/join/">Tell me when it opens</Button>
+        <Button href="/join/" variant="secondary">Meet the team</Button>
+      </div>
+    </Sheet>
+    <div style="height: var(--section)"></div>
   </main>
 </Base>

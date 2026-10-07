@@ -1,0 +1,89 @@
+---
+// Buttons and text links (M6). Primary: the figure colour filled, so lead
+// white with ultramarine type on the cover and on sheets. Secondary: an
+// outline. On hover they swap fill and outline. A text link is a label with
+// a 2px rule that thickens to 4px while its arrow moves 4px right.
+// Vermilion is never a button.
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'text';
+  /** Text links end in an arrow unless told otherwise. */
+  arrow?: boolean;
+}
+
+const { href, variant = 'primary', arrow = variant === 'text', class: className, ...rest } = Astro.props;
+---
+
+<a class:list={['button', `button--${variant}`, variant === 'text' && 'label', className]} href={href} {...rest}>
+  <span class="button__text"><slot /></span>{arrow && <span class="button__arrow" aria-hidden="true">{' →'}</span>}
+</a>
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--figure);
+    transition:
+      background-color 120ms linear,
+      color 120ms linear,
+      border-color 120ms linear;
+  }
+
+  .button--primary,
+  .button--secondary {
+    min-height: 48px;
+    padding: 0 24px;
+    border: var(--hair) solid var(--figure);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .button--primary {
+    background: var(--figure);
+    color: var(--ground);
+  }
+
+  .button--secondary {
+    background: transparent;
+  }
+
+  .button--primary:hover {
+    background: transparent;
+    color: var(--figure);
+  }
+
+  .button--secondary:hover {
+    background: var(--figure);
+    color: var(--ground);
+  }
+
+  .button--text {
+    min-height: 44px;
+    padding: 0;
+    box-shadow: inset 0 calc(-1 * var(--hair)) 0 var(--figure);
+    transition: box-shadow 120ms linear;
+  }
+
+  .button--text:hover {
+    box-shadow: inset 0 calc(-1 * var(--rule)) 0 var(--figure);
+  }
+
+  .button__arrow {
+    display: inline-block;
+    white-space: pre;
+    transition: transform 120ms linear;
+  }
+
+  .button--text:hover .button__arrow {
+    transform: translateX(4px);
+  }
+
+  :global(html:not([data-motion])) .button,
+  :global(html:not([data-motion])) .button__arrow {
+    transition: none;
+  }
+</style>

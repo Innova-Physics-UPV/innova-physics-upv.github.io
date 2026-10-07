@@ -1,0 +1,97 @@
+---
+// The cover of every page: ultramarine, the page's one shout (Heros Cn Bold
+// capitals), a kicker, a lead and its actions, and on the right a figure that
+// bleeds off the right edge. The scroll cue (M12) sits at its foot.
+import ScrollCue from './ScrollCue.astro';
+
+interface Props {
+  id?: string;
+  kicker: string;
+  /** The shout, one string per line. */
+  shout: string[];
+  lead?: string;
+  /** The home's shout is larger. */
+  home?: boolean;
+  cue?: string;
+  class?: string;
+}
+
+const { id = 'cover', kicker, shout, lead, home = false, cue, class: className } = Astro.props;
+const titleId = `${id}-title`;
+const hasFigure = Astro.slots.has('figure');
+---
+
+<section class:list={['cover', className]} id={id} data-theme="ultramarine" aria-labelledby={titleId}>
+  <div class="cover__inner">
+    <p class="label muted">{kicker}</p>
+    <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']}>
+      {shout.map((line) => <span class="cover__line">{line}</span>)}
+    </h1>
+    <div class="cover__body">
+      <div class="cover__text">
+        {lead && <p class="lead">{lead}</p>}
+        {Astro.slots.has('actions') && <div class="cover__actions"><slot name="actions" /></div>}
+        <slot />
+      </div>
+      {hasFigure && <div class="cover__figure"><slot name="figure" /></div>}
+    </div>
+    <ScrollCue text={cue} />
+  </div>
+  <div class="cover__foot" aria-hidden="true" data-cover-foot></div>
+</section>
+
+<style>
+  .cover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover__inner {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(32px, 4.4vw, 64px) var(--pad) clamp(64px, 7.2vw, 104px);
+  }
+
+  .cover__shout {
+    margin-top: 20px;
+  }
+
+  .cover__line {
+    display: block;
+  }
+
+  .cover__body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: clamp(32px, 4vw, 56px);
+  }
+
+  .cover__text {
+    flex: 1 1 320px;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .cover__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* The figure bleeds off the right edge of the page. */
+  .cover__figure {
+    flex: 999 1 560px;
+    min-width: 0;
+    margin-right: calc(-1 * var(--pad));
+  }
+
+  /* A zero-height sentinel at the cover's foot: the masthead tightens once
+     it passes under it (M2). */
+  .cover__foot {
+    height: 0;
+  }
+</style>

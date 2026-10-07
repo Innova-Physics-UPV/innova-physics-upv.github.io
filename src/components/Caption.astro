@@ -1,0 +1,30 @@
+---
+// The CERN Courier caption: a bold lead-in in the figure colour, then the
+// text in the muted colour, then the credit when the picture is not ours.
+interface Props {
+  lead: string;
+  text?: string;
+  credit?: string;
+  /** Render as <figcaption> (default) or as a plain paragraph. */
+  as?: 'figcaption' | 'p';
+}
+
+const { lead, text, credit, as: Tag = 'figcaption' } = Astro.props;
+---
+
+<Tag class="caption caption--courier">
+  <strong>{lead}</strong>{text && <>{' '}{text}</>}{credit && <>{' '}Credit: {credit}</>}
+</Tag>
+
+<style>
+  .caption--courier {
+    margin-top: 12px;
+    max-width: var(--measure);
+    color: var(--figure-muted, var(--muted));
+  }
+
+  .caption--courier strong {
+    font-weight: 700;
+    color: var(--figure, var(--ink));
+  }
+</style>

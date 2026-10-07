@@ -1,0 +1,44 @@
+---
+// A section of the page, on gesso: the --section space above it and nothing
+// below, no rules between sections. With `kicker` and `title` it draws its
+// own head; otherwise the page composes the head inside the slot.
+interface Props {
+  id: string;
+  kicker?: string;
+  title?: string;
+  /** The head as the section's one art line instead of a headline. */
+  art?: boolean;
+  class?: string;
+}
+
+const { id, kicker, title, art = false, class: className } = Astro.props;
+const titleId = `${id}-title`;
+---
+
+<section class:list={['section', className]} id={id} aria-labelledby={title ? titleId : undefined}>
+  <div class="section__wrap">
+    {
+      title && (
+        <div class="section__head">
+          {kicker && <p class="label muted">{kicker}</p>}
+          <h2 id={titleId} class:list={[art ? 'art' : 'headline', 'section__title']}>
+            {title}
+          </h2>
+        </div>
+      )
+    }
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+  }
+
+  .section__title {
+    margin-top: 24px;
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+// M12, the first metre of the rail: a white beam beside SCROLL, sticky at the
+// cover's foot on the rail's line. Its finished state (the full beam) is the
+// HTML; motion.ts grows it twice after load and removes it at the first
+// scroll past 40px. White, not vermilion: the cover already has its accent.
+interface Props {
+  text?: string;
+}
+
+const { text = 'SCROLL' } = Astro.props;
+---
+
+<div class="cue" aria-hidden="true" data-scroll-cue>
+  <span class="cue__track">
+    <span class="cue__line"></span>
+    <span class="cue__beam" data-scroll-cue-beam></span>
+  </span>
+  <span class="label cue__text">{text}</span>
+</div>
+
+<style>
+  .cue {
+    position: sticky;
+    bottom: 24px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: max-content;
+    margin-top: 40px;
+    /* The beam's centre on the rail's line, 36px from the content edge. */
+    padding-left: calc(var(--rail-line) - 4px);
+    pointer-events: none;
+  }
+
+  .cue.is-gone {
+    visibility: hidden;
+  }
+
+  .cue__track {
+    position: relative;
+    display: block;
+    width: var(--beam);
+    height: 48px;
+  }
+
+  .cue__line {
+    position: absolute;
+    left: 3px;
+    top: 0;
+    width: var(--hair);
+    height: 100%;
+    background: var(--lapis-light);
+  }
+
+  .cue__beam {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--beam);
+    height: 100%;
+    background: var(--lead-white);
+    transform-origin: top;
+  }
+
+  .cue__text {
+    color: var(--lapis-light);
+  }
+</style>

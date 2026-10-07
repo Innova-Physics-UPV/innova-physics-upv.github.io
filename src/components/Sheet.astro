@@ -1,0 +1,36 @@
+---
+// An ultramarine sheet laid on the gesso page: the Join call on the home and
+// the closing sheet of every other page. Inset to the content width, never
+// full bleed. It stays ultramarine at night: only the page changes.
+interface Props {
+  id?: string;
+  labelledby?: string;
+}
+
+const { id, labelledby } = Astro.props;
+---
+
+<section class="sheet-section" id={id} aria-labelledby={labelledby}>
+  <div class="sheet-section__wrap">
+    <div class="sheet" data-theme="ultramarine">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .sheet-section__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+  }
+
+  .sheet {
+    padding: clamp(32px, 5.6vw, 80px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 80px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+</style>
