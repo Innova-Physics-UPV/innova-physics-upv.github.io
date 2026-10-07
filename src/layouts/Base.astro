@@ -1,18 +1,32 @@
 ---
-// Every page: the head (no-flash mode script, fonts, styles) and the body.
+// Every page: the head (no-flash mode script, fonts, styles), the masthead,
+// the page, the footer.
 import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/tokens.css';
 import '../styles/base.css';
+
+type HeaderProps = Parameters<typeof Header>[0];
 
 interface Props {
   /** The page's own title; the site name is added after it. */
   title?: string;
   description?: string;
+  /** Which nav item is current. */
+  active?: HeaderProps['active'];
+  /** The masthead's ground: ultramarine, or gesso on a Pentimento entry. */
+  headerTheme?: HeaderProps['theme'];
+  /** This page in each language it exists in. */
+  languages?: HeaderProps['languages'];
 }
 
 const {
   title,
   description = 'A student team at the Universitat Politècnica de València designing and building ALOHA, an open-hardware tabletop electron accelerator.',
+  active,
+  headerTheme = 'ultramarine',
+  languages,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · Innova Physics UPV` : 'Innova Physics UPV';
@@ -46,6 +60,7 @@ const lang = Astro.currentLocale ?? 'en';
     </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <Font cssVariable="--font-grotesk" preload={[{ weight: 400, style: 'normal' }]} />
     <Font cssVariable="--font-condensed" preload />
     <Font cssVariable="--font-art" />
@@ -53,6 +68,8 @@ const lang = Astro.currentLocale ?? 'en';
     <slot name="head" />
   </head>
   <body>
+    <Header theme={headerTheme} active={active} languages={languages} />
     <slot />
+    <Footer />
   </body>
 </html>

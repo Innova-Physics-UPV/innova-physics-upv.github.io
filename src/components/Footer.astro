@@ -1,0 +1,182 @@
+---
+// The footer on the page ground: the closing row of marks, centred as the
+// team likes its closing slides, then address, contact, site and the open
+// licences. By day the marks keep their own ink; at night they are one ink,
+// white, and the logo is its on-ultramarine version (tokens.css).
+import InnovaLogo from '../assets/logos/innova-logo.svg';
+import Upv from '../assets/logos/upv.svg';
+import Ge from '../assets/logos/generacion-espontanea.svg';
+import Etsit from '../assets/logos/etsit.svg';
+import { CONTACT_EMAIL } from '../consts';
+
+const site = [
+  { label: 'Home', href: '/' },
+  { label: 'The machine', href: '/machine/' },
+  { label: 'Logbook', href: '/logbook/' },
+  { label: 'Team and join', href: '/join/' },
+  { label: 'Partners', href: '/partners/' },
+  { label: 'Past seasons', href: '/seasons/' },
+];
+---
+
+<footer class="footer" data-theme="gesso">
+  <div class="footer__inner">
+    <ul class="footer__marks" aria-label="Innova Physics UPV and its institutions">
+      <li class="footer__mark footer__mark--innova">
+        <InnovaLogo role="img" aria-label="Innova Physics" />
+      </li>
+      <li class="footer__mark footer__mark--upv">
+        <Upv role="img" aria-label="Universitat Politècnica de València" />
+      </li>
+      <li class="footer__mark footer__mark--ge">
+        <Ge role="img" aria-label="Generación Espontánea, UPV Design Factory" />
+      </li>
+      <li class="footer__mark footer__mark--etsit">
+        <Etsit role="img" aria-label="Telecom UPV VLC, ETSIT" />
+      </li>
+    </ul>
+
+    <div class="footer__grid">
+      <div>
+        <p class="label muted footer__head">ADDRESS</p>
+        <address class="footer__text">
+          Universitat Politècnica de València<br />
+          Camino de Vera, s/n<br />
+          46022 València
+        </address>
+      </div>
+      <div>
+        <p class="label muted footer__head">CONTACT</p>
+        <ul class="footer__list footer__text">
+          <li><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
+          <li><a href="https://www.instagram.com/innovaphysicsupv/" rel="noopener">Instagram · @innovaphysicsupv</a></li>
+          <li><a href="https://www.linkedin.com/company/innovaphysicsupv/" rel="noopener">LinkedIn · Innova Physics UPV</a></li>
+        </ul>
+      </div>
+      <nav aria-label="Site">
+        <p class="label muted footer__head">SITE</p>
+        <ul class="footer__list footer__text">
+          {site.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+      <div>
+        <p class="label muted footer__head">OPEN</p>
+        <ul class="footer__list label">
+          <li>HARDWARE · CERN-OHL-S</li>
+          <li>DOCS · GITHUB</li>
+          <li><a href="/licenses/GUST-FONT-LICENSE.txt">TYPE · TeX Gyre Heros, GUST</a></li>
+          <li>
+            <a href="/licenses/OFL-EB-Garamond.txt">EB Garamond</a>, <a href="/licenses/OFL-Fragment-Mono.txt">Fragment Mono</a>, OFL
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__foot">
+      <p class="label muted">© 2026 INNOVA PHYSICS UPV · VALÈNCIA</p>
+      <p class="footer__motto">Build the beam.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: var(--hair) solid var(--figure);
+  }
+
+  .footer__inner {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(56px, 7vw, 104px) var(--pad) 40px;
+  }
+
+  .footer__marks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 32px 40px;
+  }
+
+  .footer__mark {
+    line-height: 0;
+    color: var(--mark);
+  }
+
+  .footer__mark :global(svg) {
+    width: auto;
+  }
+
+  /* Heights from the closing slide; GE's file carries its own margin. */
+  .footer__mark--innova {
+    color: var(--logo-ink);
+  }
+
+  .footer__mark--innova :global(svg),
+  .footer__mark--upv :global(svg) {
+    height: 64px;
+  }
+
+  .footer__mark--ge :global(svg) {
+    height: 84px;
+  }
+
+  /* The vector has no margin: 56px matches the 62px PNG of the closing slide. */
+  .footer__mark--etsit :global(svg) {
+    height: 56px;
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    gap: 40px;
+    margin-top: clamp(56px, 7vw, 96px);
+    padding-top: 32px;
+    border-top: var(--hair) solid var(--construction);
+  }
+
+  .footer__head {
+    margin-bottom: 12px;
+  }
+
+  .footer__text {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer__list.label {
+    line-height: 22px;
+  }
+
+  .footer a {
+    color: var(--figure);
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 4px;
+  }
+
+  .footer__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px 40px;
+    margin-top: 56px;
+  }
+
+  .footer__motto {
+    font-family: var(--art);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 28px;
+  }
+</style>

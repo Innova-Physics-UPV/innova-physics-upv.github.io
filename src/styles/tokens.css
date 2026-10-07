@@ -39,6 +39,13 @@
   --ink: var(--bone-black);
   --muted: var(--graphite);
   --line: var(--line-gesso);
+  /* Marks on the page: the Innova logo in bone black with its vermilion
+     line; partner marks in their own ink (black) in the footer and one ink
+     on the home. At night every mark is one ink, white, and the logo is its
+     on-ultramarine version. */
+  --logo-ink: var(--bone-black);
+  --mark: #000000;
+  --mark-one-ink: var(--bone-black);
   color-scheme: light;
 
   /* ── Strokes, each double the last ────────────────────────── */
@@ -56,6 +63,8 @@
   --content: 1440px;
   /* The beam runs 8px wide, centred 36px from the content edge. */
   --rail-line: 36px;
+  /* Height of the sticky masthead; motion.ts keeps it measured. */
+  --header-h: 94px;
 
   /* ── Type: sizes from the canvas, phone to desktop ────────── */
   --fs-label: 13px;
@@ -88,6 +97,9 @@
   --ink: var(--gesso);
   --muted: var(--lapis-dim);
   --line: var(--line-night);
+  --logo-ink: var(--lead-white);
+  --mark: var(--white);
+  --mark-one-ink: var(--white);
   color-scheme: dark;
 }
 
@@ -97,6 +109,9 @@
     --ink: var(--gesso);
     --muted: var(--lapis-dim);
     --line: var(--line-night);
+    --logo-ink: var(--lead-white);
+    --mark: var(--white);
+    --mark-one-ink: var(--white);
     color-scheme: dark;
   }
 }
