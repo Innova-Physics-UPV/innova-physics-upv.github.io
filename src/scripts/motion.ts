@@ -183,22 +183,29 @@ if (moving) {
 
   // ── S1: the cover scene ───────────────────────────────────────────────
   const s1 = document.querySelector<HTMLElement>('[data-scene="s1"]');
-  // Below 360px the render is too small for its labels: the cover stays its
-  // finished frame (the same query is in motion.css).
-  const s1Room = window.matchMedia('(min-width: 360px)');
+  // S1 runs where the stage can carry the grown render and its labels: at
+  // least 360px wide and 540px tall (the same queries are in motion.css).
+  // Elsewhere, landscape phones included, the cover stays its finished frame.
+  const s1Room = window.matchMedia('(min-width: 360px) and (min-height: 540px)');
+  const s1Phone = window.matchMedia('(max-width: 719px)');
   if (s1) {
     const track = s1.querySelector<HTMLElement>('[data-track]')!;
     const stage = s1.querySelector<HTMLElement>('[data-stage]')!;
     const frameEl = s1.querySelector<HTMLElement>('[data-source-frame]');
     const caption = s1.querySelector<HTMLElement>('.source__caption');
+    const lastTag = s1.querySelector<HTMLElement>('.source__label--3 .source__tag');
     const words = [...s1.querySelectorAll<HTMLElement>('[data-words]')];
     let top = 0;
     let range = 1;
     let state = '';
     let wordsOut = 0;
+    let still = false;
     scenes.push({
       measure() {
-        if (!frameEl || !s1Room.matches) return;
+        if (!frameEl || !s1Room.matches) {
+          still = true;
+          return;
+        }
         root.classList.add('is-measuring');
         // Read the caption in its hold layout too: on a phone it sits above
         // the render, and the render must start below it.
@@ -207,6 +214,10 @@ if (moving) {
         const st = stage.getBoundingClientRect();
         const fr = frameEl.getBoundingClientRect();
         const capH = caption ? caption.getBoundingClientRect().height : 0;
+        // The last label hangs down from its anchor at 86% of the render's
+        // height; offsetHeight ignores its counter-scale, so it is the
+        // height it will have on screen.
+        const tagH = lastTag ? lastTag.offsetHeight : 0;
         const wordsBottom = Math.max(...words.map((w) => w.getBoundingClientRect().bottom)) - st.top;
         if (before === undefined) delete stage.dataset.caption;
         else stage.dataset.caption = before;
@@ -215,11 +226,25 @@ if (moving) {
         // the stage (wide, short screens would otherwise crop the electrodes'
         // labels); then quiet ultramarine margins at the sides, where the
         // render's own ground melts into the cover. On a phone the whole
-        // render fits below the caption.
-        const phone = st.width < 720;
+        // render fits below the caption. Either way the last label stays on
+        // the stage, 16px clear of its foot, whether the render is centred
+        // or set below the caption.
+        const phone = s1Phone.matches;
+        const H = st.height;
         const reserve = phone ? 16 + capH + 16 : 0;
-        const room = st.height - reserve - (phone ? 16 : 0);
-        const scale = Math.min(st.width / fr.width, phone ? room / fr.height : room / (0.8 * fr.height));
+        const room = H - reserve - (phone ? 16 : 0);
+        const fits = [
+          st.width / fr.width,
+          phone ? room / fr.height : room / (0.8 * fr.height),
+          (H / 2 - tagH - 16) / (0.36 * fr.height),
+        ];
+        if (phone) fits.push((H - 16 - reserve - tagH) / (0.86 * fr.height));
+        const scale = Math.min(...fits);
+        // A stage too short to grow the render at all: it keeps its finished
+        // frame (motion.css drops the scene on [data-still]).
+        still = scale < 1;
+        s1.toggleAttribute('data-still', still);
+        if (still) return;
         const finalW = fr.width * scale;
         const finalH = fr.height * scale;
         const finalTop = phone ? Math.max(reserve, (st.height - finalH) / 2) : (st.height - finalH) / 2;
@@ -233,7 +258,7 @@ if (moving) {
         state = '';
       },
       frame(y) {
-        if (!s1Room.matches) {
+        if (still) {
           if (state !== 'still') {
             state = 'still';
             wordsOut = 0;
@@ -276,8 +301,8 @@ if (moving) {
   // S2 pins only where the text and the photo sit side by side and the
   // pinned window can hold them; the same query is in motion.css.
   const s2 = document.querySelector<HTMLElement>('[data-scene="s2"]');
-  const desktop = window.matchMedia('(min-width: 1024px) and (min-height: 700px)');
-  let s2Started = false;
+  const desktop = window.matchMedia('(min-width: 1040px) and (min-height: 700px)');
+  let s2P = 0; // S2's progress, which S4 follows while the stage is pinned
   if (s2) {
     const track = s2.querySelector<HTMLElement>('[data-track]')!;
     const stage = s2.querySelector<HTMLElement>('[data-stage]')!;
@@ -326,10 +351,13 @@ if (moving) {
         last = '';
       },
       frame(y) {
-        if (!desktop.matches) return;
+        if (!desktop.matches) {
+          s2P = 0;
+          return;
+        }
         // The masthead is tightened by now: the stage pins under its compact height.
         const p = clamp((y + headerCompactH - top) / range);
-        s2Started = p > 0;
+        s2P = p;
         // 0 to 25%: the veil withdraws in place, beside the text. 25 to 50%:
         // hold, the whole photo next to the text. 50 to 82%: it grows to full
         // bleed. 82 to 100%: hold, then the page moves on.
@@ -356,6 +384,7 @@ if (moving) {
     const track = stage?.closest<HTMLElement>('[data-track]');
     let top = 0;
     let height = 1;
+    let qPin = 0;
     let lit = -1;
     scenes.push({
       measure() {
@@ -364,10 +393,15 @@ if (moving) {
             ? docTop(track) + (statement.getBoundingClientRect().top - stage.getBoundingClientRect().top)
             : docTop(statement);
         height = Math.max(1, statement.offsetHeight);
+        // Where the reading line has got to when S2's stage pins: from there
+        // the statement no longer moves past it.
+        qPin = track ? clamp((docTop(track) - headerCompactH + window.innerHeight * READ - top) / height) : 0;
         lit = -1;
       },
       frame(y, vh) {
-        const q = s2Started ? 1 : clamp((y + vh * READ - top) / height);
+        // While S2 holds the statement still, the words left light up during
+        // its first quarter, as the veil withdraws.
+        const q = s2P > 0 ? qPin + (1 - qPin) * clamp(s2P / 0.25) : clamp((y + vh * READ - top) / height);
         const count = words.filter((_, i) => q >= ((i + 1) / words.length) * 0.95).length;
         if (count === lit) return;
         lit = count;

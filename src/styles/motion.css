@@ -34,170 +34,138 @@ html[data-motion] .cue__beam {
   animation: cue-grow 2200ms linear 2200ms 2 both;
 }
 
-html[data-motion] .cue__still {
-  display: none;
-}
-
-html[data-motion] .cue__scene {
-  display: inline;
-}
-
-/* ── S1: the cover scene ─────────────────────────────────────────────── */
-html[data-motion] .cover--s1 .cover__track {
-  height: 200vh;
-}
-
-html[data-motion] .cover--s1 .cover__stage {
-  position: sticky;
-  top: var(--header-h);
-  height: calc(100svh - var(--header-h));
-  overflow: clip;
-}
-
-/* 0 to 20%: the words scroll away... */
-html[data-motion] .cover--s1 [data-words] {
-  transform: translateY(calc(var(--s1-out, 0px) * var(--w, 0)));
-}
-
-/* ...then, 20 to 40%, the figure grows from its column to full bleed. */
-html[data-motion] .cover--s1 .source__frame {
-  z-index: 2;
-  transform-origin: 0 0;
-  transform: translate(calc(var(--s1-tx, 0px) * var(--a, 0)), calc(var(--s1-ty, 0px) * var(--a, 0)))
-    scale(calc(1 + (var(--s1-s, 1) - 1) * var(--a, 0)));
-}
-
-/* 40 to 90%: the beam switches on, cathode to edge. Before, it is off. */
-html[data-motion] .cover--s1 .source__beam {
-  clip-path: inset(0 calc((1 - var(--reveal, 0)) * 100%) 0 0);
-}
-
-/* Each electrode is named as the beam passes it: a jump, not a fade. */
-html[data-motion] .cover--s1 .source__labels {
-  display: block;
-}
-
-html[data-motion] .cover--s1 .source__label {
-  visibility: hidden;
-}
-
-html[data-motion] .cover--s1 :is([data-step='1'], [data-step='2'], [data-step='3']) .source__label--1,
-html[data-motion] .cover--s1 :is([data-step='2'], [data-step='3']) .source__label--2,
-html[data-motion] .cover--s1 [data-step='3'] .source__label--3 {
-  visibility: visible;
-}
-
-/* The labels ride the grown figure but keep their own size. */
-html[data-motion] .cover--s1 .source__dot,
-html[data-motion] .cover--s1 .source__tag {
-  transform: scale(var(--s1-inv, 1));
-}
-
-/* The caption leaves while the figure grows and comes back at the hold. */
-html[data-motion] .cover--s1 [data-caption='off'] .source__caption {
-  visibility: hidden;
-}
-
-html[data-motion] .cover--s1 [data-caption='hold'] .source__caption {
-  position: absolute;
-  z-index: 3;
-  left: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
-  right: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
-  bottom: 16px;
-  padding: 0;
-}
-
-/* On the figure, the caption's two parts stack on the left (TELEFOCUS
-   starts at half the width, so they never meet), each on a plate of the
-   ground so the wireframe never runs through the words. */
-html[data-motion] .cover--s1 [data-caption='hold'] .source__caption {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-html[data-motion] .cover--s1 [data-caption='hold'] .source__caption > span {
-  max-width: max(40%, 16rem);
-  padding: 4px 8px;
-  background: var(--ultramarine);
-}
-
-/* The cue sits on the rail's line at the stage's foot, its words wrapping
-   inside the gutters on the narrowest phones. */
-html[data-motion] .cover--s1 .cue {
-  position: absolute;
-  left: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
-  right: var(--pad);
-  bottom: 24px;
-  width: auto;
-  margin: 0;
-}
-
-@media (max-width: 719px) {
-  html[data-motion] .cover--s1 .cover__track {
-    height: 150vh;
-  }
-
-  /* On a phone the render is a band across the middle of the stage: the
-     caption takes the empty ground above it. */
-  html[data-motion] .cover--s1 [data-caption='hold'] .source__caption {
-    top: 16px;
-    bottom: auto;
-  }
-}
-
-/* Below 1024px the labels wrap, so they neither run off the screen nor
-   meet each other on the narrower render. */
-@media (max-width: 1023px) {
-  html[data-motion] .cover--s1 .source__tag {
-    white-space: normal;
-    width: max-content;
-    max-width: 40vw;
-  }
-}
-
-/* Below 360px the render is too small to carry its labels and caption: the
-   cover stays its finished frame, nothing pins (motion.ts skips S1 too). */
-@media (max-width: 359px) {
-  html[data-motion] .cover--s1 .cover__track {
-    height: auto;
-  }
-
-  html[data-motion] .cover--s1 .cover__stage {
-    position: static;
-    height: auto;
-  }
-
-  html[data-motion] .cover--s1 [data-words],
-  html[data-motion] .cover--s1 .source__frame {
-    transform: none;
-  }
-
-  html[data-motion] .cover--s1 .source__beam {
-    clip-path: none;
-  }
-
-  html[data-motion] .cover--s1 .source__labels,
-  html[data-motion] .cover--s1 .cue__scene {
+/* ── S1: the cover scene ─────────────────────────────────────────────────
+   Only where the stage can carry the grown render and its labels: at least
+   360px wide and 540px tall, the query motion.ts uses. Elsewhere (and on a
+   cover motion.ts marks [data-still], when the measured render could not
+   grow) the cover is its finished frame: nothing pins, the beam is on. */
+@media (min-width: 360px) and (min-height: 540px) {
+  /* With S1 the cue reads SCROLL TO SWITCH ON THE SOURCE. */
+  html[data-motion] .cover--s1:not([data-still]) .cue__still {
     display: none;
   }
 
-  html[data-motion] .cover--s1 .cue__still {
+  html[data-motion] .cover--s1:not([data-still]) .cue__scene {
     display: inline;
   }
 
-  html[data-motion] .cover--s1 .cue {
+  html[data-motion] .cover--s1:not([data-still]) .cover__track {
+    height: 200vh;
+  }
+
+  html[data-motion] .cover--s1:not([data-still]) .cover__stage {
     position: sticky;
+    top: var(--header-h);
+    height: calc(100svh - var(--header-h));
+    overflow: clip;
+  }
+
+  /* 0 to 20%: the words scroll away... */
+  html[data-motion] .cover--s1:not([data-still]) [data-words] {
+    transform: translateY(calc(var(--s1-out, 0px) * var(--w, 0)));
+  }
+
+  /* ...then, 20 to 40%, the figure grows from its column to full bleed. */
+  html[data-motion] .cover--s1:not([data-still]) .source__frame {
+    z-index: 2;
+    transform-origin: 0 0;
+    transform: translate(calc(var(--s1-tx, 0px) * var(--a, 0)), calc(var(--s1-ty, 0px) * var(--a, 0)))
+      scale(calc(1 + (var(--s1-s, 1) - 1) * var(--a, 0)));
+  }
+
+  /* 40 to 90%: the beam switches on, cathode to edge. Before, it is off. */
+  html[data-motion] .cover--s1:not([data-still]) .source__beam {
+    clip-path: inset(0 calc((1 - var(--reveal, 0)) * 100%) 0 0);
+  }
+
+  /* Each electrode is named as the beam passes it: a jump, not a fade. */
+  html[data-motion] .cover--s1:not([data-still]) .source__labels {
+    display: block;
+  }
+
+  html[data-motion] .cover--s1:not([data-still]) .source__label {
+    visibility: hidden;
+  }
+
+  html[data-motion] .cover--s1:not([data-still]) :is([data-step='1'], [data-step='2'], [data-step='3']) .source__label--1,
+  html[data-motion] .cover--s1:not([data-still]) :is([data-step='2'], [data-step='3']) .source__label--2,
+  html[data-motion] .cover--s1:not([data-still]) [data-step='3'] .source__label--3 {
+    visibility: visible;
+  }
+
+  /* The labels ride the grown figure but keep their own size. */
+  html[data-motion] .cover--s1:not([data-still]) .source__dot,
+  html[data-motion] .cover--s1:not([data-still]) .source__tag {
+    transform: scale(var(--s1-inv, 1));
+  }
+
+  /* The caption leaves while the figure grows and comes back at the hold. */
+  html[data-motion] .cover--s1:not([data-still]) [data-caption='off'] .source__caption {
+    visibility: hidden;
+  }
+
+  /* At the hold the caption's two parts stack on the left (TELEFOCUS starts
+     at half the width, so they never meet), each on a plate of the ground
+     so the wireframe never runs through the words. */
+  html[data-motion] .cover--s1:not([data-still]) [data-caption='hold'] .source__caption {
+    position: absolute;
+    z-index: 3;
+    left: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
+    right: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
+    bottom: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 0;
+  }
+
+  html[data-motion] .cover--s1:not([data-still]) [data-caption='hold'] .source__caption > span {
+    max-width: max(40%, 16rem);
+    padding: 4px 8px;
+    background: var(--ultramarine);
+  }
+
+  /* The cue sits on the rail's line at the stage's foot, its words wrapping
+     inside the gutters on the narrowest phones. */
+  html[data-motion] .cover--s1:not([data-still]) .cue {
+    position: absolute;
+    left: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
+    right: var(--pad);
     bottom: 24px;
-    margin-top: 40px;
+    width: auto;
+    margin: 0;
+  }
+
+  @media (max-width: 719px) {
+    html[data-motion] .cover--s1:not([data-still]) .cover__track {
+      height: 150vh;
+    }
+
+    /* On a phone the render is a band across the middle of the stage: the
+       caption takes the empty ground above it. */
+    html[data-motion] .cover--s1:not([data-still]) [data-caption='hold'] .source__caption {
+      top: 16px;
+      bottom: auto;
+    }
+  }
+
+  /* Below 1024px the labels wrap, so they neither run off the screen nor
+     meet each other on the narrower render. */
+  @media (max-width: 1023px) {
+    html[data-motion] .cover--s1:not([data-still]) .source__tag {
+      white-space: normal;
+      width: max-content;
+      max-width: 40vw;
+    }
   }
 }
 
 /* ── S2: the team photo is restored, sits beside the text, then grows to
    full bleed. 220vh: 1.2 screens of pinned scroll. Only where the text and
    the photo sit side by side and the pinned window can hold them (the same
-   query is in motion.ts); everywhere else, M3. ─────────────────────────── */
-@media (min-width: 1024px) and (min-height: 700px) {
+   query is in motion.ts; 1040px leaves room for a classic scrollbar);
+   everywhere else, M3. ──────────────────────────────────────────────── */
+@media (min-width: 1040px) and (min-height: 700px) {
   /* The grown photo covers the window and its clip-path crops it, but a
      clip-path still widens the page: the track clips it sideways (clip, not
      hidden, so the stage still sticks and the caption still shows below). */
@@ -249,7 +217,7 @@ html[data-motion] .cover--s1 .cue {
 
 /* ── M3 (phones, tablets, short windows): the veil withdraws once, when the
    photo scrolls in ───────────────────────────────────────────────────── */
-@media (max-width: 1023px), (max-height: 699px) {
+@media (width < 1040px), (height < 700px) {
   html[data-motion] [data-scene='s2'] .team__veil {
     clip-path: inset(0);
     transition: clip-path 1600ms linear;
