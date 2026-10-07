@@ -1,21 +1,25 @@
 ---
 // M12, the first metre of the rail: a white beam beside SCROLL, sticky at the
 // cover's foot on the rail's line. Its finished state (the full beam) is the
-// HTML; motion.ts grows it twice after load and removes it at the first
-// scroll past 40px. White, not vermilion: the cover already has its accent.
+// HTML; with motion it grows twice after load (motion.css), and motion.ts
+// removes it at the first scroll past 40px. White, not vermilion: the cover
+// already has its accent. With a scroll scene it reads `sceneText`.
 interface Props {
   text?: string;
+  sceneText?: string;
 }
 
-const { text = 'SCROLL' } = Astro.props;
+const { text = 'SCROLL', sceneText } = Astro.props;
 ---
 
 <div class="cue" aria-hidden="true" data-scroll-cue>
   <span class="cue__track">
     <span class="cue__line"></span>
-    <span class="cue__beam" data-scroll-cue-beam></span>
+    <span class="cue__beam"></span>
   </span>
-  <span class="label cue__text">{text}</span>
+  <span class="label cue__text">
+    {sceneText ? <><span class="cue__still">{text}</span><span class="cue__scene">{sceneText}</span></> : text}
+  </span>
 </div>
 
 <style>
@@ -65,5 +69,9 @@ const { text = 'SCROLL' } = Astro.props;
 
   .cue__text {
     color: var(--lapis-light);
+  }
+
+  .cue__scene {
+    display: none;
   }
 </style>

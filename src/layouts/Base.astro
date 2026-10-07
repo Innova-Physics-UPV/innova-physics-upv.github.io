@@ -6,6 +6,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/tokens.css';
 import '../styles/base.css';
+import '../styles/motion.css';
 
 type HeaderProps = Parameters<typeof Header>[0];
 
@@ -55,6 +56,10 @@ const lang = Astro.currentLocale ?? 'en';
         } catch (e) {}
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           d.setAttribute('data-motion', '');
+          // If the motion module never runs, fall back to the finished HTML.
+          document.addEventListener('DOMContentLoaded', function () {
+            if (!d.hasAttribute('data-motion-ready')) d.removeAttribute('data-motion');
+          });
         }
       })();
     </script>
@@ -71,5 +76,8 @@ const lang = Astro.currentLocale ?? 'en';
     <Header theme={headerTheme} active={active} languages={languages} />
     <slot />
     <Footer />
+    <script>
+      import '../scripts/motion';
+    </script>
   </body>
 </html>

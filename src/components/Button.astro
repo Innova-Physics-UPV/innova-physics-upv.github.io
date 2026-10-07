@@ -82,8 +82,10 @@ const { href, variant = 'primary', arrow = variant === 'text', class: className,
     transform: translateX(4px);
   }
 
-  :global(html:not([data-motion])) .button,
-  :global(html:not([data-motion])) .button__arrow {
-    transition: none;
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
   }
 </style>

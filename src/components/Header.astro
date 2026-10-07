@@ -85,6 +85,9 @@ const langs: { code: Locale; label: string; name: string }[] = [
     z-index: 30;
     border-bottom: var(--hair) solid var(--construction);
     view-transition-name: masthead;
+    /* M2: the margin gives back what the band loses, in step with it, so
+       the page's height never changes while the band tightens. */
+    transition: margin-bottom 200ms linear;
   }
 
   .masthead__inner {
@@ -120,10 +123,6 @@ const langs: { code: Locale; label: string; name: string }[] = [
     height: 32px;
   }
 
-  :global(html:not([data-motion])) .masthead__inner,
-  :global(html:not([data-motion])) .masthead__logo :global(svg) {
-    transition: none;
-  }
 
   .masthead__nav {
     display: flex;
@@ -213,7 +212,10 @@ const langs: { code: Locale; label: string; name: string }[] = [
     background: var(--figure);
   }
 
-  :global(html:not([data-motion])) .masthead__join {
-    transition: none;
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
   }
 </style>

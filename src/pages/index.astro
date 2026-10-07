@@ -22,6 +22,12 @@ const stations = (await getCollection('seasons'))
   .map((entry) => ({ id: entry.id, ...entry.data }));
 
 const open = roundIsOpen();
+
+// S4 lights the team statement word by word: each word is its own span, its
+// space inside it (compressHTML drops whitespace between elements).
+const statement =
+  'Few universities let undergraduates near an accelerator. We are students from different degrees at the UPV who design, simulate and build one, and we aim to publish every step so other teams can build their own.';
+const words = statement.split(' ');
 ---
 
 <Base active="home">
@@ -29,6 +35,8 @@ const open = roundIsOpen();
     kicker="INNOVA PHYSICS UPV · VALÈNCIA · SINCE 2023"
     shout={['BUILD THE', 'BEAM']}
     home
+    scene="s1"
+    cueScene="SCROLL TO SWITCH ON THE SOURCE"
     lead="A student team at the Universitat Politècnica de València designing and building ALOHA, an open-hardware tabletop electron accelerator."
   >
     <Fragment slot="actions">
@@ -40,14 +48,15 @@ const open = roundIsOpen();
 
   <main data-theme="gesso">
     <!-- The team: from here on, paper. -->
-    <section id="team" class="team" aria-labelledby="team-title">
+    <section id="team" class="team" aria-labelledby="team-title" data-scene="s2">
+      <div class="team__track" data-track>
+      <div class="team__stage" data-stage>
       <div class="team__wrap">
         <div class="team__text">
           <p class="label muted">THE TEAM</p>
           <h2 id="team-title" class="headline team__title">Particle accelerators, within reach of students</h2>
           <p class="team__statement measure" data-statement>
-            Few universities let undergraduates near an accelerator. We are students from different degrees at the UPV who
-            design, simulate and build one, and we aim to publish every step so other teams can build their own.
+            {words.map((word, i) => <span class="w">{i < words.length - 1 ? `${word} ` : word}</span>)}
           </p>
           <p class="label muted team__facts">FOUNDED 2023 · 30+ STUDENTS · 4 DEPARTMENTS</p>
         </div>
@@ -66,6 +75,8 @@ const open = roundIsOpen();
           <Caption lead="The team." text="[SEASON]." />
         </figure>
       </div>
+      </div>
+      </div>
     </section>
 
     <!-- Our story: one beamline, season by season. -->
@@ -79,7 +90,7 @@ const open = roundIsOpen();
           </p>
           <MarkerKey />
         </div>
-        <Rail stations={stations} />
+        <Rail stations={stations} projector />
         <p class="story__past">
           <Button href="/seasons/" variant="text">PAST SEASONS · IP-0 TO IP-2</Button>
         </p>

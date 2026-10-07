@@ -3,22 +3,26 @@
 // column; the beam, 8px wide and centred 36px from the content edge, lives in
 // the wrapper of the seasons it has already crossed and ends 12px into NOW.
 // Its finished state, drawn to NOW, is the HTML: motion.ts runs it down with
-// the reading (M4) and lights the seasons it reaches (M8).
+// the reading (M4) and lights the seasons it reaches (M8). With `projector`,
+// wide screens move the pictures into a sticky column at double size (S3).
 import Season, { type Station } from './Season.astro';
+import StationPicture from './StationPicture.astro';
 
 interface Props {
   stations: Station[];
   /** Draw the beam to the station marked `now`. */
   beam?: boolean;
+  /** S3: the pictures in a sticky column on wide screens. */
+  projector?: boolean;
 }
 
-const { stations, beam = true } = Astro.props;
+const { stations, beam = true, projector = false } = Astro.props;
 const nowIndex = stations.findIndex((s) => s.now);
 const passed = beam && nowIndex > 0 ? stations.slice(0, nowIndex) : stations;
 const ahead = beam && nowIndex > 0 ? stations.slice(nowIndex) : [];
 ---
 
-<div class="rail" data-rail>
+<div class:list={['rail', projector && 'rail--has-projector']} data-rail>
   <span class="rail__line" aria-hidden="true"></span>
   <div class="rail__passed">
     {ahead.length > 0 && <span class="rail__beam" aria-hidden="true" data-rail-beam></span>}
@@ -30,6 +34,19 @@ const ahead = beam && nowIndex > 0 ? stations.slice(nowIndex) : [];
         {ahead.map((station) => (
           <Season station={station} />
         ))}
+      </div>
+    )
+  }
+  {
+    projector && (
+      <div class="rail__projector" data-projector aria-hidden="true">
+        <div class="rail__screen">
+          {stations.map((station, i) => (
+            <div class:list={['rail__slide', i === 0 && 'is-active']} data-slide>
+              <StationPicture station={station} idPrefix="projector-" large />
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
@@ -73,5 +90,10 @@ const ahead = beam && nowIndex > 0 ? stations.slice(nowIndex) : [];
     width: var(--beam);
     background: var(--accent);
     clip-path: inset(0 0 calc((1 - var(--y, 1)) * 100%) 0);
+  }
+
+  /* S3 is off unless motion.ts turns it on for a wide screen. */
+  .rail__projector {
+    display: none;
   }
 </style>

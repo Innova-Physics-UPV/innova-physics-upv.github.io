@@ -29,10 +29,20 @@ const sizes = '(min-width: 1024px) 64vw, 100vw';
     <span class="source__beam" aria-hidden="true" data-source-beam>
       <Picture src={beam} alt="" formats={['avif', 'webp']} widths={widths} sizes={sizes} priority class="source__layer" />
     </span>
-    <ol class="source__labels label" aria-hidden="true" data-source-labels>
-      <li class="source__label source__label--cathode" data-step="1">CATHODE AND WEHNELT</li>
-      <li class="source__label source__label--anode" data-step="2">ANODE · 30 kV</li>
-      <li class="source__label source__label--focus" data-step="3">TELEFOCUS · THE FOCUS LIES FAR BEYOND THE ANODE</li>
+    <!-- S1 names each electrode as the beam passes it (positions from the
+         canvas's "Scroll scenes" board, as fractions of the frame). -->
+    <ol class="source__labels" aria-hidden="true">
+      <li class="source__label source__label--1">
+        <span class="source__dot" style="left: 21.5%; top: 37.5%"></span>
+        <span class="source__tag" style="left: 4%; top: 20%">CATHODE AND WEHNELT</span>
+      </li>
+      <li class="source__label source__label--2">
+        <span class="source__dot" style="left: 45%; top: 26%"></span>
+        <span class="source__tag" style="left: 47%; top: 15%">ANODE · 30 kV</span>
+      </li>
+      <li class="source__label source__label--3">
+        <span class="source__tag" style="left: 50%; top: 86%">TELEFOCUS · THE FOCUS LIES FAR BEYOND THE ANODE</span>
+      </li>
     </ol>
   </div>
   <figcaption class="source__caption caption">
@@ -68,9 +78,47 @@ const sizes = '(min-width: 1024px) 64vw, 100vw';
     opacity: 0.16;
   }
 
-  /* The electrode labels belong to S1: shown only while it runs. */
+  /* The electrode labels belong to S1: shown only while it runs
+     (motion.css). Positions are fractions of the frame. */
   .source__labels {
     display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    inset: 0;
+    color: var(--lead-white);
+  }
+
+  .source__label {
+    position: absolute;
+    inset: 0;
+  }
+
+  .source__dot,
+  .source__tag {
+    position: absolute;
+    transform-origin: 0 0;
+  }
+
+  .source__dot {
+    width: var(--beam);
+    height: var(--beam);
+    margin: -4px 0 0 -4px;
+    background: var(--lead-white);
+  }
+
+  /* A lead-white label box with ultramarine type (8.5:1), so a label stays
+     legible where it crosses the wireframe. */
+  .source__tag {
+    padding: 2px 6px;
+    background: var(--lead-white);
+    color: var(--ultramarine);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
   }
 
   .source__caption {

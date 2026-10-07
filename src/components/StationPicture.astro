@@ -1,0 +1,71 @@
+---
+// A station's one picture: a photo, a machine figure or the art line, with
+// its Courier caption. Used in the station itself and, at double size, in
+// the story's sticky picture column (S3).
+import { Picture } from 'astro:assets';
+import Caption from './Caption.astro';
+import Lattice from './Lattice.astro';
+import { aloha0Section, aloha1Section } from '../data/figures';
+import type { Station } from './Season.astro';
+
+interface Props {
+  station: Station;
+  /** Makes the hatch pattern's id unique when a station is drawn twice. */
+  idPrefix?: string;
+  large?: boolean;
+}
+
+const { station, idPrefix = '', large = false } = Astro.props;
+const figures = { 'aloha-0-section': aloha0Section, 'aloha-1-section': aloha1Section };
+const widths = large ? [800, 1200, 1600] : [520, 780, 1040, 1560];
+const sizes = large ? '(min-width: 1024px) 56vw, 100vw' : '(min-width: 760px) 520px, 100vw';
+const picture = station.picture;
+---
+
+{picture?.kind === 'art' && <p class:list={['aside', 'station-picture__art', large && 'station-picture__art--large']}>{picture.text}</p>}
+{
+  picture?.kind === 'photo' && (
+    <figure class="station-picture">
+      <Picture src={picture.src} alt={picture.alt} formats={['avif', 'webp']} widths={widths} sizes={sizes} class="station-picture__photo" />
+      <span class="station-picture__alt">{picture.alt}</span>
+      {station.caption && <Caption {...station.caption} />}
+    </figure>
+  )
+}
+{
+  picture?.kind === 'figure' && (
+    <figure class="station-picture">
+      <Lattice figure={figures[picture.figure]} id={`${idPrefix}${station.id}`} />
+      <span class="station-picture__alt">{figures[picture.figure].label}</span>
+      {station.caption && <Caption {...station.caption} />}
+    </figure>
+  )
+}
+
+<style>
+  .station-picture {
+    min-width: 0;
+  }
+
+  /* The picture's text alternative as plain text: shown (to screen readers
+     only) when the S3 column takes the image out of the station. */
+  .station-picture__alt {
+    display: none;
+  }
+
+  .station-picture :global(.station-picture__photo) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .station-picture__art {
+    font-size: var(--fs-art);
+    line-height: 1.05;
+  }
+
+  .station-picture__art--large {
+    font-size: clamp(56px, 6vw, 96px);
+  }
+</style>

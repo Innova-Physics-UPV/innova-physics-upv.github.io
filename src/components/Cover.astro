@@ -1,7 +1,10 @@
 ---
 // The cover of every page: ultramarine, the page's one shout (Heros Cn Bold
 // capitals), a kicker, a lead and its actions, and on the right a figure that
-// bleeds off the right edge. The scroll cue (M12) sits at its foot.
+// bleeds off the right edge. The scroll cue (M12) sits at its foot. With
+// `scene="s1"` the cover becomes a pinned scroll scene: a tall track holds a
+// sticky stage (motion.ts and motion.css); without motion it is the plain
+// cover, its finished frame.
 import ScrollCue from './ScrollCue.astro';
 
 interface Props {
@@ -13,29 +16,42 @@ interface Props {
   /** The home's shout is larger. */
   home?: boolean;
   cue?: string;
+  /** The cue's words while a scroll scene runs. */
+  cueScene?: string;
+  scene?: 's1';
   class?: string;
 }
 
-const { id = 'cover', kicker, shout, lead, home = false, cue, class: className } = Astro.props;
+const { id = 'cover', kicker, shout, lead, home = false, cue, cueScene, scene, class: className } = Astro.props;
 const titleId = `${id}-title`;
 const hasFigure = Astro.slots.has('figure');
 ---
 
-<section class:list={['cover', className]} id={id} data-theme="ultramarine" aria-labelledby={titleId}>
-  <div class="cover__inner">
-    <p class="label muted">{kicker}</p>
-    <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']}>
-      {shout.map((line) => <span class="cover__line">{line}</span>)}
-    </h1>
-    <div class="cover__body">
-      <div class="cover__text">
-        {lead && <p class="lead">{lead}</p>}
-        {Astro.slots.has('actions') && <div class="cover__actions"><slot name="actions" /></div>}
-        <slot />
+<section
+  class:list={['cover', scene && `cover--${scene}`, className]}
+  id={id}
+  data-theme="ultramarine"
+  aria-labelledby={titleId}
+  data-scene={scene}
+>
+  <div class="cover__track" data-track>
+    <div class="cover__stage" data-stage>
+      <div class="cover__inner">
+        <p class="label muted" data-words>{kicker}</p>
+        <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']} data-words>
+          {shout.map((line) => <span class="cover__line">{line}</span>)}
+        </h1>
+        <div class="cover__body">
+          <div class="cover__text" data-words>
+            {lead && <p class="lead">{lead}</p>}
+            {Astro.slots.has('actions') && <div class="cover__actions"><slot name="actions" /></div>}
+            <slot />
+          </div>
+          {hasFigure && <div class="cover__figure"><slot name="figure" /></div>}
+        </div>
+        <ScrollCue text={cue} sceneText={cueScene} />
       </div>
-      {hasFigure && <div class="cover__figure"><slot name="figure" /></div>}
     </div>
-    <ScrollCue text={cue} />
   </div>
   <div class="cover__foot" aria-hidden="true" data-cover-foot></div>
 </section>

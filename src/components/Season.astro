@@ -2,12 +2,9 @@
 // One station on the rail: its marker, label, title, two or three lines, an
 // optional link or note, then one picture (a photo, a machine figure or the
 // art line). Text and one picture, nothing else.
-import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import Caption from './Caption.astro';
 import Button from './Button.astro';
-import Lattice from './Lattice.astro';
-import { aloha0Section, aloha1Section } from '../data/figures';
+import StationPicture from './StationPicture.astro';
 
 export interface Station {
   id: string;
@@ -32,7 +29,6 @@ interface Props {
 
 const { station } = Astro.props;
 const titleId = `station-${station.id}-title`;
-const figures = { 'aloha-0-section': aloha0Section, 'aloha-1-section': aloha1Section };
 
 // On the current season the word NOW is inked.
 const parts = station.season.split(' · ');
@@ -60,29 +56,10 @@ const last = parts.pop();
     {station.placeholder && <p class="label muted station__more">PLACEHOLDER · COPY TO COME FROM THE TEAM</p>}
   </div>
   {
-    station.picture?.kind === 'art' && <p class="aside station__art">{station.picture.text}</p>
-  }
-  {
-    station.picture?.kind === 'photo' && (
-      <figure class="station__figure" data-station-picture>
-        <Picture
-          src={station.picture.src}
-          alt={station.picture.alt}
-          formats={['avif', 'webp']}
-          widths={[520, 780, 1040, 1560]}
-          sizes="(min-width: 760px) 520px, 100vw"
-          class="station__photo"
-        />
-        {station.caption && <Caption {...station.caption} />}
-      </figure>
-    )
-  }
-  {
-    station.picture?.kind === 'figure' && (
-      <figure class="station__figure" data-station-picture>
-        <Lattice figure={figures[station.picture.figure]} id={station.id} />
-        {station.caption && <Caption {...station.caption} />}
-      </figure>
+    station.picture && (
+      <div class="station__picture" data-station-picture>
+        <StationPicture station={station} />
+      </div>
     )
   }
 </article>
@@ -151,23 +128,9 @@ const last = parts.pop();
     margin-top: 20px;
   }
 
-  .station__art {
-    flex: 999 1 300px;
-    max-width: 520px;
-    font-size: var(--fs-art);
-    line-height: 1.05;
-  }
-
-  .station__figure {
+  .station__picture {
     flex: 999 1 300px;
     max-width: 520px;
     min-width: 0;
-  }
-
-  .station__figure :global(.station__photo) {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    object-fit: cover;
   }
 </style>

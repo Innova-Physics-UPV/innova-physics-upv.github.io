@@ -1,0 +1,359 @@
+/* Motion: start states and scene layouts. Everything here hangs on
+   html[data-motion], which the head script sets only when the reader allows
+   motion (and drops if motion.ts never runs). Without it the page is its
+   finished HTML: nothing pins, nothing is veiled, the beam is drawn to NOW.
+   The values (--a, --y, --reveal, ...) come from motion.ts. */
+
+/* While motion.ts measures, the scenes stand in their untransformed layout. */
+.is-measuring .source__frame,
+.is-measuring [data-words],
+.is-measuring .team__photo,
+.is-measuring .team__figure > figcaption {
+  transform: none !important;
+  clip-path: none !important;
+  transition: none !important;
+}
+
+.masthead.is-measuring,
+.masthead.is-measuring * {
+  transition: none !important;
+}
+
+/* ── M12: the scroll cue grows twice, 1200ms each with a 1000ms hold ──── */
+@keyframes cue-grow {
+  0% {
+    transform: scaleY(0);
+  }
+  54.545%,
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+html[data-motion] .cue__beam {
+  animation: cue-grow 2200ms linear 2200ms 2 both;
+}
+
+html[data-motion] .cue__still {
+  display: none;
+}
+
+html[data-motion] .cue__scene {
+  display: inline;
+}
+
+/* ── S1: the cover scene ─────────────────────────────────────────────── */
+html[data-motion] .cover--s1 .cover__track {
+  height: 200vh;
+}
+
+html[data-motion] .cover--s1 .cover__stage {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100svh - var(--header-h));
+  overflow: clip;
+}
+
+/* 0 to 20%: the words scroll away... */
+html[data-motion] .cover--s1 [data-words] {
+  transform: translateY(calc(var(--s1-out, 0px) * var(--w, 0)));
+}
+
+/* ...then, 20 to 40%, the figure grows from its column to full bleed. */
+html[data-motion] .cover--s1 .source__frame {
+  z-index: 2;
+  transform-origin: 0 0;
+  transform: translate(calc(var(--s1-tx, 0px) * var(--a, 0)), calc(var(--s1-ty, 0px) * var(--a, 0)))
+    scale(calc(1 + (var(--s1-s, 1) - 1) * var(--a, 0)));
+}
+
+/* 40 to 90%: the beam switches on, cathode to edge. Before, it is off. */
+html[data-motion] .cover--s1 .source__beam {
+  clip-path: inset(0 calc((1 - var(--reveal, 0)) * 100%) 0 0);
+}
+
+/* Each electrode is named as the beam passes it: a jump, not a fade. */
+html[data-motion] .cover--s1 .source__labels {
+  display: block;
+}
+
+html[data-motion] .cover--s1 .source__label {
+  visibility: hidden;
+}
+
+html[data-motion] .cover--s1 :is([data-step='1'], [data-step='2'], [data-step='3']) .source__label--1,
+html[data-motion] .cover--s1 :is([data-step='2'], [data-step='3']) .source__label--2,
+html[data-motion] .cover--s1 [data-step='3'] .source__label--3 {
+  visibility: visible;
+}
+
+/* The labels ride the grown figure but keep their own size. */
+html[data-motion] .cover--s1 .source__dot,
+html[data-motion] .cover--s1 .source__tag {
+  transform: scale(var(--s1-inv, 1));
+}
+
+/* The caption leaves while the figure grows and comes back at the hold. */
+html[data-motion] .cover--s1 [data-caption='off'] .source__caption {
+  visibility: hidden;
+}
+
+html[data-motion] .cover--s1 [data-caption='hold'] .source__caption {
+  position: absolute;
+  z-index: 3;
+  left: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
+  right: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
+  bottom: 16px;
+  padding: 0;
+}
+
+/* On the figure, the caption's two parts stack on the left (TELEFOCUS
+   starts at half the width, so they never meet), each on a plate of the
+   ground so the wireframe never runs through the words. */
+html[data-motion] .cover--s1 [data-caption='hold'] .source__caption {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+html[data-motion] .cover--s1 [data-caption='hold'] .source__caption > span {
+  max-width: max(40%, 16rem);
+  padding: 4px 8px;
+  background: var(--ultramarine);
+}
+
+/* The cue sits on the rail's line at the stage's foot, its words wrapping
+   inside the gutters on the narrowest phones. */
+html[data-motion] .cover--s1 .cue {
+  position: absolute;
+  left: max(var(--pad), calc((100% - var(--content)) / 2 + var(--pad)));
+  right: var(--pad);
+  bottom: 24px;
+  width: auto;
+  margin: 0;
+}
+
+@media (max-width: 719px) {
+  html[data-motion] .cover--s1 .cover__track {
+    height: 150vh;
+  }
+
+  /* On a phone the render is a band across the middle of the stage: the
+     caption takes the empty ground above it. */
+  html[data-motion] .cover--s1 [data-caption='hold'] .source__caption {
+    top: 16px;
+    bottom: auto;
+  }
+}
+
+/* Below 1024px the labels wrap, so they neither run off the screen nor
+   meet each other on the narrower render. */
+@media (max-width: 1023px) {
+  html[data-motion] .cover--s1 .source__tag {
+    white-space: normal;
+    width: max-content;
+    max-width: 40vw;
+  }
+}
+
+/* Below 360px the render is too small to carry its labels and caption: the
+   cover stays its finished frame, nothing pins (motion.ts skips S1 too). */
+@media (max-width: 359px) {
+  html[data-motion] .cover--s1 .cover__track {
+    height: auto;
+  }
+
+  html[data-motion] .cover--s1 .cover__stage {
+    position: static;
+    height: auto;
+  }
+
+  html[data-motion] .cover--s1 [data-words],
+  html[data-motion] .cover--s1 .source__frame {
+    transform: none;
+  }
+
+  html[data-motion] .cover--s1 .source__beam {
+    clip-path: none;
+  }
+
+  html[data-motion] .cover--s1 .source__labels,
+  html[data-motion] .cover--s1 .cue__scene {
+    display: none;
+  }
+
+  html[data-motion] .cover--s1 .cue__still {
+    display: inline;
+  }
+
+  html[data-motion] .cover--s1 .cue {
+    position: sticky;
+    bottom: 24px;
+    margin-top: 40px;
+  }
+}
+
+/* ── S2: the team photo is restored, sits beside the text, then grows to
+   full bleed. 220vh: 1.2 screens of pinned scroll. Only where the text and
+   the photo sit side by side and the pinned window can hold them (the same
+   query is in motion.ts); everywhere else, M3. ─────────────────────────── */
+@media (min-width: 1024px) and (min-height: 700px) {
+  html[data-motion] [data-scene='s2'] .team__track {
+    height: 220vh;
+  }
+
+  /* It pins under the tightened masthead, which is compact by now. */
+  html[data-motion] [data-scene='s2'] .team__stage {
+    position: sticky;
+    top: var(--header-h-compact, var(--header-h));
+    height: calc(100svh - var(--header-h-compact, var(--header-h)));
+  }
+
+  /* Inside the pinned window the row sits centred, with a small margin
+     instead of the section's full space above it. */
+  html[data-motion] [data-scene='s2'] .team__wrap {
+    min-height: 100%;
+    padding-block: clamp(24px, 4vh, 48px);
+    align-content: center;
+  }
+
+  html[data-motion] [data-scene='s2'] .team__photo {
+    z-index: 3;
+    transform-origin: 0 0;
+    transform: translate(calc(var(--s2-tx, 0px) * var(--a, 0)), calc(var(--s2-ty, 0px) * var(--a, 0)))
+      scale(calc(1 + (var(--s2-s, 1) - 1) * var(--a, 0)));
+    clip-path: inset(calc(var(--s2-cy, 0px) * var(--a, 0)) calc(var(--s2-cx, 0px) * var(--a, 0)));
+  }
+
+  /* The hatched veil (6px of every 8px, kept at that pitch on screen while
+     the photo grows) withdraws left to right before the photo grows. */
+  html[data-motion] [data-scene='s2'] .team__veil {
+    clip-path: inset(0 0 0 calc(var(--veil, 0) * 100%));
+    background: linear-gradient(90deg, var(--page) 75%, transparent 75%) 0 0 /
+      calc(8px / (1 + (var(--s2-s, 1) - 1) * var(--a, 0))) 100% repeat-x;
+  }
+
+  /* At the hold the caption lands on the page below the photo. It moves by
+     a measured translation, so the layout (and the centred photo) never
+     shifts under it. */
+  html[data-motion] [data-scene='s2'] [data-hold] .team__figure > figcaption {
+    position: relative;
+    z-index: 4;
+    transform: translateY(var(--s2-cap-y, 0px));
+  }
+}
+
+/* ── M3 (phones, tablets, short windows): the veil withdraws once, when the
+   photo scrolls in ───────────────────────────────────────────────────── */
+@media (max-width: 1023px), (max-height: 699px) {
+  html[data-motion] [data-scene='s2'] .team__veil {
+    clip-path: inset(0);
+    transition: clip-path 1600ms linear;
+  }
+
+  html[data-motion] [data-scene='s2'] .team__photo.is-restored .team__veil {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+/* ── S3 (wide screens): the story's pictures in a sticky column ─────── */
+@media (min-width: 1024px) {
+  /* --anchor: a station's title line, 48px below its top. Each picture
+     switches, and the first one starts, centred on that line. */
+  html[data-motion] .rail--has-projector {
+    --screen-h: min(72vh, 640px);
+    --anchor: 48px;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: 80px;
+    align-items: start;
+  }
+
+  /* Room under the last station, so its picture follows NEXT down while it
+     passes the centre; the rail's construction line stops at NEXT. */
+  html[data-motion] .rail--has-projector .rail__ahead {
+    padding-bottom: calc(var(--screen-h) / 2 + var(--anchor));
+  }
+
+  html[data-motion] .rail--has-projector .rail__line {
+    bottom: calc(var(--screen-h) / 2 + var(--anchor));
+  }
+
+  html[data-motion] .rail--has-projector .rail__passed {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  html[data-motion] .rail--has-projector .rail__ahead {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  /* The station's own picture leaves the layout (its image is never
+     loaded), but its text alternative and caption stay with the station for
+     screen readers: the column itself is aria-hidden. */
+  html[data-motion] .rail--has-projector [data-station-picture] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  html[data-motion] .rail--has-projector [data-station-picture] :is(picture, img, svg) {
+    display: none;
+  }
+
+  html[data-motion] .rail--has-projector [data-station-picture] .station-picture__alt {
+    display: inline;
+  }
+
+  /* The column starts lifted by half its height, so the first picture is
+     centred on the first station's title line and travels up with it until
+     it reaches the centre, the way the last one follows NEXT down. The lifted
+     part is transparent: only the first picture shows there. */
+  html[data-motion] .rail--has-projector .rail__projector {
+    display: block;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    margin-top: calc(var(--anchor) - var(--screen-h) / 2);
+  }
+
+  /* The picture column is centred in the window below the (tightened)
+     masthead. */
+  html[data-motion] .rail__screen {
+    position: sticky;
+    top: calc(
+      var(--header-h-compact, var(--header-h)) +
+        (100svh - var(--header-h-compact, var(--header-h)) - var(--screen-h)) / 2
+    );
+    height: var(--screen-h);
+  }
+
+  /* The picture jumps when its season reaches the centre of the window;
+     each picture sits centred in the column. */
+  html[data-motion] .rail__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    visibility: hidden;
+  }
+
+  html[data-motion] .rail__slide.is-active {
+    visibility: visible;
+  }
+}
+
+/* ── S4: the team statement lights up word by word ───────────────────── */
+html[data-motion] [data-statement] .w {
+  color: var(--muted);
+}
+
+html[data-motion] [data-statement] .w.is-lit {
+  color: var(--ink);
+}
