@@ -1,24 +1,9 @@
 ---
 // "With the support of": the partners in one ink (bone black, white at
-// night) in a single row on the page. Vector marks take currentColor; iTEAM
-// and Edwards are white rasters for now, so they are drawn as a mask filled
-// with the ink until the team sends one-ink vectors.
+// night) in a single row on the page.
 import { partners } from '../../data/partners';
 import Button from '../Button.astro';
-import Etsit from '../../assets/logos/etsit.svg';
-import Iumpa from '../../assets/logos/partners/iumpa.svg';
-
-const vectors: Record<string, typeof Etsit> = { ETSIT: Etsit, IUMPA: Iumpa };
-const masks: Record<string, { src: string; ratio: string }> = {
-  iTEAM: { src: '/partners/iteam.svg', ratio: '2352 / 592' },
-  Edwards: { src: '/partners/edwards.svg', ratio: '2368 / 477' },
-};
-const alt: Record<string, string> = {
-  ETSIT: 'ETSIT, Telecom UPV VLC',
-  IUMPA: 'IUMPA, Instituto Universitario de Matemática Pura y Aplicada',
-  iTEAM: 'iTEAM',
-  Edwards: 'Edwards',
-};
+import PartnerMark from '../PartnerMark.astro';
 ---
 
 <section class="partner-row" aria-labelledby="partners-title">
@@ -29,28 +14,13 @@ const alt: Record<string, string> = {
     </div>
     <ul class="partner-row__list">
       {
-        partners.map((p) => {
-          const Vector = vectors[p.name];
-          const mask = masks[p.name];
-          return (
-            <li class="partner-row__item">
-              <a href={p.url} rel="noopener" class="partner-row__link">
-                {Vector ? (
-                  <Vector role="img" aria-label={alt[p.name] ?? p.name} class="partner-row__mark" />
-                ) : mask ? (
-                  <span
-                    role="img"
-                    aria-label={alt[p.name] ?? p.name}
-                    class="partner-row__mark partner-row__mask"
-                    style={`--mask: url('${mask.src}'); aspect-ratio: ${mask.ratio};`}
-                  />
-                ) : (
-                  <span class="partner-row__name">{p.name}</span>
-                )}
-              </a>
-            </li>
-          );
-        })
+        partners.map((p) => (
+          <li class="partner-row__item">
+            <a href={p.url} rel="noopener" class="partner-row__link">
+              <PartnerMark name={p.name} class="partner-row__mark" />
+            </a>
+          </li>
+        ))
       }
     </ul>
   </div>
@@ -93,21 +63,7 @@ const alt: Record<string, string> = {
     color: var(--mark-one-ink);
   }
 
-  .partner-row__mark {
-    display: block;
+  .partner-row__link :global(.partner-row__mark) {
     height: 44px;
-    width: auto;
-  }
-
-  .partner-row__mask {
-    background: currentColor;
-    -webkit-mask: var(--mask) center / contain no-repeat;
-    mask: var(--mask) center / contain no-repeat;
-  }
-
-  .partner-row__name {
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 28px;
   }
 </style>

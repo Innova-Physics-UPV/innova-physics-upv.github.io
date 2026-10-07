@@ -50,3 +50,13 @@ Page copy (cover, list title, closing sheet): `src/data/research.ts`.
 | Cover photo, the team at CERN (consent of the seven people pending) | `src/assets/photos/team-at-cern-2026.webp` |
 | Department logos (from the canvas) | `src/assets/logos/departments/` |
 | Team members: one file each, `consent: true` required | `src/content/team/*.yaml` (only Marc for now) |
+
+## Partners (`/partners/`)
+
+| What | Where |
+| --- | --- |
+| Cover, benefits notes, dossier sheet | `src/data/partners-page.ts` |
+| Partners (only those who have agreed) | `src/data/partners.ts` |
+| Tiers and benefits (no amounts on the page) | `src/data/sponsorship.ts` |
+| The dossier PDF (the download hides itself if the file is missing) | `public/dossier.pdf` |
+| One-ink vector logos for iTEAM and Edwards (masks of the white rasters until then) | `src/components/PartnerMark.astro` |

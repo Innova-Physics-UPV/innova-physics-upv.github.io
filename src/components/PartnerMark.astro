@@ -1,0 +1,62 @@
+---
+// A partner's mark in one ink: it takes the colour of its parent
+// (--mark-one-ink: bone black by day, white at night). Vector marks use
+// currentColor; iTEAM and Edwards are white rasters for now, drawn as a mask
+// filled with the ink until the team sends one-ink vectors. A partner without
+// a mark shows its name.
+import Etsit from '../assets/logos/etsit.svg';
+import Iumpa from '../assets/logos/partners/iumpa.svg';
+
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const vectors: Record<string, typeof Etsit> = { ETSIT: Etsit, IUMPA: Iumpa };
+const masks: Record<string, { src: string; ratio: string }> = {
+  iTEAM: { src: '/partners/iteam.svg', ratio: '2352 / 592' },
+  Edwards: { src: '/partners/edwards.svg', ratio: '2368 / 477' },
+};
+const labels: Record<string, string> = {
+  ETSIT: 'ETSIT, Telecom UPV VLC',
+  IUMPA: 'IUMPA, Instituto Universitario de Matemática Pura y Aplicada',
+};
+const Vector = vectors[name];
+const mask = masks[name];
+const label = labels[name] ?? name;
+---
+
+{
+  Vector ? (
+    <Vector role="img" aria-label={label} class:list={['mark', className]} />
+  ) : mask ? (
+    <span
+      role="img"
+      aria-label={label}
+      class:list={['mark', 'mark--mask', className]}
+      style={`--mask: url('${mask.src}'); aspect-ratio: ${mask.ratio};`}
+    />
+  ) : (
+    <span class:list={['mark--name', className]}>{name}</span>
+  )
+}
+
+<style>
+  .mark {
+    display: block;
+    width: auto;
+  }
+
+  .mark--mask {
+    background: currentColor;
+    -webkit-mask: var(--mask) center / contain no-repeat;
+    mask: var(--mask) center / contain no-repeat;
+  }
+
+  .mark--name {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+  }
+</style>

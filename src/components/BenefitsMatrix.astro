@@ -1,0 +1,104 @@
+---
+// What each tier brings: a real table, one benefit per row, a disc where a
+// tier includes it. Benefits are cumulative: each starts at its tier and
+// every tier above gets it too (src/data/sponsorship.ts). No amounts here:
+// they are in the dossier.
+import { benefits, tiers } from '../data/sponsorship';
+
+interface Props {
+  caption: string;
+}
+
+const { caption } = Astro.props;
+const rank = (name: string) => tiers.findIndex((t) => t.name === name);
+---
+
+<div class="matrix-wrap">
+  <table class="matrix">
+    <caption class="visually-hidden">{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col" class="label matrix__benefit">BENEFIT</th>
+        {tiers.map((t) => <th scope="col" class="label matrix__tier">{t.name.toUpperCase()}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        benefits.map((b) => (
+          <tr>
+            <th scope="row">{b.text}</th>
+            {tiers.map((_, i) => (
+              <td>
+                {i >= rank(b.from) ? (
+                  <span class="matrix__dot" role="img" aria-label="Included" />
+                ) : (
+                  <span class="visually-hidden">Not included</span>
+                )}
+              </td>
+            ))}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  /* Relative, so the hidden "Not included" labels (absolutely placed) stay
+     inside the scroller instead of widening the page on a phone. */
+  .matrix-wrap {
+    position: relative;
+    margin-top: 48px;
+    overflow-x: auto;
+  }
+
+  .matrix {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    border-top: var(--hair) solid var(--ink);
+  }
+
+  .matrix th,
+  .matrix td {
+    padding: 14px 0;
+  }
+
+  .matrix thead th {
+    font-weight: 400;
+  }
+
+  .matrix__benefit {
+    padding-right: 16px;
+    text-align: left;
+    color: var(--muted);
+  }
+
+  .matrix__tier {
+    width: 112px;
+    text-align: center;
+  }
+
+  .matrix tbody tr {
+    border-top: 1px solid var(--line);
+  }
+
+  .matrix tbody th {
+    padding-right: 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .matrix td {
+    text-align: center;
+  }
+
+  .matrix__dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ink);
+    vertical-align: middle;
+  }
+</style>

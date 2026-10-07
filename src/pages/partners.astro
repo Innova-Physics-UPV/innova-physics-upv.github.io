@@ -1,0 +1,205 @@
+---
+// /partners/: the tiers as a figure on the cover, what each tier brings,
+// this season's partners in one ink, and the dossier as the closing sheet.
+// Partners in src/data/partners.ts (only those who have agreed), tiers and
+// benefits in src/data/sponsorship.ts; no amounts on the page.
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import Base from '../layouts/Base.astro';
+import Cover from '../components/Cover.astro';
+import Section from '../components/Section.astro';
+import Sheet from '../components/Sheet.astro';
+import Button from '../components/Button.astro';
+import BenefitsMatrix from '../components/BenefitsMatrix.astro';
+import PartnerMark from '../components/PartnerMark.astro';
+import { partners } from '../data/partners';
+import { tiers } from '../data/sponsorship';
+import { partnersPage as t } from '../data/partners-page';
+import { CONTACT_EMAIL, DOSSIER_URL } from '../consts';
+
+// The download shows only when the PDF is really there.
+const hasDossier = existsSync(join(process.cwd(), 'public', DOSSIER_URL));
+
+// Tier heights on the cover: each tier a longer line, Higgs the longest.
+const heights = [22, 44, 70, 100];
+
+// This season's partners, top tier first; empty tiers are left out.
+const groups = [...tiers]
+  .reverse()
+  .map((tier) => ({ tier: tier.name, members: partners.filter((p) => p.tier === tier.name) }))
+  .filter((g) => g.members.length);
+---
+
+<Base title="Partners" active="partners" description={t.lead}>
+  <Cover id="partners" kicker={t.kicker} shout={['PARTNERS']} lead={t.lead}>
+    <Fragment slot="wide">
+      <div class="tiers" role="img" aria-label={t.tiersLabel}>
+        <div class="tiers__bars">
+          {
+            tiers.map((_, i) => (
+              <span
+                class:list={['tiers__bar', i === tiers.length - 1 && 'tiers__bar--top']}
+                style={`left: calc(${12.5 + 25 * i}% - var(--beam) / 2); height: ${heights[i]}%`}
+              />
+            ))
+          }
+        </div>
+      </div>
+      <div class="tiers__rule" aria-hidden="true"></div>
+      <ol class="tiers__names" aria-hidden="true">
+        {tiers.map((tier) => <li class="label">{tier.name.toUpperCase()}</li>)}
+      </ol>
+    </Fragment>
+  </Cover>
+
+  <main data-theme="gesso">
+    <Section id="benefits" kicker={t.benefits.kicker} title={t.benefits.title}>
+      <BenefitsMatrix caption={t.benefits.caption} />
+      <ul class="notes">
+        {t.benefits.notes.map((note) => <li class="label muted">{note}</li>)}
+      </ul>
+    </Section>
+
+    <Section id="ours" title={t.ours.title}>
+      {
+        groups.map((group) => (
+          <div class="group">
+            <h3 class="label muted">{group.tier.toUpperCase()}</h3>
+            <ul class="tiles">
+              {group.members.map((p) => (
+                <li>
+                  <a class="tile" href={p.url} rel="noopener">
+                    <PartnerMark name={p.name} class="tile__mark" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </Section>
+
+    <Sheet id="dossier" labelledby="dossier-title">
+      <div class="dossier__text">
+        <p class="label muted">{t.dossier.kicker}</p>
+        <h2 id="dossier-title" class="headline dossier__title">{t.dossier.title}</h2>
+        <p class="lead dossier__lead">{t.dossier.lead}</p>
+      </div>
+      <div class="dossier__actions">
+        {
+          hasDossier && (
+            <Button href={DOSSIER_URL} download={t.dossier.downloadName}>
+              {t.dossier.download}
+            </Button>
+          )
+        }
+        <Button href={`mailto:${CONTACT_EMAIL}?subject=Partnership`} variant="secondary">
+          {t.dossier.write}
+        </Button>
+      </div>
+    </Sheet>
+  </main>
+</Base>
+
+<style>
+  /* The tiers on the cover: four lines of growing height on a rule, Higgs in
+     the accent, the page's one vermilion element. */
+  .tiers {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding-inline: var(--pad);
+  }
+
+  .tiers__bars {
+    position: relative;
+    height: clamp(180px, 20vw, 280px);
+  }
+
+  .tiers__bar {
+    position: absolute;
+    bottom: 0;
+    width: var(--beam);
+    background: var(--figure);
+  }
+
+  .tiers__bar--top {
+    background: var(--accent);
+  }
+
+  .tiers__rule {
+    height: var(--rule);
+    background: var(--figure);
+  }
+
+  .tiers__names {
+    max-width: var(--content);
+    margin: 0 auto;
+    padding: 16px var(--pad) 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 24px;
+    list-style: none;
+    text-align: center;
+  }
+
+  /* Benefits */
+  .notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 40px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Our partners */
+  .group {
+    margin-top: 40px;
+  }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    gap: 24px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    padding: 24px;
+    background: var(--card);
+    color: var(--mark-one-ink);
+  }
+
+  .tile :global(.tile__mark) {
+    height: 56px;
+    max-width: 100%;
+  }
+
+  .tile:hover {
+    outline: var(--hair) solid var(--ink);
+    outline-offset: -2px;
+  }
+
+  /* The dossier */
+  .dossier__text {
+    flex: 1 1 480px;
+    max-width: 720px;
+  }
+
+  .dossier__title,
+  .dossier__lead {
+    margin-top: 20px;
+  }
+
+  .dossier__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+</style>
