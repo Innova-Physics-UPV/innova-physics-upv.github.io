@@ -60,8 +60,10 @@ const picture = station.picture;
     object-fit: cover;
   }
 
+  /* 11vw keeps the longest word, "undergraduates?", inside the column on a
+     320px phone. */
   .station-picture__art {
-    font-size: var(--fs-art);
+    font-size: min(var(--fs-art), 11vw);
     line-height: 1.05;
   }
 

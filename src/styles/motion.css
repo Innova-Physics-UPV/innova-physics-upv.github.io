@@ -198,8 +198,12 @@ html[data-motion] .cover--s1 .cue {
    the photo sit side by side and the pinned window can hold them (the same
    query is in motion.ts); everywhere else, M3. ─────────────────────────── */
 @media (min-width: 1024px) and (min-height: 700px) {
+  /* The grown photo covers the window and its clip-path crops it, but a
+     clip-path still widens the page: the track clips it sideways (clip, not
+     hidden, so the stage still sticks and the caption still shows below). */
   html[data-motion] [data-scene='s2'] .team__track {
     height: 220vh;
+    overflow-x: clip;
   }
 
   /* It pins under the tightened masthead, which is compact by now. */
