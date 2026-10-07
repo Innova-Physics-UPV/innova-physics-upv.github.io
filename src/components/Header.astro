@@ -14,7 +14,7 @@ interface Props {
   languages?: Partial<Record<Locale, string>>;
 }
 
-const { theme = 'ultramarine', active = 'home', languages = {} } = Astro.props;
+const { theme = 'ultramarine', active, languages = {} } = Astro.props;
 const current = (Astro.currentLocale ?? 'en') as Locale;
 
 const nav: { key: Section; label: string; href: string }[] = [

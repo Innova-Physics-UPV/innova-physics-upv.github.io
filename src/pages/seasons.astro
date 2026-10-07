@@ -1,0 +1,89 @@
+---
+// The museum of past seasons: IP-0 to IP-2, the seasons before this one,
+// kept to honour them even though the team is very different now. The
+// standard template: an ultramarine cover, the page on gesso, the same rail
+// as the home's story (no beam: every station here is built and done), a
+// closing sheet and the footer. The copy is a placeholder until the team
+// sends it.
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Cover from '../components/Cover.astro';
+import Button from '../components/Button.astro';
+import Rail from '../components/Rail.astro';
+import Sheet from '../components/Sheet.astro';
+
+const stations = (await getCollection('pastSeasons'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((entry) => ({ id: entry.id, ...entry.data }));
+---
+
+<Base title="Past seasons" description="The seasons of Innova Physics UPV before this one, IP-0 to IP-2.">
+  <Cover
+    id="seasons-cover"
+    kicker="INNOVA PHYSICS UPV · IP-0 TO IP-2"
+    shout={['PAST SEASONS']}
+    lead="The seasons before this one. The team is very different now; this is where we keep what those seasons built."
+  >
+    <Fragment slot="actions">
+      <Button href="/#story" variant="secondary">Back to the beamline</Button>
+    </Fragment>
+  </Cover>
+
+  <main data-theme="gesso">
+    <section id="past" class="past" aria-labelledby="past-title">
+      <div class="past__wrap">
+        <div class="past__head">
+          <p class="label muted">IP-0 TO IP-2</p>
+          <h2 id="past-title" class="headline past__title">The seasons before this one</h2>
+        </div>
+        <Rail stations={stations} beam={false} />
+      </div>
+    </section>
+
+    <Sheet labelledby="past-sheet-title">
+      <div class="past__sheet-text">
+        <p class="label muted">THE STORY GOES ON</p>
+        <h2 id="past-sheet-title" class="headline past__sheet-title">Follow the beam</h2>
+        <p class="past__sheet-body measure">This season and the next are on the beamline of the home page.</p>
+      </div>
+      <div class="past__sheet-actions">
+        <Button href="/#story">Follow the beam</Button>
+        <Button href="/join/" variant="secondary">Join the team</Button>
+      </div>
+    </Sheet>
+    <div class="past__end" aria-hidden="true"></div>
+  </main>
+</Base>
+
+<style>
+  .past__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+  }
+
+  .past__head {
+    max-width: 760px;
+  }
+
+  .past__title,
+  .past__sheet-title,
+  .past__sheet-body {
+    margin-top: 24px;
+  }
+
+  .past__sheet-text {
+    flex: 1 1 360px;
+    max-width: 560px;
+  }
+
+  .past__sheet-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .past__end {
+    height: var(--section);
+  }
+</style>
