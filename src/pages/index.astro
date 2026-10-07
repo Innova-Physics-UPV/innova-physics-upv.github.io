@@ -13,6 +13,7 @@ import MarkerKey from '../components/MarkerKey.astro';
 import Rail from '../components/Rail.astro';
 import CoverSource from '../components/home/CoverSource.astro';
 import PartnerRow from '../components/home/PartnerRow.astro';
+import TwoReadings from '../components/islands/TwoReadings.svelte';
 import team from '../assets/photos/team.webp';
 import { FORM_URL } from '../consts';
 import { round, roundIsOpen } from '../data/recruitment';
@@ -111,6 +112,7 @@ const words = statement.split(' ');
             without taking a sample.
           </p>
         </div>
+        <TwoReadings client:visible />
       </div>
     </section>
 
