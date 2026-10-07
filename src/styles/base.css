@@ -169,6 +169,12 @@ main {
   outline: none;
 }
 
+/* A section that receives the focus on arrival (an in-page link) shows no
+   ring around the whole section; the next Tab goes on from there. */
+[tabindex='-1']:focus {
+  outline: none;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

@@ -16,6 +16,7 @@
 //   S3  (wide screens) the story's pictures in a centred sticky column
 //   S4  the team statement lights up word by word
 //   M7  night falls as a raster scan when the DARK switch is pressed
+//       "Follow the beam" travels down the page instead of jumping
 //
 // Scroll-driven CSS animations would cover only part of this (holds at
 // measured markers, jumps and latches need code) and Firefox lacks them, so
@@ -445,6 +446,64 @@ if (moving && 'startViewTransition' in document) {
     document.startViewTransition(() => setMode(next)).finished.finally(() => {
       if (--scans === 0) root.removeAttribute('data-scan');
     });
+  });
+}
+
+// ── Follow the beam: an in-page link that travels instead of jumping ────
+// A link marked data-follow scrolls to its target at a constant speed, about
+// a window and a half a second (0.6 to 4 s in all), so the scenes on the way
+// play as it passes them. Any wheel, touch, key or press from the reader stops
+// it where it is. Without motion the link jumps, as any anchor does.
+if (moving) {
+  const SPEED = 1.6; // windows a second
+  const halt = ['wheel', 'touchstart', 'keydown', 'mousedown'] as const;
+  let travelling: (() => void) | null = null;
+
+  const travel = (target: HTMLElement, hash: string) => {
+    travelling?.();
+    // Where an anchor would land, under the masthead tightened by then.
+    const goal = () =>
+      Math.min(
+        target.getBoundingClientRect().top + window.scrollY - (headerCompactH || headerH) - 16,
+        root.scrollHeight - window.innerHeight,
+      );
+    const start = window.scrollY;
+    const duration = clamp(Math.abs(goal() - start) / (SPEED * window.innerHeight), 0.6, 4) * 1000;
+    const t0 = performance.now();
+    let stopped = false;
+    const stop = () => {
+      stopped = true;
+      halt.forEach((type) => window.removeEventListener(type, stop));
+      travelling = null;
+    };
+    halt.forEach((type) => window.addEventListener(type, stop, { passive: true }));
+    travelling = stop;
+    const step = (now: number) => {
+      if (stopped) return;
+      const t = clamp((now - t0) / duration);
+      window.scrollTo(0, start + (goal() - start) * t);
+      if (t < 1) {
+        requestAnimationFrame(step);
+        return;
+      }
+      stop();
+      // Arrive as an anchor would: the address shows it, and the focus moves
+      // there for the keyboard and screen readers.
+      history.pushState(null, '', hash);
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    };
+    requestAnimationFrame(step);
+  };
+
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[data-follow]');
+    if (!link || link.pathname !== window.location.pathname) return;
+    const target = link.hash && document.getElementById(decodeURIComponent(link.hash.slice(1)));
+    if (!target) return;
+    event.preventDefault();
+    travel(target, link.hash);
   });
 }
 
