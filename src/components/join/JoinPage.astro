@@ -1,0 +1,228 @@
+---
+// The Join page, in one of its languages (/join/, /es/join/, /va/join/):
+// the cover with the round's status and the team at CERN, the four
+// departments, how a candidate becomes a member, the team (only those who
+// have given their consent) and the closing sheet. The round opens and
+// closes on its own: the status is decided when the site is built.
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Cover from '../Cover.astro';
+import Button from '../Button.astro';
+import Caption from '../Caption.astro';
+import Section from '../Section.astro';
+import Sheet from '../Sheet.astro';
+import StatusChip from '../StatusChip.astro';
+import DeptCard from './DeptCard.astro';
+import PersonCard from './PersonCard.astro';
+import teamAtCern from '../../assets/photos/team-at-cern-2026.webp';
+import { FORM_URL, WAITLIST_URL } from '../../consts';
+import { round, roundIsOpen } from '../../data/recruitment';
+import { joinCopy, type JoinLocale } from '../../i18n/join';
+
+interface Props {
+  locale: JoinLocale;
+}
+
+const { locale } = Astro.props;
+const t = joinCopy[locale]!;
+const open = roundIsOpen();
+const closes = new Date(`${round.closes}T12:00:00Z`).toLocaleDateString(locale === 'en' ? 'en-GB' : locale, {
+  day: 'numeric',
+  month: 'long',
+  timeZone: 'UTC',
+});
+const action = open ? { href: FORM_URL, label: t.cover.apply } : { href: WAITLIST_URL, label: t.cover.waitlist };
+const others = (Object.keys(joinCopy) as JoinLocale[]).filter((l) => l !== locale);
+const languages = Object.fromEntries((Object.keys(joinCopy) as JoinLocale[]).map((l) => [l, joinCopy[l]!.path]));
+const people = (await getCollection('team')).filter((p) => p.data.consent).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base title={t.meta.title} description={t.meta.description} active="join" languages={languages}>
+  <Cover id="join" kicker={t.cover.kicker(round.season)} shout={t.cover.shout} lead={t.cover.lead}>
+    <p>
+      <StatusChip marker="outlined">{(open ? t.cover.open : t.cover.closed)(round.season, closes.toUpperCase())}</StatusChip>
+    </p>
+    <div class="join__actions">
+      <Button href={action.href}>{action.label}</Button>
+      {
+        others.map((l) => (
+          <Button href={joinCopy[l]!.path} variant="text" arrow={false} lang={l} hreflang={l}>
+            {joinCopy[l]!.readIn}
+          </Button>
+        ))
+      }
+    </div>
+    <div class="join__count">
+      <p class="numeral">{t.cover.count.value}</p>
+      <p class="label muted join__count-label">{t.cover.count.label}</p>
+    </div>
+    <figure slot="figure" class="join__photo">
+      <Picture
+        src={teamAtCern}
+        alt={t.cover.photo.alt}
+        formats={['avif', 'webp']}
+        widths={[640, 960, 1280, 1800]}
+        sizes="(min-width: 1040px) 56vw, 100vw"
+        class="join__img"
+        priority
+      />
+      <Caption lead={t.cover.photo.lead} text={t.cover.photo.text} />
+    </figure>
+  </Cover>
+
+  <main data-theme="gesso">
+    <Section id="departments" kicker={t.departments.kicker} title={t.departments.title}>
+      <ul class="depts">
+        {t.departments.items.map((d) => <DeptCard dept={d.key} name={d.name} body={d.body} logoLabel={d.logoLabel} />)}
+      </ul>
+    </Section>
+
+    <Section id="how" kicker={t.ladder.kicker} title={t.ladder.title}>
+      <ol class="ladder">
+        {
+          t.ladder.steps.map((step, i) => (
+            <li class="ladder__step">
+              <p class="label muted">{String(i + 1).padStart(2, '0')}</p>
+              <p class="ladder__title">{step.title}</p>
+              <p>{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </Section>
+
+    <Section id="team" kicker={t.team.kicker(round.season)} title={t.team.title}>
+      <p class="label muted team__note">{t.team.note}</p>
+      <ul class="people">
+        {people.map((person) => <PersonCard person={person} photoMissing={t.team.photoMissing} />)}
+        <li class="rest">
+          <div class="rest__tile">
+            <span class="rest__value">{t.team.rest.value}</span>
+          </div>
+          <p class="rest__text">{t.team.rest.text}</p>
+        </li>
+      </ul>
+    </Section>
+
+    <Sheet id="apply" labelledby="apply-title">
+      <div class="closing__text">
+        <p class="label muted">{t.closing.kicker(round.season)}</p>
+        <h2 id="apply-title" class="headline closing__title">{t.closing.title}</h2>
+        <p class="closing__body measure">{open ? t.closing.open(closes) : t.closing.closed(closes)}</p>
+      </div>
+      <div class="closing__actions">
+        <Button href={action.href}>{action.label}</Button>
+      </div>
+    </Sheet>
+  </main>
+</Base>
+
+<style>
+  .join__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+  }
+
+  .join__count {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: var(--hair) solid var(--construction);
+  }
+
+  .join__count-label {
+    margin-top: 16px;
+  }
+
+  .join__photo :global(.join__img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  /* Departments */
+  .depts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 24px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* How it works: four steps on the beam, the page's one vermilion element. */
+  .ladder {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 0 40px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: var(--beam) solid var(--accent);
+  }
+
+  .ladder__step {
+    padding-top: 24px;
+  }
+
+  .ladder__title {
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .ladder__step > p:last-child {
+    margin-top: 8px;
+  }
+
+  /* The team */
+  .team__note {
+    margin-top: 16px;
+  }
+
+  .people {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(45%, 200px), 1fr));
+    gap: 40px 24px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rest__tile {
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 3 / 4;
+    padding: 16px;
+    border: var(--hair) solid var(--ink);
+  }
+
+  .rest__value {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .rest__text {
+    margin-top: 12px;
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+  }
+
+  /* Closing sheet */
+  .closing__text {
+    flex: 1 1 360px;
+    max-width: 560px;
+  }
+
+  .closing__title,
+  .closing__body {
+    margin-top: 24px;
+  }
+</style>

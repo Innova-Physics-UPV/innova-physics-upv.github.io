@@ -39,3 +39,14 @@ matter is described in `src/content.config.ts`.
 | `vacuum-system` | write-up, coming | Title and expected month |
 
 Page copy (cover, list title, closing sheet): `src/data/research.ts`.
+
+## Join (`/join/`) and the team
+
+| What | Where |
+| --- | --- |
+| Every word on the page (cover, departments, ladder, team, closing sheet) | `src/i18n/join.ts` → `en` (and `es`, `ca-ES-valencia`) |
+| Departments' tools and fingerprint lines | `src/i18n/join.ts` → `departmentFacts` |
+| The round: season, closing date | `src/data/recruitment.ts`; the form in `src/consts.ts` (`FORM_URL`, `WAITLIST_URL`) |
+| Cover photo, the team at CERN (consent of the seven people pending) | `src/assets/photos/team-at-cern-2026.webp` |
+| Department logos (from the canvas) | `src/assets/logos/departments/` |
+| Team members: one file each, `consent: true` required | `src/content/team/*.yaml` (only Marc for now) |

@@ -1,0 +1,60 @@
+---
+// A department: its fingerprint logo (the Innova mark with the element of
+// its work), what it does, its tools and its fingerprint line.
+import AppliedPhysics from '../../assets/logos/departments/applied-physics.svg';
+import ElectronicsControl from '../../assets/logos/departments/electronics-control.svg';
+import TechnicalDesign from '../../assets/logos/departments/technical-design.svg';
+import Communication from '../../assets/logos/departments/communication.svg';
+import { departmentFacts } from '../../i18n/join';
+
+interface Props {
+  dept: keyof typeof departmentFacts;
+  name: string;
+  body: string;
+  logoLabel: string;
+}
+
+const { dept, name, body, logoLabel } = Astro.props;
+const logos = {
+  'applied-physics': AppliedPhysics,
+  'electronics-control': ElectronicsControl,
+  'technical-design': TechnicalDesign,
+  communication: Communication,
+};
+const Logo = logos[dept];
+const facts = departmentFacts[dept];
+---
+
+<li class="dept">
+  <Logo class="dept__logo" role="img" aria-label={logoLabel} />
+  <h3 class="station-title">{name}</h3>
+  <p>{body}</p>
+  <p class="label muted dept__tools">{facts.tools}</p>
+  <p class="label">{facts.line}</p>
+</li>
+
+<style>
+  .dept {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 28px;
+    background: var(--card);
+  }
+
+  .dept :global(.dept__logo) {
+    display: block;
+    width: auto;
+    height: 64px;
+    align-self: flex-start;
+    color: var(--ink);
+  }
+
+  .dept__tools {
+    margin-top: auto;
+  }
+
+  .dept__tools + .label {
+    margin-top: -12px;
+  }
+</style>

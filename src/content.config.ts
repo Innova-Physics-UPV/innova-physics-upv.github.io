@@ -97,4 +97,22 @@ const research = defineCollection({
     }),
 });
 
-export const collections = { seasons: station, pastSeasons: pastSeason, research };
+// A team member is one YAML file. Nobody is published without consent: a
+// file without `consent: true` is never rendered.
+const team = defineCollection({
+  loader: glob({ base: './src/content/team', pattern: '*.yaml' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      role: z.string(),
+      /** As the card prints it, e.g. DIRECTION or APPLIED PHYSICS · W. */
+      department: z.string(),
+      /** In colour, 3:4. Without one the card shows a placeholder tile. */
+      photo: image().optional(),
+      alt: z.string().optional(),
+      consent: z.boolean().default(false),
+      order: z.number().int(),
+    }),
+});
+
+export const collections = { seasons: station, pastSeasons: pastSeason, research, team };
