@@ -1,10 +1,10 @@
 ---
 // The masthead: a sticky ultramarine band, like the CERN Courier's. It
-// tightens once the cover has gone by (M2, in motion.ts). On a Pentimento
-// Logbook entry it is drawn on gesso instead.
+// tightens once the cover has gone by (M2, in motion.ts). On a research
+// item about art or conservation it is drawn on gesso instead.
 import InnovaCompact from '../assets/logos/innova-compact.svg';
 
-type Section = 'home' | 'machine' | 'logbook' | 'team' | 'join' | 'partners' | 'seasons';
+type Section = 'home' | 'machine' | 'research' | 'team' | 'join' | 'partners' | 'seasons';
 type Locale = 'en' | 'es' | 'ca-ES-valencia';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
   active?: Section;
   /** This page in each language it exists in. Missing languages show as plain text. */
   languages?: Partial<Record<Locale, string>>;
-  /** M10: a vermilion line over the hairline grows with the reading (Logbook entries). */
+  /** M10: a vermilion line over the hairline grows with the reading (research items). */
   progress?: boolean;
 }
 
@@ -21,7 +21,7 @@ const current = (Astro.currentLocale ?? 'en') as Locale;
 
 const nav: { key: Section; label: string; href: string }[] = [
   { key: 'machine', label: 'MACHINE', href: '/machine/' },
-  { key: 'logbook', label: 'LOGBOOK', href: '/logbook/' },
+  { key: 'research', label: 'RESEARCH', href: '/research/' },
   // The team lives on /join until it outgrows it.
   { key: 'team', label: 'TEAM', href: '/join/#team' },
   { key: 'partners', label: 'PARTNERS', href: '/partners/' },

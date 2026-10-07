@@ -26,7 +26,7 @@ const station = defineCollection({
       ]),
       caption: z.object({ lead: z.string(), text: z.string().optional(), credit: z.string().optional() }).optional(),
       link: z.object({ href: z.string(), label: z.string() }).optional(),
-      /** A line in the label style under the body, e.g. a Logbook entry still to come. */
+      /** A line in the label style under the body, e.g. a write-up still to come. */
       note: z.string().optional(),
       /** The current season: the beam stops here. */
       now: z.boolean().default(false),

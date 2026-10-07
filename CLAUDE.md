@@ -15,6 +15,15 @@ it. Marc owns the repo and decides anything this file leaves open.
   https://claude.ai/artifact/1rD2qo4GC8qVYyVJsisWnJ): colours, type, spacing,
   spectrum energies. `src/styles/tokens.css` ports it.
 - `CONTEXT.md`: team facts and decisions. Git-excluded; never commit it.
+- `docs/content-todo.md`: every placeholder on the site and the file that
+  holds it. Pages are built with placeholder content first; the team's
+  content document fills them in. Keep copy in content and data files, not
+  in components.
+
+Research replaces the spec's Logbook (Marc, 7 October 2026): `/research/`
+lists papers, posters and write-ups as blocks, each opening the item as
+styled Markdown (`src/content/research/<folder>/index.md`, math with KaTeX
+at build time).
 
 ## Where things live
 
