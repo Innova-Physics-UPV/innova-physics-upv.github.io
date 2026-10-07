@@ -103,7 +103,7 @@ const hasWide = Astro.slots.has('wide');
   .cover__inner {
     max-width: var(--content);
     margin-inline: auto;
-    padding: clamp(32px, 4.4vw, 64px) var(--pad) clamp(64px, 7.2vw, 104px);
+    padding: clamp(24px, min(4.4vw, 5vh), 64px) var(--pad) clamp(64px, 7.2vw, 104px);
   }
 
   .cover__inner--wide {
@@ -141,7 +141,7 @@ const hasWide = Astro.slots.has('wide');
     flex-wrap: wrap;
     gap: 40px;
     align-items: flex-start;
-    margin-top: clamp(32px, 4vw, 56px);
+    margin-top: clamp(24px, min(4vw, 4.5vh), 56px);
   }
 
   .cover__text {

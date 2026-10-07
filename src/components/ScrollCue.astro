@@ -37,7 +37,8 @@ const { text = 'SCROLL', sceneText } = Astro.props;
     pointer-events: none;
   }
 
-  .cue.is-gone {
+  .cue.is-gone,
+  .cue.is-crowded {
     visibility: hidden;
   }
 
@@ -67,7 +68,12 @@ const { text = 'SCROLL', sceneText } = Astro.props;
     transform-origin: top;
   }
 
+  /* On a plate of the cover's ground, so a figure under it (the S1 render on
+     a phone) never runs through the words. */
   .cue__text {
+    margin-left: -6px;
+    padding: 2px 6px;
+    background: var(--ground, var(--ultramarine));
     color: var(--lapis-light);
   }
 

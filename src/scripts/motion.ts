@@ -10,7 +10,7 @@
 //   M4  the story's beam runs down the rail and holds on each marker
 //   M8  a season lights up when the beam reaches it
 //   M3  (phones) the team photo's hatched veil withdraws, once
-//   M12 the scroll cue leaves at the first scroll
+//   M12 the scroll cue leaves at the first scroll (and never sits on words)
 //   S1  the cover: the words leave, the figure grows, the beam switches on
 //   S2  (desktop) the team photo is restored beside the text, then grows
 //   S3  (wide screens) the story's pictures in a centred sticky column
@@ -89,7 +89,22 @@ const cues = document.querySelectorAll<HTMLElement>('[data-scroll-cue]');
 if (cues.length) {
   let gone = false;
   scenes.push({
-    measure() {},
+    // A cue never sits on the cover's words: where a short or narrow window
+    // brings them down to its line, it stays hidden (they leave at the first
+    // scroll anyway). Measured at the top of the page, where the cue shows.
+    measure() {
+      if (gone || window.scrollY > 40) return;
+      cues.forEach((cue) => {
+        cue.classList.remove('is-crowded');
+        const c = cue.getBoundingClientRect();
+        const words = cue.closest('section')?.querySelectorAll('[data-words]') ?? [];
+        const crowded = [...words].some((w) => {
+          const r = w.getBoundingClientRect();
+          return r.left < c.right && r.right > c.left && r.top < c.bottom + 8 && r.bottom > c.top - 8;
+        });
+        cue.classList.toggle('is-crowded', crowded);
+      });
+    },
     frame(y) {
       if (gone || y <= 40) return;
       gone = true;
@@ -207,6 +222,10 @@ if (moving) {
           return;
         }
         root.classList.add('is-measuring');
+        // Measure the scene as it would run, pinned, even if the last measure
+        // let it go still: a still cover's stage grows to its content, and
+        // measuring that would pin it again on the next pass.
+        s1.removeAttribute('data-still');
         // Read the caption in its hold layout too: on a phone it sits above
         // the render, and the render must start below it.
         const before = stage.dataset.caption;
@@ -240,9 +259,11 @@ if (moving) {
         ];
         if (phone) fits.push((H - 16 - reserve - tagH) / (0.86 * fr.height));
         const scale = Math.min(...fits);
-        // A stage too short to grow the render at all: it keeps its finished
-        // frame (motion.css drops the scene on [data-still]).
-        still = scale < 1;
+        // A stage too short to grow the render at all, or to hold the words
+        // (they would be cut off at its foot): the cover keeps its finished
+        // frame and scrolls like any other (motion.css drops the scene on
+        // [data-still]).
+        still = scale < 1 || wordsBottom > H - 8;
         s1.toggleAttribute('data-still', still);
         if (still) return;
         const finalW = fr.width * scale;

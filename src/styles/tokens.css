@@ -80,7 +80,9 @@
   --fs-headline: clamp(32px, 3.3vw, 48px);
   --fs-art: clamp(40px, 4.4vw, 64px);
   --fs-shout: clamp(56px, 8.4vw, 120px);
-  --fs-shout-home: clamp(64px, 10vw, 144px);
+  /* The home's shout also follows the window's height, so the cover's words
+     fit a short laptop screen. */
+  --fs-shout-home: clamp(64px, min(10vw, 15vh), 144px);
   --fs-numeral: clamp(72px, 7.2vw, 104px);
   --fs-aside: clamp(19px, 1.6vw, 24px);
 
