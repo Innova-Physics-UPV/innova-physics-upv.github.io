@@ -24,3 +24,18 @@ Open questions, decided by the content document:
 - The roadmap draws this season's committed items as solid markers; elsewhere
   solid means built.
 - The docs repository and the handbook have no URL yet, so no link is shown.
+
+## Research (`/research/`)
+
+Each item is one folder in `src/content/research/` with an `index.md` (or
+`index.mdx` when it uses `Datum` or `Term`) and its pictures. The front
+matter is described in `src/content.config.ts`.
+
+| Item | Status | What is a placeholder |
+| --- | --- | --- |
+| `aloha-0-electron-source` | write-up, published | Authors; the copy is the canvas's Logbook 01 plus a "Space charge" section added to show the math |
+| `democratising-particle-accelerators` | poster, presented | Everything but the title and the venue: authors, text, the venue's link (Indico), the PDF |
+| `aloha-0-telefocus-source` | poster, presented | Title, authors, text, venue link, PDF (the second CERN poster) |
+| `vacuum-system` | write-up, coming | Title and expected month |
+
+Page copy (cover, list title, closing sheet): `src/data/research.ts`.

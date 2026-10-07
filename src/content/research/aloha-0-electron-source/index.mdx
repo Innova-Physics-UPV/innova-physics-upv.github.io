@@ -1,0 +1,58 @@
+---
+# Placeholder content (the old Logbook 01 copy from the canvas) until the
+# team's content document: see docs/content-todo.md.
+title: Electron source
+type: write-up
+authors:
+  - Applied Physics, Innova Physics UPV
+venue:
+  name: Innova Physics UPV · technical write-up
+date: 2026-09-01
+status: published
+aside: Where every electron of ALOHA starts.
+picture:
+  kind: figure
+  figure: aloha-0-line
+  caption:
+    lead: The electron source on its beam.
+    text: Cathode, Wehnelt and anode hatched, simulated in COMSOL; the einzel lens outlined, planned. Schematic.
+machine: ALOHA-0
+numbers: SIMULATED · COMSOL
+department: APPLIED PHYSICS · W Lα 8.40 keV
+licence: CERN-OHL-S
+---
+
+import Datum from '../../../components/Datum.astro';
+import Term from '../../../components/Term.astro';
+
+Every accelerator starts with a source. ALOHA-0 is ours: a thermionic triode that pulls electrons off a hot tungsten cathode and shapes them into a beam before anything accelerates them.
+
+## Three electrodes
+
+The cathode is heated until it emits. The Wehnelt cylinder around it, held slightly negative, pushes the emission into a converging beam. The anode, 30&nbsp;kV above the cathode, pulls the electrons through its aperture.
+
+<Datum
+  items={[
+    { value: '30', unit: 'kV', label: 'EXTRACTION · SIMULATED' },
+    { value: '1.5', unit: 'mA', label: 'BEAM CURRENT · SIMULATED' },
+    { value: '<1', unit: 'mm', label: 'SPOT · SIMULATED' },
+  ]}
+/>
+
+<Term word="telefocus">
+  An electron-source geometry in which the Wehnelt’s bias brings the beam to a focus far beyond the anode, instead of right at its aperture.
+</Term>
+
+## Space charge
+
+A source cannot draw as much current as it likes: the electrons already in the gap push back on the ones leaving the cathode. For a planar gap of width $d$ across a voltage $V$, the current density is capped by the Child–Langmuir law,
+
+$$
+J = \frac{4\varepsilon_0}{9}\sqrt{\frac{2e}{m_e}}\,\frac{V^{3/2}}{d^2},
+$$
+
+so the current a source can carry grows as $V^{3/2}$. The ratio $P = I/V^{3/2}$, the perveance, describes the source independently of the voltage it runs at.
+
+## What is measured, and what is not
+
+Every number on this page comes from COMSOL. None is measured yet: the source is designed and simulated, and the vacuum bench to test it is what we build next.

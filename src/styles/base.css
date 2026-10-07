@@ -129,6 +129,11 @@ button {
   color: var(--figure-muted, var(--muted));
 }
 
+/* The page after its cover: room before the footer, whatever ends it. */
+main {
+  padding-bottom: var(--section);
+}
+
 .measure {
   max-width: var(--measure);
 }

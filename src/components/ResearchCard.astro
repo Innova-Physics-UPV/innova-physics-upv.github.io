@@ -1,0 +1,173 @@
+---
+// One block on /research: picture, type and date, title, authors, venue and
+// status. The title's link stretches over the whole block, so the block is
+// one click; the venue's link (to the publication itself) sits above it and
+// stays reachable on its own. An item still to come is not a link.
+import { Picture } from 'astro:assets';
+import Lattice from './Lattice.astro';
+import { aloha0Line, aloha1Line } from '../data/figures';
+import { researchLabels, researchMonth } from '../data/research';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  item: CollectionEntry<'research'>;
+}
+
+const { item } = Astro.props;
+const d = item.data;
+const coming = d.status === 'coming';
+const href = `/research/${item.id}/`;
+const figures = { 'aloha-0-line': aloha0Line, 'aloha-1-line': aloha1Line };
+---
+
+<article class:list={['rcard', coming && 'rcard--coming']} aria-labelledby={`rcard-${item.id}`}>
+  {
+    d.picture?.kind === 'photo' && (
+      <Picture
+        src={d.picture.src}
+        alt=""
+        formats={['avif', 'webp']}
+        widths={[480, 720, 960]}
+        sizes="(min-width: 1040px) 30vw, (min-width: 640px) 45vw, 100vw"
+        class="rcard__picture rcard__photo"
+      />
+    )
+  }
+  {
+    d.picture?.kind === 'figure' && (
+      <div class="rcard__picture rcard__figure" data-theme="ultramarine" aria-hidden="true">
+        <Lattice figure={figures[d.picture.figure]} id={`rcard-${item.id}-figure`} />
+      </div>
+    )
+  }
+  {!d.picture && <div class="rcard__picture rcard__blank" aria-hidden="true" />}
+  <div class="rcard__body">
+    <p class="label muted">
+      {researchLabels.type[d.type]} · {coming ? 'COMING' : researchMonth(d.date)}
+    </p>
+    <h2 id={`rcard-${item.id}`} class="station-title rcard__title">
+      {coming ? d.title : <a class="rcard__link" href={href}>{d.title}</a>}
+    </h2>
+    <p class="rcard__authors">{d.authors.join(', ')}</p>
+    <p class="label rcard__venue">
+      {
+        d.venue.url ? (
+          <a class="rcard__venue-link" href={d.venue.url} rel="noopener">
+            {d.venue.name}
+            <span aria-hidden="true">{' ↗'}</span>
+          </a>
+        ) : (
+          d.venue.name
+        )
+      }
+    </p>
+    <p class="label muted rcard__status">{researchLabels.status[d.status]}</p>
+  </div>
+</article>
+
+<style>
+  .rcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+  }
+
+  .rcard__picture {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+  }
+
+  .rcard__photo {
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* A drawing in place of a photo: the machine on its ultramarine ground. */
+  .rcard__figure {
+    display: flex;
+    align-items: center;
+    background: var(--ground);
+    overflow: hidden;
+  }
+
+  .rcard__figure :global(.lattice) {
+    width: 160%;
+    max-width: none;
+  }
+
+  .rcard__blank {
+    background: repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 8px);
+  }
+
+  .rcard__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px 24px 28px;
+    flex: 1;
+  }
+
+  .rcard__title {
+    margin-top: 4px;
+  }
+
+  .rcard__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* The title's link covers the whole block. */
+  .rcard__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .rcard__link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 4px;
+  }
+
+  /* The block shows the focus, not the title alone. */
+  .rcard__link:focus-visible {
+    outline: none;
+  }
+
+  .rcard:has(.rcard__link:focus-visible) {
+    outline: var(--hair) solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .rcard__authors {
+    color: var(--muted);
+  }
+
+  /* The venue's own link sits above the block's. */
+  .rcard__venue-link {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: inset 0 -12px 0 -10px var(--ink);
+  }
+
+  .rcard__venue-link:hover {
+    box-shadow: inset 0 -14px 0 -10px var(--ink);
+  }
+
+  .rcard__status {
+    margin-top: auto;
+    padding-top: 8px;
+  }
+
+  .rcard--coming .rcard__title {
+    color: var(--muted);
+  }
+</style>

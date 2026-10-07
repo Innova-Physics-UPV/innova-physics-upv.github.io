@@ -2,6 +2,9 @@
 import { defineConfig, fontProviders } from 'astro/config';
 
 import svelte from '@astrojs/svelte';
+import mdx from '@astrojs/mdx';
+import { satteri } from '@astrojs/markdown-satteri';
+import { katexMath, captionedFigures } from './src/lib/markdown-plugins.mjs';
 
 // Every font is a local file: TeX Gyre Heros converted from the design
 // system's OTFs (see design-system/README.md), EB Garamond and Fragment Mono
@@ -11,7 +14,17 @@ const local = fontProviders.local();
 // https://astro.build/config
 export default defineConfig({
   site: 'https://innova-physics-upv.github.io',
-  integrations: [svelte()],
+  integrations: [svelte(), mdx()],
+  // Research items are Markdown (MDX when they use a component): math is
+  // rendered at build time with KaTeX, and a picture with a title becomes a
+  // figure with a Courier caption. Sätteri is Astro 7's native pipeline.
+  markdown: {
+    processor: satteri({
+      features: { math: true },
+      mdastPlugins: [katexMath],
+      hastPlugins: [captionedFigures],
+    }),
+  },
   // English at the root; Spanish and Valencian only for the pages students
   // and the UPV read (Join, Team, Events). `codes` gives <html lang>.
   i18n: {

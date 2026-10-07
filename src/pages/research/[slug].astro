@@ -1,0 +1,311 @@
+---
+// One research item (a paper, a poster or a write-up) from its Markdown.
+// The cover is ultramarine, or gesso with the gesso masthead for art and
+// conservation; a rail beside the text gives the authors, the venue, the
+// status of the numbers and the files; the Markdown is set as prose, its
+// math rendered at build time. The masthead's reading line (M10) runs here.
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import 'katex/dist/katex.min.css';
+import '../../styles/prose.css';
+import Base from '../../layouts/Base.astro';
+import Caption from '../../components/Caption.astro';
+import Lattice from '../../components/Lattice.astro';
+import ScrollCue from '../../components/ScrollCue.astro';
+import { aloha0Line, aloha1Line } from '../../data/figures';
+import { researchLabels, researchMonth } from '../../data/research';
+
+export async function getStaticPaths() {
+  const items = (await getCollection('research')).sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+  return items
+    .filter((item) => item.data.status !== 'coming')
+    .map((item) => ({ params: { slug: item.id }, props: { item, next: items[items.indexOf(item) + 1] } }));
+}
+
+interface Props {
+  item: CollectionEntry<'research'>;
+  next?: CollectionEntry<'research'>;
+}
+
+const { item, next } = Astro.props;
+const { Content } = await render(item);
+const d = item.data;
+const figures = { 'aloha-0-line': aloha0Line, 'aloha-1-line': aloha1Line };
+---
+
+<Base title={d.title} description={d.aside} headerTheme={d.theme} progress>
+  <section class="rcover" data-theme={d.theme} aria-labelledby="item-title">
+    <div class="rcover__inner">
+      <p class="label rcover__kicker">
+        <span>{researchLabels.type[d.type]}</span>
+        {d.machine && <span class="muted">{d.machine}</span>}
+        <span class="muted">{researchMonth(d.date)}</span>
+        <span class="muted">ENGLISH</span>
+      </p>
+      <h1 id="item-title" class="rcover__title">{d.title}</h1>
+      <p class="aside rcover__aside">{d.aside}</p>
+    </div>
+    {
+      d.picture?.kind === 'figure' && (
+        <figure class="rcover__figure">
+          <Lattice figure={figures[d.picture.figure]} id="item-figure" />
+          {d.picture.caption && (
+            <div class="rcover__caption">
+              <Caption {...d.picture.caption} />
+            </div>
+          )}
+        </figure>
+      )
+    }
+    {
+      d.picture?.kind === 'photo' && (
+        <figure class="rcover__photo-wrap">
+          <Picture
+            src={d.picture.src}
+            alt={d.picture.alt}
+            formats={['avif', 'webp']}
+            widths={[640, 960, 1280, 1920]}
+            sizes="(min-width: 1440px) 1280px, 100vw"
+            class="rcover__photo"
+            priority
+          />
+          {d.picture.caption && <Caption {...d.picture.caption} />}
+        </figure>
+      )
+    }
+    <div class="rcover__after">
+      <ScrollCue />
+    </div>
+    <div aria-hidden="true" data-cover-foot></div>
+  </section>
+
+  <main data-theme="gesso">
+    <div class="item">
+      <aside class="item__rail" aria-label="About this item">
+        <dl>
+          <div>
+            <dt class="label muted">{d.authors.length > 1 ? 'AUTHORS' : 'AUTHOR'}</dt>
+            <dd class="label">{d.authors.join(', ')}</dd>
+          </div>
+          <div>
+            <dt class="label muted">{d.type === 'poster' ? 'PRESENTED AT' : 'PUBLISHED IN'}</dt>
+            <dd class="label">
+              {
+                d.venue.url ? (
+                  <a href={d.venue.url} rel="noopener">
+                    {d.venue.name}
+                  </a>
+                ) : (
+                  d.venue.name
+                )
+              }
+            </dd>
+          </div>
+          <div>
+            <dt class="label muted">STATUS</dt>
+            <dd class="label">{researchLabels.status[d.status]} · {researchMonth(d.date)}</dd>
+          </div>
+          {
+            d.numbers && (
+              <div>
+                <dt class="label muted">STATUS OF EVERY NUMBER</dt>
+                <dd class="label">{d.numbers}</dd>
+              </div>
+            )
+          }
+          {
+            d.department && (
+              <div>
+                <dt class="label muted">DEPARTMENT</dt>
+                <dd class="label">{d.department}</dd>
+              </div>
+            )
+          }
+          {
+            (d.pdf || d.licence) && (
+              <div>
+                <dt class="label muted">FILES AND LICENCE</dt>
+                <dd class="label">
+                  {d.pdf && <a href={d.pdf}>PDF</a>}
+                  {d.pdf && d.licence && ' · '}
+                  {d.licence}
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+      </aside>
+
+      <div class="item__main">
+        <article class="prose">
+          <Content />
+        </article>
+        {
+          next && (
+            <nav class="next" aria-label="Next item">
+              {next.data.status === 'coming' ? (
+                <div class="next__card">
+                  <p class="label next__row">
+                    <span>NEXT · {researchLabels.type[next.data.type]}</span>
+                    <span class="muted">COMING</span>
+                  </p>
+                  <p class="station-title next__title">{next.data.title}</p>
+                </div>
+              ) : (
+                <a class="next__card next__card--link" href={`/research/${next.id}/`}>
+                  <span class="label next__row">
+                    <span>NEXT · {researchLabels.type[next.data.type]}</span>
+                    <span class="muted">{researchMonth(next.data.date)}</span>
+                  </span>
+                  <span class="station-title next__title">{next.data.title}</span>
+                </a>
+              )}
+            </nav>
+          )
+        }
+      </div>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .rcover {
+    position: relative;
+    overflow: clip;
+  }
+
+  .rcover__inner {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(40px, 6vw, 88px) var(--pad) 0;
+  }
+
+  .rcover__kicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 32px;
+  }
+
+  /* The item's title: Heros Bold in sentence case. The shout (Heros Cn
+     capitals) belongs to the four main pages. */
+  .rcover__title {
+    margin-top: 28px;
+    max-width: 18ch;
+    font-size: clamp(36px, 6.4vw, 92px);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .rcover__aside {
+    margin-top: 20px;
+    max-width: 40ch;
+  }
+
+  /* A drawing runs edge to edge, its beam leaving the right edge. */
+  .rcover__figure {
+    margin-top: clamp(40px, 5vw, 72px);
+  }
+
+  .rcover__caption {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: 12px var(--pad) 0;
+  }
+
+  .rcover__photo-wrap {
+    max-width: var(--content);
+    margin: clamp(40px, 5vw, 72px) auto 0;
+    padding-inline: var(--pad);
+  }
+
+  .rcover__photo-wrap :global(.rcover__photo) {
+    width: 100%;
+    height: auto;
+    max-height: 72vh;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .rcover__after {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: 0 var(--pad) clamp(40px, 5vw, 64px);
+  }
+
+  /* The rail and the text */
+  .item {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 80px;
+    align-items: flex-start;
+  }
+
+  .item__rail {
+    flex: 1 1 220px;
+    max-width: 300px;
+  }
+
+  .item__rail dl {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0;
+  }
+
+  .item__rail dl > div {
+    padding-top: 12px;
+    border-top: var(--hair) solid var(--ink);
+  }
+
+  .item__rail dd {
+    margin: 4px 0 0;
+  }
+
+  .item__rail a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+
+  .item__main {
+    flex: 3 1 560px;
+    min-width: 0;
+    max-width: 720px;
+  }
+
+  /* The next item */
+  .next {
+    margin-top: 64px;
+  }
+
+  .next__card {
+    display: block;
+    padding: 28px;
+    background: var(--card);
+    border-top: var(--rule) solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .next__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .next__title {
+    display: block;
+    margin-top: 12px;
+  }
+
+  .next__card--link:hover .next__title {
+    text-decoration: underline;
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 4px;
+  }
+</style>

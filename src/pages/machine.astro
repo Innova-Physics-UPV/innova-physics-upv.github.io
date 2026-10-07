@@ -58,79 +58,81 @@ const HERO_W = 1920;
     </Fragment>
   </Cover>
 
-  <!-- The stages, one article each. -->
-  <section class="stages" aria-label="Stages">
-    <div class="stages__wrap">
-      {
-        stages.map((stage) => (
-          <article class="stage" id={stage.id} aria-labelledby={`${stage.id}-title`}>
-            <div class="stage__text">
-              <p class="label muted">{stage.kicker}</p>
-              <h2 id={`${stage.id}-title`} class="headline stage__title">
-                {stage.title}
-              </h2>
-              <StatusChip marker={stage.marker} class="stage__chip">
-                {stage.status}
-              </StatusChip>
-              <p class="stage__body measure">{stage.body}</p>
-            </div>
-            <div class="stage__facts">
-              <SpecTable caption={`${stage.title} in numbers`} rows={stage.specs} />
-              {stage.picture?.kind === 'photo' && (
-                <figure class="stage__picture">
-                  <Picture
-                    src={stage.picture.src}
-                    alt={stage.picture.alt}
-                    formats={['avif', 'webp']}
-                    widths={[560, 840, 1120, 1680]}
-                    sizes="(min-width: 1040px) 52vw, 100vw"
-                    class="stage__photo"
-                  />
-                  <Caption lead={stage.picture.caption.lead} text={stage.picture.caption.text} />
-                </figure>
-              )}
-              {stage.picture?.kind === 'figure' && (
-                <figure class="stage__picture">
-                  <Lattice figure={aloha0Section} id={`machine-${stage.id}`} />
-                  <Caption lead={stage.picture.caption.lead} text={stage.picture.caption.text} />
-                </figure>
-              )}
-            </div>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <Section id="year" kicker={year.season} title={year.title}>
-    <p class="year__lead lead measure">{year.lead}</p>
-    <Roadmap items={year.road} label={`The road for ${year.season}`} />
-  </Section>
-
-  <Sheet id="open" labelledby="open-title">
-    <div class="open">
-      <p class="label muted">OPEN</p>
-      <h2 id="open-title" class="headline open__title">{open.title}</h2>
-      <ul class="open__items">
+  <main data-theme="gesso">
+    <!-- The stages, one article each. -->
+    <section class="stages" aria-label="Stages">
+      <div class="stages__wrap">
         {
-          open.items.map((item) => (
-            <li class="open__item">
-              <h3 class="open__name">{item.title}</h3>
-              <p class="open__body">{item.body}</p>
-              {item.link && (
-                <p class="open__link">
-                  <Button href={item.link.href} variant="text">
-                    {item.link.label}
-                  </Button>
-                </p>
-              )}
-              {item.status && <p class="label muted open__status">{item.status}</p>}
-            </li>
+          stages.map((stage) => (
+            <article class="stage" id={stage.id} aria-labelledby={`${stage.id}-title`}>
+              <div class="stage__text">
+                <p class="label muted">{stage.kicker}</p>
+                <h2 id={`${stage.id}-title`} class="headline stage__title">
+                  {stage.title}
+                </h2>
+                <StatusChip marker={stage.marker} class="stage__chip">
+                  {stage.status}
+                </StatusChip>
+                <p class="stage__body measure">{stage.body}</p>
+              </div>
+              <div class="stage__facts">
+                <SpecTable caption={`${stage.title} in numbers`} rows={stage.specs} />
+                {stage.picture?.kind === 'photo' && (
+                  <figure class="stage__picture">
+                    <Picture
+                      src={stage.picture.src}
+                      alt={stage.picture.alt}
+                      formats={['avif', 'webp']}
+                      widths={[560, 840, 1120, 1680]}
+                      sizes="(min-width: 1040px) 52vw, 100vw"
+                      class="stage__photo"
+                    />
+                    <Caption lead={stage.picture.caption.lead} text={stage.picture.caption.text} />
+                  </figure>
+                )}
+                {stage.picture?.kind === 'figure' && (
+                  <figure class="stage__picture">
+                    <Lattice figure={aloha0Section} id={`machine-${stage.id}`} />
+                    <Caption lead={stage.picture.caption.lead} text={stage.picture.caption.text} />
+                  </figure>
+                )}
+              </div>
+            </article>
           ))
         }
-      </ul>
-    </div>
-  </Sheet>
+      </div>
+    </section>
+
+    <Section id="year" kicker={year.season} title={year.title}>
+      <p class="year__lead lead measure">{year.lead}</p>
+      <Roadmap items={year.road} label={`The road for ${year.season}`} />
+    </Section>
+
+    <Sheet id="open" labelledby="open-title">
+      <div class="open">
+        <p class="label muted">OPEN</p>
+        <h2 id="open-title" class="headline open__title">{open.title}</h2>
+        <ul class="open__items">
+          {
+            open.items.map((item) => (
+              <li class="open__item">
+                <h3 class="open__name">{item.title}</h3>
+                <p class="open__body">{item.body}</p>
+                {item.link && (
+                  <p class="open__link">
+                    <Button href={item.link.href} variant="text">
+                      {item.link.label}
+                    </Button>
+                  </p>
+                )}
+                {item.status && <p class="label muted open__status">{item.status}</p>}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </Sheet>
+  </main>
 </Base>
 
 <style>
