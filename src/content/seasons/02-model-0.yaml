@@ -1,0 +1,13 @@
+order: 2
+# [SEASON]: the season of Model-0 is still to come from the team.
+season: "[SEASON] · MODEL-0"
+title: "A beam you can see"
+body: "Our first device is a demonstrator for science communication: a glass bottle, a vacuum pump and a high-voltage supply. At about 1 Torr the gas glows along the path of the electrons. It brought Edwards Vacuum on board as our first sponsor."
+marker: solid
+picture:
+  kind: photo
+  src: ../../assets/photos/model-0-bench.webp
+  alt: "Model-0 on the bench: an Edwards vacuum pump connected to the glass tube where the discharge glows."
+caption:
+  lead: "Model-0 on the bench."
+  text: "The vacuum pump and the glass tube where the discharge glows."

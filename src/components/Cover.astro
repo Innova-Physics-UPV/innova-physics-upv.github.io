@@ -41,9 +41,11 @@ const hasFigure = Astro.slots.has('figure');
 </section>
 
 <style>
+  /* clip, not hidden: hidden would make the cover a scroll container and
+     stop the sticky scroll cue (and the S1 stage) from sticking. */
   .cover {
     position: relative;
-    overflow: hidden;
+    overflow: clip;
   }
 
   .cover__inner {

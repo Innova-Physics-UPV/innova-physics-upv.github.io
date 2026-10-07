@@ -1,0 +1,14 @@
+order: 6
+season: "NEXT · ALOHA-1"
+title: "1 MeV on a tabletop"
+body: "After the source, a buncher and an accelerating structure at 2.998 GHz, designed to bring the beam to 1 MeV. It is still on paper: we aim to finish the design by the end of the season, and then to put the beam to work."
+marker: outlined
+picture:
+  kind: figure
+  figure: aloha-1-section
+caption:
+  lead: "ALOHA-1, the design."
+  text: "The source, then four buncher and four accelerating cavities, outlined: not built yet."
+link:
+  href: "/machine/"
+  label: "INSIDE THE MACHINE"

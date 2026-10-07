@@ -1,0 +1,14 @@
+order: 5
+season: "2026-27 · NOW"
+title: "From simulation to the bench"
+body: "This semester we build the cathode power supply and the control of the vacuum system: the bench where ALOHA-0 will be tested. We aim to end the season with a working vacuum bench and, with our sponsors, a stable measured beam."
+marker: outlined
+now: true
+note: "LOGBOOK 02 · THE VACUUM SYSTEM · COMING"
+picture:
+  kind: photo
+  src: ../../assets/photos/vacuum-bench-2026.webp
+  alt: "A team member at work on the vacuum pump of the bench."
+caption:
+  lead: "At the vacuum bench."
+  text: "2026."

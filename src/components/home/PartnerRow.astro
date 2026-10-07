@@ -1,0 +1,113 @@
+---
+// "With the support of": the partners in one ink (bone black, white at
+// night) in a single row on the page. Vector marks take currentColor; iTEAM
+// and Edwards are white rasters for now, so they are drawn as a mask filled
+// with the ink until the team sends one-ink vectors.
+import { partners } from '../../data/partners';
+import Button from '../Button.astro';
+import Etsit from '../../assets/logos/etsit.svg';
+import Iumpa from '../../assets/logos/partners/iumpa.svg';
+
+const vectors: Record<string, typeof Etsit> = { ETSIT: Etsit, IUMPA: Iumpa };
+const masks: Record<string, { src: string; ratio: string }> = {
+  iTEAM: { src: '/partners/iteam.svg', ratio: '2352 / 592' },
+  Edwards: { src: '/partners/edwards.svg', ratio: '2368 / 477' },
+};
+const alt: Record<string, string> = {
+  ETSIT: 'ETSIT, Telecom UPV VLC',
+  IUMPA: 'IUMPA, Instituto Universitario de Matemática Pura y Aplicada',
+  iTEAM: 'iTEAM',
+  Edwards: 'Edwards',
+};
+---
+
+<section class="partner-row" aria-labelledby="partners-title">
+  <div class="partner-row__wrap">
+    <div class="partner-row__head">
+      <h2 id="partners-title" class="label muted">WITH THE SUPPORT OF</h2>
+      <Button href="/partners/" variant="text">BECOME A PARTNER</Button>
+    </div>
+    <ul class="partner-row__list">
+      {
+        partners.map((p) => {
+          const Vector = vectors[p.name];
+          const mask = masks[p.name];
+          return (
+            <li class="partner-row__item">
+              <a href={p.url} rel="noopener" class="partner-row__link">
+                {Vector ? (
+                  <Vector role="img" aria-label={alt[p.name] ?? p.name} class="partner-row__mark" />
+                ) : mask ? (
+                  <span
+                    role="img"
+                    aria-label={alt[p.name] ?? p.name}
+                    class="partner-row__mark partner-row__mask"
+                    style={`--mask: url('${mask.src}'); aspect-ratio: ${mask.ratio};`}
+                  />
+                ) : (
+                  <span class="partner-row__name">{p.name}</span>
+                )}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .partner-row__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(64px, 7.2vw, 104px) var(--pad) var(--section);
+  }
+
+  .partner-row__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 40px;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .partner-row__list {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 32px 72px;
+  }
+
+  .partner-row__item {
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+  }
+
+  .partner-row__link {
+    display: block;
+    line-height: 0;
+    color: var(--mark-one-ink);
+  }
+
+  .partner-row__mark {
+    display: block;
+    height: 44px;
+    width: auto;
+  }
+
+  .partner-row__mask {
+    background: currentColor;
+    -webkit-mask: var(--mask) center / contain no-repeat;
+    mask: var(--mask) center / contain no-repeat;
+  }
+
+  .partner-row__name {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+  }
+</style>

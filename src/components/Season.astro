@@ -1,0 +1,173 @@
+---
+// One station on the rail: its marker, label, title, two or three lines, an
+// optional link or note, then one picture (a photo, a machine figure or the
+// art line). Text and one picture, nothing else.
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Caption from './Caption.astro';
+import Button from './Button.astro';
+import Lattice from './Lattice.astro';
+import { aloha0Section, aloha1Section } from '../data/figures';
+
+export interface Station {
+  id: string;
+  season: string;
+  title: string;
+  body: string;
+  marker: 'solid' | 'hatched' | 'outlined';
+  picture?:
+    | { kind: 'photo'; src: ImageMetadata; alt: string }
+    | { kind: 'figure'; figure: 'aloha-0-section' | 'aloha-1-section' }
+    | { kind: 'art'; text: string };
+  caption?: { lead: string; text?: string; credit?: string };
+  link?: { href: string; label: string };
+  note?: string;
+  now?: boolean;
+  placeholder?: boolean;
+}
+
+interface Props {
+  station: Station;
+}
+
+const { station } = Astro.props;
+const titleId = `station-${station.id}-title`;
+const figures = { 'aloha-0-section': aloha0Section, 'aloha-1-section': aloha1Section };
+
+// On the current season the word NOW is inked.
+const parts = station.season.split(' · ');
+const last = parts.pop();
+---
+
+<article class:list={['station', station.now && 'station--now']} aria-labelledby={titleId} data-station>
+  <span class:list={['station__marker', `station__marker--${station.marker}`]} aria-hidden="true" data-marker></span>
+  <div class="station__text">
+    <p class="label station__label">
+      {parts.length > 0 && <>{parts.join(' · ')} · </>}{station.now ? <span class="station__now">{last}</span> : last}
+    </p>
+    <h3 id={titleId} class="station-title station__title">{station.title}</h3>
+    <p class="station__body">{station.body}</p>
+    {
+      station.link && (
+        <p class="station__more">
+          <Button href={station.link.href} variant="text">
+            {station.link.label}
+          </Button>
+        </p>
+      )
+    }
+    {station.note && <p class="label muted station__more">{station.note}</p>}
+    {station.placeholder && <p class="label muted station__more">PLACEHOLDER · COPY TO COME FROM THE TEAM</p>}
+  </div>
+  {
+    station.picture?.kind === 'art' && <p class="aside station__art">{station.picture.text}</p>
+  }
+  {
+    station.picture?.kind === 'photo' && (
+      <figure class="station__figure" data-station-picture>
+        <Picture
+          src={station.picture.src}
+          alt={station.picture.alt}
+          formats={['avif', 'webp']}
+          widths={[520, 780, 1040, 1560]}
+          sizes="(min-width: 760px) 520px, 100vw"
+          class="station__photo"
+        />
+        {station.caption && <Caption {...station.caption} />}
+      </figure>
+    )
+  }
+  {
+    station.picture?.kind === 'figure' && (
+      <figure class="station__figure" data-station-picture>
+        <Lattice figure={figures[station.picture.figure]} id={station.id} />
+        {station.caption && <Caption {...station.caption} />}
+      </figure>
+    )
+  }
+</article>
+
+<style>
+  .station {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 80px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  /* A 16px square on the beam's line: solid built, hatched simulated,
+     outlined not built yet. */
+  .station__marker {
+    position: absolute;
+    left: calc(var(--rail-line) - 8px - var(--rail));
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    z-index: 2;
+  }
+
+  .station__marker--solid {
+    background: var(--figure);
+  }
+
+  .station__marker--hatched {
+    background: repeating-linear-gradient(90deg, var(--figure) 0 2px, var(--ground) 2px 4px);
+  }
+
+  .station__marker--outlined {
+    border: var(--hair) solid var(--figure);
+    background: var(--ground);
+  }
+
+  .station__text {
+    flex: 1 1 300px;
+    max-width: 440px;
+  }
+
+  .station__label {
+    color: var(--figure-muted);
+  }
+
+  .station__now {
+    color: var(--figure);
+  }
+
+  /* M8: a season lights up when the beam arrives. */
+  .station.is-lit .station__label {
+    color: var(--figure);
+  }
+
+  .station__title {
+    margin-top: 12px;
+  }
+
+  .station__body {
+    margin-top: 16px;
+  }
+
+  .station__more {
+    margin-top: 20px;
+  }
+
+  .station__art {
+    flex: 999 1 300px;
+    max-width: 520px;
+    font-size: var(--fs-art);
+    line-height: 1.05;
+  }
+
+  .station__figure {
+    flex: 999 1 300px;
+    max-width: 520px;
+    min-width: 0;
+  }
+
+  .station__figure :global(.station__photo) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+</style>

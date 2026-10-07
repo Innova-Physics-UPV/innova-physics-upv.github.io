@@ -1,0 +1,14 @@
+order: 3
+season: "2025-26 · ALOHA-0"
+title: "The electron source, simulated"
+body: "Our first accelerator starts where every accelerator starts: a thermionic triode in telefocus configuration. A hot tungsten cathode emits, a Wehnelt cylinder shapes the emission, and an anode 30 kV above the cathode pulls the beam out."
+marker: hatched
+picture:
+  kind: figure
+  figure: aloha-0-section
+caption:
+  lead: "The source, in section."
+  text: "Cathode, Wehnelt and anode hatched: simulated. The einzel lens outlined: planned."
+link:
+  href: "/logbook/electron-source/"
+  label: "READ LOGBOOK 01"

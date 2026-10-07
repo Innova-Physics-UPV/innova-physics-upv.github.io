@@ -1,45 +1,244 @@
 ---
-// Placeholder while the new site is built on this branch: a specimen of the
-// shared components.
+// The home: an ultramarine cover, then the team's story told on gesso as a
+// beamline, the target, the Join call as a sheet, the partners and the
+// footer. Copy and geometry from the canvas's "Home · desktop".
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Cover from '../components/Cover.astro';
-import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
 import Caption from '../components/Caption.astro';
 import Sheet from '../components/Sheet.astro';
-import Button from '../components/Button.astro';
-import Lattice from '../components/Lattice.astro';
-import { aloha0Section, aloha1Section } from '../data/figures';
+import MarkerKey from '../components/MarkerKey.astro';
+import Rail from '../components/Rail.astro';
+import CoverSource from '../components/home/CoverSource.astro';
+import PartnerRow from '../components/home/PartnerRow.astro';
+import team from '../assets/photos/team.webp';
+import { FORM_URL } from '../consts';
+import { round, roundIsOpen } from '../data/recruitment';
+
+const stations = (await getCollection('seasons'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((entry) => ({ id: entry.id, ...entry.data }));
+
+const open = roundIsOpen();
 ---
 
 <Base active="home">
-  <Cover kicker="INNOVA PHYSICS UPV · VALÈNCIA · SINCE 2023" shout={['BUILD THE', 'BEAM']} home lead="The new website is being built.">
+  <Cover
+    kicker="INNOVA PHYSICS UPV · VALÈNCIA · SINCE 2023"
+    shout={['BUILD THE', 'BEAM']}
+    home
+    lead="A student team at the Universitat Politècnica de València designing and building ALOHA, an open-hardware tabletop electron accelerator."
+  >
     <Fragment slot="actions">
       <Button href="/join/">Join the team</Button>
-      <Button href="#figures" variant="secondary">Follow the beam</Button>
+      <Button href="#story" variant="secondary">Follow the beam</Button>
     </Fragment>
+    <CoverSource slot="figure" />
   </Cover>
+
   <main data-theme="gesso">
-    <Section id="figures" kicker="SPECIMEN" title="Shared components">
-      <figure style="margin-top: 48px; max-width: 520px">
-        <Lattice figure={aloha0Section} id="s-aloha0" />
-        <Caption lead="The source, in section." text="Cathode, Wehnelt and anode hatched: simulated. The einzel lens outlined: planned." />
-      </figure>
-      <figure style="margin-top: 48px; max-width: 520px">
-        <Lattice figure={aloha1Section} id="s-aloha1" />
-        <Caption lead="ALOHA-1, the design." text="The source, then four buncher and four accelerating cavities, outlined: not built yet." />
-      </figure>
-      <p style="margin-top: 32px"><Button href="#figures" variant="text">READ LOGBOOK 01</Button></p>
-    </Section>
-    <Sheet labelledby="sheet-title">
-      <div>
-        <p class="label muted">JOIN · 2026-27</p>
-        <h2 id="sheet-title" class="headline" style="margin-top: 24px">Build it with us</h2>
+    <!-- The team: from here on, paper. -->
+    <section id="team" class="team" aria-labelledby="team-title">
+      <div class="team__wrap">
+        <div class="team__text">
+          <p class="label muted">THE TEAM</p>
+          <h2 id="team-title" class="headline team__title">Particle accelerators, within reach of students</h2>
+          <p class="team__statement measure" data-statement>
+            Few universities let undergraduates near an accelerator. We are students from different degrees at the UPV who
+            design, simulate and build one, and we aim to publish every step so other teams can build their own.
+          </p>
+          <p class="label muted team__facts">FOUNDED 2023 · 30+ STUDENTS · 4 DEPARTMENTS</p>
+        </div>
+        <figure class="team__figure">
+          <div class="team__photo" data-team-photo>
+            <Picture
+              src={team}
+              alt="The Innova Physics UPV team, about thirty students in white team shirts, outdoors."
+              formats={['avif', 'webp']}
+              widths={[640, 960, 1280, 1600, 1920, 2560]}
+              sizes="(min-width: 1024px) 60vw, 100vw"
+              class="team__img"
+            />
+            <span class="team__veil" aria-hidden="true" data-team-veil></span>
+          </div>
+          <Caption lead="The team." text="[SEASON]." />
+        </figure>
       </div>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap">
-        <Button href="/join/">Tell me when it opens</Button>
-        <Button href="/join/" variant="secondary">Meet the team</Button>
+    </section>
+
+    <!-- Our story: one beamline, season by season. -->
+    <section id="story" class="story" aria-labelledby="story-title">
+      <div class="story__wrap">
+        <div class="story__head">
+          <p class="label muted">OUR STORY · 2023 TO NOW</p>
+          <h2 id="story-title" class="headline story__title">One beamline</h2>
+          <p class="lead story__lead">
+            Read it like an accelerator, from the source to the target: every season adds an element to the line.
+          </p>
+          <MarkerKey />
+        </div>
+        <Rail stations={stations} />
+        <p class="story__past">
+          <Button href="/seasons/" variant="text">PAST SEASONS · IP-0 TO IP-2</Button>
+        </p>
+      </div>
+    </section>
+
+    <!-- The target: two readings, the signature interaction. -->
+    <section id="readings" class="readings" aria-labelledby="readings-title">
+      <div class="readings__wrap">
+        <div class="readings__head">
+          <div class="readings__title-block">
+            <p class="label muted">THE TARGET · AN AIM</p>
+            <h2 id="readings-title" class="art readings__title">A beam reads a painting <em>twice.</em></h2>
+          </div>
+          <p class="readings__text measure">
+            Above the line, energy: every pigment answers the beam with its own X-ray lines. Below it, depth: the layers a
+            painter laid, and the ones they covered. We aim to make ALOHA a tool for conservation, one that reads pigments
+            without taking a sample.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join: an ultramarine sheet laid on the page. -->
+    <Sheet id="join" labelledby="join-title">
+      <div class="join__text">
+        <p class="label muted">JOIN · {round.season}</p>
+        <h2 id="join-title" class="headline join__title">Build it with us</h2>
+        <p class="join__body measure">
+          Students from different degrees design, simulate and build ALOHA together: you learn by building, in one of four
+          departments.{' '}
+          {
+            open
+              ? `Applications for ${round.season} are open until ${round.closesLabel}.`
+              : `Applications for ${round.season} closed on ${round.closesLabel}. Leave your email and we will write when the next round opens.`
+          }
+        </p>
+      </div>
+      <div class="join__actions">
+        {open ? <Button href={FORM_URL}>Apply now</Button> : <Button href="/join/">Tell me when it opens</Button>}
+        <Button href="/join/#team" variant="secondary">Meet the team</Button>
       </div>
     </Sheet>
-    <div style="height: var(--section)"></div>
+
+    <PartnerRow />
   </main>
 </Base>
+
+<style>
+  .team__wrap,
+  .story__wrap,
+  .readings__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+  }
+
+  /* The team */
+  .team__wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px 80px;
+    align-items: flex-start;
+  }
+
+  .team__text {
+    flex: 1 1 340px;
+    max-width: 560px;
+  }
+
+  .team__title {
+    margin-top: 24px;
+  }
+
+  .team__statement,
+  .team__facts {
+    margin-top: 32px;
+  }
+
+  .team__figure {
+    flex: 999 1 480px;
+    min-width: 0;
+  }
+
+  .team__photo {
+    position: relative;
+    overflow: clip;
+  }
+
+  .team__photo :global(.team__img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* The veil of page-coloured hatching (6px of every 8px). Withdrawn in the
+     finished state; motion.ts sets it before the photo is restored. */
+  .team__veil {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, var(--page) 0 6px, transparent 6px 8px);
+    clip-path: inset(0 0 0 100%);
+  }
+
+  /* Our story */
+  .story__head {
+    max-width: 760px;
+  }
+
+  .story__title {
+    margin-top: 24px;
+  }
+
+  .story__lead {
+    margin-top: 24px;
+    max-width: 560px;
+  }
+
+  .story__past {
+    margin-top: var(--station);
+    padding-left: var(--rail);
+  }
+
+  /* The target */
+  .readings__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 80px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .readings__title-block {
+    flex: 1 1 480px;
+  }
+
+  .readings__title {
+    margin-top: 24px;
+  }
+
+  .readings__text {
+    flex: 1 1 320px;
+  }
+
+  /* Join */
+  .join__text {
+    flex: 1 1 360px;
+    max-width: 560px;
+  }
+
+  .join__title,
+  .join__body {
+    margin-top: 24px;
+  }
+
+  .join__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+</style>

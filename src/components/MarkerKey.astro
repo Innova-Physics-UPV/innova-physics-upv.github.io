@@ -1,0 +1,51 @@
+---
+// The key to the story's markers.
+---
+
+<ul class="marker-key" aria-label="Key to the markers">
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--solid" aria-hidden="true"></span>BUILT</li>
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--hatched" aria-hidden="true"></span>SIMULATED</li>
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--outlined" aria-hidden="true"></span>NOT BUILT YET</li>
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--beam" aria-hidden="true"></span>THE BEAM, AS FAR AS WE HAVE COME</li>
+</ul>
+
+<style>
+  .marker-key {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+
+  .marker-key li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .marker-key__swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+  }
+
+  .marker-key__swatch--solid {
+    background: var(--figure);
+  }
+
+  .marker-key__swatch--hatched {
+    background: repeating-linear-gradient(90deg, var(--figure) 0 2px, transparent 2px 4px);
+  }
+
+  .marker-key__swatch--outlined {
+    border: var(--hair) solid var(--figure);
+  }
+
+  .marker-key__swatch--beam {
+    width: 24px;
+    height: var(--beam);
+    background: var(--accent);
+  }
+</style>

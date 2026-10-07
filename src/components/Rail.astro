@@ -1,0 +1,77 @@
+---
+// The story as a beamline. The rail (a construction line) runs in the first
+// column; the beam, 8px wide and centred 36px from the content edge, lives in
+// the wrapper of the seasons it has already crossed and ends 12px into NOW.
+// Its finished state, drawn to NOW, is the HTML: motion.ts runs it down with
+// the reading (M4) and lights the seasons it reaches (M8).
+import Season, { type Station } from './Season.astro';
+
+interface Props {
+  stations: Station[];
+  /** Draw the beam to the station marked `now`. */
+  beam?: boolean;
+}
+
+const { stations, beam = true } = Astro.props;
+const nowIndex = stations.findIndex((s) => s.now);
+const passed = beam && nowIndex > 0 ? stations.slice(0, nowIndex) : stations;
+const ahead = beam && nowIndex > 0 ? stations.slice(nowIndex) : [];
+---
+
+<div class="rail" data-rail>
+  <span class="rail__line" aria-hidden="true"></span>
+  <div class="rail__passed">
+    {ahead.length > 0 && <span class="rail__beam" aria-hidden="true" data-rail-beam></span>}
+    {passed.map((station) => <Season station={station} />)}
+  </div>
+  {
+    ahead.length > 0 && (
+      <div class="rail__ahead">
+        {ahead.map((station) => (
+          <Season station={station} />
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .rail {
+    position: relative;
+    margin-top: clamp(56px, 6.4vw, 96px);
+    padding-left: var(--rail);
+  }
+
+  .rail__line {
+    position: absolute;
+    left: calc(var(--rail-line) - 1px);
+    top: 4px;
+    bottom: 0;
+    width: var(--hair);
+    background: var(--construction);
+  }
+
+  .rail__passed,
+  .rail__ahead {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--station);
+  }
+
+  .rail__ahead {
+    margin-top: var(--station);
+  }
+
+  /* The beam: from the first marker to 12px into NOW, the one vermilion
+     element of the story. */
+  .rail__beam {
+    position: absolute;
+    left: calc(var(--rail-line) - 4px - var(--rail));
+    top: 4px;
+    bottom: calc(-1 * var(--station) - 12px);
+    width: var(--beam);
+    background: var(--accent);
+    clip-path: inset(0 0 calc((1 - var(--y, 1)) * 100%) 0);
+  }
+</style>

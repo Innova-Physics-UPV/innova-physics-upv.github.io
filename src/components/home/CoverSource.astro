@@ -1,0 +1,105 @@
+---
+// The cover figure: the recoloured COMSOL render of the ALOHA-0 electron
+// source, in two layers on the same 1600 × 960 crop. The wireframe (the
+// electrodes on ultramarine) and the beam (the trajectories alone, with
+// transparency). The HTML shows both: the finished frame. S1 (motion.ts)
+// switches the beam on with the reader's scroll.
+import { Picture } from 'astro:assets';
+import wire from '../../assets/figures/aloha-0-source-wire.webp';
+import beam from '../../assets/figures/aloha-0-source-beam.webp';
+
+const widths = [800, 1200, 1600];
+const sizes = '(min-width: 1024px) 64vw, 100vw';
+---
+
+<figure class="source" data-source>
+  <div class="source__frame" data-source-frame>
+    <Picture
+      src={wire}
+      alt="COMSOL simulation of the ALOHA-0 electron source: the electrodes as a white wireframe and the electron beam leaving the cathode, pale at low energy and vermilion once accelerated."
+      formats={['avif', 'webp']}
+      widths={widths}
+      sizes={sizes}
+      priority
+      class="source__layer"
+    />
+    <span class="source__path" aria-hidden="true">
+      <Picture src={beam} alt="" formats={['avif', 'webp']} widths={widths} sizes={sizes} priority class="source__layer" />
+    </span>
+    <span class="source__beam" aria-hidden="true" data-source-beam>
+      <Picture src={beam} alt="" formats={['avif', 'webp']} widths={widths} sizes={sizes} priority class="source__layer" />
+    </span>
+    <ol class="source__labels label" aria-hidden="true" data-source-labels>
+      <li class="source__label source__label--cathode" data-step="1">CATHODE AND WEHNELT</li>
+      <li class="source__label source__label--anode" data-step="2">ANODE · 30 kV</li>
+      <li class="source__label source__label--focus" data-step="3">TELEFOCUS · THE FOCUS LIES FAR BEYOND THE ANODE</li>
+    </ol>
+  </div>
+  <figcaption class="source__caption caption">
+    <span><strong>ALOHA-0, the electron source.</strong> Simulated in COMSOL.</span>
+    <span class="label source__scale">
+      ELECTRON ENERGY · 0 <span class="source__ramp" aria-hidden="true"></span> 30 keV
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  .source__frame {
+    position: relative;
+    aspect-ratio: 5 / 3;
+  }
+
+  .source__frame :global(.source__layer) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .source__path,
+  .source__beam {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Before S1 the beam is off: its planned path shows at 16%. In the
+     finished frame the beam layer covers it. */
+  .source__path {
+    opacity: 0.16;
+  }
+
+  /* The electrode labels belong to S1: shown only while it runs. */
+  .source__labels {
+    display: none;
+  }
+
+  .source__caption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 32px;
+    padding: 16px var(--pad) 0 0;
+    color: var(--figure-muted);
+  }
+
+  .source__caption strong {
+    font-weight: 700;
+    color: var(--figure);
+  }
+
+  .source__scale {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* The legend of the render's colour scale, from lapis light (low energy)
+     to vermilion (30 keV). A key to data, not a decorative gradient. */
+  .source__ramp {
+    display: inline-block;
+    width: 96px;
+    height: var(--beam);
+    background: linear-gradient(90deg, #c9cfee 0%, #d3afbd 25%, #d78d8d 50%, #d7685c 75%, #d4391f 100%);
+  }
+</style>
