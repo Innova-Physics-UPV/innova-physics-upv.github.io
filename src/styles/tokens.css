@@ -46,6 +46,8 @@
   --logo-ink: var(--bone-black);
   --mark: #000000;
   --mark-one-ink: var(--bone-black);
+  /* A card laid on the page: white by day, a lighter night by night. */
+  --card: var(--white);
   color-scheme: light;
 
   /* ── Strokes, each double the last ────────────────────────── */
@@ -100,6 +102,7 @@
   --logo-ink: var(--lead-white);
   --mark: var(--white);
   --mark-one-ink: var(--white);
+  --card: var(--line-night);
   color-scheme: dark;
 }
 
@@ -112,6 +115,7 @@
     --logo-ink: var(--lead-white);
     --mark: var(--white);
     --mark-one-ink: var(--white);
+    --card: var(--line-night);
     color-scheme: dark;
   }
 }

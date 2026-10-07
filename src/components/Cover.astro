@@ -4,7 +4,8 @@
 // bleeds off the right edge. The scroll cue (M12) sits at its foot. With
 // `scene="s1"` the cover becomes a pinned scroll scene: a tall track holds a
 // sticky stage (motion.ts and motion.css); without motion it is the plain
-// cover, its finished frame.
+// cover, its finished frame. With a `wide` slot (the machine, the partners)
+// the shout and the lead share a row and the figure runs full width below.
 import ScrollCue from './ScrollCue.astro';
 
 interface Props {
@@ -25,6 +26,7 @@ interface Props {
 const { id = 'cover', kicker, shout, lead, home = false, cue, cueScene, scene, class: className } = Astro.props;
 const titleId = `${id}-title`;
 const hasFigure = Astro.slots.has('figure');
+const hasWide = Astro.slots.has('wide');
 ---
 
 <section
@@ -36,21 +38,55 @@ const hasFigure = Astro.slots.has('figure');
 >
   <div class="cover__track" data-track>
     <div class="cover__stage" data-stage>
-      <div class="cover__inner">
+      <div class:list={['cover__inner', hasWide && 'cover__inner--wide']}>
         <p class="label muted" data-words>{kicker}</p>
-        <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']} data-words>
-          {shout.map((line) => <span class="cover__line">{line}</span>)}
-        </h1>
-        <div class="cover__body">
-          <div class="cover__text" data-words>
-            {lead && <p class="lead">{lead}</p>}
-            {Astro.slots.has('actions') && <div class="cover__actions"><slot name="actions" /></div>}
-            <slot />
-          </div>
-          {hasFigure && <div class="cover__figure"><slot name="figure" /></div>}
+        <div class:list={['cover__head', hasWide && 'cover__head--row']}>
+          <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']} data-words>
+            {shout.map((line) => <span class="cover__line">{line}</span>)}
+          </h1>
+          {
+            hasWide && (
+              <div class="cover__text cover__text--beside" data-words>
+                {lead && <p class="lead">{lead}</p>}
+                <slot />
+              </div>
+            )
+          }
         </div>
-        <ScrollCue text={cue} sceneText={cueScene} />
+        {
+          !hasWide && (
+            <div class="cover__body">
+              <div class="cover__text" data-words>
+                {lead && <p class="lead">{lead}</p>}
+                {Astro.slots.has('actions') && (
+                  <div class="cover__actions">
+                    <slot name="actions" />
+                  </div>
+                )}
+                <slot />
+              </div>
+              {hasFigure && (
+                <div class="cover__figure">
+                  <slot name="figure" />
+                </div>
+              )}
+            </div>
+          )
+        }
+        {!hasWide && <ScrollCue text={cue} sceneText={cueScene} />}
       </div>
+      {
+        hasWide && (
+          <>
+            <div class="cover__wide">
+              <slot name="wide" />
+            </div>
+            <div class="cover__after">
+              <ScrollCue text={cue} />
+            </div>
+          </>
+        )
+      }
     </div>
   </div>
   <div class="cover__foot" aria-hidden="true" data-cover-foot></div>
@@ -70,8 +106,30 @@ const hasFigure = Astro.slots.has('figure');
     padding: clamp(32px, 4.4vw, 64px) var(--pad) clamp(64px, 7.2vw, 104px);
   }
 
-  .cover__shout {
+  .cover__inner--wide {
+    padding-bottom: 0;
+  }
+
+  .cover__head {
     margin-top: 20px;
+  }
+
+  /* Beside a wide figure, the shout and the lead share a row. */
+  .cover__head--row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 80px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .cover__head--row .cover__shout {
+    flex: 1 1 480px;
+  }
+
+  .cover__text--beside {
+    flex: 1 1 360px;
+    max-width: var(--measure);
   }
 
   .cover__line {
@@ -105,6 +163,18 @@ const hasFigure = Astro.slots.has('figure');
     flex: 999 1 560px;
     min-width: 0;
     margin-right: calc(-1 * var(--pad));
+  }
+
+  /* A full-width figure under the head: it runs edge to edge; what it holds
+     (a legend, labels) sets its own width. */
+  .cover__wide {
+    margin-top: clamp(48px, 6vw, 88px);
+  }
+
+  .cover__after {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: 0 var(--pad) clamp(48px, 6vw, 80px);
   }
 
   /* A zero-height sentinel at the cover's foot: the masthead tightens once
