@@ -1,0 +1,58 @@
+---
+// Every page: the head (no-flash mode script, fonts, styles) and the body.
+import { Font } from 'astro:assets';
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+interface Props {
+  /** The page's own title; the site name is added after it. */
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'A student team at the Universitat Politècnica de València designing and building ALOHA, an open-hardware tabletop electron accelerator.',
+} = Astro.props;
+
+const pageTitle = title ? `${title} · Innova Physics UPV` : 'Innova Physics UPV';
+const lang = Astro.currentLocale ?? 'en';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Before the first paint: the remembered mode (so the page never flashes
+      the wrong ground), a flag that JavaScript runs, and the motion flag,
+      set only when the reader has not asked for reduced motion. Every start
+      state of an animation hangs on [data-motion]; without it the HTML is
+      the finished state.
+    -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.setAttribute('data-js', '');
+        try {
+          var m = localStorage.getItem('mode');
+          if (m === 'light' || m === 'dark') d.setAttribute('data-mode', m);
+        } catch (e) {}
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.setAttribute('data-motion', '');
+        }
+      })();
+    </script>
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <Font cssVariable="--font-grotesk" preload={[{ weight: 400, style: 'normal' }]} />
+    <Font cssVariable="--font-condensed" preload />
+    <Font cssVariable="--font-art" />
+    <Font cssVariable="--font-mono" />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

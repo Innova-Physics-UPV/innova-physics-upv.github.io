@@ -1,0 +1,127 @@
+/* Tokens of "Innova Physics Fingerprint & Pentimento", version 3.
+   Ported by hand from design-system/tokens.json; the night tokens come from
+   the website spec (docs/website-spec.md, "Dark mode: night paper"). */
+
+:root {
+  /* ── Palette ─────────────────────────────────────────────── */
+  --ultramarine: #2338a8;
+  --ultramarine-deep: #182a7f;
+  --vermilion: #d4391f;
+  --vermilion-deep: #b52f17;
+  --gesso: #eeeae1;
+  --lead-white: #f4f1ea;
+  --white: #ffffff;
+  --bone-black: #1c1b19;
+  --bone-deep: #2a2826;
+  --graphite: #66615a;
+  --ash: #a8a296;
+  --lapis-light: #c9cfee;
+  --line-gesso: #d9d3c6;
+  --line-ultramarine: #3a4fb5;
+  --line-black: #2f2d2a;
+  --line-vermilion: #e0634b;
+  --fe-ochre: #c4943a;
+  --cu-azurite: #2f69a3;
+  --cu-verdigris: #2f8576;
+  --au-gold: #b48a34;
+  /* Strata of a panel painting: the cross-section only. */
+  --varnish: #cfae68;
+  --gesso-layer: #ddd6c6;
+  --bole: #9b4632;
+  --panel: #b08d62;
+  /* Night paper: ultramarine's hue at a quarter of its chroma. */
+  --night: #111932;
+  --lapis-dim: #939dbe;
+  --line-night: #233056;
+
+  /* ── The page: the only thing that changes at night ───────── */
+  --page: var(--gesso);
+  --ink: var(--bone-black);
+  --muted: var(--graphite);
+  --line: var(--line-gesso);
+  color-scheme: light;
+
+  /* ── Strokes, each double the last ────────────────────────── */
+  --hair: 2px;
+  --rule: 4px;
+  --beam: 8px;
+  --bar: 16px;
+
+  /* ── Spacing ──────────────────────────────────────────────── */
+  --pad: clamp(20px, 5.6vw, 80px);
+  --section: clamp(80px, 10.4vw, 152px);
+  --station: clamp(72px, 7.2vw, 104px);
+  --measure: 520px;
+  --rail: clamp(56px, 7vw, 120px);
+  --content: 1440px;
+  /* The beam runs 8px wide, centred 36px from the content edge. */
+  --rail-line: 36px;
+
+  /* ── Type: sizes from the canvas, phone to desktop ────────── */
+  --fs-label: 13px;
+  --lh-label: 20px;
+  --fs-caption: 15px;
+  --lh-caption: 22px;
+  --fs-body: 17px;
+  --lh-body: 28px;
+  --fs-lead: clamp(19px, 1.55vw, 22px);
+  --fs-station: clamp(24px, 2.2vw, 32px);
+  --fs-headline: clamp(32px, 3.3vw, 48px);
+  --fs-art: clamp(40px, 4.4vw, 64px);
+  --fs-shout: clamp(56px, 8.4vw, 120px);
+  --fs-shout-home: clamp(64px, 10vw, 144px);
+  --fs-numeral: clamp(72px, 7.2vw, 104px);
+  --fs-aside: clamp(19px, 1.6vw, 24px);
+
+  /* Families with their stacks. The Fonts API defines the --font-* lists
+     (hashed family names plus metric-matched fallbacks). The mono stack puts
+     the whole Heros stack after Fragment Mono, so α, β, γ set in Heros. */
+  --grotesk: var(--font-grotesk);
+  --condensed: var(--font-condensed);
+  --art: var(--font-art);
+  --mono: var(--font-mono), var(--font-grotesk);
+}
+
+/* Night, chosen with the DARK switch, or following the system. */
+:root[data-mode='dark'] {
+  --page: var(--night);
+  --ink: var(--gesso);
+  --muted: var(--lapis-dim);
+  --line: var(--line-night);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode='light']) {
+    --page: var(--night);
+    --ink: var(--gesso);
+    --muted: var(--lapis-dim);
+    --line: var(--line-night);
+    color-scheme: dark;
+  }
+}
+
+/* ── Themes: a composition's ground and what reads on it ─────────── */
+/* Gesso follows the page, so it turns to night; ultramarine never changes. */
+[data-theme='gesso'] {
+  --ground: var(--page);
+  --figure: var(--ink);
+  --figure-muted: var(--muted);
+  --accent: var(--vermilion);
+  --sheet: var(--white);
+  --construction: var(--line);
+}
+
+[data-theme='ultramarine'] {
+  --ground: var(--ultramarine);
+  --figure: var(--lead-white);
+  --figure-muted: var(--lapis-light);
+  --accent: var(--vermilion);
+  --sheet: var(--ultramarine-deep);
+  --construction: var(--line-ultramarine);
+}
+
+[data-theme] {
+  background: var(--ground);
+  color: var(--figure);
+}
