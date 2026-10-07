@@ -49,7 +49,7 @@ Page copy (cover, list title, closing sheet): `src/data/research.ts`.
 | The round: season, closing date | `src/data/recruitment.ts`; the form in `src/consts.ts` (`FORM_URL`, `WAITLIST_URL`) |
 | Cover photo, the team at CERN (consent of the seven people pending) | `src/assets/photos/team-at-cern-2026.webp` |
 | Department logos (from the canvas) | `src/assets/logos/departments/` |
-| Team members: one file each, `consent: true` required | `src/content/team/*.yaml` (only Marc for now) |
+| Team members: one file each, `consent: true` required, `linkedin:` the handle after linkedin.com/in/ (the photo and name link there) | `src/content/team/*.yaml` (only Marc for now) |
 
 ## Partners (`/partners/`)
 

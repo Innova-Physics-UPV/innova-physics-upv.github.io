@@ -110,6 +110,11 @@ const team = defineCollection({
       /** In colour, 3:4. Without one the card shows a placeholder tile. */
       photo: image().optional(),
       alt: z.string().optional(),
+      /** The LinkedIn handle, the part after linkedin.com/in/: the card links to the profile. */
+      linkedin: z
+        .string()
+        .regex(/^[A-Za-z0-9_%-]+$/, 'Only the handle, the part after linkedin.com/in/')
+        .optional(),
       consent: z.boolean().default(false),
       order: z.number().int(),
     }),

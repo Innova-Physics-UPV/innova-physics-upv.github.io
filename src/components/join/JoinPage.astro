@@ -95,7 +95,15 @@ const people = (await getCollection('team')).filter((p) => p.data.consent).sort(
     <Section id="team" kicker={t.team.kicker(round.season)} title={t.team.title}>
       <p class="label muted team__note">{t.team.note}</p>
       <ul class="people">
-        {people.map((person) => <PersonCard person={person} photoMissing={t.team.photoMissing} />)}
+        {
+          people.map((person) => (
+            <PersonCard
+              person={person}
+              photoMissing={t.team.photoMissing}
+              linkLabel={t.team.onLinkedIn(person.data.name)}
+            />
+          ))
+        }
         <li class="rest">
           <div class="rest__tile">
             <span class="rest__value">{t.team.rest.value}</span>

@@ -33,6 +33,8 @@ export interface JoinCopy {
     note: string;
     rest: { value: string; text: string };
     photoMissing: string;
+    /** The name of the link from a card to the person's LinkedIn profile. */
+    onLinkedIn: (name: string) => string;
   };
   closing: {
     kicker: (season: string) => string;
@@ -118,6 +120,7 @@ const en: JoinCopy = {
     note: 'PHOTOS IN COLOUR · PUBLISHED WITH CONSENT',
     rest: { value: '30+', text: 'students across the four departments' },
     photoMissing: 'PHOTO TO COME',
+    onLinkedIn: (name) => `${name} on LinkedIn`,
   },
   closing: {
     kicker: (season) => `JOIN · ${season}`,
@@ -196,6 +199,7 @@ const es: JoinCopy = {
     note: 'FOTOS EN COLOR · PUBLICADAS CON CONSENTIMIENTO',
     rest: { value: '30+', text: 'estudiantes en los cuatro departamentos' },
     photoMissing: 'FOTO PENDIENTE',
+    onLinkedIn: (name) => `${name} en LinkedIn`,
   },
   closing: {
     kicker: (season) => `ÚNETE · ${season}`,
@@ -274,6 +278,7 @@ const va: JoinCopy = {
     note: 'FOTOS EN COLOR · PUBLICADES AMB CONSENTIMENT',
     rest: { value: '30+', text: 'estudiants en els quatre departaments' },
     photoMissing: 'FOTO PENDENT',
+    onLinkedIn: (name) => `${name} a LinkedIn`,
   },
   closing: {
     kicker: (season) => `UNIX-TE · ${season}`,
