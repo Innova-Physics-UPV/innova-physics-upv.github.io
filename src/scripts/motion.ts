@@ -450,12 +450,13 @@ if (moving && 'startViewTransition' in document) {
 }
 
 // ── Follow the beam: an in-page link that travels instead of jumping ────
-// A link marked data-follow scrolls to its target at a constant speed, about
-// a window and a half a second (0.6 to 4 s in all), so the scenes on the way
-// play as it passes them. Any wheel, touch, key or press from the reader stops
+// A link marked data-follow scrolls to its target at a constant speed, 0.6
+// windows a second (0.8 to 5 s in all), slow enough to watch the scenes on
+// the way play as it passes them. On the home it travels through the cover
+// and stops at the team, 16px before the photo's own scene (S2) begins. Any wheel, touch, key or press from the reader stops
 // it where it is. Without motion the link jumps, as any anchor does.
 if (moving) {
-  const SPEED = 1.6; // windows a second
+  const SPEED = 0.6; // windows a second
   const halt = ['wheel', 'touchstart', 'keydown', 'mousedown'] as const;
   let travelling: (() => void) | null = null;
 
@@ -468,7 +469,7 @@ if (moving) {
         root.scrollHeight - window.innerHeight,
       );
     const start = window.scrollY;
-    const duration = clamp(Math.abs(goal() - start) / (SPEED * window.innerHeight), 0.6, 4) * 1000;
+    const duration = clamp(Math.abs(goal() - start) / (SPEED * window.innerHeight), 0.8, 5) * 1000;
     const t0 = performance.now();
     let stopped = false;
     const stop = () => {
