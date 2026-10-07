@@ -45,9 +45,9 @@ const figures = { 'aloha-0-line': aloha0Line, 'aloha-1-line': aloha1Line };
     <p class="label muted">
       {researchLabels.type[d.type]} · {coming ? 'COMING' : researchMonth(d.date)}
     </p>
-    <h2 id={`rcard-${item.id}`} class="station-title rcard__title">
+    <h3 id={`rcard-${item.id}`} class="station-title rcard__title">
       {coming ? d.title : <a class="rcard__link" href={href}>{d.title}</a>}
-    </h2>
+    </h3>
     <p class="rcard__authors">{d.authors.join(', ')}</p>
     <p class="label rcard__venue">
       {

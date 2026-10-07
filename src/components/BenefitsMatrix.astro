@@ -13,7 +13,7 @@ const { caption } = Astro.props;
 const rank = (name: string) => tiers.findIndex((t) => t.name === name);
 ---
 
-<div class="matrix-wrap">
+<div class="matrix-wrap" tabindex="0" role="region" aria-label={caption}>
   <table class="matrix">
     <caption class="visually-hidden">{caption}</caption>
     <thead>

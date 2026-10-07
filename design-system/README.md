@@ -30,3 +30,14 @@ The GUST Font License asks, but does not require, that derived works rename
 the fonts. A format conversion changes no glyph, so the files keep their
 names, as other web copies of TeX Gyre do. EB Garamond and Fragment Mono come
 from the `@fontsource` packages (SIL Open Font License).
+
+## Logos
+
+The logos in `src/assets/logos/` are inlined on every page (one ink through
+`currentColor`), so they are kept small: optimised with SVGO, coordinates
+rounded to three decimals, which draws them identically at 1200 px. Run it on
+any new logo:
+
+```sh
+npx svgo@4 --config design-system/svgo.config.mjs -f src/assets/logos -r
+```

@@ -12,37 +12,45 @@ interface Props {
 const { caption, rows } = Astro.props;
 ---
 
-<table class="spec">
-  <caption class="visually-hidden">{caption}</caption>
-  <thead>
-    <tr>
-      <th scope="col" class="label">QUANTITY</th>
-      <th scope="col" class="label">VALUE</th>
-      <th scope="col" class="label">STATUS</th>
-    </tr>
-  </thead>
-  <tbody>
-    {
-      rows.map((row) => (
-        <tr>
-          <th scope="row">{row.quantity}</th>
-          <td>
-            <span class="spec__number">{row.value}</span>
-            {row.unit && (
-              <>
-                {' '}
-                <span class="spec__unit">{row.unit}</span>
-              </>
-            )}
-          </td>
-          <td class="label">{row.status}</td>
-        </tr>
-      ))
-    }
-  </tbody>
-</table>
+<!-- On the narrowest phones the table scrolls sideways in its own frame. -->
+<div class="spec-wrap" tabindex="0" role="region" aria-label={caption}>
+  <table class="spec">
+    <caption class="visually-hidden">{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col" class="label">QUANTITY</th>
+        <th scope="col" class="label">VALUE</th>
+        <th scope="col" class="label">STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            <th scope="row">{row.quantity}</th>
+            <td>
+              <span class="spec__number">{row.value}</span>
+              {row.unit && (
+                <>
+                  {' '}
+                  <span class="spec__unit">{row.unit}</span>
+                </>
+              )}
+            </td>
+            <td class="label">{row.status}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
 
 <style>
+  .spec-wrap {
+    position: relative;
+    overflow-x: auto;
+  }
+
   .spec {
     width: 100%;
     border-collapse: collapse;
