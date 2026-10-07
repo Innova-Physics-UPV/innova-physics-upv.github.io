@@ -69,6 +69,12 @@ const lang = Astro.currentLocale ?? 'en';
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {
+      languages &&
+        Object.entries(languages).map(([code, path]) => (
+          <link rel="alternate" hreflang={code} href={new URL(path, Astro.site).href} />
+        ))
+    }
     <Font cssVariable="--font-grotesk" preload={[{ weight: 400, style: 'normal' }]} />
     <Font cssVariable="--font-condensed" preload />
     <Font cssVariable="--font-art" />

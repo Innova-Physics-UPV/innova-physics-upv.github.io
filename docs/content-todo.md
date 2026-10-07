@@ -60,3 +60,10 @@ Page copy (cover, list title, closing sheet): `src/data/research.ts`.
 | Tiers and benefits (no amounts on the page) | `src/data/sponsorship.ts` |
 | The dossier PDF (the download hides itself if the file is missing) | `public/dossier.pdf` |
 | One-ink vector logos for iTEAM and Edwards (masks of the white rasters until then) | `src/components/PartnerMark.astro` |
+
+## Spanish and Valencian (`/es/join/`, `/va/join/`)
+
+Drafts written from the English page, for the team to review: `es` and
+`ca-ES-valencia` in `src/i18n/join.ts`. The Valencian follows the AVL norms
+(unix-te, construïxen, este, s’òbriga). The masthead and the footer stay in
+English on these pages, as the spec leaves them.

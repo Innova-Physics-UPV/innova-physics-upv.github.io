@@ -127,4 +127,160 @@ const en: JoinCopy = {
   },
 };
 
-export const joinCopy: Partial<Record<JoinLocale, JoinCopy>> = { en };
+// Draft, to be reviewed by the team.
+const es: JoinCopy = {
+  path: '/es/join/',
+  readIn: 'LEER EN ESPAÑOL',
+  meta: {
+    title: 'Únete al equipo',
+    description: 'Únete a Innova Physics UPV: estudiantes de distintas titulaciones diseñan, simulan y construyen un acelerador de electrones en la UPV, en cuatro departamentos.',
+  },
+  cover: {
+    kicker: (season) => `ÚNETE · ${season}`,
+    shout: ['ÚNETE AL EQUIPO'],
+    lead: 'Estudiantes de distintas titulaciones diseñan, simulan y construyen un acelerador de electrones en la UPV. Aprendes construyendo, en uno de los cuatro departamentos.',
+    open: (season, date) => `INSCRIPCIONES ${season} ABIERTAS HASTA EL ${date}`,
+    closed: (season, date) => `INSCRIPCIONES ${season} CERRADAS EL ${date}`,
+    apply: 'Inscríbete',
+    waitlist: 'Avísame cuando abra',
+    count: { value: '30+', label: 'ESTUDIANTES · OCTUBRE 2026' },
+    photo: {
+      alt: 'Siete miembros del equipo con acreditaciones de visitante del CERN, sonriendo delante de sus pósteres en el CERN.',
+      lead: 'El equipo en el CERN.',
+      text: 'Julio de 2026.',
+    },
+  },
+  departments: {
+    kicker: 'DEPARTAMENTOS',
+    title: 'Cuatro departamentos, una máquina',
+    items: [
+      {
+        key: 'applied-physics',
+        name: 'Física Aplicada',
+        body: 'Simula el haz: campos, óptica y la RF de las cavidades, desde el cátodo hasta el objetivo de diseño de 1\u00a0MeV.',
+        logoLabel: 'Innova Physics, con la huella del wolframio',
+      },
+      {
+        key: 'electronics-control',
+        name: 'Electrónica y Control',
+        body: 'Diseña las fuentes y el control. Este cuatrimestre: la fuente del cátodo y el control del sistema de vacío.',
+        logoLabel: 'Innova Physics, con la huella del cobre',
+      },
+      {
+        key: 'technical-design',
+        name: 'Diseño Técnico',
+        body: 'Convierte la física en piezas: cámaras, soportes y la mecánica de las cavidades.',
+        logoLabel: 'Innova Physics, con la huella del acero inoxidable',
+      },
+      {
+        key: 'communication',
+        name: 'Comunicación',
+        body: 'Cuenta la historia: las publicaciones, los informes de investigación, la divulgación y esta web, con el sistema de diseño del equipo.',
+        logoLabel: 'Innova Physics, con la huella del bermellón',
+      },
+    ],
+  },
+  ladder: {
+    kicker: 'CÓMO FUNCIONA',
+    title: 'De la candidatura a la cualificación',
+    steps: [
+      { title: 'Inscripción', body: 'Cuando abra una convocatoria, rellena el formulario.' },
+      { title: 'Candidatura', body: 'Una prueba en una tarea real, con una persona mentora.' },
+      { title: 'Miembro', body: 'Parte de un departamento y de sus tareas.' },
+      { title: 'Cualificación', body: 'Reconocimiento en un área, de una en una.' },
+    ],
+  },
+  team: {
+    kicker: (season) => `EL EQUIPO · ${season}`,
+    title: 'Las personas con las que construirías',
+    note: 'FOTOS EN COLOR · PUBLICADAS CON CONSENTIMIENTO',
+    rest: { value: '30+', text: 'estudiantes en los cuatro departamentos' },
+    photoMissing: 'FOTO PENDIENTE',
+  },
+  closing: {
+    kicker: (season) => `ÚNETE · ${season}`,
+    title: 'Constrúyelo con nosotros',
+    open: (date) => `Las inscripciones están abiertas hasta el ${date}.`,
+    closed: (date) => `Las inscripciones se cerraron el ${date}. Déjanos tu correo y te escribiremos cuando abra la próxima convocatoria.`,
+  },
+};
+
+// Draft in Valencian (AVL norms), to be reviewed by the team.
+const va: JoinCopy = {
+  path: '/va/join/',
+  readIn: 'LLEGIR EN VALENCIÀ',
+  meta: {
+    title: 'Unix-te a l’equip',
+    description: 'Unix-te a Innova Physics UPV: estudiants de diferents titulacions dissenyen, simulen i construïxen un accelerador d’electrons a la UPV, en quatre departaments.',
+  },
+  cover: {
+    kicker: (season) => `UNIX-TE · ${season}`,
+    shout: ['UNIX-TE A L’EQUIP'],
+    lead: 'Estudiants de diferents titulacions dissenyen, simulen i construïxen un accelerador d’electrons a la UPV. Aprens construint, en un dels quatre departaments.',
+    open: (season, date) => `INSCRIPCIONS ${season} OBERTES FINS AL ${date}`,
+    closed: (season, date) => `INSCRIPCIONS ${season} TANCADES EL ${date}`,
+    apply: 'Inscriu-te',
+    waitlist: 'Avisa’m quan s’òbriga',
+    count: { value: '30+', label: 'ESTUDIANTS · OCTUBRE 2026' },
+    photo: {
+      alt: 'Set membres de l’equip amb acreditacions de visitant del CERN, somrient davant dels seus pòsters al CERN.',
+      lead: 'L’equip al CERN.',
+      text: 'Juliol de 2026.',
+    },
+  },
+  departments: {
+    kicker: 'DEPARTAMENTS',
+    title: 'Quatre departaments, una màquina',
+    items: [
+      {
+        key: 'applied-physics',
+        name: 'Física Aplicada',
+        body: 'Simula el feix: camps, òptica i la RF de les cavitats, des del càtode fins a l’objectiu de disseny d’1\u00a0MeV.',
+        logoLabel: 'Innova Physics, amb l’empremta del wolframi',
+      },
+      {
+        key: 'electronics-control',
+        name: 'Electrònica i Control',
+        body: 'Dissenya les fonts i el control. Este quadrimestre: la font del càtode i el control del sistema de buit.',
+        logoLabel: 'Innova Physics, amb l’empremta del coure',
+      },
+      {
+        key: 'technical-design',
+        name: 'Disseny Tècnic',
+        body: 'Convertix la física en peces: cambres, suports i la mecànica de les cavitats.',
+        logoLabel: 'Innova Physics, amb l’empremta de l’acer inoxidable',
+      },
+      {
+        key: 'communication',
+        name: 'Comunicació',
+        body: 'Conta la història: les publicacions, els informes de recerca, la divulgació i esta web, amb el sistema de disseny de l’equip.',
+        logoLabel: 'Innova Physics, amb l’empremta del vermelló',
+      },
+    ],
+  },
+  ladder: {
+    kicker: 'COM FUNCIONA',
+    title: 'De la candidatura a la qualificació',
+    steps: [
+      { title: 'Inscripció', body: 'Quan s’òbriga una convocatòria, emplena el formulari.' },
+      { title: 'Candidatura', body: 'Una prova en una tasca real, amb una persona mentora.' },
+      { title: 'Membre', body: 'Part d’un departament i de les seues tasques.' },
+      { title: 'Qualificació', body: 'Reconeixement en una àrea, d’una en una.' },
+    ],
+  },
+  team: {
+    kicker: (season) => `L’EQUIP · ${season}`,
+    title: 'Les persones amb qui construiries',
+    note: 'FOTOS EN COLOR · PUBLICADES AMB CONSENTIMENT',
+    rest: { value: '30+', text: 'estudiants en els quatre departaments' },
+    photoMissing: 'FOTO PENDENT',
+  },
+  closing: {
+    kicker: (season) => `UNIX-TE · ${season}`,
+    title: 'Construïx-lo amb nosaltres',
+    open: (date) => `Les inscripcions estan obertes fins al ${date}.`,
+    closed: (date) => `Les inscripcions es van tancar el ${date}. Deixa’ns el teu correu i t’escriurem quan s’òbriga la pròxima convocatòria.`,
+  },
+};
+
+export const joinCopy: Partial<Record<JoinLocale, JoinCopy>> = { en, es, 'ca-ES-valencia': va };
