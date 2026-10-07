@@ -12,9 +12,11 @@ interface Props {
   active?: Section;
   /** This page in each language it exists in. Missing languages show as plain text. */
   languages?: Partial<Record<Locale, string>>;
+  /** M10: a vermilion line over the hairline grows with the reading (Logbook entries). */
+  progress?: boolean;
 }
 
-const { theme = 'ultramarine', active, languages = {} } = Astro.props;
+const { theme = 'ultramarine', active, languages = {}, progress = false } = Astro.props;
 const current = (Astro.currentLocale ?? 'en') as Locale;
 
 const nav: { key: Section; label: string; href: string }[] = [
@@ -72,6 +74,7 @@ const langs: { code: Locale; label: string; name: string }[] = [
       </button>
     </nav>
   </div>
+  {progress && <span class="masthead__progress" aria-hidden="true"></span>}
 </header>
 
 <script>
@@ -212,6 +215,37 @@ const langs: { code: Locale; label: string; name: string }[] = [
     background: var(--figure);
   }
 
+
+  /* M10: where the browser links animations to the scroll, the line grows
+     from 0 to the full width as the page is read. Elsewhere, and without
+     motion, the hairline stays. */
+  .masthead__progress {
+    display: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    :global(html[data-motion]) .masthead__progress {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(-1 * var(--hair));
+      height: var(--hair);
+      background: var(--vermilion);
+      transform-origin: 0 50%;
+      animation: masthead-read linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  @keyframes masthead-read {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     * {

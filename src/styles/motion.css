@@ -353,6 +353,57 @@ html[data-motion] .cover--s1 .cue {
   }
 }
 
+/* ── M7: night falls as a raster scan, an edge sweeping down the window in
+   480ms. motion.ts sets data-scan for the DARK switch's transition only. ── */
+@keyframes night-scan {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+html[data-scan]::view-transition-old(root) {
+  animation: none;
+}
+
+html[data-scan]::view-transition-new(root) {
+  animation: night-scan 480ms linear;
+}
+
+/* ── M9: between pages the masthead stays still and the next page wipes in
+   from the left, 360ms. CSS only, so it needs no JavaScript. ─────────── */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+@keyframes page-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+html:not([data-scan])::view-transition-old(root) {
+  animation: none;
+}
+
+html:not([data-scan])::view-transition-new(root) {
+  animation: page-wipe 360ms linear;
+}
+
+/* The masthead neither fades nor morphs: the new one shows at once. */
+::view-transition-group(masthead),
+::view-transition-old(masthead),
+::view-transition-new(masthead) {
+  animation: none;
+}
+
 /* ── S4: the team statement lights up word by word ───────────────────── */
 html[data-motion] [data-statement] .w {
   color: var(--muted);

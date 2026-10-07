@@ -15,10 +15,13 @@
 //   S2  (desktop) the team photo is restored beside the text, then grows
 //   S3  (wide screens) the story's pictures in a centred sticky column
 //   S4  the team statement lights up word by word
+//   M7  night falls as a raster scan when the DARK switch is pressed
 //
 // Scroll-driven CSS animations would cover only part of this (holds at
 // measured markers, jumps and latches need code) and Firefox lacks them, so
 // one JavaScript path serves every browser.
+
+import { setMode, setModeApplier } from './mode';
 
 const root = document.documentElement;
 root.setAttribute('data-motion-ready', '');
@@ -372,6 +375,22 @@ if (moving) {
       },
     });
   }
+}
+
+// ── M7: night falls as a raster scan ────────────────────────────────────
+// Only the DARK switch sweeps: following the system changes the mode
+// silently, and without motion or view transitions it changes at once.
+// data-scan tells the sweep (motion.css) from a page transition (M9); a
+// second press mid-sweep starts a new one, so it is counted, not toggled.
+if (moving && 'startViewTransition' in document) {
+  let scans = 0;
+  setModeApplier((next) => {
+    scans++;
+    root.setAttribute('data-scan', '');
+    document.startViewTransition(() => setMode(next)).finished.finally(() => {
+      if (--scans === 0) root.removeAttribute('data-scan');
+    });
+  });
 }
 
 // ── The loop ────────────────────────────────────────────────────────────

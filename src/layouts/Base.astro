@@ -20,6 +20,8 @@ interface Props {
   headerTheme?: HeaderProps['theme'];
   /** This page in each language it exists in. */
   languages?: HeaderProps['languages'];
+  /** M10: the reading line under the masthead (Logbook entries). */
+  progress?: boolean;
 }
 
 const {
@@ -28,6 +30,7 @@ const {
   active,
   headerTheme = 'ultramarine',
   languages,
+  progress,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · Innova Physics UPV` : 'Innova Physics UPV';
@@ -73,7 +76,7 @@ const lang = Astro.currentLocale ?? 'en';
     <slot name="head" />
   </head>
   <body>
-    <Header theme={headerTheme} active={active} languages={languages} />
+    <Header theme={headerTheme} active={active} languages={languages} progress={progress} />
     <slot />
     <Footer />
     <script>
