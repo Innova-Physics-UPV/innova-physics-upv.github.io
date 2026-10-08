@@ -26,7 +26,7 @@ const picture = station.picture;
 {
   picture?.kind === 'photo' && (
     <figure class="station-picture">
-      <Picture src={picture.src} alt={picture.alt} formats={['avif', 'webp']} widths={widths} sizes={sizes} class="station-picture__photo" />
+      <Picture src={picture.src} alt={picture.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={sizes} class="station-picture__photo" />
       <span class="station-picture__alt">{picture.alt}</span>
       {station.caption && <Caption {...station.caption} />}
     </figure>

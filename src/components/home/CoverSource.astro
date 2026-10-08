@@ -18,16 +18,17 @@ const sizes = '(min-width: 1024px) 64vw, 100vw';
       src={wire}
       alt="COMSOL simulation of the ALOHA-0 electron source: the electrodes as a white wireframe and the electron beam leaving the cathode, pale at low energy and vermilion once accelerated."
       formats={['avif', 'webp']}
+      fallbackFormat="webp"
       widths={widths}
       sizes={sizes}
       priority
       class="source__layer"
     />
     <span class="source__path" aria-hidden="true">
-      <Picture src={beam} alt="" formats={['avif', 'webp']} widths={widths} sizes={sizes} priority class="source__layer" />
+      <Picture src={beam} alt="" formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={sizes} priority class="source__layer" />
     </span>
     <span class="source__beam" aria-hidden="true" data-source-beam>
-      <Picture src={beam} alt="" formats={['avif', 'webp']} widths={widths} sizes={sizes} priority class="source__layer" />
+      <Picture src={beam} alt="" formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={sizes} priority class="source__layer" />
     </span>
     <!-- S1 names each electrode as the beam passes it (positions from the
          canvas's "Scroll scenes" board, as fractions of the frame). -->

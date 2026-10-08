@@ -63,12 +63,14 @@ const words = statement.split(' ');
         </div>
         <figure class="team__figure">
           <div class="team__photo" data-team-photo>
+            {/* Where S2 runs, the photo grows to cover the window: load the size it ends at. */}
             <Picture
               src={team}
               alt="The Innova Physics UPV team, about thirty students in white team shirts, outdoors."
               formats={['avif', 'webp']}
+              fallbackFormat="webp"
               widths={[480, 720, 960, 1280, 1600, 1920, 2560]}
-              sizes="(min-width: 1024px) 60vw, calc(100vw - 40px)"
+              sizes="(min-width: 1040px) and (min-height: 700px) max(100vw, calc((100vh - 70px) * 1.78)), (min-width: 1024px) 60vw, calc(100vw - 40px)"
               class="team__img"
             />
             <span class="team__veil" aria-hidden="true" data-team-veil></span>

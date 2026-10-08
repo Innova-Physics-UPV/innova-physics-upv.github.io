@@ -62,6 +62,7 @@ const people = (await getCollection('team')).filter((p) => p.data.consent).sort(
         src={teamAtCern}
         alt={t.cover.photo.alt}
         formats={['avif', 'webp']}
+        fallbackFormat="webp"
         widths={[640, 960, 1280, 1800]}
         sizes="(min-width: 1040px) 56vw, 100vw"
         class="join__img"

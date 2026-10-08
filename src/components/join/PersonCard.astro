@@ -28,6 +28,7 @@ const link = href ? { href, rel: 'noopener', 'aria-label': linkLabel } : {};
           src={p.photo}
           alt={p.alt ?? p.name}
           formats={['avif', 'webp']}
+          fallbackFormat="webp"
           widths={[240, 400, 600]}
           sizes="(min-width: 1040px) 240px, (min-width: 640px) 30vw, 45vw"
           class="person__photo"
