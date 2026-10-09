@@ -3,9 +3,16 @@
 // each year. The museum of past seasons (/seasons) uses the same shape. A
 // research item (paper, poster or write-up) is one folder with its Markdown
 // and its pictures side by side.
+//
+// A text on the story, in the museum or on a team card is one string, or the
+// three languages side by side (`en:`, `es:`, `va:`); see src/i18n/index.ts.
+// A research item is in the language it was written in.
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+
+const text = z.union([z.string(), z.object({ en: z.string(), es: z.string(), va: z.string() })]);
+const textCaption = z.object({ lead: text, text: text.optional(), credit: z.string().optional() });
 
 const station = defineCollection({
   loader: glob({ base: './src/content/seasons', pattern: '**/*.yaml' }),
@@ -13,21 +20,22 @@ const station = defineCollection({
     z.object({
       order: z.number().int(),
       /** The label above the title, e.g. "2025-26 · ALOHA-0". */
-      season: z.string(),
-      title: z.string(),
-      body: z.string(),
+      season: text,
+      title: text,
+      body: text,
       /** Status as drawing: solid built, hatched simulated, outlined not built yet. */
       marker: z.enum(['solid', 'hatched', 'outlined']),
       /** One picture per station: a photo, a machine figure or the art line. */
       picture: z.discriminatedUnion('kind', [
-        z.object({ kind: z.literal('photo'), src: image(), alt: z.string() }),
+        z.object({ kind: z.literal('photo'), src: image(), alt: text }),
         z.object({ kind: z.literal('figure'), figure: z.enum(['aloha-0-section', 'aloha-1-section']) }),
-        z.object({ kind: z.literal('art'), text: z.string() }),
+        z.object({ kind: z.literal('art'), text: text }),
       ]),
-      caption: z.object({ lead: z.string(), text: z.string().optional(), credit: z.string().optional() }).optional(),
-      link: z.object({ href: z.string(), label: z.string() }).optional(),
+      caption: textCaption.optional(),
+      /** An address on the site is opened in the reader's language when the page exists in it. */
+      link: z.object({ href: z.string(), label: text }).optional(),
       /** A line in the label style under the body, e.g. a write-up still to come. */
-      note: z.string().optional(),
+      note: text.optional(),
       /** The current season: the beam stops here. */
       now: z.boolean().default(false),
     }),
@@ -38,17 +46,17 @@ const pastSeason = defineCollection({
   schema: ({ image }) =>
     z.object({
       order: z.number().int(),
-      season: z.string(),
-      title: z.string(),
-      body: z.string(),
+      season: text,
+      title: text,
+      body: text,
       marker: z.enum(['solid', 'hatched', 'outlined']).default('solid'),
       picture: z
         .discriminatedUnion('kind', [
-          z.object({ kind: z.literal('photo'), src: image(), alt: z.string() }),
-          z.object({ kind: z.literal('art'), text: z.string() }),
+          z.object({ kind: z.literal('photo'), src: image(), alt: text }),
+          z.object({ kind: z.literal('art'), text: text }),
         ])
         .optional(),
-      caption: z.object({ lead: z.string(), text: z.string().optional(), credit: z.string().optional() }).optional(),
+      caption: textCaption.optional(),
       /** Copy still to come from the team: rendered with a visible placeholder label. */
       placeholder: z.boolean().default(false),
     }),
@@ -104,12 +112,12 @@ const team = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
-      role: z.string(),
+      role: text,
       /** As the card prints it, e.g. DIRECTION or APPLIED PHYSICS · W. */
-      department: z.string(),
+      department: text,
       /** In colour, 3:4. Without one the card shows a placeholder tile. */
       photo: image().optional(),
-      alt: z.string().optional(),
+      alt: text.optional(),
       /** The LinkedIn handle, the part after linkedin.com/in/: the card links to the profile. */
       linkedin: z
         .string()

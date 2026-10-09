@@ -4,6 +4,8 @@
 import { Font } from 'astro:assets';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { htmlLang, inLang, langOf, type Lang } from '../i18n';
+import { ui } from '../i18n/ui';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/motion.css';
@@ -18,8 +20,8 @@ interface Props {
   active?: HeaderProps['active'];
   /** The masthead's ground: ultramarine, or gesso on a Pentimento entry. */
   headerTheme?: HeaderProps['theme'];
-  /** This page in each language it exists in. */
-  languages?: HeaderProps['languages'];
+  /** This page in each language it exists in (see alternates() in src/i18n). */
+  languages?: Partial<Record<Lang, string>>;
   /** M10: the reading line under the masthead (research items). */
   progress?: boolean;
   /** The picture shown when the page is shared (1200 x 630); the site's by default. */
@@ -27,26 +29,27 @@ interface Props {
   imageAlt?: string;
 }
 
+const lang = langOf(Astro.currentLocale);
+const t = inLang(ui.site, lang);
 const {
   title,
-  description = 'A student team at the Universitat Politècnica de València designing and building ALOHA, an open-hardware tabletop electron accelerator.',
+  description = t.description,
   active,
   headerTheme = 'ultramarine',
   languages,
   progress,
   image = '/og/innova-physics-upv.png',
-  imageAlt = 'Build the beam: Innova Physics UPV, València.',
+  imageAlt = t.imageAlt,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · Innova Physics UPV` : 'Innova Physics UPV';
-const lang = Astro.currentLocale ?? 'en';
-const ogLocale = { en: 'en_GB', es: 'es_ES', 'ca-ES-valencia': 'ca_ES' } as Record<string, string>;
+const ogLocale: Record<Lang, string> = { en: 'en_GB', es: 'es_ES', va: 'ca_ES' };
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const imageUrl = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={htmlLang[lang]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -90,14 +93,15 @@ const imageUrl = new URL(image, Astro.site).href;
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={imageAlt} />
-    <meta property="og:locale" content={ogLocale[lang] ?? 'en_GB'} />
+    <meta property="og:locale" content={ogLocale[lang]} />
     <meta name="twitter:card" content="summary_large_image" />
     {
       languages &&
-        Object.entries(languages).map(([code, path]) => (
-          <link rel="alternate" hreflang={code} href={new URL(path, Astro.site).href} />
+        (Object.entries(languages) as [Lang, string][]).map(([code, path]) => (
+          <link rel="alternate" hreflang={htmlLang[code]} href={new URL(path, Astro.site).href} />
         ))
     }
+    {languages?.en && <link rel="alternate" hreflang="x-default" href={new URL(languages.en, Astro.site).href} />}
     <Font cssVariable="--font-grotesk" preload={[{ weight: 400, style: 'normal' }]} />
     <Font cssVariable="--font-condensed" preload />
     <Font cssVariable="--font-art" />
@@ -105,7 +109,7 @@ const imageUrl = new URL(image, Astro.site).href;
     <slot name="head" />
   </head>
   <body>
-    <a class="skip-link" href="#content">Skip to content</a>
+    <a class="skip-link" href="#content">{t.skip}</a>
     <Header theme={headerTheme} active={active} languages={languages} progress={progress} />
     <span id="content" tabindex="-1"></span>
     <slot />

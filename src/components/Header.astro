@@ -3,66 +3,62 @@
 // tightens once the cover has gone by (M2, in motion.ts). On a research
 // item about art or conservation it is drawn on gesso instead.
 import InnovaCompact from '../assets/logos/innova-compact.svg';
+import { htmlLang, inLang, langNames, langOf, langs, localise, type Lang } from '../i18n';
+import { ui } from '../i18n/ui';
 
 type Section = 'home' | 'machine' | 'research' | 'team' | 'join' | 'partners' | 'seasons';
-type Locale = 'en' | 'es' | 'ca-ES-valencia';
 
 interface Props {
   theme?: 'ultramarine' | 'gesso';
   active?: Section;
   /** This page in each language it exists in. Missing languages show as plain text. */
-  languages?: Partial<Record<Locale, string>>;
+  languages?: Partial<Record<Lang, string>>;
   /** M10: a vermilion line over the hairline grows with the reading (research items). */
   progress?: boolean;
 }
 
 const { theme = 'ultramarine', active, languages = {}, progress = false } = Astro.props;
-const current = (Astro.currentLocale ?? 'en') as Locale;
+const current = langOf(Astro.currentLocale);
+const t = inLang(ui.masthead, current);
 
 const nav: { key: Section; label: string; href: string }[] = [
-  { key: 'machine', label: 'MACHINE', href: '/machine/' },
-  { key: 'research', label: 'RESEARCH', href: '/research/' },
+  { key: 'machine', label: t.machine, href: '/machine/' },
+  { key: 'research', label: t.research, href: '/research/' },
   // The team lives on /join until it outgrows it.
-  { key: 'team', label: 'TEAM', href: '/join/#team' },
-  { key: 'partners', label: 'PARTNERS', href: '/partners/' },
-];
-
-const langs: { code: Locale; label: string; name: string }[] = [
-  { code: 'en', label: 'EN', name: 'English' },
-  { code: 'es', label: 'ES', name: 'Español' },
-  { code: 'ca-ES-valencia', label: 'VAL', name: 'Valencià' },
+  { key: 'team', label: t.team, href: '/join/#team' },
+  { key: 'partners', label: t.partners, href: '/partners/' },
 ];
 ---
 
 <header class="masthead" data-theme={theme} data-masthead>
   <div class="masthead__inner">
-    <a class="masthead__logo" href="/" aria-label="Innova Physics, home">
+    <a class="masthead__logo" href={localise('/', current)} aria-label={t.home}>
       <InnovaCompact aria-hidden="true" focusable="false" />
     </a>
-    <nav class="masthead__nav" aria-label="Main">
+    <nav class="masthead__nav" aria-label={t.nav}>
       {
         nav.map((item) => (
-          <a class="label masthead__link" href={item.href} aria-current={item.key === active ? 'page' : undefined}>
+          <a class="label masthead__link" href={localise(item.href, current)} aria-current={item.key === active ? 'page' : undefined}>
             {item.label}
           </a>
         ))
       }
-      <a class="label masthead__join" href="/join/" aria-current={active === 'join' ? 'page' : undefined}>JOIN</a>
+      <a class="label masthead__join" href={localise('/join/', current)} aria-current={active === 'join' ? 'page' : undefined}>{t.join}</a>
       <span class="masthead__sep" aria-hidden="true"></span>
-      <span class="masthead__langs" role="group" aria-label="Language">
+      <span class="masthead__langs" role="group" aria-label={t.language}>
         {
           langs.map((l) =>
-            l.code === current ? (
-              <span class="label masthead__lang" lang={l.code} aria-current="true">
-                {l.label}
+            l === current ? (
+              <span class="label masthead__lang" lang={htmlLang[l]} aria-current="true">
+                {langNames[l].label}
               </span>
-            ) : languages[l.code] ? (
-              <a class="label masthead__lang muted" href={languages[l.code]} lang={l.code} hreflang={l.code} title={l.name}>
-                {l.label}
+            ) : languages[l] ? (
+              <a class="label masthead__lang muted" href={languages[l]} lang={htmlLang[l]} hreflang={htmlLang[l]} title={langNames[l].name}>
+                {langNames[l].label}
               </a>
             ) : (
-              <span class="label masthead__lang masthead__lang--off" lang={l.code} title={`${l.name}: this page is in English only`}>
-                {l.label}
+              <span class="label masthead__lang masthead__lang--off" title={`${langNames[l].name}: ${t.onlyIn}`}>
+                {langNames[l].label}
               </span>
             ),
           )
@@ -70,7 +66,7 @@ const langs: { code: Locale; label: string; name: string }[] = [
       </span>
       <span class="masthead__sep js-only" aria-hidden="true"></span>
       <button class="label masthead__dark js-only" type="button" aria-pressed="false" data-dark-switch>
-        <span class="masthead__swatch" aria-hidden="true"></span>DARK
+        <span class="masthead__swatch" aria-hidden="true"></span>{t.dark}
       </button>
     </nav>
   </div>

@@ -4,13 +4,22 @@
 import { partners } from '../../data/partners';
 import Button from '../Button.astro';
 import PartnerMark from '../PartnerMark.astro';
+
+interface Props {
+  title: string;
+  /** The link to /partners, in the page's language. */
+  become: string;
+  href: string;
+}
+
+const { title, become, href } = Astro.props;
 ---
 
 <section class="partner-row" aria-labelledby="partners-title">
   <div class="partner-row__wrap">
     <div class="partner-row__head">
-      <h2 id="partners-title" class="label muted">WITH THE SUPPORT OF</h2>
-      <Button href="/partners/" variant="text">BECOME A PARTNER</Button>
+      <h2 id="partners-title" class="label muted">{title}</h2>
+      <Button href={href} variant="text">{become}</Button>
     </div>
     <ul class="partner-row__list">
       {

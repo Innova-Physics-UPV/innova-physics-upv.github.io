@@ -1,14 +1,30 @@
 order: 3
 season: "2025-26 · ALOHA-0"
-title: "The electron source, simulated"
-body: "Our first accelerator starts where every accelerator starts: a thermionic triode in telefocus configuration. A hot tungsten cathode emits, a Wehnelt cylinder shapes the emission, and an anode 30 kV above the cathode pulls the beam out."
+title:
+  en: "The electron source, simulated"
+  es: "La fuente de electrones, simulada"
+  va: "La font d’electrons, simulada"
+body:
+  en: "Our first accelerator starts where every accelerator starts: a thermionic triode in telefocus configuration. A hot tungsten cathode emits, a Wehnelt cylinder shapes the emission, and an anode 30 kV above the cathode pulls the beam out."
+  es: "Nuestro primer acelerador empieza donde empiezan todos: un triodo termoiónico en configuración telefocus. Un cátodo de wolframio caliente emite, un cilindro de Wehnelt da forma a la emisión y un ánodo a 30 kV por encima del cátodo extrae el haz."
+  va: "El nostre primer accelerador comença on comencen tots: un tríode termoiònic en configuració telefocus. Un càtode de wolframi calent emet, un cilindre de Wehnelt dona forma a l’emissió i un ànode a 30 kV per damunt del càtode extrau el feix."
 marker: hatched
 picture:
   kind: figure
   figure: aloha-0-section
 caption:
-  lead: "The source, in section."
-  text: "Cathode, Wehnelt and anode hatched: simulated. The einzel lens outlined: planned."
+  lead:
+    en: "The source, in section."
+    es: "La fuente, en sección."
+    va: "La font, en secció."
+  text:
+    en: "Cathode, Wehnelt and anode hatched: simulated. The einzel lens outlined: planned."
+    es: "Cátodo, Wehnelt y ánodo rayados: simulados. La lente einzel en contorno: prevista."
+    va: "Càtode, Wehnelt i ànode ratllats: simulats. La lent einzel en contorn: prevista."
+# The write-up is in English: the Spanish and Valencian labels say so.
 link:
   href: "/research/aloha-0-electron-source/"
-  label: "READ THE WRITE-UP"
+  label:
+    en: "READ THE WRITE-UP"
+    es: "LEE EL INFORME, EN INGLÉS"
+    va: "LLIG L’INFORME, EN ANGLÉS"

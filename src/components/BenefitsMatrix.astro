@@ -4,13 +4,18 @@
 // every tier above gets it too (src/data/sponsorship.ts). No amounts here:
 // they are in the dossier.
 import { benefits, tiers } from '../data/sponsorship';
+import { inLang, langOf } from '../i18n';
+import { ui } from '../i18n/ui';
 
 interface Props {
   caption: string;
 }
 
 const { caption } = Astro.props;
-const rank = (name: string) => tiers.findIndex((t) => t.name === name);
+const lang = langOf(Astro.currentLocale);
+const t = inLang(ui.matrix, lang);
+const rows = inLang(benefits, lang);
+const rank = (name: string) => tiers.findIndex((tier) => tier.name === name);
 ---
 
 <div class="matrix-wrap" tabindex="0" role="region" aria-label={caption}>
@@ -18,21 +23,21 @@ const rank = (name: string) => tiers.findIndex((t) => t.name === name);
     <caption class="visually-hidden">{caption}</caption>
     <thead>
       <tr>
-        <th scope="col" class="label matrix__benefit">BENEFIT</th>
-        {tiers.map((t) => <th scope="col" class="label matrix__tier">{t.name.toUpperCase()}</th>)}
+        <th scope="col" class="label matrix__benefit">{t.benefit}</th>
+        {tiers.map((tier) => <th scope="col" class="label matrix__tier">{tier.name.toUpperCase()}</th>)}
       </tr>
     </thead>
     <tbody>
       {
-        benefits.map((b) => (
+        rows.map((b) => (
           <tr>
             <th scope="row">{b.text}</th>
             {tiers.map((_, i) => (
               <td>
                 {i >= rank(b.from) ? (
-                  <span class="matrix__dot" role="img" aria-label="Included" />
+                  <span class="matrix__dot" role="img" aria-label={t.included} />
                 ) : (
-                  <span class="visually-hidden">Not included</span>
+                  <span class="visually-hidden">{t.notIncluded}</span>
                 )}
               </td>
             ))}

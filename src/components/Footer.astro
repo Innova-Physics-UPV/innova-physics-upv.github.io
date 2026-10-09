@@ -8,29 +8,34 @@ import Upv from '../assets/logos/upv.svg';
 import Ge from '../assets/logos/generacion-espontanea.svg';
 import Etsit from '../assets/logos/etsit.svg';
 import { CONTACT_EMAIL } from '../consts';
+import { inLang, langOf, localise } from '../i18n';
+import { ui } from '../i18n/ui';
+
+const lang = langOf(Astro.currentLocale);
+const t = inLang(ui.footer, lang);
 
 // The closing row: each mark links to its institution (the team's own to
 // the home page).
 const marks = [
-  { key: 'innova', Mark: InnovaLogo, label: 'Innova Physics UPV, home', href: '/' },
+  { key: 'innova', Mark: InnovaLogo, label: t.innova, href: localise('/', lang) },
   { key: 'upv', Mark: Upv, label: 'Universitat Politècnica de València', href: 'https://www.upv.es/' },
   { key: 'ge', Mark: Ge, label: 'Generación Espontánea, UPV Design Factory', href: 'https://generacionespontanea.upv.es/' },
   { key: 'etsit', Mark: Etsit, label: 'Telecom UPV VLC, ETSIT', href: 'https://www.upv.es/entidades/etsit/' },
 ];
 
 const site = [
-  { label: 'Home', href: '/' },
-  { label: 'The machine', href: '/machine/' },
-  { label: 'Research', href: '/research/' },
-  { label: 'Team and join', href: '/join/' },
-  { label: 'Partners', href: '/partners/' },
-  { label: 'Past seasons', href: '/seasons/' },
-];
+  { label: t.links.home, href: '/' },
+  { label: t.links.machine, href: '/machine/' },
+  { label: t.links.research, href: '/research/' },
+  { label: t.links.join, href: '/join/' },
+  { label: t.links.partners, href: '/partners/' },
+  { label: t.links.seasons, href: '/seasons/' },
+].map((item) => ({ ...item, href: localise(item.href, lang) }));
 ---
 
 <footer class="footer" data-theme="gesso">
   <div class="footer__inner">
-    <ul class="footer__marks" aria-label="Innova Physics UPV and its institutions">
+    <ul class="footer__marks" aria-label={t.marks}>
       {
         marks.map(({ key, Mark, label, href }) => (
           <li class={`footer__mark footer__mark--${key}`}>
@@ -44,33 +49,33 @@ const site = [
 
     <div class="footer__grid">
       <div>
-        <p class="label muted footer__head">ADDRESS</p>
+        <p class="label muted footer__head">{t.address}</p>
         <address class="footer__text">
           Universitat Politècnica de València<br />
-          Camino de Vera, s/n<br />
+          {t.street}<br />
           46022 València
         </address>
       </div>
       <div>
-        <p class="label muted footer__head">CONTACT</p>
+        <p class="label muted footer__head">{t.contact}</p>
         <ul class="footer__list footer__text">
           <li><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
           <li><a href="https://www.instagram.com/innovaphysicsupv/" rel="noopener">Instagram · @innovaphysicsupv</a></li>
           <li><a href="https://www.linkedin.com/company/innovaphysicsupv/" rel="noopener">LinkedIn · Innova Physics UPV</a></li>
         </ul>
       </div>
-      <nav aria-label="Site">
-        <p class="label muted footer__head">SITE</p>
+      <nav aria-label={t.siteNav}>
+        <p class="label muted footer__head">{t.site}</p>
         <ul class="footer__list footer__text">
           {site.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
         </ul>
       </nav>
       <div>
-        <p class="label muted footer__head">OPEN</p>
+        <p class="label muted footer__head">{t.open}</p>
         <ul class="footer__list label">
           <li>HARDWARE · CERN-OHL-S</li>
-          <li>DOCS · GITHUB</li>
-          <li><a href="/licenses/GUST-FONT-LICENSE.txt">TYPE · TeX Gyre Heros, GUST</a></li>
+          <li>{t.docs}</li>
+          <li><a href="/licenses/GUST-FONT-LICENSE.txt">{t.type} · TeX Gyre Heros, GUST</a></li>
           <li>
             <a href="/licenses/OFL-EB-Garamond.txt">EB Garamond</a>, <a href="/licenses/OFL-Fragment-Mono.txt">Fragment Mono</a>, OFL
           </li>
@@ -82,11 +87,11 @@ const site = [
       <p class="label muted">
         © 2026 INNOVA PHYSICS UPV · VALÈNCIA
         <span aria-hidden="true">{' · '}</span>
-        <a href="/legal/">LEGAL NOTICE</a>
+        <a href={localise('/legal/', lang)}>{t.legal}</a>
         <span aria-hidden="true">{' · '}</span>
-        <a href="/privacy/">PRIVACY</a>
+        <a href={localise('/privacy/', lang)}>{t.privacy}</a>
       </p>
-      <p class="footer__motto">Build the beam.</p>
+      <p class="footer__motto">{t.motto}</p>
     </div>
   </div>
 </footer>

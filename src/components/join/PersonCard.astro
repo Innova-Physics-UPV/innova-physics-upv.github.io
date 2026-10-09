@@ -5,9 +5,11 @@
 // itself does not react to the pointer, the name does.
 import { Picture } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import type { InLang } from '../../i18n';
 
 interface Props {
-  person: CollectionEntry<'team'>;
+  /** The team member, already in the page's language (inLang). */
+  person: { data: InLang<CollectionEntry<'team'>['data']> };
   photoMissing: string;
   /** The link's name, e.g. "Marc Sanchis on LinkedIn". */
   linkLabel: string;

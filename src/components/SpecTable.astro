@@ -2,6 +2,8 @@
 // A stage in numbers: a real table, one quantity per row, its value with its
 // unit, and its status. No number appears without a unit and a status.
 import type { Spec } from '../data/machine';
+import { inLang, langOf } from '../i18n';
+import { ui } from '../i18n/ui';
 
 interface Props {
   /** What the table is, for screen readers. */
@@ -10,6 +12,7 @@ interface Props {
 }
 
 const { caption, rows } = Astro.props;
+const t = inLang(ui.spec, langOf(Astro.currentLocale));
 ---
 
 <!-- On the narrowest phones the table scrolls sideways in its own frame. -->
@@ -18,9 +21,9 @@ const { caption, rows } = Astro.props;
     <caption class="visually-hidden">{caption}</caption>
     <thead>
       <tr>
-        <th scope="col" class="label">QUANTITY</th>
-        <th scope="col" class="label">VALUE</th>
-        <th scope="col" class="label">STATUS</th>
+        <th scope="col" class="label">{t.quantity}</th>
+        <th scope="col" class="label">{t.value}</th>
+        <th scope="col" class="label">{t.status}</th>
       </tr>
     </thead>
     <tbody>

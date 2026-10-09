@@ -1,7 +1,16 @@
 order: 2
 # Placeholder: the team's copy and photo for IP-2 are still to come.
-season: "IP-2 · [YEARS]"
-title: "[TITLE]"
-body: "[Two or three lines on what this season built, from the team.]"
+season:
+  en: "IP-2 · [YEARS]"
+  es: "IP-2 · [AÑOS]"
+  va: "IP-2 · [ANYS]"
+title:
+  en: "[TITLE]"
+  es: "[TÍTULO]"
+  va: "[TÍTOL]"
+body:
+  en: "[Two or three lines on what this season built, from the team.]"
+  es: "[Dos o tres líneas del equipo sobre lo que construyó esta temporada.]"
+  va: "[Dues o tres línies de l’equip sobre el que va construir esta temporada.]"
 marker: solid
 placeholder: true

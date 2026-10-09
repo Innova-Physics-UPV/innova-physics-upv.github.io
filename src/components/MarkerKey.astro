@@ -1,12 +1,16 @@
 ---
 // The key to the story's markers.
+import { inLang, langOf } from '../i18n';
+import { ui } from '../i18n/ui';
+
+const t = inLang(ui.markers, langOf(Astro.currentLocale));
 ---
 
-<ul class="marker-key" aria-label="Key to the markers">
-  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--solid" aria-hidden="true"></span>BUILT</li>
-  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--hatched" aria-hidden="true"></span>SIMULATED</li>
-  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--outlined" aria-hidden="true"></span>NOT BUILT YET</li>
-  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--beam" aria-hidden="true"></span>THE BEAM, AS FAR AS WE HAVE COME</li>
+<ul class="marker-key" aria-label={t.label}>
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--solid" aria-hidden="true"></span>{t.built}</li>
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--hatched" aria-hidden="true"></span>{t.simulated}</li>
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--outlined" aria-hidden="true"></span>{t.notYet}</li>
+  <li class="label muted"><span class="marker-key__swatch marker-key__swatch--beam" aria-hidden="true"></span>{t.beam}</li>
 </ul>
 
 <style>

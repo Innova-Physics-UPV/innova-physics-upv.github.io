@@ -2,6 +2,7 @@
 // (Main.dc.html, stations ALOHA-0 and ALOHA-1). Status as drawing: built is
 // solid, simulated hatched, design outlined. The einzel lens is planned, so
 // it is outlined everywhere.
+import type { Text } from '../i18n';
 
 export type Status = 'built' | 'simulated' | 'design';
 
@@ -19,7 +20,7 @@ export type LatticeElement =
 export interface LatticeFigure {
   viewBox: string;
   /** What is drawn and its status, for screen readers. */
-  label: string;
+  label: Text;
   /** The construction line before the source. */
   construction?: Box;
   /** The beam axis. */
@@ -35,8 +36,11 @@ const cavity = (cx: number, rx: number): LatticeElement => ({ shape: 'ellipse', 
 /** ALOHA-0, the electron source in section: cathode, Wehnelt and anode simulated; the einzel lens planned. */
 export const aloha0Section: LatticeFigure = {
   viewBox: '200 -40 1100 380',
-  label:
-    'The ALOHA-0 electron source on its axis. Cathode, Wehnelt and anode are hatched because they are simulated; the einzel lens is outlined because it is planned.',
+  label: {
+    en: 'The ALOHA-0 electron source on its axis. Cathode, Wehnelt and anode are hatched because they are simulated; the einzel lens is outlined because it is planned.',
+    es: 'La fuente de electrones de ALOHA-0 sobre su eje. Cátodo, Wehnelt y ánodo aparecen rayados porque están simulados; la lente einzel, en contorno porque está prevista.',
+    va: 'La font d’electrons d’ALOHA-0 sobre el seu eix. Càtode, Wehnelt i ànode apareixen ratllats perquè estan simulats; la lent einzel, en contorn perquè està prevista.',
+  },
   construction: { x: 200, y: 149, w: 90, h: 2 },
   axis: { x: 330, y: 148, w: 970, h: 4 },
   elements: [
@@ -61,8 +65,11 @@ export const aloha0Section: LatticeFigure = {
 /** ALOHA-1, the design: the source, then four buncher and four accelerating cavities. */
 export const aloha1Section: LatticeFigure = {
   viewBox: '100 20 1600 260',
-  label:
-    'ALOHA-1 on its axis. The electron source is hatched because it is simulated; the einzel lens, the four buncher cavities and the four accelerating cavities are outlined because they are design.',
+  label: {
+    en: 'ALOHA-1 on its axis. The electron source is hatched because it is simulated; the einzel lens, the four buncher cavities and the four accelerating cavities are outlined because they are design.',
+    es: 'ALOHA-1 sobre su eje. La fuente de electrones aparece rayada porque está simulada; la lente einzel, las cuatro cavidades del agrupador y las cuatro cavidades aceleradoras, en contorno porque son diseño.',
+    va: 'ALOHA-1 sobre el seu eix. La font d’electrons apareix ratllada perquè està simulada; la lent einzel, les quatre cavitats de l’agrupador i les quatre cavitats acceleradores, en contorn perquè són disseny.',
+  },
   construction: { x: 100, y: 149, w: 53.6, h: 2 },
   axis: { x: 177.6, y: 148, w: 1522.4, h: 4 },
   elements: [
@@ -97,8 +104,11 @@ export const aloha1Section: LatticeFigure = {
 export const aloha1Line: LatticeFigure = {
   ...aloha1Section,
   viewBox: '0 0 1920 340',
-  label:
-    'ALOHA-1 on its beam. The electron source is hatched because it is simulated. The einzel lens, planned, and the four buncher and four accelerating cavities, design, are outlined. The beam reaches 1 MeV, a design target.',
+  label: {
+    en: 'ALOHA-1 on its beam. The electron source is hatched because it is simulated. The einzel lens, planned, and the four buncher and four accelerating cavities, design, are outlined. The beam reaches 1 MeV, a design target.',
+    es: 'ALOHA-1 sobre su haz. La fuente de electrones aparece rayada porque está simulada. La lente einzel, prevista, y las cuatro cavidades del agrupador y las cuatro aceleradoras, en diseño, aparecen en contorno. El haz llega a 1\u00a0MeV, un objetivo de diseño.',
+    va: 'ALOHA-1 sobre el seu feix. La font d’electrons apareix ratllada perquè està simulada. La lent einzel, prevista, i les quatre cavitats de l’agrupador i les quatre acceleradores, en disseny, apareixen en contorn. El feix arriba a 1\u00a0MeV, un objectiu de disseny.',
+  },
   construction: { x: 0, y: 149, w: 154, h: 2 },
   axis: undefined,
   beam: { x: 177.6, y: 146, w: 1742.4, h: 8 },

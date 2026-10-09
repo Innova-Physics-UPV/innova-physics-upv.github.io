@@ -7,6 +7,10 @@
 import { Picture } from 'astro:assets';
 import wire from '../../assets/figures/aloha-0-source-wire.webp';
 import beam from '../../assets/figures/aloha-0-source-beam.webp';
+import { home } from '../../data/home';
+import { inLang, langOf } from '../../i18n';
+
+const t = inLang(home.source, langOf(Astro.currentLocale));
 
 const widths = [800, 1200, 1600];
 const sizes = '(min-width: 1024px) 64vw, 100vw';
@@ -16,7 +20,7 @@ const sizes = '(min-width: 1024px) 64vw, 100vw';
   <div class="source__frame" data-source-frame>
     <Picture
       src={wire}
-      alt="COMSOL simulation of the ALOHA-0 electron source: the electrodes as a white wireframe and the electron beam leaving the cathode, pale at low energy and vermilion once accelerated."
+      alt={t.alt}
       formats={['avif', 'webp']}
       fallbackFormat="webp"
       widths={widths}
@@ -35,21 +39,21 @@ const sizes = '(min-width: 1024px) 64vw, 100vw';
     <ol class="source__labels" aria-hidden="true">
       <li class="source__label source__label--1">
         <span class="source__dot" style="left: 21.5%; top: 37.5%"></span>
-        <span class="source__tag" style="left: 4%; top: 20%">CATHODE AND WEHNELT</span>
+        <span class="source__tag" style="left: 4%; top: 20%">{t.cathode}</span>
       </li>
       <li class="source__label source__label--2">
         <span class="source__dot" style="left: 45%; top: 26%"></span>
-        <span class="source__tag" style="left: 47%; top: 15%">ANODE · 30 kV</span>
+        <span class="source__tag" style="left: 47%; top: 15%">{t.anode}</span>
       </li>
       <li class="source__label source__label--3">
-        <span class="source__tag" style="left: 50%; top: 86%">TELEFOCUS · THE FOCUS LIES FAR BEYOND THE ANODE</span>
+        <span class="source__tag" style="left: 50%; top: 86%">{t.telefocus}</span>
       </li>
     </ol>
   </div>
   <figcaption class="source__caption caption">
-    <span><strong>ALOHA-0, the electron source.</strong> Simulated in COMSOL.</span>
+    <span><strong>{t.caption.lead}</strong> {t.caption.text}</span>
     <span class="label source__scale">
-      ELECTRON ENERGY · 0 <span class="source__ramp" aria-hidden="true"></span> 30 keV
+      {t.energy} · 0 <span class="source__ramp" aria-hidden="true"></span> 30 keV
     </span>
   </figcaption>
 </figure>

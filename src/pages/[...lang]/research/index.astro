@@ -1,31 +1,40 @@
 ---
-// Research: every paper, poster and write-up as a block. A block opens the
+// /research/ (and /es/, /va/): every paper, poster and write-up as a block. A block opens the
 // item's page; its venue links out to the publication itself. Published
 // items newest first, then the ones still to come. To add one, add a folder
 // to src/content/research/.
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import Cover from '../../components/Cover.astro';
-import Section from '../../components/Section.astro';
-import Sheet from '../../components/Sheet.astro';
-import Button from '../../components/Button.astro';
-import ResearchCard from '../../components/ResearchCard.astro';
-import { researchPage } from '../../data/research';
+import Base from '../../../layouts/Base.astro';
+import Cover from '../../../components/Cover.astro';
+import Section from '../../../components/Section.astro';
+import Sheet from '../../../components/Sheet.astro';
+import Button from '../../../components/Button.astro';
+import ResearchCard from '../../../components/ResearchCard.astro';
+import { researchPage } from '../../../data/research';
+import { alternates, everyLang, inLang, type Lang } from '../../../i18n';
 
+export const getStaticPaths = everyLang;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = inLang(researchPage, lang);
 const all = await getCollection('research');
 const byDate = (a: (typeof all)[number], b: (typeof all)[number]) => b.data.date.valueOf() - a.data.date.valueOf();
 const items = [
   ...all.filter((i) => i.data.status !== 'coming').sort(byDate),
   ...all.filter((i) => i.data.status === 'coming').sort(byDate).reverse(),
 ];
-const { closing } = researchPage;
+const { closing } = t;
 ---
 
-<Base title="Research" active="research" description={researchPage.lead}>
-  <Cover id="research" kicker={researchPage.kicker} shout={['RESEARCH']} lead={researchPage.lead} />
+<Base title={t.title} active="research" description={t.lead} languages={alternates('/research/')}>
+  <Cover id="research" kicker={t.kicker} shout={[t.shout]} lead={t.lead} />
 
   <main data-theme="gesso">
-    <Section id="published" kicker={`${items.length} ITEMS`} title={researchPage.listTitle}>
+    <Section id="published" kicker={`${items.length} ${t.items}`} title={t.listTitle}>
       <ul class="grid">
         {
           items.map((item) => (

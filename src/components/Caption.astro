@@ -1,6 +1,9 @@
 ---
 // The CERN Courier caption: a bold lead-in in the figure colour, then the
 // text in the muted colour, then the credit when the picture is not ours.
+import { inLang, langOf } from '../i18n';
+import { ui } from '../i18n/ui';
+
 interface Props {
   lead: string;
   text?: string;
@@ -10,10 +13,11 @@ interface Props {
 }
 
 const { lead, text, credit, as: Tag = 'figcaption' } = Astro.props;
+const creditLabel = inLang(ui.credit, langOf(Astro.currentLocale));
 ---
 
 <Tag class="caption caption--courier">
-  <strong>{lead}</strong>{text && <>{' '}{text}</>}{credit && <>{' '}Credit: {credit}</>}
+  <strong>{lead}</strong>{text && <>{' '}{text}</>}{credit && <>{' '}{creditLabel} {credit}</>}
 </Tag>
 
 <style>

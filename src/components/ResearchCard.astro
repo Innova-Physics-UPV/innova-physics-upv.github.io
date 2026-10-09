@@ -6,7 +6,8 @@
 import { Picture } from 'astro:assets';
 import Lattice from './Lattice.astro';
 import { aloha0Line, aloha1Line } from '../data/figures';
-import { researchLabels, researchMonth } from '../data/research';
+import { researchLabels } from '../data/research';
+import { inLang, langOf, monthYear } from '../i18n';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -15,6 +16,10 @@ interface Props {
 
 const { item } = Astro.props;
 const d = item.data;
+// The page's language; the item itself is in English, and says so elsewhere.
+const lang = langOf(Astro.currentLocale);
+const labels = inLang(researchLabels, lang);
+const itemLang = lang === 'en' ? undefined : 'en';
 const coming = d.status === 'coming';
 const href = `/research/${item.id}/`;
 const figures = { 'aloha-0-line': aloha0Line, 'aloha-1-line': aloha1Line };
@@ -44,13 +49,13 @@ const figures = { 'aloha-0-line': aloha0Line, 'aloha-1-line': aloha1Line };
   {!d.picture && <div class="rcard__picture rcard__blank" aria-hidden="true" />}
   <div class="rcard__body">
     <p class="label muted">
-      {researchLabels.type[d.type]} · {coming ? 'COMING' : researchMonth(d.date)}
+      {labels.type[d.type]} · {coming ? labels.status.coming : monthYear(d.date, lang)}
     </p>
-    <h3 id={`rcard-${item.id}`} class="station-title rcard__title">
+    <h3 id={`rcard-${item.id}`} class="station-title rcard__title" lang={itemLang}>
       {coming ? d.title : <a class="rcard__link" href={href}>{d.title}</a>}
     </h3>
-    <p class="rcard__authors">{d.authors.join(', ')}</p>
-    <p class="label rcard__venue">
+    <p class="rcard__authors" lang={itemLang}>{d.authors.join(', ')}</p>
+    <p class="label rcard__venue" lang={itemLang}>
       {
         d.venue.url ? (
           <a class="rcard__venue-link" href={d.venue.url} rel="noopener">
@@ -62,7 +67,9 @@ const figures = { 'aloha-0-line': aloha0Line, 'aloha-1-line': aloha1Line };
         )
       }
     </p>
-    <p class="label muted rcard__status">{researchLabels.status[d.status]}</p>
+    <p class="label muted rcard__status">
+      {labels.status[d.status]}{lang !== 'en' && ` · ${labels.inEnglish}`}
+    </p>
   </div>
 </article>
 

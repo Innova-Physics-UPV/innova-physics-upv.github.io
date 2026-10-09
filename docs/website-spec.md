@@ -50,7 +50,7 @@ Later rounds: `/logbook` index (the covers in a chequerboard), `/team` on its ow
 
 ## Decisions taken
 
-- **Languages.** English by default. Spanish and Valencian versions of the pages students and the UPV read: Join, Team, Events. Logbook, Machine and Partners stay English. The header carries `EN · ES · VAL`. Routes `/`, `/es/…`, `/va/…` with Astro i18n (`prefixDefaultLocale: false`); `lang` is `en`, `es` and `ca-ES-valencia`. This replaces, for the site, the brand book's three parallel columns (fair posters keep the columns).
+- **Languages** (replaced on 9 October 2026: every page is now in all three, see the launch decisions at the end). English by default. Spanish and Valencian versions of the pages students and the UPV read: Join, Team, Events. Logbook, Machine and Partners stay English. The header carries `EN · ES · VAL`. Routes `/`, `/es/…`, `/va/…` with Astro i18n (`prefixDefaultLocale: false`); `lang` is `en`, `es` and `ca-ES-valencia`. This replaces, for the site, the brand book's three parallel columns (fair posters keep the columns).
 - **People:** everyone, with photos in colour, never dramatic. Nobody is published without consent.
 - **Status as drawing.** On every machine figure: solid is built or measured, hatched (tratteggio) is simulated, outline is design or planned. The einzel lens is planned, so it is outlined everywhere.
 - **Logbook 02 is the vacuum system.**
@@ -328,3 +328,8 @@ On gesso:
 - **Research replaces the Logbook.** `/research/` is a grid of blocks (picture, title, authors, and the venue or journal linking out to the publication); each opens the item, a paper, poster or write-up, as styled Markdown at `/research/<folder>/`, with math rendered at build time. One folder per item in `src/content/research/`. The header says RESEARCH. The Logbook-entry artboard is the item template; its series (LOGBOOK, FINGERPRINT, PENTIMENTO) give way to the item's type. At launch: the posters presented at CERN in July 2026 and the ALOHA-0 electron-source write-up.
 - `/join` shows only the team members who have given consent (Marc for now). "Tell me when it opens" is an email to the team until a waitlist form exists.
 - Content comes last: every page is built with placeholder copy and pictures, listed in `docs/content-todo.md`, and filled from the team's content document.
+
+## Decisions for the launch (9 October 2026)
+
+- **Every page in three languages.** English, Spanish and Valencian, not only Join: the masthead, the footer and every page, with the `EN · ES · VAL` switch on each. Research items stay in the language they were written in (English so far); the Spanish and Valencian index says so on each block. This replaces the Languages decision above.
+- **The site rebuilds every night**, so the round's status changes on its own.

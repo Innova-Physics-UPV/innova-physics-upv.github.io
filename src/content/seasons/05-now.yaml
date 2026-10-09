@@ -1,14 +1,32 @@
 order: 5
-season: "2026-27 · NOW"
-title: "From simulation to the bench"
-body: "This semester we build the cathode power supply and the control of the vacuum system: the bench where ALOHA-0 will be tested. We aim to end the season with a working vacuum bench and, with our sponsors, a stable measured beam."
+season:
+  en: "2026-27 · NOW"
+  es: "2026-27 · AHORA"
+  va: "2026-27 · ARA"
+title:
+  en: "From simulation to the bench"
+  es: "De la simulación al banco"
+  va: "De la simulació al banc"
+body:
+  en: "This semester we build the cathode power supply and the control of the vacuum system: the bench where ALOHA-0 will be tested. We aim to end the season with a working vacuum bench and, with our sponsors, a stable measured beam."
+  es: "Este cuatrimestre construimos la fuente de alimentación del cátodo y el control del sistema de vacío: el banco donde se probará ALOHA-0. Aspiramos a acabar la temporada con un banco de vacío que funcione y, con nuestros patrocinadores, un haz estable y medido."
+  va: "Este quadrimestre construïm la font d’alimentació del càtode i el control del sistema de buit: el banc on es provarà ALOHA-0. Aspirem a acabar la temporada amb un banc de buit que funcione i, amb els nostres patrocinadors, un feix estable i mesurat."
 marker: outlined
 now: true
-note: "WRITE-UP · THE VACUUM SYSTEM · COMING"
+note:
+  en: "WRITE-UP · THE VACUUM SYSTEM · COMING"
+  es: "INFORME · EL SISTEMA DE VACÍO · PRÓXIMAMENTE"
+  va: "INFORME · EL SISTEMA DE BUIT · PRÒXIMAMENT"
 picture:
   kind: photo
   src: ../../assets/photos/vacuum-bench-2026.webp
-  alt: "A team member at work on the vacuum pump of the bench."
+  alt:
+    en: "A team member at work on the vacuum pump of the bench."
+    es: "Un miembro del equipo trabajando en la bomba de vacío del banco."
+    va: "Un membre de l’equip treballant en la bomba de buit del banc."
 caption:
-  lead: "At the vacuum bench."
+  lead:
+    en: "At the vacuum bench."
+    es: "En el banco de vacío."
+    va: "En el banc de buit."
   text: "2026."

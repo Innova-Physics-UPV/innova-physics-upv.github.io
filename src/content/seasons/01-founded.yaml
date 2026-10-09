@@ -1,8 +1,20 @@
 order: 1
-season: "2023 · FOUNDED"
-title: "A question at the UPV"
-body: "Few universities teach how accelerators work before graduate school. Students at the Universitat Politècnica de València start a team to ask why, and to answer by building one."
+season:
+  en: "2023 · FOUNDED"
+  es: "2023 · FUNDACIÓN"
+  va: "2023 · FUNDACIÓ"
+title:
+  en: "A question at the UPV"
+  es: "Una pregunta en la UPV"
+  va: "Una pregunta a la UPV"
+body:
+  en: "Few universities teach how accelerators work before graduate school. Students at the Universitat Politècnica de València start a team to ask why, and to answer by building one."
+  es: "Pocas universidades enseñan cómo funcionan los aceleradores antes del máster o el doctorado. Estudiantes de la Universitat Politècnica de València forman un equipo para preguntar por qué, y para responder construyendo uno."
+  va: "Poques universitats ensenyen com funcionen els acceleradors abans del màster o el doctorat. Estudiants de la Universitat Politècnica de València formen un equip per a preguntar per què, i per a respondre construint-ne un."
 marker: solid
 picture:
   kind: art
-  text: "What about undergraduates?"
+  text:
+    en: "What about undergraduates?"
+    es: "¿Y los estudiantes de grado?"
+    va: "I els estudiants de grau?"

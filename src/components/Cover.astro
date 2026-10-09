@@ -27,6 +27,9 @@ const { id = 'cover', kicker, shout, lead, home = false, cue, cueScene, scene, c
 const titleId = `${id}-title`;
 const hasFigure = Astro.slots.has('figure');
 const hasWide = Astro.slots.has('wide');
+// The longest word of the shout, in letters: a long single word (INVESTIGACIÓN,
+// COL·LABORADORS) makes the shout smaller on a phone instead of running off it.
+const longest = Math.max(...shout.flatMap((line) => line.split(' ')).map((word) => [...word].length));
 ---
 
 <section
@@ -41,7 +44,7 @@ const hasWide = Astro.slots.has('wide');
       <div class:list={['cover__inner', hasWide && 'cover__inner--wide']}>
         <p class="label muted" data-words>{kicker}</p>
         <div class:list={['cover__head', hasWide && 'cover__head--row']}>
-          <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']} data-words>
+          <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']} style={`--longest: ${longest}`} data-words>
             {shout.map((line) => <span class="cover__line">{line}</span>)}
           </h1>
           {
@@ -134,6 +137,16 @@ const hasWide = Astro.slots.has('wide');
 
   .cover__line {
     display: block;
+  }
+
+  /* Never wider than the page: a word of Heros Cn Bold capitals is about
+     0.6 em per letter, so the shout fits its longest word in the column. */
+  .cover__shout {
+    font-size: min(var(--fs-shout), calc((100vw - 2 * var(--pad)) / (var(--longest) * 0.6)));
+  }
+
+  .cover__shout.shout--home {
+    font-size: min(var(--fs-shout-home), calc((100vw - 2 * var(--pad)) / (var(--longest) * 0.6)));
   }
 
   .cover__body {

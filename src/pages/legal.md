@@ -5,7 +5,7 @@ description: Who publishes this website and on what terms.
 kicker: LEGAL · DRAFT FOR REVIEW
 shout: LEGAL NOTICE
 lead: Who publishes this website, and on what terms.
-alternates: { en: /legal/, es: /es/legal/ }
+alternates: { en: /legal/, es: /es/legal/, va: /va/legal/ }
 ---
 
 > **Draft for review.** This text is waiting for the review of Generación Espontánea and the UPV. Items in [brackets] are still to confirm.
@@ -19,7 +19,7 @@ This website, innova-physics-upv.github.io, is published by Innova Physics UPV, 
 - **Phone:** +34 963 877 000
 - **The team:** innovaphysicsupv@gmail.com
 
-The general [legal notice of the UPV](https://www.upv.es/legal/aviso-legal-upv-es.html) also applies.
+The general [legal notice of the UPV](https://www.upv.es/legal/aviso-legal-upv-en.html) also applies.
 
 ## What the site is for
 

@@ -5,6 +5,7 @@
 // from the theme (--figure on --ground), so the same drawing works on gesso,
 // at night and on an ultramarine cover.
 import type { LatticeFigure } from '../data/figures';
+import { inLang, langOf } from '../i18n';
 
 interface Props {
   figure: LatticeFigure;
@@ -13,11 +14,12 @@ interface Props {
 }
 
 const { figure, id } = Astro.props;
+const label = inLang(figure.label, langOf(Astro.currentLocale));
 const hatch = `tratteggio-${id}`;
 const box = (r: { x: number; y: number; w: number; h: number }) => ({ x: r.x, y: r.y, width: r.w, height: r.h });
 ---
 
-<svg class="lattice" viewBox={figure.viewBox} role="img" aria-label={figure.label}>
+<svg class="lattice" viewBox={figure.viewBox} role="img" aria-label={label}>
   <defs>
     <pattern id={hatch} width="8" height="8" patternUnits="userSpaceOnUse">
       <rect x="2" y="0" width="4" height="8" style="fill: var(--figure, var(--ink))"></rect>

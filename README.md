@@ -34,13 +34,16 @@ old version of the content.
 
 ```text
 src/
-├── pages/                 One file per page; the file name is the URL
-│   ├── index.astro        /          the home: cover, team, story, readings, join, partners
-│   ├── machine.astro      /machine/  ALOHA stage by stage
-│   ├── research/          /research/ and one page per item
-│   ├── join.astro         /join/     (and es/join.astro, va/join.astro)
-│   ├── partners.astro     /partners/
-│   ├── seasons.astro      /seasons/  the museum of past seasons
+├── pages/
+│   ├── [...lang]/         Every page in English (/), Spanish (/es/) and Valencian (/va/)
+│   │   ├── index.astro    /          the home: cover, team, story, readings, join, partners
+│   │   ├── machine.astro  /machine/  ALOHA stage by stage
+│   │   ├── research/      /research/ the index of papers, posters and write-ups
+│   │   ├── join.astro     /join/     departments, how it works, the team
+│   │   ├── partners.astro /partners/
+│   │   └── seasons.astro  /seasons/  the museum of past seasons
+│   ├── research/[slug].astro   One page per research item, in its own language
+│   ├── legal.md, privacy.md    The legal pages, one Markdown file per language (es/, va/)
 │   └── 404.astro
 ├── content/               The content, one file per thing (see below)
 │   ├── seasons/           The home's story, one station per file
@@ -48,7 +51,8 @@ src/
 │   ├── research/          One folder per paper, poster or write-up
 │   └── team/              One file per team member (only with consent)
 ├── data/                  Page copy and lists kept in TypeScript
-├── i18n/join.ts           The Join page in English, Spanish and Valencian
+├── i18n/                  The languages: index.ts (how they work), ui.ts (masthead,
+│                          footer, shared labels), join.ts (the Join page)
 ├── components/            The building blocks (Cover, Section, Sheet, …)
 ├── layouts/Base.astro     Every page's head, masthead and footer
 ├── scripts/motion.ts      Every scroll-linked movement, in one module
@@ -68,15 +72,25 @@ hand in a component.
 Content is data, not code: almost every change is one file. `npm run check`
 tells you if a file is missing a field.
 
+**Every text is in three languages, side by side.** In the data files a text
+is `{ en: 'The machine', es: 'La máquina', va: 'La màquina' }`; in the YAML
+files it is the same with `en:`, `es:` and `va:` on their own lines. When you
+change one language, change the other two next to it. A text that reads the
+same in all three (a name, a number) can stay a single string. The Valencian
+follows the AVL norms. Research items are the exception: each is written in
+one language.
+
 | To…                                 | Do this                                                                                                                                                                                                          |
 | :---------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Add a paper, poster or write-up     | Add a folder to `src/content/research/` with an `index.md` (or `index.mdx` to use `<Datum>` or `<Term>`) and its pictures. Copy an existing item for the front matter. Math is LaTeX between `$…$` or `$$…$$`. |
-| Add a team member                   | Add `src/content/team/<name>.yaml` with `consent: true` (nobody is published without it), their photo in `src/assets/team/` (3:4, colour) and, if they want, `linkedin:` with the part after `linkedin.com/in/`. |
+| Add a team member                   | Add `src/content/team/<name>.yaml` with `consent: true` (nobody is published without it), their role and department in the three languages, their photo in `src/assets/team/` (3:4, colour) and, if they want, `linkedin:` with the part after `linkedin.com/in/`. |
 | Add a partner                       | Only once they have agreed. Add a line to `src/data/partners.ts` with its tier, and its logo in one ink (see `src/components/PartnerMark.astro`).                                                                 |
 | Move the story on a season          | Move `now: true` to the new station in `src/content/seasons/`.                                                                                                                                                 |
 | Open or close the recruitment round | Change the dates in `src/data/recruitment.ts`. The site rebuilds every night, so "Apply now" turns into "Tell me when it opens" on its own the morning after the closing date.                                 |
 | Change the machine's numbers        | `src/data/machine.ts`. Every number carries a unit and a status (SIMULATED · COMSOL, DESIGN, BUILT, MEASURED with date and instrument).                                                                          |
 | Change the dossier                  | Replace `public/dossier.pdf`; the download button only appears while the file exists.                                                                                                                           |
+| Change a word on the masthead or footer | `src/i18n/ui.ts`, in the three languages.                                                                                                                                                                  |
+| Add a page                          | Add it to `src/pages/[...lang]/` with `export const getStaticPaths = everyLang` (see `machine.astro`), add its address to `translated` in `src/i18n/index.ts`, and keep its words in `src/data/`. |
 
 Photos go in `src/assets/` (not `public/`): Astro makes AVIF and WebP copies at
 the sizes each screen needs. Give every photo alt text that says who and what.

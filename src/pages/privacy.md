@@ -5,7 +5,7 @@ description: What personal data this website and the team handle, why, and your 
 kicker: PRIVACY · DRAFT FOR REVIEW
 shout: PRIVACY
 lead: What personal data the team handles through this website, why, and how to exercise your rights.
-alternates: { en: /privacy/, es: /es/privacy/ }
+alternates: { en: /privacy/, es: /es/privacy/, va: /va/privacy/ }
 ---
 
 > **Draft for review.** This text is waiting for the review of the UPV's data protection officer and Generación Espontánea. Items in [brackets] are still to confirm.
@@ -39,4 +39,4 @@ This website sets no cookies and has no analytics. If you press DARK, your brows
 
 You can ask to access, correct or delete your data, to restrict or object to its use, to take it with you, and to withdraw your consent at any time. Write to [dpd@upv.es](mailto:dpd@upv.es) or to the team, saying which right you exercise. You can also complain to the Spanish data protection authority, the [AEPD](https://www.aepd.es/), which publishes [forms for each right](https://www.aepd.es/derechos-y-deberes/conoce-tus-derechos).
 
-The UPV's general [privacy policy](https://www.upv.es/legal/politica-privacidad-es.html) also applies.
+The UPV's general [privacy policy](https://www.upv.es/legal/politica-privacidad-en.html) also applies.

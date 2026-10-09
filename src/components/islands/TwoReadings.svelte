@@ -5,13 +5,21 @@
   // constant speed, 48px every 480ms, and the spectrum swaps only once it has
   // stopped: data jumps, it never morphs. The server renders the vermilion
   // stratum, read, so without JavaScript the figure is finished and still.
-  import { strata, DEFAULT_STRATUM, ENERGY_MIN, ENERGY_MAX, type XrayLine } from '../../data/readings';
+  import { strata as allStrata, readingsCopy, DEFAULT_STRATUM, ENERGY_MIN, ENERGY_MAX } from '../../data/readings';
+  import { inLang, type Lang } from '../../i18n';
 
   interface Props {
+    lang?: Lang;
     initial?: number;
   }
 
-  let { initial = DEFAULT_STRATUM }: Props = $props();
+  let { lang = 'en', initial = DEFAULT_STRATUM }: Props = $props();
+  // The page's language never changes while it is open.
+  // svelte-ignore state_referenced_locally
+  const strata = inLang(allStrata, lang);
+  // svelte-ignore state_referenced_locally
+  const t = inLang(readingsCopy, lang);
+  type XrayLine = (typeof strata)[number]['lines'][number];
 
   const STEP = 48; // a stratum's height, px
   const MS_PER_PX = 480 / STEP;
@@ -94,7 +102,7 @@
 <div class="readings">
   <div class="readings__figure" bind:this={figure}>
     <div class="readings__now">
-      <p class="label muted">PROBE ON · <span class="readings__ink">{stratum.name}</span></p>
+      <p class="label muted">{t.probeOn} · <span class="readings__ink">{stratum.name}</span></p>
       <!-- Every aside sits in one cell, so the figure keeps the height of the
            longest and nothing below it moves when the reading changes. -->
       <div class="readings__asides">
@@ -105,7 +113,7 @@
       </div>
     </div>
 
-    <div class="readings__plot" role="group" aria-label="Spectrum, 1 to 15 keV">
+    <div class="readings__plot" role="group" aria-label={t.spectrum}>
       {#each ticks as k (k)}
         <span class="readings__tick" style:left={at(k, 1)} aria-hidden="true"></span>
       {/each}
@@ -130,7 +138,7 @@
         >
       {/each}
       {#if !stratum.lines.length}
-        <p class="label muted readings__none">NO LINES IN THE WINDOW, 1 TO 15 keV</p>
+        <p class="label muted readings__none">{t.noLines}</p>
       {/if}
       <span class="readings__axis" bind:clientWidth={axis} aria-hidden="true"></span>
     </div>
@@ -146,7 +154,7 @@
     ></span>
   </div>
 
-  <div class="readings__strata" role="group" aria-label="The layers of a panel painting, top to bottom. Select one to read it.">
+  <div class="readings__strata" role="group" aria-label={t.strata}>
     {#each strata as s, i (s.name)}
       <button
         type="button"
@@ -157,18 +165,17 @@
         onclick={() => pick(i)}
       >
         <span>{s.label}</span>
-        {#if i === target}<span class="readings__mark" aria-hidden="true">READING</span>{/if}
+        {#if i === target}<span class="readings__mark" aria-hidden="true">{t.reading}</span>{/if}
       </button>
     {/each}
   </div>
 
   <p class="label readings__legend" aria-live="polite">
-    <span class="muted">LINE ·</span>
-    {legendLine ? `${legendLine.element} ${legendLine.line} · ${legendLine.keV.toFixed(2)} keV · ${legendLine.from}` : 'none in the window'}
+    <span class="muted">{t.line} ·</span>
+    {legendLine ? `${legendLine.element} ${legendLine.line} · ${legendLine.keV.toFixed(2)} keV · ${legendLine.from}` : t.none}
   </p>
   <p class="caption readings__note">
-    <strong>A panel painting in section.</strong> Schematic, layers not to scale; energy from 1 to 15 keV, lines
-    tabulated.<span class="js-only"> Select a layer to read it, or point at a line to name it.</span>
+    <strong>{t.caption.lead}</strong> {t.caption.text}<span class="js-only"> {t.caption.how}</span>
   </p>
 </div>
 

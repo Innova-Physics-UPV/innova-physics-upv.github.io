@@ -1,10 +1,19 @@
 # Published with consent (Marc, 7 October 2026). Role and department are
 # placeholders from the canvas until the team's content document.
 name: Marc Sanchis
-role: Coordinator
-department: DIRECTION
+role:
+  en: Coordinator
+  es: Coordinador
+  va: Coordinador
+department:
+  en: DIRECTION
+  es: DIRECCIÓN
+  va: DIRECCIÓ
 photo: ../../assets/team/marc-sanchis.webp
-alt: Marc Sanchis, in the team polo, arms crossed, smiling.
+alt:
+  en: Marc Sanchis, in the team polo, arms crossed, smiling.
+  es: Marc Sanchis, con el polo del equipo, de brazos cruzados y sonriendo.
+  va: Marc Sanchis, amb el polo de l’equip, de braços plegats i somrient.
 linkedin: marc-sanchis
 consent: true
 order: 1

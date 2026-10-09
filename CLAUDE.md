@@ -57,8 +57,11 @@ server redirects, so a moved URL needs a forwarding page.
 
 ## Content rules
 
-- English by default; Spanish (`/es/`) and Valencian (`/va/`,
-  `lang="ca-ES-valencia"`) only for Join, Team and Events.
+- English by default; every page also in Spanish (`/es/`) and Valencian
+  (`/va/`, `lang="ca-ES-valencia"`, AVL norms), from one page in
+  `src/pages/[...lang]/`. Every text is written `{ en, es, va }` side by side
+  (`src/i18n/index.ts`); a research item stays in the language it was written
+  in. A change to a text changes all three.
 - One shout per page (the cover title in Heros Cn Bold capitals), one art line
   per section, one vermilion element per composition. No em dashes in copy.
 - Aims, not promises. Every number has a unit and a status (SIMULATED ·

@@ -6,6 +6,7 @@ import ElectronicsControl from '../../assets/logos/departments/electronics-contr
 import TechnicalDesign from '../../assets/logos/departments/technical-design.svg';
 import Communication from '../../assets/logos/departments/communication.svg';
 import { departmentFacts } from '../../i18n/join';
+import { inLang, langOf } from '../../i18n';
 
 interface Props {
   dept: keyof typeof departmentFacts;
@@ -22,7 +23,7 @@ const logos = {
   communication: Communication,
 };
 const Logo = logos[dept];
-const facts = departmentFacts[dept];
+const facts = inLang(departmentFacts[dept], langOf(Astro.currentLocale));
 ---
 
 <li class="dept">

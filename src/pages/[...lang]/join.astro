@@ -1,44 +1,44 @@
 ---
-// The Join page, in one of its languages (/join/, /es/join/, /va/join/):
-// the cover with the round's status and the team at CERN, the four
+// /join/, /es/join/ and /va/join/: the cover with the round's status and the team at CERN, the four
 // departments, how a candidate becomes a member, the team (only those who
 // have given their consent) and the closing sheet. The round opens and
 // closes on its own: the status is decided when the site is built.
 import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
-import Cover from '../Cover.astro';
-import Button from '../Button.astro';
-import Caption from '../Caption.astro';
-import Section from '../Section.astro';
-import Sheet from '../Sheet.astro';
-import StatusChip from '../StatusChip.astro';
-import DeptCard from './DeptCard.astro';
-import PersonCard from './PersonCard.astro';
+import Cover from '../../components/Cover.astro';
+import Button from '../../components/Button.astro';
+import Caption from '../../components/Caption.astro';
+import Section from '../../components/Section.astro';
+import Sheet from '../../components/Sheet.astro';
+import StatusChip from '../../components/StatusChip.astro';
+import DeptCard from '../../components/join/DeptCard.astro';
+import PersonCard from '../../components/join/PersonCard.astro';
 import teamAtCern from '../../assets/photos/team-at-cern-2026.webp';
 import { FORM_URL, WAITLIST_URL } from '../../consts';
-import { round, roundIsOpen } from '../../data/recruitment';
-import { joinCopy, type JoinLocale } from '../../i18n/join';
+import { closesOn, round, roundIsOpen } from '../../data/recruitment';
+import { alternates, everyLang, htmlLang, inLang, langs, localise, type Lang } from '../../i18n';
+import { joinCopy } from '../../i18n/join';
+
+export const getStaticPaths = everyLang;
 
 interface Props {
-  locale: JoinLocale;
+  lang: Lang;
 }
 
-const { locale } = Astro.props;
-const t = joinCopy[locale]!;
+const { lang } = Astro.props;
+const t = joinCopy[lang];
 const open = roundIsOpen();
-const closes = new Date(`${round.closes}T12:00:00Z`).toLocaleDateString(locale === 'en' ? 'en-GB' : locale, {
-  day: 'numeric',
-  month: 'long',
-  timeZone: 'UTC',
-});
+const closes = closesOn(lang);
 const action = open ? { href: FORM_URL, label: t.cover.apply } : { href: WAITLIST_URL, label: t.cover.waitlist };
-const others = (Object.keys(joinCopy) as JoinLocale[]).filter((l) => l !== locale);
-const languages = Object.fromEntries((Object.keys(joinCopy) as JoinLocale[]).map((l) => [l, joinCopy[l]!.path]));
-const people = (await getCollection('team')).filter((p) => p.data.consent).sort((a, b) => a.data.order - b.data.order);
+const others = langs.filter((l) => l !== lang);
+const people = (await getCollection('team'))
+  .filter((p) => p.data.consent)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((p) => ({ ...p, data: inLang(p.data, lang) }));
 ---
 
-<Base title={t.meta.title} description={t.meta.description} active="join" languages={languages}>
+<Base title={t.meta.title} description={t.meta.description} active="join" languages={alternates('/join/')}>
   <Cover id="join" kicker={t.cover.kicker(round.season)} shout={t.cover.shout} lead={t.cover.lead}>
     <p>
       <StatusChip marker="outlined">{(open ? t.cover.open : t.cover.closed)(round.season, closes.toUpperCase())}</StatusChip>
@@ -47,8 +47,8 @@ const people = (await getCollection('team')).filter((p) => p.data.consent).sort(
       <Button href={action.href}>{action.label}</Button>
       {
         others.map((l) => (
-          <Button href={joinCopy[l]!.path} variant="text" arrow={false} lang={l} hreflang={l}>
-            {joinCopy[l]!.readIn}
+          <Button href={localise('/join/', l)} variant="text" arrow={false} lang={htmlLang[l]} hreflang={htmlLang[l]}>
+            {joinCopy[l].readIn}
           </Button>
         ))
       }

@@ -4,12 +4,15 @@
 // HTML; with motion it grows twice after load (motion.css), and motion.ts
 // removes it at the first scroll past 40px. White, not vermilion: the cover
 // already has its accent. With a scroll scene it reads `sceneText`.
+import { inLang, langOf } from '../i18n';
+import { ui } from '../i18n/ui';
+
 interface Props {
   text?: string;
   sceneText?: string;
 }
 
-const { text = 'SCROLL', sceneText } = Astro.props;
+const { text = inLang(ui.cue, langOf(Astro.currentLocale)), sceneText } = Astro.props;
 ---
 
 <div class="cue" aria-hidden="true" data-scroll-cue>

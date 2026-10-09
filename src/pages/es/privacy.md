@@ -5,7 +5,7 @@ description: Qué datos personales tratan esta web y el equipo, para qué, y tus
 kicker: PRIVACIDAD · BORRADOR PARA REVISIÓN
 shout: PRIVACIDAD
 lead: Qué datos personales trata el equipo a través de esta web, para qué y cómo ejercer tus derechos.
-alternates: { en: /privacy/, es: /es/privacy/ }
+alternates: { en: /privacy/, es: /es/privacy/, va: /va/privacy/ }
 ---
 
 > **Borrador para revisión.** Este texto espera la revisión del delegado de protección de datos de la UPV y de Generación Espontánea. Lo que va entre [corchetes] está por confirmar.
@@ -33,7 +33,7 @@ No compartimos tus datos con nadie más y nunca los vendemos.
 
 ## Cookies y lo que guarda tu navegador
 
-Esta web no instala cookies ni tiene analítica. Si pulsas DARK, tu navegador recuerda esa elección en su propio almacenamiento; nunca sale de tu dispositivo. La web no carga tipografías, scripts ni imágenes de otros servidores.
+Esta web no instala cookies ni tiene analítica. Si pulsas OSCURO, tu navegador recuerda esa elección en su propio almacenamiento; nunca sale de tu dispositivo. La web no carga tipografías, scripts ni imágenes de otros servidores.
 
 ## Tus derechos
 

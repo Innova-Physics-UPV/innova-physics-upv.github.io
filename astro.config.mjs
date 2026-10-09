@@ -34,8 +34,10 @@ export default defineConfig({
       hastPlugins: [captionedFigures, scrollingTables],
     }),
   },
-  // English at the root; Spanish and Valencian only for the pages students
-  // and the UPV read (Join, Team, Events). `codes` gives <html lang>.
+  // English at the root, Spanish under /es/ and Valencian under /va/: every
+  // page in all three (Marc, 9 October 2026), research items in the language
+  // they were written in. Pages live in src/pages/[...lang]/ (see
+  // src/i18n/index.ts). `codes` gives <html lang>.
   i18n: {
     locales: ['en', 'es', { path: 'va', codes: ['ca-ES-valencia'] }],
     defaultLocale: 'en',

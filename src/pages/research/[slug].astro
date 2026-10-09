@@ -13,7 +13,8 @@ import Caption from '../../components/Caption.astro';
 import Lattice from '../../components/Lattice.astro';
 import ScrollCue from '../../components/ScrollCue.astro';
 import { aloha0Line, aloha1Line } from '../../data/figures';
-import { researchLabels, researchMonth } from '../../data/research';
+import { researchLabels as allLabels } from '../../data/research';
+import { inLang, monthYear } from '../../i18n';
 
 export async function getStaticPaths() {
   const items = (await getCollection('research')).sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
@@ -31,6 +32,9 @@ const { item, next } = Astro.props;
 const { Content } = await render(item);
 const d = item.data;
 const figures = { 'aloha-0-line': aloha0Line, 'aloha-1-line': aloha1Line };
+// Research items are in English, and so is the page around them.
+const researchLabels = inLang(allLabels, 'en');
+const researchMonth = (date: Date) => monthYear(date, 'en');
 ---
 
 <Base title={d.title} description={d.aside} active="research" headerTheme={d.theme} progress>

@@ -1,14 +1,32 @@
 order: 6
-season: "NEXT · ALOHA-1"
-title: "1 MeV on a tabletop"
-body: "After the source, a buncher and an accelerating structure at 2.998 GHz, designed to bring the beam to 1 MeV. It is still on paper: we aim to finish the design by the end of the season, and then to put the beam to work."
+season:
+  en: "NEXT · ALOHA-1"
+  es: "PRÓXIMO · ALOHA-1"
+  va: "PRÒXIM · ALOHA-1"
+title:
+  en: "1 MeV on a tabletop"
+  es: "1 MeV sobre una mesa"
+  va: "1 MeV damunt d’una taula"
+body:
+  en: "After the source, a buncher and an accelerating structure at 2.998 GHz, designed to bring the beam to 1 MeV. It is still on paper: we aim to finish the design by the end of the season, and then to put the beam to work."
+  es: "Tras la fuente, un agrupador y una estructura aceleradora a 2.998 GHz, diseñados para llevar el haz a 1 MeV. Todavía está sobre el papel: aspiramos a terminar el diseño al final de la temporada y, después, a poner el haz a trabajar."
+  va: "Després de la font, un agrupador i una estructura acceleradora a 2.998 GHz, dissenyats per a portar el feix a 1 MeV. Encara està sobre el paper: aspirem a acabar el disseny al final de la temporada i, després, a posar el feix a treballar."
 marker: outlined
 picture:
   kind: figure
   figure: aloha-1-section
 caption:
-  lead: "ALOHA-1, the design."
-  text: "The source, then four buncher and four accelerating cavities, outlined: not built yet."
+  lead:
+    en: "ALOHA-1, the design."
+    es: "ALOHA-1, el diseño."
+    va: "ALOHA-1, el disseny."
+  text:
+    en: "The source, then four buncher and four accelerating cavities, outlined: not built yet."
+    es: "La fuente y, después, cuatro cavidades del agrupador y cuatro aceleradoras, en contorno: aún sin construir."
+    va: "La font i, després, quatre cavitats de l’agrupador i quatre acceleradores, en contorn: encara sense construir."
 link:
   href: "/machine/"
-  label: "INSIDE THE MACHINE"
+  label:
+    en: "INSIDE THE MACHINE"
+    es: "DENTRO DE LA MÁQUINA"
+    va: "DINS DE LA MÀQUINA"

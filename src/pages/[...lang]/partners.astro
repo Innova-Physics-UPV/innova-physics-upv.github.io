@@ -1,21 +1,31 @@
 ---
-// /partners/: the tiers as a figure on the cover, what each tier brings,
+// /partners/ (and /es/, /va/): the tiers as a figure on the cover, what each tier brings,
 // this season's partners in one ink, and the dossier as the closing sheet.
 // Partners in src/data/partners.ts (only those who have agreed), tiers and
 // benefits in src/data/sponsorship.ts; no amounts on the page.
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import Base from '../layouts/Base.astro';
-import Cover from '../components/Cover.astro';
-import Section from '../components/Section.astro';
-import Sheet from '../components/Sheet.astro';
-import Button from '../components/Button.astro';
-import BenefitsMatrix from '../components/BenefitsMatrix.astro';
-import PartnerMark from '../components/PartnerMark.astro';
-import { partners } from '../data/partners';
-import { tiers } from '../data/sponsorship';
-import { partnersPage as t } from '../data/partners-page';
-import { CONTACT_EMAIL, DOSSIER_URL } from '../consts';
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import Section from '../../components/Section.astro';
+import Sheet from '../../components/Sheet.astro';
+import Button from '../../components/Button.astro';
+import BenefitsMatrix from '../../components/BenefitsMatrix.astro';
+import PartnerMark from '../../components/PartnerMark.astro';
+import { partners } from '../../data/partners';
+import { tiers } from '../../data/sponsorship';
+import { partnersPage } from '../../data/partners-page';
+import { CONTACT_EMAIL, DOSSIER_URL } from '../../consts';
+import { alternates, everyLang, inLang, type Lang } from '../../i18n';
+
+export const getStaticPaths = everyLang;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = inLang(partnersPage, lang);
 
 // The download shows only when the PDF is really there.
 const hasDossier = existsSync(join(process.cwd(), 'public', DOSSIER_URL));
@@ -30,8 +40,8 @@ const groups = [...tiers]
   .filter((g) => g.members.length);
 ---
 
-<Base title="Partners" active="partners" description={t.lead}>
-  <Cover id="partners" kicker={t.kicker} shout={['PARTNERS']} lead={t.lead}>
+<Base title={t.title} active="partners" description={t.lead} languages={alternates('/partners/')}>
+  <Cover id="partners" kicker={t.kicker} shout={[t.shout]} lead={t.lead}>
     <Fragment slot="wide">
       <div class="tiers" role="img" aria-label={t.tiersLabel}>
         <div class="tiers__bars">

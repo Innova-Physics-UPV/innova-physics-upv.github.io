@@ -1,12 +1,30 @@
 order: 4
-season: "JULY 2026 · CERN"
-title: "Our posters at CERN"
-body: "We took ALOHA-0, and our case for teaching accelerators to undergraduates, to the accelECR poster session for early-career researchers at CERN, and to IdeaSquare."
+season:
+  en: "JULY 2026 · CERN"
+  es: "JULIO 2026 · CERN"
+  va: "JULIOL 2026 · CERN"
+title:
+  en: "Our posters at CERN"
+  es: "Nuestros pósteres en el CERN"
+  va: "Els nostres pòsters al CERN"
+body:
+  en: "We took ALOHA-0, and our case for teaching accelerators to undergraduates, to the accelECR poster session for early-career researchers at CERN, and to IdeaSquare."
+  es: "Llevamos ALOHA-0, y nuestros argumentos para enseñar aceleradores en el grado, a la sesión de pósteres accelECR para investigadores que empiezan su carrera en el CERN, y a IdeaSquare."
+  va: "Vam portar ALOHA-0, i els nostres arguments per a ensenyar acceleradors en el grau, a la sessió de pòsters accelECR per a investigadors que comencen la seua carrera al CERN, i a IdeaSquare."
 marker: solid
 picture:
   kind: photo
   src: ../../assets/photos/cern-accelecr-2026.webp
-  alt: "A team member presents the poster Democratising Particle Accelerators at the poster session at CERN."
+  alt:
+    en: "A team member presents the poster Democratising Particle Accelerators at the poster session at CERN."
+    es: "Un miembro del equipo presenta el póster Democratising Particle Accelerators en la sesión de pósteres del CERN."
+    va: "Un membre de l’equip presenta el pòster Democratising Particle Accelerators en la sessió de pòsters del CERN."
 caption:
-  lead: "The accelECR poster session."
-  text: "CERN, July 2026."
+  lead:
+    en: "The accelECR poster session."
+    es: "La sesión de pósteres accelECR."
+    va: "La sessió de pòsters accelECR."
+  text:
+    en: "CERN, July 2026."
+    es: "CERN, julio de 2026."
+    va: "CERN, juliol de 2026."

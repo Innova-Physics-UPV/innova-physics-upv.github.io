@@ -1,48 +1,57 @@
 ---
-// The home: an ultramarine cover, then the team's story told on gesso as a
-// beamline, the target, the Join call as a sheet, the partners and the
-// footer. Copy and geometry from the canvas's "Home · desktop".
+// /, /es/ and /va/, the home: an ultramarine cover, then the team's story
+// told on gesso as a beamline, the target, the Join call as a sheet, the
+// partners and the footer. Geometry from the canvas's "Home · desktop"; the
+// copy is in src/data/home.ts.
 import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
-import Base from '../layouts/Base.astro';
-import Cover from '../components/Cover.astro';
-import Button from '../components/Button.astro';
-import Caption from '../components/Caption.astro';
-import Sheet from '../components/Sheet.astro';
-import MarkerKey from '../components/MarkerKey.astro';
-import Rail from '../components/Rail.astro';
-import CoverSource from '../components/home/CoverSource.astro';
-import PartnerRow from '../components/home/PartnerRow.astro';
-import TwoReadings from '../components/islands/TwoReadings.svelte';
-import team from '../assets/photos/team.webp';
-import { FORM_URL } from '../consts';
-import { round, roundIsOpen } from '../data/recruitment';
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import Button from '../../components/Button.astro';
+import Caption from '../../components/Caption.astro';
+import Sheet from '../../components/Sheet.astro';
+import MarkerKey from '../../components/MarkerKey.astro';
+import Rail from '../../components/Rail.astro';
+import CoverSource from '../../components/home/CoverSource.astro';
+import PartnerRow from '../../components/home/PartnerRow.astro';
+import TwoReadings from '../../components/islands/TwoReadings.svelte';
+import team from '../../assets/photos/team.webp';
+import { FORM_URL } from '../../consts';
+import { home } from '../../data/home';
+import { closesOn, round, roundIsOpen } from '../../data/recruitment';
+import { alternates, everyLang, inLang, localise, type Lang } from '../../i18n';
+import { joinCopy } from '../../i18n/join';
+import { ui } from '../../i18n/ui';
+
+export const getStaticPaths = everyLang;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = inLang(home, lang);
+const j = joinCopy[lang];
+const link = (href: string) => localise(href, lang);
 
 const stations = (await getCollection('seasons'))
   .sort((a, b) => a.data.order - b.data.order)
-  .map((entry) => ({ id: entry.id, ...entry.data }));
+  .map((entry) => ({ id: entry.id, ...inLang(entry.data, lang) }))
+  .map((station) => (station.link ? { ...station, link: { ...station.link, href: link(station.link.href) } } : station));
 
 const open = roundIsOpen();
+const closes = closesOn(lang);
 
 // S4 lights the team statement word by word: each word is its own span, its
 // space inside it (compressHTML drops whitespace between elements).
-const statement =
-  'Few universities let undergraduates near an accelerator. We are students from different degrees at the UPV who design, simulate and build one, and we aim to publish every step so other teams can build their own.';
-const words = statement.split(' ');
+const words = t.team.statement.split(' ');
 ---
 
-<Base active="home">
-  <Cover
-    kicker="INNOVA PHYSICS UPV · VALÈNCIA · SINCE 2023"
-    shout={['BUILD THE', 'BEAM']}
-    home
-    scene="s1"
-    cueScene="SCROLL TO SWITCH ON THE SOURCE"
-    lead="A student team at the Universitat Politècnica de València designing and building ALOHA, an open-hardware tabletop electron accelerator."
-  >
+<Base active="home" languages={alternates('/')}>
+  <Cover kicker={t.cover.kicker} shout={t.cover.shout} home scene="s1" cueScene={t.cover.cueScene} lead={inLang(ui.site.description, lang)}>
     <Fragment slot="actions">
-      <Button href="/join/">Join the team</Button>
-      <Button href="#team" variant="secondary" data-follow>Follow the beam</Button>
+      <Button href={link('/join/')}>{t.cover.join}</Button>
+      <Button href="#team" variant="secondary" data-follow>{t.cover.follow}</Button>
     </Fragment>
     <CoverSource slot="figure" />
   </Cover>
@@ -54,19 +63,19 @@ const words = statement.split(' ');
       <div class="team__stage" data-stage>
       <div class="team__wrap">
         <div class="team__text">
-          <p class="label muted">THE TEAM</p>
-          <h2 id="team-title" class="headline team__title">Particle accelerators, within reach of students</h2>
+          <p class="label muted">{t.team.kicker}</p>
+          <h2 id="team-title" class="headline team__title">{t.team.title}</h2>
           <p class="team__statement measure" data-statement>
             {words.map((word, i) => <span class="w">{i < words.length - 1 ? `${word} ` : word}</span>)}
           </p>
-          <p class="label muted team__facts">FOUNDED 2023 · 30+ STUDENTS · 4 DEPARTMENTS</p>
+          <p class="label muted team__facts">{t.team.facts}</p>
         </div>
         <figure class="team__figure">
           <div class="team__photo" data-team-photo>
             {/* Where S2 runs, the photo grows to cover the window: load the size it ends at. */}
             <Picture
               src={team}
-              alt="The Innova Physics UPV team, about thirty students in white team shirts, outdoors."
+              alt={t.team.photoAlt}
               formats={['avif', 'webp']}
               fallbackFormat="webp"
               widths={[480, 720, 960, 1280, 1600, 1920, 2560]}
@@ -75,7 +84,7 @@ const words = statement.split(' ');
             />
             <span class="team__veil" aria-hidden="true" data-team-veil></span>
           </div>
-          <Caption lead="The team." text="[SEASON]." />
+          <Caption lead={t.team.caption.lead} text={t.team.caption.text} />
         </figure>
       </div>
       </div>
@@ -86,16 +95,14 @@ const words = statement.split(' ');
     <section id="story" class="story" aria-labelledby="story-title">
       <div class="story__wrap">
         <div class="story__head">
-          <p class="label muted">OUR STORY · 2023 TO NOW</p>
-          <h2 id="story-title" class="headline story__title">One beamline</h2>
-          <p class="lead story__lead">
-            Read it like an accelerator, from the source to the target: every season adds an element to the line.
-          </p>
+          <p class="label muted">{t.story.kicker}</p>
+          <h2 id="story-title" class="headline story__title">{t.story.title}</h2>
+          <p class="lead story__lead">{t.story.lead}</p>
           <MarkerKey />
         </div>
         <Rail stations={stations} projector />
         <p class="story__past">
-          <Button href="/seasons/" variant="text">PAST SEASONS · IP-0 TO IP-2</Button>
+          <Button href={link('/seasons/')} variant="text">{t.story.past}</Button>
         </p>
       </div>
     </section>
@@ -105,42 +112,32 @@ const words = statement.split(' ');
       <div class="readings__wrap">
         <div class="readings__head">
           <div class="readings__title-block">
-            <p class="label muted">THE TARGET · AN AIM</p>
-            <h2 id="readings-title" class="art readings__title">A beam reads a painting <em>twice.</em></h2>
+            <p class="label muted">{t.readings.kicker}</p>
+            <h2 id="readings-title" class="art readings__title">{t.readings.title.before}<em>{t.readings.title.em}</em></h2>
           </div>
-          <p class="readings__text measure">
-            Above the line, energy: every pigment answers the beam with its own X-ray lines. Below it, depth: the layers a
-            painter laid, and the ones they covered. We aim to make ALOHA a tool for conservation, one that reads pigments
-            without taking a sample.
-          </p>
+          <p class="readings__text measure">{t.readings.text}</p>
         </div>
-        <TwoReadings client:visible />
+        <TwoReadings lang={lang} client:visible />
       </div>
     </section>
 
     <!-- Join: an ultramarine sheet laid on the page. -->
     <Sheet id="join" labelledby="join-title">
       <div class="join__text">
-        <p class="label muted">JOIN · {round.season}</p>
-        <h2 id="join-title" class="headline join__title">Build it with us</h2>
+        <p class="label muted">{j.closing.kicker(round.season)}</p>
+        <h2 id="join-title" class="headline join__title">{j.closing.title}</h2>
         <p class="join__body measure">
-          Students from different degrees design, simulate and build ALOHA together: you learn by building, in one of four
-          departments.{' '}
-          {
-            open
-              ? `Applications for ${round.season} are open until ${round.closesLabel}.`
-              : `Applications for ${round.season} closed on ${round.closesLabel}. Leave your email and we will write when the next round opens.`
-          }
+          {t.join.body}{' '}{open ? j.closing.open(closes) : j.closing.closed(closes)}
         </p>
-        <p class="caption join__privacy">We handle your application as our <a href="/privacy/">privacy notice</a> explains.</p>
+        <p class="caption join__privacy">{j.privacy.before}<a href={j.privacy.href}>{j.privacy.link}</a>{j.privacy.after}</p>
       </div>
       <div class="join__actions">
-        {open ? <Button href={FORM_URL}>Apply now</Button> : <Button href="/join/">Tell me when it opens</Button>}
-        <Button href="/join/#team" variant="secondary">Meet the team</Button>
+        {open ? <Button href={FORM_URL}>{j.cover.apply}</Button> : <Button href={link('/join/')}>{j.cover.waitlist}</Button>}
+        <Button href={link('/join/#team')} variant="secondary">{t.join.meet}</Button>
       </div>
     </Sheet>
 
-    <PartnerRow />
+    <PartnerRow title={t.partners.title} become={t.partners.become} href={link('/partners/')} />
   </main>
 </Base>
 

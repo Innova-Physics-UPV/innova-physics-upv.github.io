@@ -1,0 +1,131 @@
+---
+// /seasons/ (and /es/, /va/), the museum of past seasons: IP-0 to IP-2, the seasons before this one,
+// kept to honour them even though the team is very different now. The
+// standard template: an ultramarine cover, the page on gesso, the same rail
+// as the home's story (no beam: every station here is built and done), a
+// closing sheet and the footer. The copy is a placeholder until the team
+// sends it.
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import Button from '../../components/Button.astro';
+import Rail from '../../components/Rail.astro';
+import Sheet from '../../components/Sheet.astro';
+import { alternates, everyLang, inLang, localise, type Lang } from '../../i18n';
+
+export const getStaticPaths = everyLang;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const link = (href: string) => localise(href, lang);
+
+// The page's own words; the seasons are in src/content/past-seasons/.
+const t = inLang(
+  {
+    title: { en: 'Past seasons', es: 'Temporadas anteriores', va: 'Temporades anteriors' },
+    description: {
+      en: 'The seasons of Innova Physics UPV before this one, IP-0 to IP-2.',
+      es: 'Las temporadas de Innova Physics UPV anteriores a esta, de IP-0 a IP-2.',
+      va: 'Les temporades d’Innova Physics UPV anteriors a esta, d’IP-0 a IP-2.',
+    },
+    kicker: {
+      en: 'INNOVA PHYSICS UPV · IP-0 TO IP-2',
+      es: 'INNOVA PHYSICS UPV · DE IP-0 A IP-2',
+      va: 'INNOVA PHYSICS UPV · D’IP-0 A IP-2',
+    },
+    shout: { en: 'PAST SEASONS', es: 'TEMPORADAS ANTERIORES', va: 'TEMPORADES ANTERIORS' },
+    lead: {
+      en: 'The seasons before this one. The team is very different now; this is where we keep what those seasons built.',
+      es: 'Las temporadas anteriores a esta. El equipo es muy distinto ahora; aquí guardamos lo que construyeron.',
+      va: 'Les temporades anteriors a esta. L’equip és molt diferent ara; ací guardem el que van construir.',
+    },
+    back: { en: 'Back to the beamline', es: 'Volver a la línea de haz', va: 'Tornar a la línia de feix' },
+    range: { en: 'IP-0 TO IP-2', es: 'DE IP-0 A IP-2', va: 'D’IP-0 A IP-2' },
+    heading: { en: 'The seasons before this one', es: 'Las temporadas anteriores a esta', va: 'Les temporades anteriors a esta' },
+    sheet: {
+      kicker: { en: 'THE STORY GOES ON', es: 'LA HISTORIA SIGUE', va: 'LA HISTÒRIA CONTINUA' },
+      title: { en: 'Follow the beam', es: 'Sigue el haz', va: 'Seguix el feix' },
+      body: {
+        en: 'This season and the next are on the beamline of the home page.',
+        es: 'Esta temporada y la siguiente están en la línea de haz de la página de inicio.',
+        va: 'Esta temporada i la següent estan en la línia de feix de la pàgina d’inici.',
+      },
+      join: { en: 'Join the team', es: 'Únete al equipo', va: 'Unix-te a l’equip' },
+    },
+  },
+  lang,
+);
+
+const stations = (await getCollection('pastSeasons'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((entry) => ({ id: entry.id, ...inLang(entry.data, lang) }));
+---
+
+<Base title={t.title} description={t.description} languages={alternates('/seasons/')}>
+  <Cover id="seasons-cover" kicker={t.kicker} shout={[t.shout]} lead={t.lead}>
+    <Fragment slot="actions">
+      <Button href={link('/#story')} variant="secondary">{t.back}</Button>
+    </Fragment>
+  </Cover>
+
+  <main data-theme="gesso">
+    <section id="past" class="past" aria-labelledby="past-title">
+      <div class="past__wrap">
+        <div class="past__head">
+          <p class="label muted">{t.range}</p>
+          <h2 id="past-title" class="headline past__title">{t.heading}</h2>
+        </div>
+        <Rail stations={stations} beam={false} />
+      </div>
+    </section>
+
+    <Sheet labelledby="past-sheet-title">
+      <div class="past__sheet-text">
+        <p class="label muted">{t.sheet.kicker}</p>
+        <h2 id="past-sheet-title" class="headline past__sheet-title">{t.sheet.title}</h2>
+        <p class="past__sheet-body measure">{t.sheet.body}</p>
+      </div>
+      <div class="past__sheet-actions">
+        <Button href={link('/#story')}>{t.sheet.title}</Button>
+        <Button href={link('/join/')} variant="secondary">{t.sheet.join}</Button>
+      </div>
+    </Sheet>
+    <div class="past__end" aria-hidden="true"></div>
+  </main>
+</Base>
+
+<style>
+  .past__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+  }
+
+  .past__head {
+    max-width: 760px;
+  }
+
+  .past__title,
+  .past__sheet-title,
+  .past__sheet-body {
+    margin-top: 24px;
+  }
+
+  .past__sheet-text {
+    flex: 1 1 360px;
+    max-width: 560px;
+  }
+
+  .past__sheet-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .past__end {
+    height: var(--section);
+  }
+</style>

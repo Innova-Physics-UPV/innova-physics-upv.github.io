@@ -1,12 +1,10 @@
 // The Join page's words, one object per language. Placeholder copy from the
-// canvas until the team's content document (docs/content-todo.md); the
-// Spanish and Valencian versions are drafts for the team to review.
+// canvas until the team's content document (docs/content-todo.md); the team
+// reviewed the Spanish and Valencian on 9 October 2026.
 
-export type JoinLocale = 'en' | 'es' | 'ca-ES-valencia';
+import type { Lang } from './index';
 
 export interface JoinCopy {
-  /** Where this language's Join page lives. */
-  path: string;
   /** The link to this language, in this language. */
   readIn: string;
   meta: { title: string; description: string };
@@ -46,16 +44,27 @@ export interface JoinCopy {
   };
 }
 
-/** Tools and fingerprint lines are the same in every language. */
+/** Tools are the same in every language; the fingerprint line names its element's role in each. */
 export const departmentFacts = {
-  'applied-physics': { tools: 'COMSOL · RF-Track · GEANT4 · CST', line: 'W Lα 8.40 keV · THE CATHODE' },
-  'electronics-control': { tools: 'KiCad · STM32', line: 'Cu Kα 8.05 keV · EVERY CONDUCTOR' },
-  'technical-design': { tools: 'FreeCAD', line: 'Fe Kα 6.40 keV · STAINLESS STEEL' },
-  communication: { tools: 'Figma · Manim · Astro', line: 'Hg Lα 9.99 keV · VERMILION' },
-} as const;
+  'applied-physics': {
+    tools: 'COMSOL · RF-Track · GEANT4 · CST',
+    line: { en: 'W Lα 8.40 keV · THE CATHODE', es: 'W Lα 8.40 keV · EL CÁTODO', va: 'W Lα 8.40 keV · EL CÀTODE' },
+  },
+  'electronics-control': {
+    tools: 'KiCad · STM32',
+    line: { en: 'Cu Kα 8.05 keV · EVERY CONDUCTOR', es: 'Cu Kα 8.05 keV · CADA CONDUCTOR', va: 'Cu Kα 8.05 keV · CADA CONDUCTOR' },
+  },
+  'technical-design': {
+    tools: 'FreeCAD',
+    line: { en: 'Fe Kα 6.40 keV · STAINLESS STEEL', es: 'Fe Kα 6.40 keV · ACERO INOXIDABLE', va: 'Fe Kα 6.40 keV · ACER INOXIDABLE' },
+  },
+  communication: {
+    tools: 'Figma · Manim · Astro',
+    line: { en: 'Hg Lα 9.99 keV · VERMILION', es: 'Hg Lα 9.99 keV · BERMELLÓN', va: 'Hg Lα 9.99 keV · VERMELLÓ' },
+  },
+};
 
 const en: JoinCopy = {
-  path: '/join/',
   readIn: 'READ IN ENGLISH',
   meta: {
     title: 'Join the team',
@@ -135,7 +144,6 @@ const en: JoinCopy = {
 
 // Draft, to be reviewed by the team.
 const es: JoinCopy = {
-  path: '/es/join/',
   readIn: 'LEER EN ESPAÑOL',
   meta: {
     title: 'Únete al equipo',
@@ -215,7 +223,6 @@ const es: JoinCopy = {
 
 // Draft in Valencian (AVL norms), to be reviewed by the team.
 const va: JoinCopy = {
-  path: '/va/join/',
   readIn: 'LLEGIR EN VALENCIÀ',
   meta: {
     title: 'Unix-te a l’equip',
@@ -284,7 +291,7 @@ const va: JoinCopy = {
     photoMissing: 'FOTO PENDENT',
     onLinkedIn: (name) => `${name} a LinkedIn`,
   },
-  privacy: { before: 'Tractem la teua candidatura com explica la nostra ', link: 'política de privacitat', href: '/es/privacy/', after: ' (en castellà).' },
+  privacy: { before: 'Tractem la teua candidatura com explica la nostra ', link: 'política de privacitat', href: '/va/privacy/', after: '.' },
   closing: {
     kicker: (season) => `UNIX-TE · ${season}`,
     title: 'Construïx-lo amb nosaltres',
@@ -293,4 +300,4 @@ const va: JoinCopy = {
   },
 };
 
-export const joinCopy: Partial<Record<JoinLocale, JoinCopy>> = { en, es, 'ca-ES-valencia': va };
+export const joinCopy: Record<Lang, JoinCopy> = { en, es, va };

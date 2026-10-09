@@ -1,7 +1,8 @@
 ---
-// The page GitHub Pages serves for any address that does not exist: one
-// cover, and the ways back. Placeholder copy until the team's content
-// document. The sitemap leaves it out.
+// The page GitHub Pages serves for any address that does not exist, in every
+// language: GitHub serves this one file, so the cover is in English and the
+// way back is offered in Spanish and Valencian too. Placeholder copy until
+// the team's content document. The sitemap leaves it out.
 import Base from '../layouts/Base.astro';
 import Cover from '../components/Cover.astro';
 import Button from '../components/Button.astro';
@@ -18,5 +19,17 @@ import Button from '../components/Button.astro';
       <Button href="/">Back to the home page</Button>
       <Button href="/research/" variant="secondary">Research</Button>
     </Fragment>
+    <div class="elsewhere">
+      <Button href="/es/" variant="text" lang="es" hreflang="es">VOLVER AL INICIO</Button>
+      <Button href="/va/" variant="text" lang="ca-ES-valencia" hreflang="ca-ES-valencia">TORNAR A L’INICI</Button>
+    </div>
   </Cover>
 </Base>
+
+<style>
+  .elsewhere {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+  }
+</style>

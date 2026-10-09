@@ -21,7 +21,8 @@ while the content is placeholder and the consents are pending.
   `npm run preview`):
   - every page at about 390 px and at 1440 px, by day and by night, and with
     the system's reduced motion turned on;
-  - the Join page in English, Spanish and Valencian;
+  - every page in English, Spanish and Valencian (`/`, `/es/`, `/va/`), with
+    the language switch leading to the same page in the other language;
   - every link leads somewhere: no `#`, no placeholder address.
 
 ## 2. The merge
