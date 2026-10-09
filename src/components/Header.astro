@@ -1,7 +1,11 @@
 ---
 // The masthead: a sticky ultramarine band, like the CERN Courier's. It
 // tightens once the cover has gone by (M2, in motion.ts). On a research
-// item about art or conservation it is drawn on gesso instead.
+// item about art or conservation it is drawn on gesso instead. Below
+// 1120px, where the links no longer fit in one row in every language, the
+// band keeps the logo, JOIN and MENU, and MENU opens the rest below it
+// (menu.ts; Direction, 10 October 2026). Without JavaScript the links stay
+// in the band, wrapping onto more rows.
 import InnovaCompact from '../assets/logos/innova-compact.svg';
 import { htmlLang, inLang, langNames, langOf, langs, localise, type Lang } from '../i18n';
 import { ui } from '../i18n/ui';
@@ -35,7 +39,14 @@ const nav: { key: Section; label: string; href: string }[] = [
     <a class="masthead__logo" href={localise('/', current)} aria-label={t.home}>
       <InnovaCompact aria-hidden="true" focusable="false" />
     </a>
-    <nav class="masthead__nav" aria-label={t.nav}>
+    <!-- Narrow screens: JOIN stays in the band, MENU opens the links. -->
+    <div class="masthead__quick js-only">
+      <a class="label masthead__join" href={localise('/join/', current)} aria-current={active === 'join' ? 'page' : undefined}>{t.join}</a>
+      <button class="label masthead__menu" type="button" aria-expanded="false" aria-controls="masthead-nav" data-menu-button>
+        <span class="masthead__burger" aria-hidden="true"></span><span class="masthead__menu-word">{t.menu}</span>
+      </button>
+    </div>
+    <nav class="masthead__nav" id="masthead-nav" aria-label={t.nav}>
       {
         nav.map((item) => (
           <a class="label masthead__link" href={localise(item.href, current)} aria-current={item.key === active ? 'page' : undefined}>
@@ -43,7 +54,7 @@ const nav: { key: Section; label: string; href: string }[] = [
           </a>
         ))
       }
-      <a class="label masthead__join" href={localise('/join/', current)} aria-current={active === 'join' ? 'page' : undefined}>{t.join}</a>
+      <a class="label masthead__join masthead__join--nav" href={localise('/join/', current)} aria-current={active === 'join' ? 'page' : undefined}>{t.join}</a>
       <span class="masthead__sep" aria-hidden="true"></span>
       <span class="masthead__langs" role="group" aria-label={t.language}>
         {
@@ -75,6 +86,7 @@ const nav: { key: Section; label: string; href: string }[] = [
 
 <script>
   import '../scripts/mode';
+  import '../scripts/menu';
 </script>
 
 <style>
@@ -211,6 +223,139 @@ const nav: { key: Section; label: string; href: string }[] = [
     background: var(--figure);
   }
 
+
+  /* MENU: three lines, a cross while the links are open. */
+  .masthead__quick {
+    display: none;
+  }
+
+  .masthead__menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--figure);
+    cursor: pointer;
+  }
+
+  .masthead__burger,
+  .masthead__burger::before,
+  .masthead__burger::after {
+    display: block;
+    width: 16px;
+    height: var(--hair);
+    background: var(--figure);
+  }
+
+  .masthead__burger {
+    position: relative;
+  }
+
+  .masthead__burger::before,
+  .masthead__burger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .masthead__burger::before {
+    top: -5px;
+  }
+
+  .masthead__burger::after {
+    top: 5px;
+  }
+
+  .masthead__menu[aria-expanded='true'] .masthead__burger {
+    background: transparent;
+  }
+
+  .masthead__menu[aria-expanded='true'] .masthead__burger::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .masthead__menu[aria-expanded='true'] .masthead__burger::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  /* Narrow screens with JavaScript: one row, and the links in a panel laid
+     under the band (over the page, so nothing below moves). */
+  @media (max-width: 1119.98px) {
+    :global(html[data-js]) .masthead__inner {
+      column-gap: 16px;
+    }
+
+    :global(html[data-js]) .masthead__quick {
+      display: flex;
+      align-items: center;
+      gap: 12px 20px;
+    }
+
+    :global(html[data-js]) .masthead__nav {
+      display: none;
+    }
+
+    :global(html[data-js]) .masthead[data-open] .masthead__nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      max-height: calc(100dvh - var(--header-h-compact, 70px));
+      overflow-y: auto;
+      padding: 8px var(--pad) 24px;
+      background: var(--ground);
+      border-bottom: var(--hair) solid var(--construction);
+    }
+
+    :global(html[data-js]) .masthead[data-open] .masthead__link {
+      border-bottom: var(--hair) solid var(--construction);
+    }
+
+    :global(html[data-js]) .masthead[data-open] .masthead__link[aria-current='page'] {
+      border-bottom-color: var(--figure);
+    }
+
+    :global(html[data-js]) .masthead__join--nav,
+    :global(html[data-js]) .masthead__sep {
+      display: none;
+    }
+
+    :global(html[data-js]) .masthead[data-open] .masthead__langs {
+      margin-top: 16px;
+    }
+  }
+
+  /* The narrowest phones keep the band to one row: MENU becomes its icon,
+     still a 44px target, the word kept for screen readers. */
+  @media (max-width: 359.98px) {
+    :global(html[data-js]) .masthead__quick {
+      column-gap: 12px;
+    }
+
+    .masthead__menu {
+      min-width: 44px;
+      justify-content: center;
+    }
+
+    .masthead__menu-word {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
 
   /* M10: where the browser links animations to the scroll, the line grows
      from 0 to the full width as the page is read. Elsewhere, and without

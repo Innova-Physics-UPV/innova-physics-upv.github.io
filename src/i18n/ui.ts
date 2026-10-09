@@ -33,6 +33,8 @@ export const ui = {
       va: 'esta pàgina només està en anglés',
     },
     dark: { en: 'DARK', es: 'OSCURO', va: 'FOSC' },
+    /** Narrow screens: the button that opens the links. */
+    menu: { en: 'MENU', es: 'MENÚ', va: 'MENÚ' },
   },
   footer: {
     marks: {
