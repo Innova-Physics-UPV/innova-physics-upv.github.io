@@ -56,6 +56,9 @@ export const ui = {
     },
     open: { en: 'OPEN', es: 'ABIERTO', va: 'OBERT' },
     docs: { en: 'DOCS · GITHUB', es: 'DOCUMENTACIÓN · GITHUB', va: 'DOCUMENTACIÓ · GITHUB' },
+    texts: { en: 'TEXTS', es: 'TEXTOS', va: 'TEXTOS' },
+    /** Creative Commons' own page for the licence, in each language. */
+    ccDeed: { en: '', es: 'deed.es', va: 'deed.ca' },
     type: { en: 'TYPE', es: 'TIPOGRAFÍA', va: 'TIPOGRAFIA' },
     legal: { en: 'LEGAL NOTICE', es: 'AVISO LEGAL', va: 'AVÍS LEGAL' },
     privacy: { en: 'PRIVACY', es: 'PRIVACIDAD', va: 'PRIVACITAT' },

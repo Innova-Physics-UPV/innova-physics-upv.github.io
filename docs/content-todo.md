@@ -118,8 +118,11 @@ policy. Still in [brackets] on the pages:
 - the unit the team belongs to: Generación Espontánea or ETSIT;
 - whether the team's form and inbox fall under the UPV as data controller;
 - how long applications and emails are kept;
-- where Formbricks stores the applications, and its data processing agreement;
-- the licence of texts and documents.
+- where Formbricks stores the applications, and its data processing agreement.
+
+Decided on 10 October 2026: texts, write-ups, drawings and documents are
+CC BY 4.0, the hardware CERN-OHL-S v2; photos of people and others' marks are
+not covered.
 
 The pages are Markdown, one file per language: `src/pages/legal.md`,
 `src/pages/es/legal.md`, `src/pages/va/legal.md` and the same for `privacy.md`

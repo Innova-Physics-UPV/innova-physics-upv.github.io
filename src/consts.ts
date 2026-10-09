@@ -24,3 +24,7 @@ export const PAST_SEASONS_LIVE = false;
 
 // The CERN Open Hardware Licence, strongly reciprocal (CERN-OHL-S v2).
 export const CERN_OHL_URL = 'https://cern-ohl.web.cern.ch/';
+
+// Texts, write-ups, drawings and documents: Creative Commons Attribution 4.0
+// (Direction, 10 October 2026). Not photos of people, not others' marks.
+export const CC_BY_URL = 'https://creativecommons.org/licenses/by/4.0/';

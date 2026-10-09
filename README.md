@@ -131,5 +131,10 @@ redirects, so a page that moves needs a forwarding page at its old address.
 
 ## Licences
 
+The site's texts, write-ups, drawings and documents: CC BY 4.0. Hardware
+designs: CERN-OHL-S v2. Photos of people and the marks of the UPV, GE, ETSIT
+and the partners are not under either licence. A research item names its own
+licence in its front matter (`licence:`).
+
 Fonts: TeX Gyre Heros (GUST Font License), EB Garamond and Fragment Mono (SIL
 Open Font License); their licences are served from `/licenses/`.

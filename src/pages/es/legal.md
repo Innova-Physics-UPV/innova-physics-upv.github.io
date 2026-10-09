@@ -27,7 +27,7 @@ Para contar lo que el equipo diseña, simula y construye, publicar su investigac
 
 ## Contenidos y licencias
 
-Los textos, dibujos y fotos son del equipo o se usan con permiso. Las personas aparecen solo con su consentimiento. Las marcas de la UPV, Generación Espontánea, la ETSIT y nuestros colaboradores pertenecen a sus titulares y aparecen con su permiso. Los diseños de hardware se publican con la licencia CERN-OHL-S v2; [la licencia de textos y documentos: por decidir]. Las licencias de las tipografías están enlazadas en el pie.
+Los textos, dibujos y fotos son del equipo o se usan con permiso. Las personas aparecen solo con su consentimiento. Las marcas de la UPV, Generación Espontánea, la ETSIT y nuestros colaboradores pertenecen a sus titulares y aparecen con su permiso. Los diseños de hardware se publican con la licencia CERN-OHL-S v2. Los textos, informes, dibujos y documentos de esta web se publican con la licencia [Creative Commons Reconocimiento 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.es), salvo que indiquen otra cosa: puedes reutilizarlos y adaptarlos citando a Innova Physics UPV. La licencia no cubre las fotos de personas ni las marcas de la UPV, Generación Espontánea, la ETSIT y nuestros colaboradores. Las licencias de las tipografías están enlazadas en el pie.
 
 ## Enlaces a otras webs
 
