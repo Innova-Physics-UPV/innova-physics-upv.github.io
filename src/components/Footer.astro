@@ -9,6 +9,15 @@ import Ge from '../assets/logos/generacion-espontanea.svg';
 import Etsit from '../assets/logos/etsit.svg';
 import { CONTACT_EMAIL } from '../consts';
 
+// The closing row: each mark links to its institution (the team's own to
+// the home page).
+const marks = [
+  { key: 'innova', Mark: InnovaLogo, label: 'Innova Physics UPV, home', href: '/' },
+  { key: 'upv', Mark: Upv, label: 'Universitat Politècnica de València', href: 'https://www.upv.es/' },
+  { key: 'ge', Mark: Ge, label: 'Generación Espontánea, UPV Design Factory', href: 'https://generacionespontanea.upv.es/' },
+  { key: 'etsit', Mark: Etsit, label: 'Telecom UPV VLC, ETSIT', href: 'https://www.upv.es/entidades/etsit/' },
+];
+
 const site = [
   { label: 'Home', href: '/' },
   { label: 'The machine', href: '/machine/' },
@@ -22,18 +31,15 @@ const site = [
 <footer class="footer" data-theme="gesso">
   <div class="footer__inner">
     <ul class="footer__marks" aria-label="Innova Physics UPV and its institutions">
-      <li class="footer__mark footer__mark--innova">
-        <InnovaLogo role="img" aria-label="Innova Physics" />
-      </li>
-      <li class="footer__mark footer__mark--upv">
-        <Upv role="img" aria-label="Universitat Politècnica de València" />
-      </li>
-      <li class="footer__mark footer__mark--ge">
-        <Ge role="img" aria-label="Generación Espontánea, UPV Design Factory" />
-      </li>
-      <li class="footer__mark footer__mark--etsit">
-        <Etsit role="img" aria-label="Telecom UPV VLC, ETSIT" />
-      </li>
+      {
+        marks.map(({ key, Mark, label, href }) => (
+          <li class={`footer__mark footer__mark--${key}`}>
+            <a class="footer__mark-link" href={href} aria-label={label} rel={href.startsWith('http') ? 'noopener' : undefined}>
+              <Mark aria-hidden="true" focusable="false" />
+            </a>
+          </li>
+        ))
+      }
     </ul>
 
     <div class="footer__grid">
@@ -104,6 +110,11 @@ const site = [
   .footer__mark {
     line-height: 0;
     color: var(--mark);
+  }
+
+  .footer__mark-link {
+    display: block;
+    color: inherit;
   }
 
   .footer__mark :global(svg) {
