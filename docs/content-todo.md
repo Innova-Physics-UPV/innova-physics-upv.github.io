@@ -67,3 +67,19 @@ Drafts written from the English page, for the team to review: `es` and
 `ca-ES-valencia` in `src/i18n/join.ts`. The Valencian follows the AVL norms
 (unix-te, construïxen, este, s’òbriga). The masthead and the footer stay in
 English on these pages, as the spec leaves them.
+
+## Legal notice and privacy (`/legal/`, `/privacy/`, `/es/legal/`, `/es/privacy/`)
+
+Drafts with the UPV as owner (decided 9 October 2026), for the UPV's data
+protection officer and Generación Espontánea to review. The UPV's NIF,
+address, phone and DPO address come from its own legal notice and privacy
+policy. Still in [brackets] on the pages:
+
+- the unit the team belongs to: Generación Espontánea or ETSIT;
+- whether the team's form and inbox fall under the UPV as data controller;
+- how long applications and emails are kept;
+- where Formbricks stores the applications, and its data processing agreement;
+- the licence of texts and documents.
+
+The pages are Markdown in `src/pages/` (layout `src/layouts/LegalLayout.astro`).
+Remove the "Draft for review" note once they are approved.

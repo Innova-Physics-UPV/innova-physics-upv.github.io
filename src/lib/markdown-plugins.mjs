@@ -62,3 +62,23 @@ export const captionedFigures = {
     },
   },
 };
+
+/**
+ * A table in prose scrolls sideways in its own frame on a narrow screen,
+ * instead of widening the page. The frame is a named region a keyboard can
+ * reach, so its hidden columns can be scrolled into view.
+ */
+export const scrollingTables = {
+  name: 'innova-tables',
+  element: {
+    filter: ['table'],
+    visit(node, ctx) {
+      ctx.wrapNode(node, {
+        type: 'element',
+        tagName: 'div',
+        properties: { className: ['prose-table'], tabIndex: 0, role: 'region', ariaLabel: 'Table' },
+        children: [],
+      });
+    },
+  },
+};

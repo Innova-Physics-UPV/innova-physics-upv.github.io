@@ -36,6 +36,8 @@ export interface JoinCopy {
     /** The name of the link from a card to the person's LinkedIn profile. */
     onLinkedIn: (name: string) => string;
   };
+  /** The line beside the application button: how applications are handled. */
+  privacy: { before: string; link: string; href: string; after: string };
   closing: {
     kicker: (season: string) => string;
     title: string;
@@ -122,6 +124,7 @@ const en: JoinCopy = {
     photoMissing: 'PHOTO TO COME',
     onLinkedIn: (name) => `${name} on LinkedIn`,
   },
+  privacy: { before: 'We handle your application as our ', link: 'privacy notice', href: '/privacy/', after: ' explains.' },
   closing: {
     kicker: (season) => `JOIN · ${season}`,
     title: 'Build it with us',
@@ -201,6 +204,7 @@ const es: JoinCopy = {
     photoMissing: 'FOTO PENDIENTE',
     onLinkedIn: (name) => `${name} en LinkedIn`,
   },
+  privacy: { before: 'Tratamos tu candidatura como explica nuestra ', link: 'política de privacidad', href: '/es/privacy/', after: '.' },
   closing: {
     kicker: (season) => `ÚNETE · ${season}`,
     title: 'Constrúyelo con nosotros',
@@ -280,6 +284,7 @@ const va: JoinCopy = {
     photoMissing: 'FOTO PENDENT',
     onLinkedIn: (name) => `${name} a LinkedIn`,
   },
+  privacy: { before: 'Tractem la teua candidatura com explica la nostra ', link: 'política de privacitat', href: '/es/privacy/', after: ' (en castellà).' },
   closing: {
     kicker: (season) => `UNIX-TE · ${season}`,
     title: 'Construïx-lo amb nosaltres',

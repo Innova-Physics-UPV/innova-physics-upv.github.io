@@ -53,6 +53,9 @@ const people = (await getCollection('team')).filter((p) => p.data.consent).sort(
         ))
       }
     </div>
+    <p class="caption join__privacy">
+      {t.privacy.before}<a href={t.privacy.href}>{t.privacy.link}</a>{t.privacy.after}
+    </p>
     <div class="join__count">
       <p class="numeral">{t.cover.count.value}</p>
       <p class="label muted join__count-label">{t.cover.count.label}</p>
@@ -119,6 +122,9 @@ const people = (await getCollection('team')).filter((p) => p.data.consent).sort(
         <p class="label muted">{t.closing.kicker(round.season)}</p>
         <h2 id="apply-title" class="headline closing__title">{t.closing.title}</h2>
         <p class="closing__body measure">{open ? t.closing.open(closes) : t.closing.closed(closes)}</p>
+        <p class="caption join__privacy">
+          {t.privacy.before}<a href={t.privacy.href}>{t.privacy.link}</a>{t.privacy.after}
+        </p>
       </div>
       <div class="closing__actions">
         <Button href={action.href}>{action.label}</Button>
@@ -133,6 +139,20 @@ const people = (await getCollection('team')).filter((p) => p.data.consent).sort(
     flex-wrap: wrap;
     align-items: center;
     gap: 16px 24px;
+  }
+
+  .join__privacy {
+    color: var(--figure-muted);
+  }
+
+  .join__privacy a {
+    color: var(--figure);
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+
+  .closing__body + .join__privacy {
+    margin-top: 16px;
   }
 
   .join__count {

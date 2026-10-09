@@ -132,6 +132,7 @@ const words = statement.split(' ');
               : `Applications for ${round.season} closed on ${round.closesLabel}. Leave your email and we will write when the next round opens.`
           }
         </p>
+        <p class="caption join__privacy">We handle your application as our <a href="/privacy/">privacy notice</a> explains.</p>
       </div>
       <div class="join__actions">
         {open ? <Button href={FORM_URL}>Apply now</Button> : <Button href="/join/">Tell me when it opens</Button>}
@@ -255,5 +256,16 @@ const words = statement.split(' ');
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+  }
+
+  .join__privacy {
+    margin-top: 16px;
+    color: var(--figure-muted);
+  }
+
+  .join__privacy a {
+    color: var(--figure);
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
   }
 </style>

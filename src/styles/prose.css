@@ -65,8 +65,14 @@
   background: var(--card);
 }
 
+.prose .prose-table {
+  position: relative;
+  overflow-x: auto;
+}
+
 .prose table {
   width: 100%;
+  min-width: 560px;
   border-collapse: collapse;
   border-top: var(--hair) solid var(--ink);
 }

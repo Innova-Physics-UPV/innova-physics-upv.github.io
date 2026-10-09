@@ -5,7 +5,7 @@ import svelte from '@astrojs/svelte';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
-import { katexMath, captionedFigures } from './src/lib/markdown-plugins.mjs';
+import { katexMath, captionedFigures, scrollingTables } from './src/lib/markdown-plugins.mjs';
 
 // Every font is a local file: TeX Gyre Heros converted from the design
 // system's OTFs (see design-system/README.md), EB Garamond and Fragment Mono
@@ -31,7 +31,7 @@ export default defineConfig({
     processor: satteri({
       features: { math: true },
       mdastPlugins: [katexMath],
-      hastPlugins: [captionedFigures],
+      hastPlugins: [captionedFigures, scrollingTables],
     }),
   },
   // English at the root; Spanish and Valencian only for the pages students
