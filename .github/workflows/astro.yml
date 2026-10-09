@@ -2,11 +2,20 @@ name: Deploy Astro site to GitHub Pages
 
 # A push to main builds and deploys. A pull request into main only checks
 # and builds, so a branch is tested before it is merged.
+#
+# The site also rebuilds every night, because what it shows depends on the
+# date it was built: "Apply now" turns into "Tell me when it opens" on the
+# first build after a round closes (src/data/recruitment.ts). 03:30 UTC is
+# 05:30 in Valencia in summer and 04:30 in winter. GitHub runs schedules only
+# on main, and pauses them after 60 days without a commit to the repository;
+# a commit or "Enable workflow" in the Actions tab turns them back on.
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  schedule:
+    - cron: "30 3 * * *"
   workflow_dispatch:
 
 permissions:

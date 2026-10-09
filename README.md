@@ -74,7 +74,7 @@ tells you if a file is missing a field.
 | Add a team member                   | Add `src/content/team/<name>.yaml` with `consent: true` (nobody is published without it), their photo in `src/assets/team/` (3:4, colour) and, if they want, `linkedin:` with the part after `linkedin.com/in/`. |
 | Add a partner                       | Only once they have agreed. Add a line to `src/data/partners.ts` with its tier, and its logo in one ink (see `src/components/PartnerMark.astro`).                                                                 |
 | Move the story on a season          | Move `now: true` to the new station in `src/content/seasons/`.                                                                                                                                                 |
-| Open or close the recruitment round | Change the dates in `src/data/recruitment.ts`; the site turns "Apply now" into "Tell me when it opens" on its own when it is rebuilt after the closing date.                                                     |
+| Open or close the recruitment round | Change the dates in `src/data/recruitment.ts`. The site rebuilds every night, so "Apply now" turns into "Tell me when it opens" on its own the morning after the closing date.                                 |
 | Change the machine's numbers        | `src/data/machine.ts`. Every number carries a unit and a status (SIMULATED · COMSOL, DESIGN, BUILT, MEASURED with date and instrument).                                                                          |
 | Change the dossier                  | Replace `public/dossier.pdf`; the download button only appears while the file exists.                                                                                                                           |
 
@@ -88,6 +88,12 @@ Every push to `main` runs `.github/workflows/astro.yml`: `npm ci`,
 `npm run check`, `npm run build`, then publishes `./dist/` to GitHub Pages
 (Settings › Pages › Source: GitHub Actions). Nothing is uploaded by hand and the
 build is never committed.
+
+The same workflow also runs every night at 03:30 UTC, so whatever depends on
+the date (the recruitment round) is never more than a day out of date. GitHub
+pauses scheduled runs after 60 days without a commit; the Actions tab shows it,
+and "Enable workflow" there turns them back on. To rebuild at once, run the
+workflow by hand (Actions › "Deploy Astro site to GitHub Pages" › Run workflow).
 
 These addresses are used outside the site and must keep working:
 `/email/marc-sanchis.jpg`, `/email/strip.png`, `/email/mark-tile.png` (email
