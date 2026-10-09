@@ -32,7 +32,7 @@ fixed date (Direction, 9 October 2026).
 
 1. Push `new-web` to GitHub and open a pull request into `main`. The workflow
    checks and builds the branch on the pull request, without deploying it.
-2. When the build is green and the team agrees, merge it. The push to `main`
+2. When the build is green and Marc gives the go-live OK, merge it. The push to `main`
    deploys the site in about two minutes (Actions › "Deploy Astro site to
    GitHub Pages").
 
