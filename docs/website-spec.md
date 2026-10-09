@@ -281,7 +281,7 @@ On gesso:
 
 ## Rules that hold on every page
 
-- Aims, not promises: "we aim to". Every number has its unit and its status (SIMULATED · COMSOL, DESIGN, DESIGN TARGET, BUILT, MEASURED with date and instrument).
+- Aims, not promises: "we aim to". Every number has its unit and its status (SIMULATED · COMSOL, DESIGN, DESIGN TARGET, BUILT, MEASURED with date and instrument). What has no design yet takes PLANNED (decided, not designed), PROPOSED (an idea under study) or AIM (a long-term goal); added 10 October 2026.
 - "Electron source", never "gun". (The CERN posters in the photos say "gun"; that is fine in a photo, not in our copy.)
 - The art direction is written as an aim and names no faculty, museum, partner or work until they have agreed.
 - One shout per page, one art line per section, one accent element per composition.
@@ -335,3 +335,10 @@ On gesso:
 - **The site rebuilds every night**, so the round's status changes on its own.
 - **`/seasons` is hidden** until IP-0 to IP-2 have their content: one setting, `PAST_SEASONS_LIVE` in `src/consts.ts`, brings back the page, the home's link, the footer's link and the sitemap entries.
 - **Launch** when every blocker in the go-live list is done; no fixed date.
+
+## Decisions for the launch (10 October 2026)
+
+- **Status words:** PLANNED, PROPOSED and AIM join the spec's words, for what has no design yet.
+- **No analytics** at launch: no cookies, no banner, and the privacy notice stays as it is.
+- **Texts, write-ups, drawings and documents under CC BY 4.0**; the hardware stays CERN-OHL-S v2. Photos of people and the marks of the UPV, GE, ETSIT and the partners are not covered.
+- **A menu on phones:** under 760 px the masthead is one row (logo, JOIN, MENU); MENU opens the links, the languages and DARK.

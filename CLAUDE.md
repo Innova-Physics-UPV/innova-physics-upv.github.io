@@ -66,6 +66,8 @@ server redirects, so a moved URL needs a forwarding page.
   per section, one vermilion element per composition. No em dashes in copy.
 - Aims, not promises. Every number has a unit and a status (SIMULATED ·
   COMSOL, DESIGN, DESIGN TARGET, BUILT, MEASURED with date and instrument).
+  What has no design yet takes PLANNED (decided, not designed), PROPOSED (an
+  idea under study) or AIM (a long-term goal) (Direction, 10 October 2026).
   Nothing on ALOHA-0 is measured yet. Copy says "electron source", never
   "gun".
 - The CERN knowledge-transfer agreement is never called a partnership. CERN
