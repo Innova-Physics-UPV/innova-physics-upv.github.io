@@ -326,7 +326,7 @@ On gesso:
 - The home keeps the six stations, and the story links to a museum of past seasons, `/seasons`, for IP-0 to IP-2.
 - With S1 and S2 as the home's two pinned scenes, M5 on the home moves by the layer buttons rather than sticky scroll.
 - **Research replaces the Logbook.** `/research/` is a grid of blocks (picture, title, authors, and the venue or journal linking out to the publication); each opens the item, a paper, poster or write-up, as styled Markdown at `/research/<folder>/`, with math rendered at build time. One folder per item in `src/content/research/`. The header says RESEARCH. The Logbook-entry artboard is the item template; its series (LOGBOOK, FINGERPRINT, PENTIMENTO) give way to the item's type. At launch: the posters presented at CERN in July 2026 and the ALOHA-0 electron-source write-up.
-- `/join` shows only the team members who have given consent (Marc for now). "Tell me when it opens" is an email to the team until a waitlist form exists.
+- `/join` shows only the team members who have given consent (Marc for now). "Tell me when it opens" is an email to the team until a waitlist form exists. (Replaced on 10 October 2026: once the round closes the call is "Write to us", an email to apply late, as an exception, or to hear of the next round; no waitlist form.)
 - Content comes last: every page is built with placeholder copy and pictures, listed in `docs/content-todo.md`, and filled from the team's content document.
 
 ## Decisions for the launch (9 October 2026)

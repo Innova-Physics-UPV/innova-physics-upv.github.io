@@ -15,7 +15,8 @@ export interface JoinCopy {
     open: (season: string, date: string) => string;
     closed: (season: string, date: string) => string;
     apply: string;
-    waitlist: string;
+    /** Once the round has closed: write to the team, to apply late or to hear of the next round. */
+    closedAction: { label: string; subject: string };
     count: { value: string; label: string };
     photo: { alt: string; lead: string; text: string };
   };
@@ -77,7 +78,7 @@ const en: JoinCopy = {
     open: (season, date) => `APPLICATIONS FOR ${season} OPEN UNTIL ${date}`,
     closed: (season, date) => `APPLICATIONS FOR ${season} CLOSED ON ${date}`,
     apply: 'Apply now',
-    waitlist: 'Tell me when it opens',
+    closedAction: { label: 'Write to us', subject: 'Joining Innova Physics UPV' },
     count: { value: '30+', label: 'STUDENTS · OCTOBER 2026' },
     photo: {
       alt: 'Seven team members with CERN visitor lanyards, smiling in front of their posters at CERN.',
@@ -138,11 +139,12 @@ const en: JoinCopy = {
     kicker: (season) => `JOIN · ${season}`,
     title: 'Build it with us',
     open: (date) => `Applications are open until ${date}.`,
-    closed: (date) => `Applications closed on ${date}. Leave your email and we will write when the next round opens.`,
+    closed: (date) =>
+      `Applications closed on ${date}. Write to us to apply late, as an exception, or to hear when the next round opens.`,
   },
 };
 
-// Draft, to be reviewed by the team.
+// Spanish, reviewed by Marc on 9 October 2026.
 const es: JoinCopy = {
   readIn: 'LEER EN ESPAÑOL',
   meta: {
@@ -156,7 +158,7 @@ const es: JoinCopy = {
     open: (season, date) => `INSCRIPCIONES ${season} ABIERTAS HASTA EL ${date}`,
     closed: (season, date) => `INSCRIPCIONES ${season} CERRADAS EL ${date}`,
     apply: 'Inscríbete',
-    waitlist: 'Avísame cuando abra',
+    closedAction: { label: 'Escríbenos', subject: 'Unirme a Innova Physics UPV' },
     count: { value: '30+', label: 'ESTUDIANTES · OCTUBRE 2026' },
     photo: {
       alt: 'Siete miembros del equipo con acreditaciones de visitante del CERN, sonriendo delante de sus pósteres en el CERN.',
@@ -217,11 +219,16 @@ const es: JoinCopy = {
     kicker: (season) => `ÚNETE · ${season}`,
     title: 'Constrúyelo con nosotros',
     open: (date) => `Las inscripciones están abiertas hasta el ${date}.`,
-    closed: (date) => `Las inscripciones se cerraron el ${date}. Déjanos tu correo y te escribiremos cuando abra la próxima convocatoria.`,
+    closed: (date) =>
+      `Las inscripciones se cerraron el ${date}. Escríbenos para presentar una candidatura fuera de plazo, de forma excepcional, o para saber cuándo abre la próxima convocatoria.`,
   },
 };
 
-// Draft in Valencian (AVL norms), to be reviewed by the team.
+// Valencian elides the article before a day said with a vowel: l’1, l’11.
+const el = (date: string) => (/^1{1,2}\s/.test(date) ? `l’${date}` : `el ${date}`);
+const al = (date: string) => (/^1{1,2}\s/.test(date) ? `a l’${date}` : `al ${date}`);
+
+// Valencian (AVL norms), reviewed by Marc on 9 October 2026.
 const va: JoinCopy = {
   readIn: 'LLEGIR EN VALENCIÀ',
   meta: {
@@ -232,10 +239,10 @@ const va: JoinCopy = {
     kicker: (season) => `UNIX-TE · ${season}`,
     shout: ['UNIX-TE A L’EQUIP'],
     lead: 'Estudiants de diferents titulacions dissenyen, simulen i construïxen un accelerador d’electrons a la UPV. Aprens construint, en un dels quatre departaments.',
-    open: (season, date) => `INSCRIPCIONS ${season} OBERTES FINS AL ${date}`,
-    closed: (season, date) => `INSCRIPCIONS ${season} TANCADES EL ${date}`,
+    open: (season, date) => `INSCRIPCIONS ${season} OBERTES FINS ${al(date).toUpperCase()}`,
+    closed: (season, date) => `INSCRIPCIONS ${season} TANCADES ${el(date).toUpperCase()}`,
     apply: 'Inscriu-te',
-    waitlist: 'Avisa’m quan s’òbriga',
+    closedAction: { label: 'Escriu-nos', subject: 'Unir-me a Innova Physics UPV' },
     count: { value: '30+', label: 'ESTUDIANTS · OCTUBRE 2026' },
     photo: {
       alt: 'Set membres de l’equip amb acreditacions de visitant del CERN, somrient davant dels seus pòsters al CERN.',
@@ -295,8 +302,9 @@ const va: JoinCopy = {
   closing: {
     kicker: (season) => `UNIX-TE · ${season}`,
     title: 'Construïx-lo amb nosaltres',
-    open: (date) => `Les inscripcions estan obertes fins al ${date}.`,
-    closed: (date) => `Les inscripcions es van tancar el ${date}. Deixa’ns el teu correu i t’escriurem quan s’òbriga la pròxima convocatòria.`,
+    open: (date) => `Les inscripcions estan obertes fins ${al(date)}.`,
+    closed: (date) =>
+      `Les inscripcions es van tancar ${el(date)}. Escriu-nos per a presentar una candidatura fora de termini, de manera excepcional, o per a saber quan s’obri la pròxima convocatòria.`,
   },
 };
 

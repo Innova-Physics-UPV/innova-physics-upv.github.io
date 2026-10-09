@@ -15,7 +15,7 @@ import StatusChip from '../../components/StatusChip.astro';
 import DeptCard from '../../components/join/DeptCard.astro';
 import PersonCard from '../../components/join/PersonCard.astro';
 import teamAtCern from '../../assets/photos/team-at-cern-2026.webp';
-import { FORM_URL, WAITLIST_URL } from '../../consts';
+import { FORM_URL, writeToJoin } from '../../consts';
 import { closesOn, round, roundIsOpen } from '../../data/recruitment';
 import { alternates, everyLang, htmlLang, inLang, langs, localise, type Lang } from '../../i18n';
 import { joinCopy } from '../../i18n/join';
@@ -30,7 +30,9 @@ const { lang } = Astro.props;
 const t = joinCopy[lang];
 const open = roundIsOpen();
 const closes = closesOn(lang);
-const action = open ? { href: FORM_URL, label: t.cover.apply } : { href: WAITLIST_URL, label: t.cover.waitlist };
+const action = open
+  ? { href: FORM_URL, label: t.cover.apply }
+  : { href: writeToJoin(t.cover.closedAction.subject), label: t.cover.closedAction.label };
 const others = langs.filter((l) => l !== lang);
 const people = (await getCollection('team'))
   .filter((p) => p.data.consent)

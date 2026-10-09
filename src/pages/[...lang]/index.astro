@@ -16,7 +16,7 @@ import CoverSource from '../../components/home/CoverSource.astro';
 import PartnerRow from '../../components/home/PartnerRow.astro';
 import TwoReadings from '../../components/islands/TwoReadings.svelte';
 import team from '../../assets/photos/team.webp';
-import { FORM_URL, PAST_SEASONS_LIVE } from '../../consts';
+import { FORM_URL, PAST_SEASONS_LIVE, writeToJoin } from '../../consts';
 import { home } from '../../data/home';
 import { closesOn, round, roundIsOpen } from '../../data/recruitment';
 import { alternates, everyLang, inLang, localise, type Lang } from '../../i18n';
@@ -136,7 +136,13 @@ const words = t.team.statement.split(' ');
         <p class="caption join__privacy">{j.privacy.before}<a href={j.privacy.href}>{j.privacy.link}</a>{j.privacy.after}</p>
       </div>
       <div class="join__actions">
-        {open ? <Button href={FORM_URL}>{j.cover.apply}</Button> : <Button href={link('/join/')}>{j.cover.waitlist}</Button>}
+        {
+          open ? (
+            <Button href={FORM_URL}>{j.cover.apply}</Button>
+          ) : (
+            <Button href={writeToJoin(j.cover.closedAction.subject)}>{j.cover.closedAction.label}</Button>
+          )
+        }
         <Button href={link('/join/#team')} variant="secondary">{t.join.meet}</Button>
       </div>
     </Sheet>

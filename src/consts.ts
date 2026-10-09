@@ -12,9 +12,10 @@ export const DOSSIER_URL = '/dossier.pdf';
 
 export const CONTACT_EMAIL = 'innovaphysicsupv@gmail.com';
 
-// "Tell me when it opens", once a round has closed: an email to the team
-// until a waitlist form exists (Marc, 7 October 2026).
-export const WAITLIST_URL = `mailto:${CONTACT_EMAIL}?subject=Next%20round`;
+// Once a round has closed, the Join call becomes an email to the team: to
+// apply late, as an exception, or to hear when the next round opens (Marc,
+// 10 October 2026). The subject is in the reader's language (src/i18n/join.ts).
+export const writeToJoin = (subject: string) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 
 // The museum of past seasons (/seasons/) stays out of the site until IP-0 to
 // IP-2 have their copy and photos (Direction, 9 October 2026): no page, no

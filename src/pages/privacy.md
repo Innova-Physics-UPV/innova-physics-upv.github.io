@@ -20,7 +20,7 @@ The Universitat Politècnica de València (UPV), NIF Q4618002B, Camí de Vera, s
 | --- | --- | --- | --- |
 | Your application: name, contact details, degree and answers to the form | To run the recruitment round and choose new members | Your consent, when you send the form | Until the round is decided, then [deleted after N months: to confirm] |
 | Emails you send to the team | To answer you | Your consent, when you write to us | As long as the conversation needs, [then deleted after N months: to confirm] |
-| Your address on the waitlist ("Tell me when it opens") | To tell you when the next round opens | Your consent | Until that round opens, or until you ask us to remove it |
+| Your email after a round has closed, to apply late or to hear of the next round | To consider a late application, or to tell you when the next round opens | Your consent, when you write to us | Until the next round opens, or until you ask us to remove it |
 | Team cards: name, role, department, photo and, if asked for, a LinkedIn link | To show who builds ALOHA | The member's written consent | Until the member withdraws it |
 
 ## Who else handles it

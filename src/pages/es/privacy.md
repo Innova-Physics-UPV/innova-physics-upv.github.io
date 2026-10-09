@@ -20,7 +20,7 @@ La Universitat Politècnica de València (UPV), NIF Q4618002B, Camí de Vera, s/
 | --- | --- | --- | --- |
 | Tu candidatura: nombre, contacto, titulación y respuestas al formulario | Gestionar la convocatoria y elegir a los nuevos miembros | Tu consentimiento, al enviar el formulario | Hasta resolver la convocatoria; después, [se borra a los N meses: por confirmar] |
 | Los correos que envías al equipo | Responderte | Tu consentimiento, al escribirnos | Lo que dure la conversación; [después se borra a los N meses: por confirmar] |
-| Tu dirección en la lista de espera («Avísame cuando abra») | Avisarte cuando abra la próxima convocatoria | Tu consentimiento | Hasta que abra esa convocatoria o hasta que pidas que la borremos |
+| Tu correo cuando una convocatoria ya ha cerrado, para presentar una candidatura fuera de plazo o saber de la próxima | Estudiar una candidatura fuera de plazo, o avisarte cuando abra la próxima convocatoria | Tu consentimiento, al escribirnos | Hasta que abra la próxima convocatoria o hasta que pidas que lo borremos |
 | Fichas del equipo: nombre, cargo, departamento, foto y, si se pide, un enlace a LinkedIn | Mostrar quién construye ALOHA | El consentimiento por escrito de cada miembro | Hasta que el miembro lo retire |
 
 ## Quién más los trata
