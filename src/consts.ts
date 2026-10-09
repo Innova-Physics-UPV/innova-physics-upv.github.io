@@ -17,8 +17,8 @@ export const CONTACT_EMAIL = 'innovaphysicsupv@gmail.com';
 // 10 October 2026). The subject is in the reader's language (src/i18n/join.ts).
 export const writeToJoin = (subject: string) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 
-// The museum of past seasons (/seasons/) stays out of the site until IP-0 to
-// IP-2 have their copy and photos (Direction, 9 October 2026): no page, no
+// The museum of past seasons (/seasons/) stays out of the site until IP0 to
+// IP2 have their copy and photos (Direction, 9 October 2026): no page, no
 // link from the home or the footer, nothing in the sitemap. Set it to true to
 // publish it.
 export const PAST_SEASONS_LIVE = false;

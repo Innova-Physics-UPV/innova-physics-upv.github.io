@@ -1,9 +1,9 @@
-order: 2
-# Placeholder: the team's copy and photo for IP-2 are still to come.
+order: 0
+# Placeholder: the team's copy and photo for IP0 are still to come.
 season:
-  en: "IP-2 · [YEARS]"
-  es: "IP-2 · [AÑOS]"
-  va: "IP-2 · [ANYS]"
+  en: "IP0 · [YEARS]"
+  es: "IP0 · [AÑOS]"
+  va: "IP0 · [ANYS]"
 title:
   en: "[TITLE]"
   es: "[TÍTULO]"

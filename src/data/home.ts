@@ -80,9 +80,9 @@ export const home = {
       va: 'Llig-la com un accelerador, de la font al blanc: cada temporada afig un element a la línia.',
     },
     past: {
-      en: 'PAST SEASONS · IP-0 TO IP-2',
-      es: 'TEMPORADAS ANTERIORES · DE IP-0 A IP-2',
-      va: 'TEMPORADES ANTERIORS · D’IP-0 A IP-2',
+      en: 'PAST SEASONS · IP0 TO IP2',
+      es: 'TEMPORADAS ANTERIORES · DE IP0 A IP2',
+      va: 'TEMPORADES ANTERIORS · D’IP0 A IP2',
     },
   },
   readings: {

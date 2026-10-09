@@ -47,7 +47,7 @@ src/
 │   └── 404.astro
 ├── content/               The content, one file per thing (see below)
 │   ├── seasons/           The home's story, one station per file
-│   ├── past-seasons/      The museum, IP-0 to IP-2
+│   ├── past-seasons/      The museum, IP0 to IP2
 │   ├── research/          One folder per paper, poster or write-up
 │   └── team/              One file per team member (only with consent)
 ├── data/                  Page copy and lists kept in TypeScript

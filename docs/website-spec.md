@@ -323,7 +323,7 @@ On gesso:
 ## Decisions after the handoff (7 October 2026)
 
 - Every optional movement and scroll scene is built: M7 to M11 and S1 to S4.
-- The home keeps the six stations, and the story links to a museum of past seasons, `/seasons`, for IP-0 to IP-2.
+- The home keeps the six stations, and the story links to a museum of past seasons, `/seasons`, for IP0 to IP2.
 - With S1 and S2 as the home's two pinned scenes, M5 on the home moves by the layer buttons rather than sticky scroll.
 - **Research replaces the Logbook.** `/research/` is a grid of blocks (picture, title, authors, and the venue or journal linking out to the publication); each opens the item, a paper, poster or write-up, as styled Markdown at `/research/<folder>/`, with math rendered at build time. One folder per item in `src/content/research/`. The header says RESEARCH. The Logbook-entry artboard is the item template; its series (LOGBOOK, FINGERPRINT, PENTIMENTO) give way to the item's type. At launch: the posters presented at CERN in July 2026 and the ALOHA-0 electron-source write-up.
 - `/join` shows only the team members who have given consent (Marc for now). "Tell me when it opens" is an email to the team until a waitlist form exists. (Replaced on 10 October 2026: once the round closes the call is "Write to us", an email to apply late, as an exception, or to hear of the next round; no waitlist form.)
@@ -333,7 +333,7 @@ On gesso:
 
 - **Every page in three languages.** English, Spanish and Valencian, not only Join: the masthead, the footer and every page, with the `EN · ES · VAL` switch on each. Research items stay in the language they were written in (English so far); the Spanish and Valencian index says so on each block. This replaces the Languages decision above.
 - **The site rebuilds every night**, so the round's status changes on its own.
-- **`/seasons` is hidden** until IP-0 to IP-2 have their content: one setting, `PAST_SEASONS_LIVE` in `src/consts.ts`, brings back the page, the home's link, the footer's link and the sitemap entries.
+- **`/seasons` is hidden** until IP0 to IP2 have their content: one setting, `PAST_SEASONS_LIVE` in `src/consts.ts`, brings back the page, the home's link, the footer's link and the sitemap entries.
 - **Launch** when every blocker in the go-live list is done; no fixed date.
 
 ## Decisions for the launch (10 October 2026)
@@ -341,4 +341,7 @@ On gesso:
 - **Status words:** PLANNED, PROPOSED and AIM join the spec's words, for what has no design yet.
 - **No analytics** at launch: no cookies, no banner, and the privacy notice stays as it is.
 - **Texts, write-ups, drawings and documents under CC BY 4.0**; the hardware stays CERN-OHL-S v2. Photos of people and the marks of the UPV, GE, ETSIT and the partners are not covered.
-- **A menu on phones:** under 760 px the masthead is one row (logo, JOIN, MENU); MENU opens the links, the languages and DARK.
+- **A menu on narrow screens:** below 1120 px, where the full masthead stops fitting on one row in every language, it is one row (logo, JOIN, MENU); MENU opens the links, the languages and DARK.
+- **Season names:** IP0, IP1, IP2, IP3, as the team writes them (no hyphen); IP3 is 2026-27.
+- **After the round closes**, the Join call is "Write to us": an email for exceptional late applications or news of the next round.
+- **Contact:** innovaphysicsupv@gmail.com. **Domain:** innova-physics-upv.github.io at launch. **Maintainer and go-live OK:** Marc.
