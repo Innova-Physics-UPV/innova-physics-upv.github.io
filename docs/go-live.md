@@ -1,8 +1,11 @@
 # Going live
 
 The new site replaces the old one when `new-web` is merged into `main`: the
-merge deploys it. Until then everything stays on `new-web`, which is not pushed
-while the content is placeholder and the consents are pending.
+merge deploys it. Until then everything stays on `new-web`, which is on GitHub
+for review but deploys nothing.
+
+**When:** as soon as every blocker in the go-live list is done; there is no
+fixed date (Direction, 9 October 2026).
 
 ## 1. Before the merge
 

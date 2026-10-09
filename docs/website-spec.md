@@ -334,3 +334,4 @@ On gesso:
 - **Every page in three languages.** English, Spanish and Valencian, not only Join: the masthead, the footer and every page, with the `EN · ES · VAL` switch on each. Research items stay in the language they were written in (English so far); the Spanish and Valencian index says so on each block. This replaces the Languages decision above.
 - **The site rebuilds every night**, so the round's status changes on its own.
 - **`/seasons` is hidden** until IP-0 to IP-2 have their content: one setting, `PAST_SEASONS_LIVE` in `src/consts.ts`, brings back the page, the home's link, the footer's link and the sitemap entries.
+- **Launch** when every blocker in the go-live list is done; no fixed date.
