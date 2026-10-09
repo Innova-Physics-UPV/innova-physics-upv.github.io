@@ -6,9 +6,13 @@ while the content is placeholder and the consents are pending.
 
 ## 1. Before the merge
 
-- **Content.** Everything in `docs/content-todo.md` is filled in from the
-  team's content document, and every page has been read once more by the person
-  responsible for it.
+- **Content.** Everything in the team's go-live list is in (the shared doc
+  "New website: what we need before launch",
+  https://claude.ai/code/artifact/37f3dcc3-6b6f-4bac-8f18-c7d3f2616dd7), the
+  placeholders in `docs/content-todo.md` are replaced, and every page has been
+  read once more by the person responsible for it.
+- **Legal.** A legal notice and a privacy notice are linked from every footer,
+  and the application form carries its own privacy text.
 - **Consent.** Everyone visible in a photo on the site (the team photo, the CERN
   photos, the bench photo, the Join cover) has agreed, and every team member
   with a card has `consent: true` in their file. Partners appear only with
