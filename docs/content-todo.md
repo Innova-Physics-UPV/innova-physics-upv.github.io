@@ -23,6 +23,14 @@ are in `src/i18n/ui.ts`.
 | The two readings: layers, X-ray lines and their words | `src/data/readings.ts` |
 | The team photo's season (`[SEASON]`) and Model-0's season | `src/data/home.ts`, `src/content/seasons/02-model-0.yaml` |
 
+## Past seasons (`/seasons/`, hidden)
+
+The museum of IP-0 to IP-2 is built but not published (Direction, 9 October
+2026). Each season is one file in `src/content/past-seasons/`: its years,
+title, two or three lines and, if there is one, a photo, in the three
+languages. Once they are filled in, `PAST_SEASONS_LIVE = true` in
+`src/consts.ts` publishes the page and its links.
+
 ## The machine (`/machine/`)
 
 | What | Where |

@@ -16,7 +16,7 @@ import CoverSource from '../../components/home/CoverSource.astro';
 import PartnerRow from '../../components/home/PartnerRow.astro';
 import TwoReadings from '../../components/islands/TwoReadings.svelte';
 import team from '../../assets/photos/team.webp';
-import { FORM_URL } from '../../consts';
+import { FORM_URL, PAST_SEASONS_LIVE } from '../../consts';
 import { home } from '../../data/home';
 import { closesOn, round, roundIsOpen } from '../../data/recruitment';
 import { alternates, everyLang, inLang, localise, type Lang } from '../../i18n';
@@ -101,9 +101,13 @@ const words = t.team.statement.split(' ');
           <MarkerKey />
         </div>
         <Rail stations={stations} projector />
-        <p class="story__past">
-          <Button href={link('/seasons/')} variant="text">{t.story.past}</Button>
-        </p>
+        {
+          PAST_SEASONS_LIVE && (
+            <p class="story__past">
+              <Button href={link('/seasons/')} variant="text">{t.story.past}</Button>
+            </p>
+          )
+        }
       </div>
     </section>
 

@@ -41,7 +41,7 @@ src/
 │   │   ├── research/      /research/ the index of papers, posters and write-ups
 │   │   ├── join.astro     /join/     departments, how it works, the team
 │   │   ├── partners.astro /partners/
-│   │   └── seasons.astro  /seasons/  the museum of past seasons
+│   │   └── seasons.astro  /seasons/  the museum of past seasons (hidden for now)
 │   ├── research/[slug].astro   One page per research item, in its own language
 │   ├── legal.md, privacy.md    The legal pages, one Markdown file per language (es/, va/)
 │   └── 404.astro
@@ -89,6 +89,7 @@ one language.
 | Open or close the recruitment round | Change the dates in `src/data/recruitment.ts`. The site rebuilds every night, so "Apply now" turns into "Tell me when it opens" on its own the morning after the closing date.                                 |
 | Change the machine's numbers        | `src/data/machine.ts`. Every number carries a unit and a status (SIMULATED · COMSOL, DESIGN, BUILT, MEASURED with date and instrument).                                                                          |
 | Change the dossier                  | Replace `public/dossier.pdf`; the download button only appears while the file exists.                                                                                                                           |
+| Publish the past seasons            | Fill in `src/content/past-seasons/`, then set `PAST_SEASONS_LIVE = true` in `src/consts.ts`: the page, its links and its sitemap entries appear. |
 | Change a word on the masthead or footer | `src/i18n/ui.ts`, in the three languages.                                                                                                                                                                  |
 | Add a page                          | Add it to `src/pages/[...lang]/` with `export const getStaticPaths = everyLang` (see `machine.astro`), add its address to `translated` in `src/i18n/index.ts`, and keep its words in `src/data/`. |
 

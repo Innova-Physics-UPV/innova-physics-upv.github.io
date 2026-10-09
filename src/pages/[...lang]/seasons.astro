@@ -11,9 +11,11 @@ import Cover from '../../components/Cover.astro';
 import Button from '../../components/Button.astro';
 import Rail from '../../components/Rail.astro';
 import Sheet from '../../components/Sheet.astro';
+import { PAST_SEASONS_LIVE } from '../../consts';
 import { alternates, everyLang, inLang, localise, type Lang } from '../../i18n';
 
-export const getStaticPaths = everyLang;
+// Built only once the museum has its content (src/consts.ts).
+export const getStaticPaths = () => (PAST_SEASONS_LIVE ? everyLang() : []);
 
 interface Props {
   lang: Lang;

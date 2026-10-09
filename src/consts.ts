@@ -16,5 +16,11 @@ export const CONTACT_EMAIL = 'innovaphysicsupv@gmail.com';
 // until a waitlist form exists (Marc, 7 October 2026).
 export const WAITLIST_URL = `mailto:${CONTACT_EMAIL}?subject=Next%20round`;
 
+// The museum of past seasons (/seasons/) stays out of the site until IP-0 to
+// IP-2 have their copy and photos (Direction, 9 October 2026): no page, no
+// link from the home or the footer, nothing in the sitemap. Set it to true to
+// publish it.
+export const PAST_SEASONS_LIVE = false;
+
 // The CERN Open Hardware Licence, strongly reciprocal (CERN-OHL-S v2).
 export const CERN_OHL_URL = 'https://cern-ohl.web.cern.ch/';

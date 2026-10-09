@@ -7,7 +7,7 @@ import InnovaLogo from '../assets/logos/innova-logo.svg';
 import Upv from '../assets/logos/upv.svg';
 import Ge from '../assets/logos/generacion-espontanea.svg';
 import Etsit from '../assets/logos/etsit.svg';
-import { CONTACT_EMAIL } from '../consts';
+import { CONTACT_EMAIL, PAST_SEASONS_LIVE } from '../consts';
 import { inLang, langOf, localise } from '../i18n';
 import { ui } from '../i18n/ui';
 
@@ -29,7 +29,7 @@ const site = [
   { label: t.links.research, href: '/research/' },
   { label: t.links.join, href: '/join/' },
   { label: t.links.partners, href: '/partners/' },
-  { label: t.links.seasons, href: '/seasons/' },
+  ...(PAST_SEASONS_LIVE ? [{ label: t.links.seasons, href: '/seasons/' }] : []),
 ].map((item) => ({ ...item, href: localise(item.href, lang) }));
 ---
 
