@@ -1,7 +1,11 @@
 name: Deploy Astro site to GitHub Pages
 
+# A push to main builds and deploys. A pull request into main only checks
+# and builds, so a branch is tested before it is merged.
 on:
   push:
+    branches: ["main"]
+  pull_request:
     branches: ["main"]
   workflow_dispatch:
 
@@ -30,19 +34,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check types and content
+        run: npm run check
+
       - name: Build
         run: npm run build
 
       - name: Configure Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
-          # Astro builds to ./dist (Next.js used ./out)
           path: ./dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

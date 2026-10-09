@@ -3,6 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import svelte from '@astrojs/svelte';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
 import { katexMath, captionedFigures } from './src/lib/markdown-plugins.mjs';
 
@@ -14,7 +15,15 @@ const local = fontProviders.local();
 // https://astro.build/config
 export default defineConfig({
   site: 'https://innova-physics-upv.github.io',
-  integrations: [svelte(), mdx()],
+  // The sitemap lists every page with its language versions (hreflang), for
+  // search engines; robots.txt points to it.
+  integrations: [
+    svelte(),
+    mdx(),
+    sitemap({
+      i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es', va: 'ca-ES-valencia' } },
+    }),
+  ],
   // Research items are Markdown (MDX when they use a component): math is
   // rendered at build time with KaTeX, and a picture with a title becomes a
   // figure with a Courier caption. Sätteri is Astro 7's native pipeline.

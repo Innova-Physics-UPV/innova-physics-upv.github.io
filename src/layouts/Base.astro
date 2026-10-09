@@ -22,6 +22,9 @@ interface Props {
   languages?: HeaderProps['languages'];
   /** M10: the reading line under the masthead (research items). */
   progress?: boolean;
+  /** The picture shown when the page is shared (1200 x 630); the site's by default. */
+  image?: string;
+  imageAlt?: string;
 }
 
 const {
@@ -31,10 +34,15 @@ const {
   headerTheme = 'ultramarine',
   languages,
   progress,
+  image = '/og/innova-physics-upv.png',
+  imageAlt = 'Build the beam: Innova Physics UPV, València.',
 } = Astro.props;
 
 const pageTitle = title ? `${title} · Innova Physics UPV` : 'Innova Physics UPV';
 const lang = Astro.currentLocale ?? 'en';
+const ogLocale = { en: 'en_GB', es: 'es_ES', 'ca-ES-valencia': 'ca_ES' } as Record<string, string>;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
@@ -69,6 +77,21 @@ const lang = Astro.currentLocale ?? 'en';
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2338a8" />
+    <link rel="canonical" href={canonical} />
+    <!-- How the page looks when it is shared. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Innova Physics UPV" />
+    <meta property="og:title" content={title ?? 'Innova Physics UPV'} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content={ogLocale[lang] ?? 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
     {
       languages &&
         Object.entries(languages).map(([code, path]) => (

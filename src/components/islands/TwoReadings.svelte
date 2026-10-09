@@ -19,7 +19,11 @@
   const CHAR = 8.8; // a Fragment Mono label at 13px with its tracking
   const WIDE_AXIS = 1160; // the axis on a wide screen, until it is measured
 
+  // `initial` is only the stratum the reading starts on: later changes to the
+  // prop are not meant to move the probe.
+  // svelte-ignore state_referenced_locally
   let target = $state(initial); // the pressed stratum: where the probe goes
+  // svelte-ignore state_referenced_locally
   let read = $state(initial); // the stratum the spectrum shows
   let named = $state<number | null>(null); // the line under the pointer or focus
   let duration = $state(0);

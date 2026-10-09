@@ -41,3 +41,10 @@ any new logo:
 ```sh
 npx svgo@4 --config design-system/svgo.config.mjs -f src/assets/logos -r
 ```
+
+## The social picture
+
+`public/og/innova-physics-upv.png` (1200 x 630) is what a shared link shows.
+It is `design-system/social/og.html` (paste the compact logo where marked)
+captured at 1200 x 630 in a browser; `public/apple-touch-icon.png` is
+`public/favicon.svg` at 180 x 180.
