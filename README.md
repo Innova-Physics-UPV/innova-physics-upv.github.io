@@ -66,9 +66,37 @@ design-system/             The design system's tokens, licences and tools
 docs/                      The website spec, the content to fill in, the launch steps
 ```
 
-The design and its rules are in `docs/website-spec.md` and `CLAUDE.md`. Colours,
-type and spacing come from `src/styles/tokens.css`; never write a colour by
-hand in a component.
+The design and its rules are in `docs/website-spec.md`. Colours, type and
+spacing come from `src/styles/tokens.css`; never write a colour by hand in a
+component.
+
+## Rules
+
+For anyone who changes the site, by hand or with an AI assistant:
+
+- **Every text in three languages.** English, Spanish and Valencian (AVL
+  norms) side by side; a change to one changes all three. Research items stay
+  in the language they were written in.
+- **Aims, not promises.** Every number has a unit and a status: SIMULATED ·
+  COMSOL, DESIGN, DESIGN TARGET, BUILT, or MEASURED with its date and
+  instrument; what has no design yet is PLANNED, PROPOSED or an AIM. Nothing
+  on ALOHA-0 is measured yet. It is an "electron source", never a "gun".
+- **One shout per page** (the cover title in Heros Cn Bold capitals), one art
+  line per section, one vermilion element per composition. No em dashes.
+- **People only with their consent** (`consent: true`), **partners only with
+  their agreement**, and no euro amounts on the site: they are in the dossier.
+- **CERN** imagery only to explain, credited, never as a cover, never on Join
+  or Partners; the knowledge-transfer agreement is never called a
+  partnership.
+- **The page reads without JavaScript:** the HTML is the finished state, and
+  the scripts (`src/scripts/`, the Two readings island) only add movement.
+  Fonts are self-hosted; nothing is loaded from another server.
+- **No new dependency** without its reason in the commit message.
+- **`new-web` is never merged into `main`** without the maintainer's OK.
+
+AI assistants' own files (`CLAUDE.md`, `.claude/` and the like) are personal
+and stay out of the repository: each person keeps their own (Marc, 10 October
+2026). `.gitignore` leaves them out.
 
 ## Editing the content
 
