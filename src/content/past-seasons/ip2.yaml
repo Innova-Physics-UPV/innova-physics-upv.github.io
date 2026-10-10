@@ -1,9 +1,7 @@
 order: 2
-# Placeholder: the team's copy and photo for IP2 are still to come.
-season:
-  en: "IP2 · [YEARS]"
-  es: "IP2 · [AÑOS]"
-  va: "IP2 · [ANYS]"
+# Placeholder: the team's copy and photo for IP2 are still to come; the
+# season's years are confirmed (Marc, 10 October 2026).
+season: "IP2 · 2025-26"
 title:
   en: "[TITLE]"
   es: "[TÍTULO]"

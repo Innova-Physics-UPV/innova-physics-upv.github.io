@@ -26,9 +26,10 @@ are in `src/i18n/ui.ts`.
 ## Past seasons (`/seasons/`, hidden)
 
 The museum of IP0 to IP2 is built but not published (Direction, 9 October
-2026). Each season is one file in `src/content/past-seasons/`: its years,
-title, two or three lines and, if there is one, a photo, in the three
-languages. Once they are filled in, `PAST_SEASONS_LIVE = true` in
+2026). Each season is one file in `src/content/past-seasons/`: its title,
+two or three lines and, if there is one, a photo, in the three languages.
+The years are in: IP0 2023-24, IP1 2024-25, IP2 2025-26 (and IP3, the current
+season, 2026-27). Once they are filled in, `PAST_SEASONS_LIVE = true` in
 `src/consts.ts` publishes the page and its links.
 
 ## The machine (`/machine/`)

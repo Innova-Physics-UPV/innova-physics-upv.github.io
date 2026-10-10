@@ -1,8 +1,9 @@
 order: 5
+# The current season is IP3 (Marc, 10 October 2026); the last word is inked.
 season:
-  en: "2026-27 · NOW"
-  es: "2026-27 · AHORA"
-  va: "2026-27 · ARA"
+  en: "IP3 · 2026-27 · NOW"
+  es: "IP3 · 2026-27 · AHORA"
+  va: "IP3 · 2026-27 · ARA"
 title:
   en: "From simulation to the bench"
   es: "De la simulación al banco"

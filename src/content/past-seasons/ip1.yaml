@@ -1,9 +1,7 @@
 order: 1
-# Placeholder: the team's copy and photo for IP1 are still to come.
-season:
-  en: "IP1 · [YEARS]"
-  es: "IP1 · [AÑOS]"
-  va: "IP1 · [ANYS]"
+# Placeholder: the team's copy and photo for IP1 are still to come; the
+# season's years are confirmed (Marc, 10 October 2026).
+season: "IP1 · 2024-25"
 title:
   en: "[TITLE]"
   es: "[TÍTULO]"
