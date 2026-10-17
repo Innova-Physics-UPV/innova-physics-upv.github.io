@@ -13,7 +13,8 @@ What is still to come is listed in `docs/content-todo.md`.
 
 ## Getting started
 
-Requires Node 22.12 or later (CI uses Node 22).
+Requires Node 22.22 or later; CI uses Node 24, the current LTS, as written in
+`.node-version` (fnm and mise read the same file).
 
 ```sh
 npm install
