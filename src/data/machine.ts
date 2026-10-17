@@ -1,8 +1,9 @@
 // The machine page's content: the stages, their numbers, this year's road
-// and the open licences, in the three languages. Placeholder copy from the
-// canvas board until the team's content document (docs/content-todo.md).
-// Every number carries its unit and its status; the numbers themselves are
-// written once and read the same in every language.
+// and the open licences, in the three languages. The copy is the launch copy
+// (docs/copy/04-the-machine.md, Spanish and Valencian in 08, section 8.3).
+// Every number carries its unit and its status. A whole number is written
+// once; a decimal is a { en, es, va } text, since Spanish and Valencian take
+// the decimal comma (2.998 GHz, 2,998 GHz).
 import type { ImageMetadata } from 'astro';
 import modelZero from '../assets/photos/model-0-bench.webp';
 import { CERN_OHL_URL } from '../consts';
@@ -37,15 +38,16 @@ const SIMULATED = { en: 'SIMULATED', es: 'SIMULADO', va: 'SIMULAT' };
 const SIMULATED_COMSOL = { en: 'SIMULATED · COMSOL', es: 'SIMULADO · COMSOL', va: 'SIMULAT · COMSOL' };
 const DESIGN = { en: 'DESIGN', es: 'DISEÑO', va: 'DISSENY' };
 const DESIGN_TARGET = { en: 'DESIGN TARGET', es: 'OBJETIVO DE DISEÑO', va: 'OBJECTIU DE DISSENY' };
-const PLANNED = { en: 'PLANNED', es: 'PREVISTO', va: 'PREVIST' };
 const PROPOSED = { en: 'PROPOSED', es: 'PROPUESTO', va: 'PROPOSAT' };
 const AIM = { en: 'AIM', es: 'ASPIRACIÓN', va: 'ASPIRACIÓ' };
 const CAVITIES = { en: 'cavities', es: 'cavidades', va: 'cavitats' };
+const BEAM_ENERGY = { en: 'Beam energy', es: 'Energía del haz', va: 'Energia del feix' };
 const BEFORE_JANUARY = {
   en: 'TARGET · BEFORE JANUARY 2027',
-  es: 'PREVISTO · ANTES DE ENERO DE 2027',
-  va: 'PREVIST · ABANS DE GENER DE 2027',
+  es: 'OBJETIVO · ANTES DE ENERO DE 2027',
+  va: 'OBJECTIU · ABANS DE GENER DE 2027',
 };
+const SEMESTER_1_BUILD = { en: 'SEMESTER 1 · BUILD', es: 'CUATRIMESTRE 1 · CONSTRUCCIÓN', va: 'QUADRIMESTRE 1 · CONSTRUCCIÓ' };
 
 /** The page's own words. */
 export const machinePage = {
@@ -62,9 +64,9 @@ export const machinePage = {
   },
   shout: { en: 'THE MACHINE', es: 'LA MÁQUINA', va: 'LA MÀQUINA' },
   lead: {
-    en: 'ALOHA, A Linear Open-Hardware Accelerator, is built in stages. Each one is designed, simulated, built and documented in the open before the next.',
-    es: 'ALOHA, A Linear Open-Hardware Accelerator (un acelerador lineal de hardware abierto), se construye por etapas. Cada una se diseña, se simula, se construye y se documenta en abierto antes de la siguiente.',
-    va: 'ALOHA, A Linear Open-Hardware Accelerator (un accelerador lineal de maquinari obert), es construïx per etapes. Cada una es dissenya, se simula, es construïx i es documenta en obert abans de la següent.',
+    en: 'ALOHA, A Linear Open-Hardware Accelerator, is built in stages, ordered by risk and by who will use them; the numbers follow the order they were proposed. We aim to design, simulate, build and document each one in the open before the next.',
+    es: 'ALOHA, A Linear Open-Hardware Accelerator, se construye por etapas, ordenadas por riesgo y por quién las usará; los números siguen el orden en que se propusieron. Aspiramos a diseñar, simular, construir y documentar cada una en abierto antes de la siguiente.',
+    va: 'ALOHA, A Linear Open-Hardware Accelerator, es construïx per etapes, ordenades per risc i per qui les usarà; els números seguixen l’ordre en què es van proposar. Aspirem a dissenyar, simular, construir i documentar cada una en obert abans de la següent.',
   },
   hero: {
     en: 'ALOHA-1, the whole line: scrolls sideways',
@@ -101,7 +103,12 @@ export const stages: Stage[] = [
       va: 'Un demostrador de descàrrega luminescent que fa visible el camí d’un feix. Gràcies a ell, Edwards Vacuum es va unir com el nostre primer patrocinador.',
     },
     specs: [
-      { quantity: { en: 'Pressure', es: 'Presión', va: 'Pressió' }, value: '~1', unit: 'Torr', status: BUILT },
+      {
+        quantity: { en: 'Pressure', es: 'Presión', va: 'Pressió' },
+        value: { en: '2.7', es: '2,7', va: '2,7' },
+        unit: 'Torr',
+        status: { en: 'MEASURED · PIRANI GAUGE', es: 'MEDIDO · VACUÓMETRO PIRANI', va: 'MESURAT · VACUÒMETRE PIRANI' },
+      },
       { quantity: { en: 'Supply, isolated', es: 'Fuente, aislada', va: 'Font, aïllada' }, value: '10', unit: 'kV', status: BUILT },
     ],
     picture: {
@@ -124,21 +131,48 @@ export const stages: Stage[] = [
   },
   {
     id: 'aloha-0',
-    kicker: { en: 'STAGE 1 · THE FIRST ACCELERATOR', es: 'ETAPA 1 · EL PRIMER ACELERADOR', va: 'ETAPA 1 · EL PRIMER ACCELERADOR' },
+    kicker: { en: 'STAGE 1 · THE ELECTRON SOURCE', es: 'ETAPA 1 · LA FUENTE DE ELECTRONES', va: 'ETAPA 1 · LA FONT D’ELECTRONS' },
     title: 'ALOHA-0',
     marker: 'hatched',
     status: SIMULATED,
     body: {
-      en: 'The electron source: a thermionic telefocus triode. A tungsten cathode emits, a Wehnelt cylinder shapes the emission into a converging beam, and the anode extracts it. An einzel lens comes next.',
-      es: 'La fuente de electrones: un triodo termoiónico telefocus. Un cátodo de wolframio emite, un cilindro de Wehnelt da a la emisión la forma de un haz convergente y el ánodo lo extrae. Después viene una lente einzel.',
-      va: 'La font d’electrons: un tríode termoiònic telefocus. Un càtode de wolframi emet, un cilindre de Wehnelt dona a l’emissió la forma d’un feix convergent i l’ànode l’extrau. Després ve una lent einzel.',
+      en: 'The electron source: a thermionic telefocus triode. A tungsten hairpin cathode and a Wehnelt cylinder at −20 kV face a grounded anode, and the Wehnelt shapes the emission so the beam focuses far beyond the anode. The 20 keV beam ends on a graphite collector inside a closed chamber, which stops it and measures its current. We build it once, to the beam requirements of ALOHA-2.',
+      es: 'La fuente de electrones: un triodo termoiónico telefocus. Un cátodo de horquilla de wolframio y un cilindro de Wehnelt a −20 kV se enfrentan a un ánodo a tierra, y el Wehnelt da forma a la emisión para que el haz enfoque mucho más allá del ánodo. El haz de 20 keV termina en un colector de grafito dentro de una cámara cerrada, que lo detiene y mide su corriente. La construimos una sola vez, con los requisitos de haz de ALOHA-2.',
+      va: 'La font d’electrons: un tríode termoiònic telefocus. Un càtode de forquilla de tungstè i un cilindre de Wehnelt a −20 kV s’encaren a un ànode connectat a terra, i el Wehnelt dona forma a l’emissió perquè el feix enfoque molt més enllà de l’ànode. El feix de 20 keV acaba en un col·lector de grafit dins d’una cambra tancada, que l’atura i en mesura el corrent. La construïm una sola vegada, amb els requisits de feix d’ALOHA-2.',
     },
+    // The design point (20 keV, under 1 mA) waits for a new simulation; the
+    // 30 kV run stays as what was simulated, so no number reads as both.
     specs: [
-      { quantity: { en: 'Extraction voltage', es: 'Tensión de extracción', va: 'Tensió d’extracció' }, value: '30', unit: 'kV', status: SIMULATED_COMSOL },
-      { quantity: { en: 'Beam current', es: 'Corriente del haz', va: 'Corrent del feix' }, value: '1.5', unit: 'mA', status: SIMULATED_COMSOL },
-      { quantity: { en: 'Beam spot, symmetric', es: 'Mancha del haz, simétrica', va: 'Taca del feix, simètrica' }, value: '<1', unit: 'mm', status: SIMULATED_COMSOL },
-      { quantity: { en: 'Cathode', es: 'Cátodo', va: 'Càtode' }, value: 'W', unit: { en: 'thermionic', es: 'termoiónico', va: 'termoiònic' }, status: DESIGN },
-      { quantity: { en: 'Focusing lens', es: 'Lente de enfoque', va: 'Lent d’enfocament' }, value: 'Einzel', status: PLANNED },
+      { quantity: BEAM_ENERGY, value: '20', unit: 'keV', status: DESIGN },
+      { quantity: { en: 'Beam current', es: 'Corriente del haz', va: 'Corrent del feix' }, value: '<1', unit: 'mA', status: DESIGN },
+      {
+        quantity: { en: 'Extraction voltage, as simulated', es: 'Tensión de extracción, simulada', va: 'Tensió d’extracció, simulada' },
+        value: '30',
+        unit: 'kV',
+        status: SIMULATED_COMSOL,
+      },
+      {
+        quantity: { en: 'Beam current, as simulated', es: 'Corriente del haz, simulada', va: 'Corrent del feix, simulat' },
+        value: { en: '1.5', es: '1,5', va: '1,5' },
+        unit: 'mA',
+        status: SIMULATED_COMSOL,
+      },
+      {
+        quantity: { en: 'Beam spot, as simulated', es: 'Foco del haz, simulado', va: 'Focus del feix, simulat' },
+        value: '<1',
+        unit: 'mm',
+        status: SIMULATED_COMSOL,
+      },
+      {
+        quantity: { en: 'Cathode', es: 'Cátodo', va: 'Càtode' },
+        value: { en: 'W hairpin, thermionic', es: 'Horquilla de W, termoiónico', va: 'Forquilla de W, termoiònic' },
+        status: DESIGN,
+      },
+      {
+        quantity: { en: 'Beam stop', es: 'Absorbedor del haz', va: 'Absorbidor del feix' },
+        value: { en: 'Graphite collector', es: 'Colector de grafito', va: 'Col·lector de grafit' },
+        status: DESIGN,
+      },
     ],
     picture: {
       kind: 'figure',
@@ -146,36 +180,67 @@ export const stages: Stage[] = [
       caption: {
         lead: { en: 'The source, in section.', es: 'La fuente, en sección.', va: 'La font, en secció.' },
         text: {
-          en: 'Cathode, Wehnelt and anode hatched: simulated in COMSOL. The einzel lens outlined: planned.',
-          es: 'Cátodo, Wehnelt y ánodo rayados: simulados en COMSOL. La lente einzel en contorno: prevista.',
-          va: 'Càtode, Wehnelt i ànode ratllats: simulats en COMSOL. La lent einzel en contorn: prevista.',
+          en: 'Cathode, Wehnelt and anode hatched: simulated in COMSOL.',
+          es: 'Cátodo, Wehnelt y ánodo rayados: simulados en COMSOL.',
+          va: 'Càtode, Wehnelt i ànode ratllats: simulats en COMSOL.',
         },
       },
     },
   },
   {
-    id: 'aloha-1',
-    kicker: { en: 'STAGE 2 · ACCELERATION', es: 'ETAPA 2 · ACELERACIÓN', va: 'ETAPA 2 · ACCELERACIÓ' },
-    title: 'ALOHA-1',
+    // Stage 2, proposed: no drawing of it yet, so no picture.
+    id: 'aloha-2',
+    kicker: { en: 'STAGE 2 · THE INSTRUMENT', es: 'ETAPA 2 · EL INSTRUMENTO', va: 'ETAPA 2 · L’INSTRUMENT' },
+    title: 'ALOHA-2',
     marker: 'outlined',
-    status: DESIGN,
+    status: PROPOSED,
     body: {
-      en: 'Adds pre-acceleration, a buncher and an accelerating structure at 2.998 GHz, with an experiment at the end of the line. Everything after the source is still on paper.',
-      es: 'Añade preaceleración, un agrupador y una estructura aceleradora a 2.998 GHz, con un experimento al final de la línea. Todo lo que hay después de la fuente sigue sobre el papel.',
-      va: 'Afig preacceleració, un agrupador i una estructura acceleradora a 2.998 GHz, amb un experiment al final de la línia. Tot el que hi ha després de la font continua sobre el paper.',
+      en: 'ALOHA-0 plus a target that turns its beam into X-rays, a window that lets only the X-rays out towards a painting, an energy-dispersive detector, shielding and a scanning stage. At 20 keV it reads the core of a restorer’s palette without taking a sample; the 20 keV ceiling protects the paintings.',
+      es: 'ALOHA-0 más un blanco que convierte su haz en rayos X, una ventana que solo deja salir los rayos X hacia un cuadro, un detector de energía dispersiva, blindaje y una platina de barrido. A 20 keV lee el núcleo de la paleta de un restaurador sin tomar ninguna muestra; el límite de 20 keV protege los cuadros.',
+      va: 'ALOHA-0 més un blanc que convertix el seu feix en raigs X, una finestra que només deixa eixir els raigs X cap a un quadre, un detector de dispersió d’energia, blindatge i una platina d’escombratge. A 20 keV llig el nucli de la paleta d’un restaurador sense prendre cap mostra; el límit de 20 keV protegix els quadres.',
     },
     specs: [
-      { quantity: { en: 'Beam energy', es: 'Energía del haz', va: 'Energia del feix' }, value: '1', unit: 'MeV', status: DESIGN_TARGET },
-      { quantity: { en: 'RF frequency, S-band', es: 'Frecuencia de RF, banda S', va: 'Freqüència de RF, banda S' }, value: '2.998', unit: 'GHz', status: DESIGN },
-      { quantity: { en: 'Buncher', es: 'Agrupador', va: 'Agrupador' }, value: '4', unit: CAVITIES, status: DESIGN },
-      { quantity: { en: 'Accelerating structure', es: 'Estructura aceleradora', va: 'Estructura acceleradora' }, value: '4', unit: CAVITIES, status: DESIGN },
-      { quantity: { en: 'Experiment', es: 'Experimento', va: 'Experiment' }, value: 'Smith-Purcell', unit: 'sub-THz', status: PROPOSED },
+      { quantity: BEAM_ENERGY, value: '20', unit: 'keV', status: DESIGN_TARGET },
       {
-        quantity: { en: 'Conservation', es: 'Conservación', va: 'Conservació' },
+        quantity: { en: 'Technique', es: 'Técnica', va: 'Tècnica' },
+        value: { en: 'X-ray fluorescence', es: 'Fluorescencia de rayos X', va: 'Fluorescència de raigs X' },
+        status: PROPOSED,
+      },
+      { quantity: { en: 'Elements read', es: 'Elementos leídos', va: 'Elements llegits' }, value: 'Ca, Fe, Cu, As, Hg, Pb', status: DESIGN_TARGET },
+      {
+        quantity: { en: 'Use', es: 'Uso', va: 'Ús' },
         value: { en: 'X-ray spectroscopy', es: 'Espectroscopia de rayos X', va: 'Espectroscòpia de raigs X' },
         unit: { en: 'of pigments', es: 'de pigmentos', va: 'de pigments' },
         status: AIM,
       },
+    ],
+  },
+  {
+    id: 'aloha-1',
+    kicker: {
+      en: 'STAGE 3 · ACCELERATION · CONDITIONAL',
+      es: 'ETAPA 3 · ACELERACIÓN · CONDICIONADA',
+      va: 'ETAPA 3 · ACCELERACIÓ · CONDICIONADA',
+    },
+    title: 'ALOHA-1',
+    marker: 'outlined',
+    status: DESIGN,
+    body: {
+      en: 'Adds pre-acceleration, a buncher and an accelerating structure at 2.998 GHz, fed by a second ALOHA-0, up to 1 MeV, with an experiment at the end of the line. It is conditional: we build it once a research group commits to using it. Until then it advances without beam, in the design and cold tests of its cavities.',
+      es: 'Añade preaceleración, un agrupador y una estructura aceleradora a 2,998 GHz, alimentados por una segunda ALOHA-0, hasta 1 MeV, con un experimento al final de la línea. Está condicionado: lo construimos cuando un grupo de investigación se comprometa a usarlo. Hasta entonces avanza sin haz, con el diseño y los ensayos en frío de sus cavidades.',
+      va: 'Afig preacceleració, un agrupador i una estructura acceleradora a 2,998 GHz, alimentats per una segona ALOHA-0, fins a 1 MeV, amb un experiment al final de la línia. Està condicionat: el construïm quan un grup d’investigació es comprometa a usar-lo. Fins aleshores avança sense feix, amb el disseny i els assajos en fred de les seues cavitats.',
+    },
+    specs: [
+      { quantity: BEAM_ENERGY, value: '1', unit: 'MeV', status: DESIGN_TARGET },
+      {
+        quantity: { en: 'RF frequency, S-band', es: 'Frecuencia de RF, banda S', va: 'Freqüència de RF, banda S' },
+        value: { en: '2.998', es: '2,998', va: '2,998' },
+        unit: 'GHz',
+        status: DESIGN,
+      },
+      { quantity: { en: 'Buncher', es: 'Agrupador', va: 'Agrupador' }, value: '4', unit: CAVITIES, status: DESIGN },
+      { quantity: { en: 'Accelerating structure', es: 'Estructura aceleradora', va: 'Estructura acceleradora' }, value: '4', unit: CAVITIES, status: DESIGN },
+      { quantity: { en: 'Experiment', es: 'Experimento', va: 'Experiment' }, value: 'Smith-Purcell', unit: 'sub-THz', status: PROPOSED },
     ],
   },
 ];
@@ -197,7 +262,7 @@ export const heroLabels = [
         es: 'ESTRUCTURA ACELERADORA · 4 CAVIDADES',
         va: 'ESTRUCTURA ACCELERADORA · 4 CAVITATS',
       },
-      { en: 'DESIGN · 2.998 GHz', es: 'DISEÑO · 2.998 GHz', va: 'DISSENY · 2.998 GHz' },
+      { en: 'DESIGN · 2.998 GHz', es: 'DISEÑO · 2,998 GHz', va: 'DISSENY · 2,998 GHz' },
     ],
   },
   { x: 1680, top: true, lines: ['1 MeV', DESIGN_TARGET] },
@@ -206,7 +271,7 @@ export const heroLabels = [
 export interface RoadItem {
   label: Text;
   when: Text;
-  /** Committed this year (solid) or depending on sponsors (outlined), as drawn. */
+  /** Committed this season (solid) or not yet (outlined), as drawn; the words under each say why. */
   marker: 'solid' | 'outlined';
 }
 
@@ -214,20 +279,29 @@ export const year = {
   season: '2026-27',
   title: { en: 'This year', es: 'Este curso', va: 'Este curs' },
   lead: {
-    en: 'The least we aim for: a working vacuum bench and its control electronics, tested.',
-    es: 'Lo mínimo a lo que aspiramos: un banco de vacío que funcione y su electrónica de control, probada.',
-    va: 'El mínim a què aspirem: un banc de buit que funcione i la seua electrònica de control, provada.',
+    en: 'The least we aim for: the vacuum system, pumped down and measured, with its control electronics tested.',
+    es: 'Lo mínimo a lo que aspiramos: el sistema de vacío, bombeado y medido, con su electrónica de control probada.',
+    va: 'El mínim a què aspirem: el sistema de buit, bombat i mesurat, amb la seua electrònica de control provada.',
   },
   road: [
     {
-      label: { en: 'CATHODE SUPPLY', es: 'FUENTE DEL CÁTODO', va: 'FONT DEL CÀTODE' },
-      when: { en: 'SEMESTER 1 · BUILD', es: 'CUATRIMESTRE 1 · CONSTRUCCIÓN', va: 'QUADRIMESTRE 1 · CONSTRUCCIÓ' },
+      label: { en: 'VACUUM SYSTEM', es: 'SISTEMA DE VACÍO', va: 'SISTEMA DE BUIT' },
+      when: SEMESTER_1_BUILD,
       marker: 'solid',
     },
     {
       label: { en: 'VACUUM CONTROL', es: 'CONTROL DEL VACÍO', va: 'CONTROL DEL BUIT' },
-      when: { en: 'SEMESTER 1 · BUILD', es: 'CUATRIMESTRE 1 · CONSTRUCCIÓN', va: 'QUADRIMESTRE 1 · CONSTRUCCIÓ' },
+      when: SEMESTER_1_BUILD,
       marker: 'solid',
+    },
+    {
+      label: { en: 'CATHODE SUPPLY', es: 'FUENTE DEL CÁTODO', va: 'FONT DEL CÀTODE' },
+      when: {
+        en: 'AFTER THE VACUUM · DEPENDS ON FUNDING',
+        es: 'TRAS EL VACÍO · SEGÚN LA FINANCIACIÓN',
+        va: 'DESPRÉS DEL BUIT · SEGONS EL FINANÇAMENT',
+      },
+      marker: 'outlined',
     },
     {
       label: { en: 'OPEN DOCUMENTATION', es: 'DOCUMENTACIÓN ABIERTA', va: 'DOCUMENTACIÓ OBERTA' },
@@ -235,13 +309,13 @@ export const year = {
       marker: 'solid',
     },
     {
-      label: { en: 'STABLE MEASURED BEAM', es: 'HAZ ESTABLE Y MEDIDO', va: 'FEIX ESTABLE I MESURAT' },
-      when: { en: 'GOAL · DEPENDS ON SPONSORS', es: 'META · DEPENDE DE LOS PATROCINADORES', va: 'META · DEPÉN DELS PATROCINADORS' },
+      label: { en: 'ALOHA-2 REQUIREMENTS MEETING', es: 'REUNIÓN DE REQUISITOS DE ALOHA-2', va: 'REUNIÓ DE REQUISITS D’ALOHA-2' },
+      when: '2026-27',
       marker: 'outlined',
     },
     {
-      label: { en: '1 MeV LINAC ON PAPER', es: 'LINAC DE 1 MeV SOBRE EL PAPEL', va: 'LINAC D’1 MeV SOBRE EL PAPER' },
-      when: { en: 'DESIGN · END OF THE SEASON', es: 'DISEÑO · FINAL DE LA TEMPORADA', va: 'DISSENY · FINAL DE LA TEMPORADA' },
+      label: { en: 'ALOHA-1 CAVITY DESIGN', es: 'DISEÑO DE CAVIDADES DE ALOHA-1', va: 'DISSENY DE CAVITATS D’ALOHA-1' },
+      when: { en: 'DESIGN · THROUGH THE SEASON', es: 'DISEÑO · DURANTE LA TEMPORADA', va: 'DISSENY · DURANT LA TEMPORADA' },
       marker: 'outlined',
     },
   ] satisfies RoadItem[],

@@ -1,9 +1,9 @@
 ---
 // This year's road: the milestones laid on a vermilion beam, in order. Wide
-// screens draw them across in five columns, alternately above and below the
-// beam, as on the canvas; narrow screens run the beam down the rail's line.
-// Solid markers are committed for this season, outlined ones depend on
-// sponsors; the words under each say which.
+// screens draw them across, one column per milestone (six this season),
+// alternately above and below the beam, as on the canvas; narrower screens
+// run the beam down the rail's line. Solid markers are committed for this
+// season, outlined ones are not yet; the words under each say why.
 import type { RoadItem } from '../data/machine';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 const { items, label } = Astro.props;
 ---
 
-<ol class="road" aria-label={label}>
+<ol class="road" aria-label={label} style={`--cols: ${items.length}`}>
   {
     items.map((item, i) => (
       <li class:list={['road__item', i % 2 ? 'road__item--down' : 'road__item--up']} style={`--col: ${i + 1}`}>
@@ -82,11 +82,13 @@ const { items, label } = Astro.props;
 
   /* Across, on wide screens: the beam runs through the middle row; markers
      sit on it or hang under it, the labels above or below them. The items
-     share the rows (subgrid), so a label that wraps grows its row for all. */
-  @media (min-width: 900px) {
+     share the rows (subgrid), so a label that wraps grows its row for all.
+     The breakpoint leaves six columns room for the longest word in a label
+     (DOCUMENTACIÓN, about 115px); below it the road runs down the rail. */
+  @media (min-width: 1080px) {
     .road {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
       grid-template-rows: minmax(64px, auto) 72px minmax(64px, auto);
       column-gap: 40px;
       padding-left: 0;

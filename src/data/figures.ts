@@ -1,7 +1,8 @@
 // Machine figures drawn by Lattice, in the canvas's own coordinates
 // (Main.dc.html, stations ALOHA-0 and ALOHA-1). Status as drawing: built is
-// solid, simulated hatched, design outlined. The einzel lens is planned, so
-// it is outlined everywhere.
+// solid, simulated hatched, design outlined. ALOHA-0 has no einzel lens
+// (16 October 2026); the ALOHA-1 drawings keep the planned lens after the
+// source, outlined, until Applied Physics decides whether it stays.
 import type { Text } from '../i18n';
 
 export type Status = 'built' | 'simulated' | 'design';
@@ -33,13 +34,13 @@ export interface LatticeFigure {
 const rect = (status: Status, x: number, y: number, w: number, h: number): LatticeElement => ({ shape: 'rect', status, x, y, w, h });
 const cavity = (cx: number, rx: number): LatticeElement => ({ shape: 'ellipse', status: 'design', cx, cy: 150, rx, ry: 120, stroke: 4 });
 
-/** ALOHA-0, the electron source in section: cathode, Wehnelt and anode simulated; the einzel lens planned. */
+/** ALOHA-0, the electron source in section: cathode, Wehnelt and anode, simulated. */
 export const aloha0Section: LatticeFigure = {
   viewBox: '200 -40 1100 380',
   label: {
-    en: 'The ALOHA-0 electron source on its axis. Cathode, Wehnelt and anode are hatched because they are simulated; the einzel lens is outlined because it is planned.',
-    es: 'La fuente de electrones de ALOHA-0 sobre su eje. Cátodo, Wehnelt y ánodo aparecen rayados porque están simulados; la lente einzel, en contorno porque está prevista.',
-    va: 'La font d’electrons d’ALOHA-0 sobre el seu eix. Càtode, Wehnelt i ànode apareixen ratllats perquè estan simulats; la lent einzel, en contorn perquè està prevista.',
+    en: 'The ALOHA-0 electron source on its axis. Cathode, Wehnelt and anode are hatched because they are simulated.',
+    es: 'La fuente de electrones de ALOHA-0 sobre su eje. Cátodo, Wehnelt y ánodo aparecen rayados porque están simulados.',
+    va: 'La font d’electrons d’ALOHA-0 sobre el seu eix. Càtode, Wehnelt i ànode apareixen ratllats perquè estan simulats.',
   },
   construction: { x: 200, y: 149, w: 90, h: 2 },
   axis: { x: 330, y: 148, w: 970, h: 4 },
@@ -52,13 +53,6 @@ export const aloha0Section: LatticeFigure = {
     rect('simulated', 370, 186, 24, 120),
     rect('simulated', 530, -30, 16, 152),
     rect('simulated', 530, 178, 16, 152),
-    // The einzel lens: planned.
-    rect('design', 690, 50, 80, 56),
-    rect('design', 690, 194, 80, 56),
-    rect('design', 850, 26, 80, 80),
-    rect('design', 850, 194, 80, 80),
-    rect('design', 1010, 50, 80, 56),
-    rect('design', 1010, 194, 80, 56),
   ],
 };
 
