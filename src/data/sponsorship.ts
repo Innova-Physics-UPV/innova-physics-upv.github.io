@@ -4,6 +4,10 @@
 // language.
 export const tiers = [{ name: 'Neutrino' }, { name: 'Quark' }, { name: 'Photon' }, { name: 'Higgs' }];
 
+// The recruiting talk at ETSIT and the CV book ship only with ETSIT's written
+// OK (go-live list, Benefits table). Set to true once it is in.
+const ETSIT_RECRUITING_OK = false;
+
 // Each benefit starts at `from` and every tier above it gets it too.
 export const benefits = [
   {
@@ -80,18 +84,22 @@ export const benefits = [
   },
   {
     text: {
-      en: 'A talk at our design challenge',
-      es: 'Una charla en nuestro reto de diseño',
-      va: 'Una xarrada en el nostre repte de disseny',
+      en: 'A talk at the UPV Accelerator Challenge',
+      es: 'Una charla en el UPV Accelerator Challenge',
+      va: 'Una xarrada al UPV Accelerator Challenge',
     },
     from: 'Higgs',
   },
-  {
-    text: {
-      en: 'Recruiting talk at ETSIT and our CV book',
-      es: 'Charla de captación en la ETSIT y nuestro libro de CV',
-      va: 'Xarrada de captació a l’ETSIT i el nostre llibre de CV',
-    },
-    from: 'Higgs',
-  },
+  ...(ETSIT_RECRUITING_OK
+    ? [
+        {
+          text: {
+            en: 'Recruiting talk at ETSIT and our CV book',
+            es: 'Charla de captación en la ETSIT y nuestro libro de CV',
+            va: 'Xarrada de captació a l’ETSIT i el nostre llibre de CV',
+          },
+          from: 'Higgs',
+        },
+      ]
+    : []),
 ];

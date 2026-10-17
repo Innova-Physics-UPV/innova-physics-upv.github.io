@@ -1,16 +1,23 @@
 // The partners page's own copy, in the three languages. The partners
 // themselves are in src/data/partners.ts and the tiers and benefits in
-// src/data/sponsorship.ts. Placeholder copy from the canvas until the team's
-// content document.
+// src/data/sponsorship.ts. Launch copy from "Website copy for launch", tabs 6,
+// 7.1 and 8.5 (docs/copy/), approved by Marc on 16 October 2026.
 
 export const partnersPage = {
   title: { en: 'Partners', es: 'Colaboradores', va: 'Col·laboradors' },
   shout: { en: 'PARTNERS', es: 'COLABORADORES', va: 'COL·LABORADORS' },
   kicker: { en: 'PARTNERS · 2026-27', es: 'COLABORADORES · 2026-27', va: 'COL·LABORADORS · 2026-27' },
+  // For search results and shared links, under about 155 characters; the lead
+  // is too long for that.
+  description: {
+    en: 'Support ALOHA, an open-hardware electron accelerator built by students at the UPV: four partner tiers, from your name on this site to a named subsystem.',
+    es: 'Apoya ALOHA, un acelerador de electrones de hardware abierto construido por estudiantes de la UPV: cuatro niveles de colaboración, desde tu nombre en esta web hasta un subsistema con tu nombre.',
+    va: 'Dona suport a ALOHA, un accelerador d’electrons de maquinari obert construït per estudiants de la UPV: quatre nivells de col·laboració, des del teu nom en esta web fins a un subsistema amb el teu nom.',
+  },
   lead: {
-    en: 'Institutions and companies that make ALOHA possible. Each tier adds to the one below it, from your name on this site to a subsystem of the machine named after you.',
-    es: 'Instituciones y empresas que hacen posible ALOHA. Cada nivel suma al anterior, desde tu nombre en esta web hasta un subsistema de la máquina que lleve tu nombre.',
-    va: 'Institucions i empreses que fan possible ALOHA. Cada nivell suma a l’anterior, des del teu nom en esta web fins a un subsistema de la màquina que porte el teu nom.',
+    en: 'Institutions and companies that help us build ALOHA. Each tier adds to the one below it, from your name on this site to a subsystem of the machine named after you.',
+    es: 'Instituciones y empresas que nos ayudan a construir ALOHA. Cada nivel suma al anterior, desde tu nombre en esta web hasta un subsistema de la máquina con tu nombre.',
+    va: 'Institucions i empreses que ens ajuden a construir ALOHA. Cada nivell suma a l’anterior, des del teu nom en esta web fins a un subsistema de la màquina amb el teu nom.',
   },
   tiersLabel: {
     en: 'The four tiers as lines of growing height: Neutrino, Quark, Photon and Higgs.',
@@ -28,13 +35,18 @@ export const partnersPage = {
     notes: [
       {
         en: 'AMOUNTS PER TIER ARE IN THE DOSSIER',
-        es: 'LOS IMPORTES DE CADA NIVEL ESTÁN EN EL DOSIER',
-        va: 'ELS IMPORTS DE CADA NIVELL ESTAN EN EL DOSSIER',
+        es: 'LAS CUANTÍAS DE CADA NIVEL ESTÁN EN EL DOSIER',
+        va: 'LES QUANTIES DE CADA NIVELL SÓN AL DOSSIER',
       },
       {
-        en: 'HIGGS IS ALSO BY INVITATION · LICENCES, LOANS AND DONATED EQUIPMENT COUNT',
-        es: 'HIGGS TAMBIÉN ES POR INVITACIÓN · CUENTAN LAS LICENCIAS, LOS PRÉSTAMOS Y LOS EQUIPOS DONADOS',
-        va: 'HIGGS TAMBÉ ÉS PER INVITACIÓ · COMPTEN LES LLICÈNCIES, ELS PRÉSTECS I ELS EQUIPS DONATS',
+        en: 'HIGGS IS ALSO BY INVITATION',
+        es: 'HIGGS TAMBIÉN ES POR INVITACIÓN',
+        va: 'HIGGS TAMBÉ ÉS PER INVITACIÓ',
+      },
+      {
+        en: 'IN KIND COUNTS TOO · LICENCES, LOANS AND DONATED EQUIPMENT',
+        es: 'EN ESPECIE TAMBIÉN CUENTA · LICENCIAS, PRÉSTAMOS Y EQUIPOS CEDIDOS',
+        va: 'EN ESPÈCIE TAMBÉ COMPTA · LLICÈNCIES, PRÉSTECS I EQUIPS CEDITS',
       },
     ],
   },
@@ -60,5 +72,11 @@ export const partnersPage = {
     download: { en: 'Download the dossier', es: 'Descarga el dosier', va: 'Descarrega el dossier' },
     downloadName: 'Innova-Physics-Partnership-Dossier-2026-27.pdf',
     write: { en: 'Write to us', es: 'Escríbenos', va: 'Escriu-nos' },
+    // The subject of the "Write to us" email, in the reader's language.
+    subject: {
+      en: 'Partnering with Innova Physics UPV',
+      es: 'Colaborar con Innova Physics UPV',
+      va: 'Col·laborar amb Innova Physics UPV',
+    },
   },
 };

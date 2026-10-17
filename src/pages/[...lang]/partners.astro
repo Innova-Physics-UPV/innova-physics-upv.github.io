@@ -15,7 +15,7 @@ import PartnerMark from '../../components/PartnerMark.astro';
 import { partners } from '../../data/partners';
 import { tiers } from '../../data/sponsorship';
 import { partnersPage } from '../../data/partners-page';
-import { CONTACT_EMAIL, DOSSIER_URL } from '../../consts';
+import { CONTACT_EMAIL, DOSSIER_FINAL, DOSSIER_URL } from '../../consts';
 import { alternates, everyLang, inLang, type Lang } from '../../i18n';
 
 export const getStaticPaths = everyLang;
@@ -27,8 +27,8 @@ interface Props {
 const { lang } = Astro.props;
 const t = inLang(partnersPage, lang);
 
-// The download shows only when the PDF is really there.
-const hasDossier = existsSync(join(process.cwd(), 'public', DOSSIER_URL));
+// The download shows only once the dossier is signed off and the PDF is really there.
+const hasDossier = DOSSIER_FINAL && existsSync(join(process.cwd(), 'public', DOSSIER_URL));
 
 // Tier heights on the cover: each tier a longer line, Higgs the longest.
 const heights = [22, 44, 70, 100];
@@ -40,7 +40,7 @@ const groups = [...tiers]
   .filter((g) => g.members.length);
 ---
 
-<Base title={t.title} active="partners" description={t.lead} languages={alternates('/partners/')}>
+<Base title={t.title} active="partners" description={t.description} languages={alternates('/partners/')}>
   <Cover id="partners" kicker={t.kicker} shout={[t.shout]} lead={t.lead}>
     <Fragment slot="wide">
       <div class="tiers" role="img" aria-label={t.tiersLabel}>
@@ -103,7 +103,7 @@ const groups = [...tiers]
             </Button>
           )
         }
-        <Button href={`mailto:${CONTACT_EMAIL}?subject=Partnership`} variant="secondary">
+        <Button href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t.dossier.subject)}`} variant="secondary">
           {t.dossier.write}
         </Button>
       </div>
