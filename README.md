@@ -90,7 +90,10 @@ For anyone who changes the site, by hand or with an AI assistant:
   partnership.
 - **The page reads without JavaScript:** the HTML is the finished state, and
   the scripts (`src/scripts/`, the Two readings island) only add movement.
-  Fonts are self-hosted; nothing is loaded from another server.
+  Fonts are self-hosted; nothing is loaded from another server. A Content
+  Security Policy (`security.csp` in `astro.config.mjs`) holds every page to
+  that: a script, font or image from another server, or an inline script
+  Astro did not hash at build, is refused by the browser.
 - **No new dependency** without its reason in the commit message.
 - **`new-web` is never merged into `main`** without the maintainer's OK.
 
