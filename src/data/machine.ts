@@ -104,10 +104,14 @@ export const stages: Stage[] = [
     },
     specs: [
       {
-        quantity: { en: 'Pressure', es: 'Presión', va: 'Pressió' },
-        value: { en: '2.7', es: '2,7', va: '2,7' },
+        quantity: { en: 'Pressure, operating', es: 'Presión, en funcionamiento', va: 'Pressió, en funcionament' },
+        value: { en: '1.7', es: '1,7', va: '1,7' },
         unit: 'Torr',
-        status: { en: 'MEASURED · PIRANI GAUGE', es: 'MEDIDO · VACUÓMETRO PIRANI', va: 'MESURAT · VACUÒMETRE PIRANI' },
+        status: {
+          en: 'MEASURED · PIRANI GAUGE · 7 JULY 2026',
+          es: 'MEDIDO · VACUÓMETRO PIRANI · 7 DE JULIO DE 2026',
+          va: 'MESURAT · VACUÒMETRE PIRANI · 7 DE JULIOL DE 2026',
+        },
       },
       { quantity: { en: 'Supply, isolated', es: 'Fuente, aislada', va: 'Font, aïllada' }, value: '10', unit: 'kV', status: BUILT },
     ],
