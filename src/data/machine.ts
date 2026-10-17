@@ -177,6 +177,8 @@ export const stages: Stage[] = [
         value: { en: 'Graphite collector', es: 'Colector de grafito', va: 'Col·lector de grafit' },
         status: DESIGN,
       },
+      // Proposed for ALOHA-0's own beam, not ALOHA-1's (Marc, 17 October 2026).
+      { quantity: { en: 'Experiment', es: 'Experimento', va: 'Experiment' }, value: 'Smith-Purcell', unit: 'sub-THz', status: PROPOSED },
     ],
     picture: {
       kind: 'figure',
@@ -244,7 +246,6 @@ export const stages: Stage[] = [
       },
       { quantity: { en: 'Buncher', es: 'Agrupador', va: 'Agrupador' }, value: '4', unit: CAVITIES, status: DESIGN },
       { quantity: { en: 'Accelerating structure', es: 'Estructura aceleradora', va: 'Estructura acceleradora' }, value: '4', unit: CAVITIES, status: DESIGN },
-      { quantity: { en: 'Experiment', es: 'Experimento', va: 'Experiment' }, value: 'Smith-Purcell', unit: 'sub-THz', status: PROPOSED },
     ],
   },
 ];
