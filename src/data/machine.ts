@@ -6,6 +6,7 @@
 // the decimal comma (2.998 GHz, 2,998 GHz).
 import type { ImageMetadata } from 'astro';
 import modelZero from '../assets/photos/model-0-bench.webp';
+import alohaZeroRender from '../assets/photos/aloha-0-source-render.webp';
 import { CERN_OHL_URL } from '../consts';
 import type { Text } from '../i18n';
 
@@ -180,15 +181,22 @@ export const stages: Stage[] = [
       // Proposed for ALOHA-0's own beam, not ALOHA-1's (Marc, 17 October 2026).
       { quantity: { en: 'Experiment', es: 'Experimento', va: 'Experiment' }, value: 'Smith-Purcell', unit: 'sub-THz', status: PROPOSED },
     ],
+    // The COMSOL render of the source (Marc, 17 October 2026), flattened
+    // onto white so its thin lines also read at night.
     picture: {
-      kind: 'figure',
-      figure: 'aloha-0-section',
+      kind: 'photo',
+      src: alohaZeroRender,
+      alt: {
+        en: 'COMSOL simulation of the ALOHA-0 electron source: the electrodes in thin grey lines on white, and the electron beam leaving the cathode, coloured from blue to red as it crosses the anode.',
+        es: 'Simulación en COMSOL de la fuente de electrones de ALOHA-0: los electrodos en líneas grises finas sobre blanco y el haz de electrones saliendo del cátodo, de azul a rojo a medida que atraviesa el ánodo.',
+        va: 'Simulació en COMSOL de la font d’electrons d’ALOHA-0: els elèctrodes en línies grises fines sobre blanc i el feix d’electrons eixint del càtode, de blau a roig a mesura que travessa l’ànode.',
+      },
       caption: {
-        lead: { en: 'The source, in section.', es: 'La fuente, en sección.', va: 'La font, en secció.' },
+        lead: { en: 'The source, simulated in COMSOL.', es: 'La fuente, simulada en COMSOL.', va: 'La font, simulada en COMSOL.' },
         text: {
-          en: 'Cathode, Wehnelt and anode hatched: simulated in COMSOL.',
-          es: 'Cátodo, Wehnelt y ánodo rayados: simulados en COMSOL.',
-          va: 'Càtode, Wehnelt i ànode ratllats: simulats en COMSOL.',
+          en: 'Cathode and Wehnelt on the left, the anode in the middle, and the beam leaving through it.',
+          es: 'El cátodo y el Wehnelt a la izquierda, el ánodo en el centro y el haz que sale a través de él.',
+          va: 'El càtode i el Wehnelt a l’esquerra, l’ànode al centre i el feix que ix a través d’ell.',
         },
       },
     },
