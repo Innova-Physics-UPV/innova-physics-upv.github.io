@@ -2,17 +2,15 @@
 layout: ../layouts/LegalLayout.astro
 title: Legal notice
 description: Who publishes this website and on what terms.
-kicker: LEGAL · DRAFT FOR REVIEW
+kicker: LEGAL
 shout: LEGAL NOTICE
 lead: Who publishes this website, and on what terms.
 alternates: { en: /legal/, es: /es/legal/, va: /va/legal/ }
 ---
 
-> **Draft for review.** This text is waiting for the review of Generación Espontánea and the UPV. Items in [brackets] are still to confirm.
-
 ## Who publishes this website
 
-This website, innova-physics-upv.github.io, is published by Innova Physics UPV, a student team of the Universitat Politècnica de València (UPV) [within Generación Espontánea or ETSIT: to confirm].
+This website, innova-physics-upv.github.io, is published by Innova Physics UPV, a student team of the Universitat Politècnica de València (UPV), within Generación Espontánea, the UPV's programme for student teams.
 
 - **Owner:** Universitat Politècnica de València, NIF Q4618002B
 - **Address:** Camí de Vera, s/n, 46022 València, Spain

@@ -14,8 +14,9 @@ Espontánea or the UPV may have their own form, which then replaces this one.
 **Correo electrónico:** ______________________________________
 
 Autorizo a Innova Physics UPV, equipo de estudiantes de la Universitat
-Politècnica de València, a usar las fotografías y vídeos en los que aparezco,
-mi nombre y, si lo marco, mi cargo y departamento en el equipo, en:
+Politècnica de València (UPV), dentro de Generación Espontánea, el programa de
+la UPV para equipos de estudiantes, a usar las fotografías y vídeos en los que
+aparezco, mi nombre y, si lo marco, mi cargo y departamento en el equipo, en:
 
 - [ ] la web del equipo (innova-physics-upv.github.io) y su repositorio público
   en GitHub, entendiendo que una foto publicada en el repositorio queda en su
@@ -46,8 +47,9 @@ política de privacidad: innova-physics-upv.github.io/es/privacy/
 **Email:** ______________________________________
 
 I allow Innova Physics UPV, a student team of the Universitat Politècnica de
-València, to use the photos and videos I appear in, my name and, if I tick it,
-my role and department in the team, on:
+València (UPV), within Generación Espontánea, the UPV's programme for student
+teams, to use the photos and videos I appear in, my name and, if I tick it, my
+role and department in the team, on:
 
 - [ ] the team's website (innova-physics-upv.github.io) and its public GitHub
   repository, understanding that a photo published in the repository stays in

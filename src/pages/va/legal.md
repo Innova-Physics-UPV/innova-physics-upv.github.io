@@ -2,17 +2,15 @@
 layout: ../../layouts/LegalLayout.astro
 title: Avís legal
 description: Qui publica esta web i en quines condicions.
-kicker: LEGAL · ESBORRANY PER A REVISIÓ
+kicker: LEGAL
 shout: AVÍS LEGAL
 lead: Qui publica esta web i en quines condicions.
 alternates: { en: /legal/, es: /es/legal/, va: /va/legal/ }
 ---
 
-> **Esborrany per a revisió.** Este text espera la revisió de Generación Espontánea i de la UPV. El que va entre [claudàtors] està per confirmar.
-
 ## Qui publica esta web
 
-Esta web, innova-physics-upv.github.io, la publica Innova Physics UPV, un equip d’estudiants de la Universitat Politècnica de València (UPV) [a Generación Espontánea o a l’ETSIT: per confirmar].
+Esta web, innova-physics-upv.github.io, la publica Innova Physics UPV, un equip d’estudiants de la Universitat Politècnica de València (UPV), dins de Generación Espontánea, el programa de la UPV per a equips d’estudiants.
 
 - **Titular:** Universitat Politècnica de València, NIF Q4618002B
 - **Adreça:** Camí de Vera, s/n, 46022 València, Espanya

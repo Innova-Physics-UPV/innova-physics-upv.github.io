@@ -2,30 +2,28 @@
 layout: ../../layouts/LegalLayout.astro
 title: Política de privacidad
 description: Qué datos personales tratan esta web y el equipo, para qué, y tus derechos.
-kicker: PRIVACIDAD · BORRADOR PARA REVISIÓN
+kicker: PRIVACIDAD
 shout: PRIVACIDAD
 lead: Qué datos personales trata el equipo a través de esta web, para qué y cómo ejercer tus derechos.
 alternates: { en: /privacy/, es: /es/privacy/, va: /va/privacy/ }
 ---
 
-> **Borrador para revisión.** Este texto espera la revisión del delegado de protección de datos de la UPV y de Generación Espontánea. Lo que va entre [corchetes] está por confirmar.
-
 ## Quién es responsable
 
-La Universitat Politècnica de València (UPV), NIF Q4618002B, Camí de Vera, s/n, 46022 València, España, a través de su equipo de estudiantes Innova Physics UPV [por confirmar con el delegado de protección de datos de la UPV]. Puedes escribir al delegado de protección de datos de la UPV en [dpd@upv.es](mailto:dpd@upv.es), y al equipo en [innovaphysicsupv@gmail.com](mailto:innovaphysicsupv@gmail.com).
+La Universitat Politècnica de València (UPV), NIF Q4618002B, Camí de Vera, s/n, 46022 València, España, a través de su equipo de estudiantes Innova Physics UPV. Puedes escribir al delegado de protección de datos de la UPV en [dpd@upv.es](mailto:dpd@upv.es), y al equipo en [innovaphysicsupv@gmail.com](mailto:innovaphysicsupv@gmail.com).
 
 ## Qué tratamos y para qué
 
 | Qué | Para qué | Base jurídica | Cuánto tiempo |
 | --- | --- | --- | --- |
-| Tu candidatura: nombre, contacto, titulación y respuestas al formulario | Gestionar la convocatoria y elegir a los nuevos miembros | Tu consentimiento, al enviar el formulario | Hasta resolver la convocatoria; después, [se borra a los N meses: por confirmar] |
-| Los correos que envías al equipo | Responderte | Tu consentimiento, al escribirnos | Lo que dure la conversación; [después se borra a los N meses: por confirmar] |
+| Tu candidatura: nombre, contacto, titulación y respuestas al formulario | Gestionar la convocatoria y elegir a los nuevos miembros | Tu consentimiento, al enviar el formulario | Hasta que se resuelve la convocatoria, y se borran seis meses después |
+| Los correos que envías al equipo | Responderte | Tu consentimiento, al escribirnos | Mientras la conversación lo requiera, y se borran doce meses después del último mensaje; los que forman parte de un acuerdo con un patrocinador o socio se conservan mientras dure |
 | Tu correo cuando una convocatoria ya ha cerrado, para presentar una candidatura fuera de plazo o saber de la próxima | Estudiar una candidatura fuera de plazo, o avisarte cuando abra la próxima convocatoria | Tu consentimiento, al escribirnos | Hasta que abra la próxima convocatoria o hasta que pidas que lo borremos |
 | Fichas del equipo: nombre, cargo, departamento, foto y, si se pide, un enlace a LinkedIn | Mostrar quién construye ALOHA | El consentimiento por escrito de cada miembro | Hasta que el miembro lo retire |
 
 ## Quién más los trata
 
-- **Formbricks**, el servicio de formularios, guarda las candidaturas [dónde están sus servidores y su contrato de encargo de tratamiento: por confirmar].
+- **Formbricks GmbH** (Alemania), el servicio del formulario, guarda las candidaturas en servidores en Alemania, conforme a su [contrato de encargado del tratamiento](https://formbricks.com/dpa).
 - **Google** (Gmail) guarda el correo del equipo; puede transferir datos fuera de la UE con el Marco de Privacidad de Datos UE-EE. UU.
 - **GitHub** (GitHub Pages) aloja la web y puede registrar la dirección IP de las visitas por seguridad, según su propia declaración de privacidad.
 
