@@ -71,8 +71,8 @@ export const home = {
       va: 'L’equip d’Innova Physics UPV, una trentena d’estudiants amb les samarretes blanques de l’equip, a l’aire lliure.',
     },
     caption: {
-      lead: { en: 'The team.', es: 'El equipo.', va: 'L’equip.' },
-      /** "[Season], [place]." ("[Temporada], [lugar]." / "[Temporada], [lloc]."), once Communication knows them. Without it the lead stands alone. */
+      lead: { en: '25/26 team photo.', es: 'Foto del equipo 25/26.', va: 'Foto de l’equip 25/26.' },
+      /** More about the photo (a place, a credit), if it is ever wanted. Without it the lead stands alone. */
       text: undefined as Text | undefined,
     },
   },
