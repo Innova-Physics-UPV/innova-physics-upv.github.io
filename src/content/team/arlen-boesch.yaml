@@ -1,6 +1,5 @@
-# Published with consent (go-live list, 16 October 2026). No photo yet: the
-# card shows its placeholder tile until one comes (a square bust shot, in
-# colour).
+# Published with consent (go-live list, 16 October 2026); photo since
+# 17 October 2026, at the team's poster at CERN.
 name: Arlen Boesch
 role:
   en: Team lead
@@ -10,6 +9,11 @@ department:
   en: DIRECTION
   es: DIRECCIÓN
   va: DIRECCIÓ
+photo: ../../assets/team/arlen-boesch.webp
+alt:
+  en: Arlen Boesch presents our poster at CERN, pointing at a field simulation.
+  es: Arlen Boesch presenta nuestro póster en el CERN, señalando una simulación de campo.
+  va: Arlen Boesch presenta el nostre pòster al CERN, assenyalant una simulació de camp.
 linkedin: arlenboesch
 consent: true
 order: 3
