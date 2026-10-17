@@ -1,131 +1,86 @@
-# Content to fill in
+# Content still to come
 
-Every page of the new site is built with placeholder content: copy from the
-design canvas where it exists, plausible temporary text where it does not.
-Marc's content document replaces it. Each entry says what is a placeholder
-and the one file that holds it, so nothing has to be changed inside a
-component.
+The launch copy (approved 16 October 2026) is in. What is left is a handful of
+facts only the team has, a few pictures and some decisions. Each entry names
+the one file that holds it, so nothing has to be changed inside a component.
+Every one of them can stay empty at launch: the page reads cleanly without it.
 
-Every page exists in English, Spanish and Valencian (decided 9 October
-2026). Each text is written with its three languages side by side, as
-`{ en: '…', es: '…', va: '…' }` in the data files and as `en:`, `es:`, `va:`
-in the YAML files, so a change in one language sits next to the two that must
-follow it. Research items are the exception: they stay in the language they
-were written in. The words the masthead, the footer and the small labels share
-are in `src/i18n/ui.ts`.
+Every page exists in English, Spanish and Valencian. Each text is written with
+its three languages side by side, as `{ en: '…', es: '…', va: '…' }` in the
+data files and as `en:`, `es:`, `va:` in the YAML files. Spanish and Valencian
+write decimals with a comma (2,998 GHz), English with a point. Research items
+stay in the language they were written in. The words the masthead, the footer
+and the small labels share are in `src/i18n/ui.ts`.
 
-## The home (`/`)
+## Facts to set
 
-| What | Where |
-| --- | --- |
-| Cover, team, story, target and Join call; the cover figure's labels | `src/data/home.ts` |
-| The story's six stations | `src/content/seasons/*.yaml` |
-| The two readings: layers, X-ray lines and their words | `src/data/readings.ts` |
-| The team photo's season (`[SEASON]`) and Model-0's season | `src/data/home.ts`, `src/content/seasons/02-model-0.yaml` |
+| What | Where | While it is empty |
+| --- | --- | --- |
+| Students in the team once the round is decided | `src/data/recruitment.ts` → `students` | The home's facts line reads only "4 DEPARTMENTS"; Join hides its count and the "students across the departments" tile |
+| The month the next round aims to open | `src/data/recruitment.ts` → `nextOpens` (`'2027-02'`) | The closed Join sentence ends without "We aim to open it in …" |
+| The team photo's season and place | `src/data/home.ts` → `team.caption.text` | The caption is only "The team." |
+| The vacuum-bench photo's month and place | `src/content/seasons/05-now.yaml` → `caption.text` | The caption reads "2026." |
+| Model-0's pressure: the date it was measured | `src/data/machine.ts` → Model-0's specs | MEASURED · PIRANI GAUGE, without a date |
+| The page each partner wants linked | `src/data/partners.ts` → `url` | The current links stay |
+| ETSIT's written OK for the recruiting talk and the CV book | `src/data/sponsorship.ts` → `ETSIT_RECRUITING_OK` | That Higgs benefit is left out of the table |
+| The dossier, signed off as final | `src/consts.ts` → `DOSSIER_FINAL` | The partners' closing sheet shows only "Write to us" |
 
-## Past seasons (`/seasons/`, hidden)
-
-The museum of IP0 to IP2 is built but not published (Direction, 9 October
-2026). Each season is one file in `src/content/past-seasons/`: its title,
-two or three lines and, if there is one, a photo, in the three languages.
-The years are in: IP0 2023-24, IP1 2024-25, IP2 2025-26 (and IP3, the current
-season, 2026-27). Once they are filled in, `PAST_SEASONS_LIVE = true` in
-`src/consts.ts` publishes the page and its links.
-
-## The machine (`/machine/`)
+## Pictures
 
 | What | Where |
 | --- | --- |
-| Cover, legend, the page's own words | `src/data/machine.ts` → `machinePage` |
-| Stages: kicker, title, status, body, numbers, picture, caption | `src/data/machine.ts` → `stages` |
-| Labels on the hero figure | `src/data/machine.ts` → `heroLabels` |
-| This year: lead and the five milestones | `src/data/machine.ts` → `year` |
-| Open: CERN-OHL-S, GitHub, Handbook | `src/data/machine.ts` → `open`; URLs in `src/consts.ts` |
-| Model-0 photo (a photo of Model-0 glowing, in colour, is wanted) | `src/assets/photos/model-0-bench.webp` |
+| A photo of Model-0 glowing, in colour, 3:2, at least 2000 px wide | `src/assets/photos/model-0-bench.webp` (the bench photo until then) |
+| The accelECR poster session and the vacuum bench, larger, at least 2000 px wide | `src/content/seasons/04-cern.yaml`, `05-now.yaml` |
+| One-ink vector logos for iTEAM and Edwards (masks of the white rasters until then) | `src/components/PartnerMark.astro` |
+| Portraits for more team cards, 3:4, in colour, with each person's consent | `src/content/team/` and `src/assets/team/` |
 
-Open questions, decided by the content document:
+## Decisions for Applied Physics
 
-- Model-0's "Pressure ~1 Torr" is marked BUILT, as drawn. A pressure is a
-  measurement: MEASURED needs a date and an instrument.
-- The roadmap draws this season's committed items as solid markers; elsewhere
-  solid means built.
-- The docs repository and the handbook have no URL yet, so no link is shown.
+- Whether the einzel lens stays in ALOHA-1. It is gone from ALOHA-0; the
+  hero and ALOHA-1 drawings still show it outlined (`src/data/figures.ts`).
+- Whether the gesso layer of the two readings gets S Kα 2.308 keV (gypsum is
+  calcium sulfate), or the ground is called chalk (`src/data/readings.ts`).
 
 ## Research (`/research/`)
 
-Each item is one folder in `src/content/research/` with an `index.md` (or
-`index.mdx` when it uses `Datum` or `Term`) and its pictures. The front
-matter is described in `src/content.config.ts`.
+At launch the page is only its cover, RESEARCH / COMING SOON, with `noindex`
+and out of the sitemap. With the first item (one folder in
+`src/content/research/`, see the README there) both switch back on their own.
+The list page, its copy (copy tab 5.1, translated first) and Research's own
+description go in with the posters.
 
-| Item | Status | What is a placeholder |
-| --- | --- | --- |
-| `aloha-0-electron-source` | write-up, published | Authors; the copy is the canvas's Logbook 01 plus a "Space charge" section added to show the math |
-| `democratising-particle-accelerators` | poster, presented | Everything but the title and the venue: authors, text, the venue's link (Indico), the PDF |
-| `aloha-0-telefocus-source` | poster, presented | Title, authors, text, venue link, PDF (the second CERN poster) |
-| `vacuum-system` | write-up, coming | Title and expected month |
+## The team (`/join/#team`)
 
-Page copy (cover, list title, closing sheet, the labels of the blocks):
-`src/data/research.ts`. On the Spanish and Valencian index each block says
-it is in English.
+Only Marc's card shows. The tutor and the co-lead each get a card once they
+give their consent and the name they want shown; the order numbers leave
+slots 1 and 3 for them (`src/content/team/`).
 
-## Join (`/join/`) and the team
+## Past seasons (`/seasons/`, hidden)
 
-| What | Where |
-| --- | --- |
-| Every word on the page (cover, departments, ladder, team, closing sheet) | `src/i18n/join.ts` → `en`, `es`, `va` (one object per language) |
-| Departments' tools and fingerprint lines | `src/i18n/join.ts` → `departmentFacts` |
-| The round: season, closing date | `src/data/recruitment.ts`; the form in `src/consts.ts` (`FORM_URL`, `WAITLIST_URL`) |
-| Cover photo, the team at CERN (consent of the seven people pending) | `src/assets/photos/team-at-cern-2026.webp` |
-| Department logos (from the canvas) | `src/assets/logos/departments/` |
-| Team members: one file each, `consent: true` required, `linkedin:` the handle after linkedin.com/in/ (the photo and name link there) | `src/content/team/*.yaml` (only Marc for now) |
+The museum of IP0 (2023-24), IP1 (2024-25) and IP2 (2025-26) is built but not
+published. IP0 holds the founding text that left the home, as a draft for its
+coordinators. Each season is one file in `src/content/past-seasons/`: its title,
+two or three lines and, if there is one, a photo, in the three languages. Once
+they are filled in, `PAST_SEASONS_LIVE = true` in `src/consts.ts` publishes
+the page and its links.
 
-## Partners (`/partners/`)
+## Spanish and Valencian
 
-| What | Where |
-| --- | --- |
-| Cover, benefits notes, dossier sheet | `src/data/partners-page.ts` |
-| Is there a Spanish dossier? The ES and VA pages say the PDF is in English | `src/data/partners-page.ts` → `dossier.kicker` |
-| Partners (only those who have agreed) | `src/data/partners.ts` |
-| Tiers and benefits (no amounts on the page) | `src/data/sponsorship.ts` |
-| The dossier PDF (the download hides itself if the file is missing) | `public/dossier.pdf` |
-| One-ink vector logos for iTEAM and Edwards (masks of the white rasters until then) | `src/components/PartnerMark.astro` |
+The Spanish and Valencian of the launch copy were drafted with it (copy tab 8);
+a native read of every page comes before launch.
 
-## Spanish and Valencian (every page, under `/es/` and `/va/`)
+## Legal notice and privacy
 
-The team reviewed the Join page on 9 October 2026. Everything else is a
-draft written from the English, for the team to review: the home, the
-machine, research, partners, past seasons, the legal pages, the masthead and
-the footer. The Valencian follows the AVL norms (unix-te, construïx, este,
-s’òbriga, xarrada). Choices to confirm:
-
-- "Partners" is COLABORADORES / COL·LABORADORS (it covers institutions and
-  sponsors); the motto "Build the beam" is translated (CONSTRUYE EL HAZ,
-  CONSTRUÏX EL FEIX). Both could stay in English as brand lines.
-- Write-up is "informe"; "aim" is "aspiración" / "aspiració", to keep it
-  apart from "objetivo de diseño" (design target).
-- Numbers keep the decimal point in every language (2.998 GHz), as the
-  design system's fingerprint lines do; Spanish and Valencian usage would
-  write 2,998.
-- Between about 1030 and 1100 px wide the Spanish and Valencian masthead
-  takes two rows (English fits in one).
-
-## Legal notice and privacy (`/legal/`, `/privacy/` and their `/es/` and `/va/` versions)
-
-Drafts with the UPV as owner (decided 9 October 2026), for the UPV's data
-protection officer and Generación Espontánea to review. The UPV's NIF,
-address, phone and DPO address come from its own legal notice and privacy
-policy. Still in [brackets] on the pages:
-
-- the unit the team belongs to: Generación Espontánea or ETSIT;
-- whether the team's form and inbox fall under the UPV as data controller;
-- how long applications and emails are kept;
-- where Formbricks stores the applications, and its data processing agreement.
-
-Decided on 10 October 2026: texts, write-ups, drawings and documents are
-CC BY 4.0, the hardware CERN-OHL-S v2; photos of people and others' marks are
-not covered.
+The UPV owns the site and is the data controller (decided 9 October 2026). The
+copy of 16 October filled the last brackets: the team is within Generación
+Espontánea; applications are deleted six months after the round is decided,
+emails twelve months after the last message (those part of a sponsor or partner
+agreement are kept while it lasts); Formbricks GmbH stores the applications on
+servers in Germany under its data processing agreement. The UPV's data
+protection officer gets the pages as a notice; anything the office asks for
+goes in afterwards. Texts, write-ups, drawings and documents are CC BY 4.0, the
+hardware CERN-OHL-S v2.
 
 The pages are Markdown, one file per language: `src/pages/legal.md`,
 `src/pages/es/legal.md`, `src/pages/va/legal.md` and the same for `privacy.md`
 (layout `src/layouts/LegalLayout.astro`). A change goes into all three.
-Remove the "Draft for review" note once they are approved.
