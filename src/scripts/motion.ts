@@ -357,8 +357,12 @@ if (moving) {
         const ph = photo.getBoundingClientRect();
         const cap = teamCaption?.getBoundingClientRect();
         root.classList.remove('is-measuring');
-        // At the hold the caption moves down to 16px below the stage.
-        if (cap) stage.style.setProperty('--s2-cap-y', `${st.bottom - cap.top + 16}px`);
+        // At the hold the caption moves down to 16px below the stage, centred
+        // on it as the photo now is.
+        if (cap) {
+          stage.style.setProperty('--s2-cap-y', `${st.bottom - cap.top + 16}px`);
+          stage.style.setProperty('--s2-cap-x', `${st.left + st.width / 2 - (cap.left + cap.width / 2)}px`);
+        }
         // Grow to cover the whole stage, centred; clip what spills over.
         const scale = Math.max(st.width / ph.width, st.height / ph.height);
         const spillY = (ph.height * scale - st.height) / 2 / scale;

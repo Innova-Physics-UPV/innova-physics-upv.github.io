@@ -205,13 +205,15 @@ html[data-motion] .cue__beam {
       calc(8px / (1 + (var(--s2-s, 1) - 1) * var(--a, 0))) 100% repeat-x;
   }
 
-  /* At the hold the caption lands on the page below the photo. It moves by
-     a measured translation, so the layout (and the centred photo) never
-     shifts under it. */
+  /* At the hold the caption lands on the page below the photo, centred
+     under it like the photo on the window. It moves by a measured
+     translation, so the layout (and the centred photo) never shifts under
+     it. */
   html[data-motion] [data-scene='s2'] [data-hold] .team__figure > figcaption {
     position: relative;
     z-index: 4;
-    transform: translateY(var(--s2-cap-y, 0px));
+    text-align: center;
+    transform: translate(var(--s2-cap-x, 0px), var(--s2-cap-y, 0px));
   }
 }
 
