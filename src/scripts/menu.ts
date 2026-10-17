@@ -25,7 +25,7 @@ if (masthead && button) {
       button.focus();
     }
   });
-  window.matchMedia('(min-width: 1120px)').addEventListener('change', (event) => {
+  window.matchMedia('(min-width: 1200px)').addEventListener('change', (event) => {
     if (event.matches) set(false);
   });
 }

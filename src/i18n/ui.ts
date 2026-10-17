@@ -25,6 +25,13 @@ export const ui = {
     research: { en: 'RESEARCH', es: 'INVESTIGACIÓN', va: 'RECERCA' },
     team: { en: 'TEAM', es: 'EQUIPO', va: 'EQUIP' },
     partners: { en: 'PARTNERS', es: 'COLABORADORES', va: 'COL·LABORADORS' },
+    /** The team handbook, its own site in English; the title says so in es and va. */
+    handbook: { en: 'HANDBOOK', es: 'MANUAL', va: 'MANUAL' },
+    handbookTitle: {
+      en: 'The team handbook',
+      es: 'El manual del equipo, en inglés',
+      va: 'El manual de l’equip, en anglés',
+    },
     join: { en: 'JOIN', es: 'ÚNETE', va: 'UNIX-TE' },
     language: { en: 'Language', es: 'Idioma', va: 'Idioma' },
     /** Said of a language this page does not exist in. */

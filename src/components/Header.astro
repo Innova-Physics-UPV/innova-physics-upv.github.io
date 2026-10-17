@@ -2,13 +2,14 @@
 // The masthead: a sticky ultramarine band, like the CERN Courier's. It
 // tightens once the cover has gone by (M2, in motion.ts). On a research
 // item about art or conservation it is drawn on gesso instead. Below
-// 1120px, where the links no longer fit in one row in every language, the
+// 1200px, where the links no longer fit in one row in every language, the
 // band keeps the logo, JOIN and MENU, and MENU opens the rest below it
 // (menu.ts; Direction, 10 October 2026). Without JavaScript the links stay
 // in the band, wrapping onto more rows.
 import InnovaCompact from '../assets/logos/innova-compact.svg';
 import { htmlLang, inLang, langNames, langOf, langs, localise, type Lang } from '../i18n';
 import { ui } from '../i18n/ui';
+import { HANDBOOK_URL } from '../consts';
 
 type Section = 'home' | 'machine' | 'research' | 'team' | 'join' | 'partners' | 'seasons';
 
@@ -25,12 +26,14 @@ const { theme = 'ultramarine', active, languages = {}, progress = false } = Astr
 const current = langOf(Astro.currentLocale);
 const t = inLang(ui.masthead, current);
 
-const nav: { key: Section; label: string; href: string }[] = [
+const nav: { key: Section | 'handbook'; label: string; href: string; title?: string; hreflang?: string }[] = [
   { key: 'machine', label: t.machine, href: '/machine/' },
   { key: 'research', label: t.research, href: '/research/' },
   // The team lives on /join until it outgrows it.
   { key: 'team', label: t.team, href: '/join/#team' },
   { key: 'partners', label: t.partners, href: '/partners/' },
+  // The handbook is its own site (mdBook), in English.
+  { key: 'handbook', label: t.handbook, href: HANDBOOK_URL, title: t.handbookTitle, hreflang: 'en' },
 ];
 ---
 
@@ -49,7 +52,13 @@ const nav: { key: Section; label: string; href: string }[] = [
     <nav class="masthead__nav" id="masthead-nav" aria-label={t.nav}>
       {
         nav.map((item) => (
-          <a class="label masthead__link" href={localise(item.href, current)} aria-current={item.key === active ? 'page' : undefined}>
+          <a
+            class="label masthead__link"
+            href={localise(item.href, current)}
+            title={item.title}
+            hreflang={item.hreflang}
+            aria-current={item.key === active ? 'page' : undefined}
+          >
             {item.label}
           </a>
         ))
@@ -286,7 +295,7 @@ const nav: { key: Section; label: string; href: string }[] = [
 
   /* Narrow screens with JavaScript: one row, and the links in a panel laid
      under the band (over the page, so nothing below moves). */
-  @media (max-width: 1119.98px) {
+  @media (max-width: 1199.98px) {
     :global(html[data-js]) .masthead__inner {
       column-gap: 16px;
     }

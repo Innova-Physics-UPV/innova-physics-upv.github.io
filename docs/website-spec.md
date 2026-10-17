@@ -341,7 +341,7 @@ On gesso:
 - **Status words:** PLANNED, PROPOSED and AIM join the spec's words, for what has no design yet.
 - **No analytics** at launch: no cookies, no banner, and the privacy notice stays as it is.
 - **Texts, write-ups, drawings and documents under CC BY 4.0**; the hardware stays CERN-OHL-S v2. Photos of people and the marks of the UPV, GE, ETSIT and the partners are not covered.
-- **A menu on narrow screens:** below 1120 px, where the full masthead stops fitting on one row in every language, it is one row (logo, JOIN, MENU); MENU opens the links, the languages and DARK.
+- **A menu on narrow screens:** below 1200 px (1120 px until the handbook joined the masthead on 17 October 2026), where the full masthead stops fitting on one row in every language, it is one row (logo, JOIN, MENU); MENU opens the links, the languages and DARK.
 - **Season names:** IP0, IP1, IP2, IP3, as the team writes them (no hyphen); IP3 is 2026-27.
 - **After the round closes**, the Join call is "Write to us": an email for exceptional late applications or news of the next round.
 - **Contact:** innovaphysicsupv@gmail.com. **Domain:** innova-physics-upv.github.io at launch. **Maintainer and go-live OK:** Marc.
