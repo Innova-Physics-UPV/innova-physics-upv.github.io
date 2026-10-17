@@ -1,0 +1,30 @@
+---
+// A legal page (legal notice, privacy notice) written in Markdown: a plain
+// cover, then the text set as prose. The words live in the .md file under
+// src/pages/; its front matter gives the cover and the language versions.
+import Base from './Base.astro';
+import Cover from '../components/Cover.astro';
+import '../styles/prose.css';
+
+const { frontmatter } = Astro.props;
+const { title, description, kicker, shout, lead, alternates } = frontmatter;
+---
+
+<Base title={title} description={description} languages={alternates}>
+  <Cover id="legal" kicker={kicker} shout={[shout]} lead={lead} />
+  <main data-theme="gesso">
+    <div class="legal">
+      <article class="prose">
+        <slot />
+      </article>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .legal {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: var(--section) var(--pad) 0;
+  }
+</style>

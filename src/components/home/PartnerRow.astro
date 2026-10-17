@@ -1,0 +1,78 @@
+---
+// "With the support of": the partners in one ink (bone black, white at
+// night) in a single row on the page.
+import { partners } from '../../data/partners';
+import Button from '../Button.astro';
+import PartnerMark from '../PartnerMark.astro';
+
+interface Props {
+  title: string;
+  /** The link to /partners, in the page's language. */
+  become: string;
+  href: string;
+}
+
+const { title, become, href } = Astro.props;
+---
+
+<section class="partner-row" aria-labelledby="partners-title">
+  <div class="partner-row__wrap">
+    <div class="partner-row__head">
+      <h2 id="partners-title" class="label muted">{title}</h2>
+      <Button href={href} variant="text">{become}</Button>
+    </div>
+    <ul class="partner-row__list">
+      {
+        partners.map((p) => (
+          <li class="partner-row__item">
+            <a href={p.url} rel="noopener" class="partner-row__link">
+              <PartnerMark name={p.name} class="partner-row__mark" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .partner-row__wrap {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(64px, 7.2vw, 104px) var(--pad) 0;
+  }
+
+  .partner-row__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 40px;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .partner-row__list {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 32px 72px;
+  }
+
+  .partner-row__item {
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+  }
+
+  .partner-row__link {
+    display: block;
+    line-height: 0;
+    color: var(--mark-one-ink);
+  }
+
+  .partner-row__link :global(.partner-row__mark) {
+    height: 44px;
+  }
+</style>

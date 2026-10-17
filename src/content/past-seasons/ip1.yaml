@@ -1,0 +1,14 @@
+order: 1
+# Placeholder: the team's copy and photo for IP1 are still to come; the
+# season's years are confirmed (Marc, 10 October 2026).
+season: "IP1 · 2024-25"
+title:
+  en: "[TITLE]"
+  es: "[TÍTULO]"
+  va: "[TÍTOL]"
+body:
+  en: "[Two or three lines on what this season built, from the team.]"
+  es: "[Dos o tres líneas del equipo sobre lo que construyó esta temporada.]"
+  va: "[Dues o tres línies de l’equip sobre el que va construir esta temporada.]"
+marker: solid
+placeholder: true

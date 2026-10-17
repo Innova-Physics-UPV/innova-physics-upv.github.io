@@ -1,111 +1,171 @@
 # Innova Physics UPV website
 
-<img width="896" height="221" alt="innova_web_banner-fs8" src="https://github.com/user-attachments/assets/d4382211-5259-4b3e-8f1e-c25557fa01c8" />
+The website of [Innova Physics UPV](https://innova-physics-upv.github.io/), the
+student team at the Universitat Politècnica de València that designs and builds
+ALOHA, an open-hardware tabletop electron accelerator. Built with
+[Astro](https://astro.build/) 7, static, deployed to GitHub Pages.
 
-Website for [Innova Physics UPV](https://innova-physics-upv.github.io/), built
-with [Astro](https://astro.build/) and deployed to GitHub Pages.
+**Status:** this is the new site, on the `new-web` branch. Its content is still
+placeholder (see [Before it goes live](#before-it-goes-live)); `main` keeps the
+current site live until the new one is merged.
 
-**Live:** https://innova-physics-upv.github.io/
-
-## Status
-
-The **home page** and **`/partners`** are published. The other pages have been
-started but are not finished, so they live in `src/pages/_wip/`: Astro does not
-create routes for folders starting with `_`, which keeps the work around
-without making the pages reachable.
-
-To publish one, move it out of `_wip/`. The file name becomes the URL, so use
-lowercase:
-
-```sh
-git mv src/pages/_wip/GetInvolved.astro src/pages/get-involved.astro
-```
-
-…then add its link back to `src/Components/Header.astro` and
-`src/Components/Footer.astro`.
+**Maintainer:** Marc Sanchis (team lead), who also gives the go-live OK.
+**Contact:** innovaphysicsupv@gmail.com.
 
 ## Getting started
 
-Requires Node 18.20.8+, 20.3+ or 22+ (CI uses 22).
+Requires Node 22.12 or later (CI uses Node 22).
 
 ```sh
 npm install
 npm run dev        # http://localhost:4321
 ```
 
-| Command           | What it does                          |
-| :---------------- | :------------------------------------ |
-| `npm install`     | Install dependencies                  |
-| `npm run dev`     | Local dev server at `localhost:4321`  |
-| `npm run build`   | Build the site to `./dist/`           |
-| `npm run preview` | Preview the build before shipping it  |
+| Command           | What it does                                              |
+| :---------------- | :-------------------------------------------------------- |
+| `npm run dev`     | Local dev server                                          |
+| `npm run check`   | Type-check the pages and validate every content file     |
+| `npm run build`   | Build the site to `./dist/`                               |
+| `npm run preview` | Serve the build, to see it exactly as it will be deployed |
+
+**The dev server keeps stale settings.** After changing `astro.config.mjs`,
+`src/lib/markdown-plugins.mjs` or `src/content.config.ts`, stop it, delete
+`.astro/data-store.json` and start it again; otherwise it can keep serving an
+old version of the content.
 
 ## Structure
 
 ```text
-public/                 Assets served as-is from the site root
-├── partners/           Partner logos (.svg)
-├── curves*.webp        The background curves
-└── Alfabet/            Brand typeface
-
 src/
 ├── pages/
-│   ├── index.astro     The home page
-│   ├── partners.astro  /partners: partner logos, sponsorship levels beside them
-│   └── _wip/           Unfinished pages, not routed
-├── Layout/layout.astro Page shell: head, background, header and footer
-├── Components/
-│   ├── Header.astro
-│   ├── Footer.astro
-│   ├── Home/           Home page sections
-│   └── Partners/       /partners sections
-├── data/
-│   ├── partners.ts     Partner list (home and /partners)
-│   └── sponsorship.ts  Sponsorship tiers and benefits
-├── styles/globals.css  Design tokens and shared classes
-└── consts.ts           Shared URLs (form, dossier, contact email)
+│   ├── [...lang]/         Every page in English (/), Spanish (/es/) and Valencian (/va/)
+│   │   ├── index.astro    /          the home: cover, team, story, readings, join, partners
+│   │   ├── machine.astro  /machine/  ALOHA stage by stage
+│   │   ├── research/      /research/ the index of papers, posters and write-ups
+│   │   ├── join.astro     /join/     departments, how it works, the team
+│   │   ├── partners.astro /partners/
+│   │   └── seasons.astro  /seasons/  the museum of past seasons (hidden for now)
+│   ├── research/[slug].astro   One page per research item, in its own language
+│   ├── legal.md, privacy.md    The legal pages, one Markdown file per language (es/, va/)
+│   └── 404.astro
+├── content/               The content, one file per thing (see below)
+│   ├── seasons/           The home's story, one station per file
+│   ├── past-seasons/      The museum, IP0 to IP2
+│   ├── research/          One folder per paper, poster or write-up
+│   └── team/              One file per team member (only with consent)
+├── data/                  Page copy and lists kept in TypeScript
+├── i18n/                  The languages: index.ts (how they work), ui.ts (masthead,
+│                          footer, shared labels), join.ts (the Join page)
+├── components/            The building blocks (Cover, Section, Sheet, …)
+├── layouts/Base.astro     Every page's head, masthead and footer
+├── scripts/motion.ts      Every scroll-linked movement, in one module
+├── styles/                tokens.css (design tokens), base.css, motion.css, prose.css
+└── assets/                Photos, figures, logos and fonts (optimised at build time)
+public/                    Served as-is: dossier.pdf, email/, partners/, licences, icons
+design-system/             The design system's tokens, licences and tools
+docs/                      The website spec, the content to fill in, the launch steps
 ```
 
-Anything in `public/` is served from the root: `public/partners/teleco.svg`
-ends up at `/partners/teleco.svg`.
+The design and its rules are in `docs/website-spec.md`. Colours, type and
+spacing come from `src/styles/tokens.css`; never write a colour by hand in a
+component.
 
-### About `globals.css`
+## Rules
 
-It holds the design tokens (typefaces, scale, colours, spacing) and the
-utilities shared between components: `.contenedor`, `.btn`, the grids, the
-background curves system (`.bg-wrapper` / `.bg-image-percent`) and the headings
-with arrows. If something is used in more than one place it goes here; if it
-belongs to a single component, it goes in that component's `<style>`.
+For anyone who changes the site, by hand or with an AI assistant:
+
+- **Every text in three languages.** English, Spanish and Valencian (AVL
+  norms) side by side; a change to one changes all three. Research items stay
+  in the language they were written in.
+- **Aims, not promises.** Every number has a unit and a status: SIMULATED ·
+  COMSOL, DESIGN, DESIGN TARGET, BUILT, or MEASURED with its date and
+  instrument; what has no design yet is PLANNED, PROPOSED or an AIM. Nothing
+  on ALOHA-0 is measured yet. It is an "electron source", never a "gun".
+- **One shout per page** (the cover title in Heros Cn Bold capitals), one art
+  line per section, one vermilion element per composition. No em dashes.
+- **People only with their consent** (`consent: true`), **partners only with
+  their agreement**, and no euro amounts on the site: they are in the dossier.
+- **CERN** imagery only to explain, credited, never as a cover, never on Join
+  or Partners; the knowledge-transfer agreement is never called a
+  partnership.
+- **The page reads without JavaScript:** the HTML is the finished state, and
+  the scripts (`src/scripts/`, the Two readings island) only add movement.
+  Fonts are self-hosted; nothing is loaded from another server.
+- **No new dependency** without its reason in the commit message.
+- **`new-web` is never merged into `main`** without the maintainer's OK.
+
+AI assistants' own files (`CLAUDE.md`, `.claude/` and the like) are personal
+and stay out of the repository: each person keeps their own (Marc, 10 October
+2026). `.gitignore` leaves them out.
+
+## Editing the content
+
+Content is data, not code: almost every change is one file. `npm run check`
+tells you if a file is missing a field.
+
+**Every text is in three languages, side by side.** In the data files a text
+is `{ en: 'The machine', es: 'La máquina', va: 'La màquina' }`; in the YAML
+files it is the same with `en:`, `es:` and `va:` on their own lines. When you
+change one language, change the other two next to it. A text that reads the
+same in all three (a name, a number) can stay a single string. The Valencian
+follows the AVL norms. Research items are the exception: each is written in
+one language.
+
+| To…                                 | Do this                                                                                                                                                                                                          |
+| :---------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Add a paper, poster or write-up     | Add a folder to `src/content/research/` with an `index.md` (or `index.mdx` to use `<Datum>` or `<Term>`) and its pictures. `src/content/research/README.md` gives the front matter and what changes with the first item. Math is LaTeX between `$…$` or `$$…$$`. |
+| Add a team member                   | Add `src/content/team/<name>.yaml` with `consent: true` (nobody is published without it), their role and department in the three languages, their photo in `src/assets/team/` (3:4, colour) and, if they want, `linkedin:` with the part after `linkedin.com/in/`. |
+| Add a partner                       | Only once they have agreed. Add a line to `src/data/partners.ts` with its tier and its full name (`fullName`, in the three languages, or one string when it reads the same), and its logo in one ink (see `src/components/PartnerMark.astro`).                                                                 |
+| Move the story on a season          | Move `now: true` to the new station in `src/content/seasons/`.                                                                                                                                                 |
+| Open or close the recruitment round | Change the dates in `src/data/recruitment.ts`; set `students` once the round is decided (the home and Join show the count) and `nextOpens` once the next round has a month. The site rebuilds every night, so "Apply now" turns into "Write to us" (an email, for late applications and the next round) on its own the morning after the closing date.                                 |
+| Change the machine's numbers        | `src/data/machine.ts`. Every number carries a unit and a status (SIMULATED · COMSOL, DESIGN, BUILT, MEASURED with date and instrument).                                                                          |
+| Change the dossier                  | Replace `public/dossier.pdf`; the download button appears once `DOSSIER_FINAL` in `src/consts.ts` is true and the file exists. |
+| Publish the past seasons            | Fill in `src/content/past-seasons/`, then set `PAST_SEASONS_LIVE = true` in `src/consts.ts`: the page, its links and its sitemap entries appear. |
+| Change a word on the masthead or footer | `src/i18n/ui.ts`, in the three languages.                                                                                                                                                                  |
+| Add a page                          | Add it to `src/pages/[...lang]/` with `export const getStaticPaths = everyLang` (see `machine.astro`), add its address to `translated` in `src/i18n/index.ts`, and keep its words in `src/data/`. |
+
+Photos go in `src/assets/` (not `public/`): Astro makes AVIF and WebP copies at
+the sizes each screen needs. Give every photo alt text that says who and what.
+New logos go through SVGO first (`design-system/README.md`).
 
 ## Deployment
 
-Every push to `main` triggers `.github/workflows/astro.yml`, which runs
-`npm ci`, `npm run build` and publishes `./dist/` to GitHub Pages. Nothing has
-to be uploaded by hand, and the build output is never committed.
+Every push to `main` runs `.github/workflows/astro.yml`: `npm ci`,
+`npm run check`, `npm run build`, then publishes `./dist/` to GitHub Pages
+(Settings › Pages › Source: GitHub Actions). Nothing is uploaded by hand and the
+build is never committed.
+
+The same workflow also runs every night at 03:30 UTC, so whatever depends on
+the date (the recruitment round) is never more than a day out of date. GitHub
+pauses scheduled runs after 60 days without a commit; the Actions tab shows it,
+and "Enable workflow" there turns them back on. To rebuild at once, run the
+workflow by hand (Actions › "Deploy Astro site to GitHub Pages" › Run workflow).
+
+These addresses are used outside the site and must keep working:
+`/email/marc-sanchis.jpg`, `/email/strip.png`, `/email/mark-tile.png` (email
+signatures), `/dossier.pdf` and `/partners/`. GitHub Pages has no server
+redirects, so a page that moves needs a forwarding page at its old address.
+
+## Before it goes live
+
+- `docs/content-todo.md`: every placeholder on the site and the file that holds it.
+- `docs/go-live.md`: the steps to launch, and what to check afterwards.
 
 ## Branches
 
-| Branch     | What it is                                           |
-| :--------- | :--------------------------------------------------- |
-| `main`     | What is live                                          |
-| `ip3-web`  | Working branch for this version                       |
-| `ip2-web`  | The previous website (Next.js), kept as-is just in case |
+| Branch    | What it is                                     |
+| :-------- | :--------------------------------------------- |
+| `main`    | What is live; a push deploys it                |
+| `new-web` | This site, until it is merged into `main`      |
+| `ip3-web` | The interim version of the old site            |
+| `ip2-web` | The previous website (Next.js), kept as it was |
 
-`Home`, `Partners`, `Get-Involved` and `web-v3` are already folded into
-`ip3-web`; `testing` and `prueba` belong to the old version.
+## Licences
 
-## To do
+The site's texts, write-ups, drawings and documents: CC BY 4.0. Hardware
+designs: CERN-OHL-S v2. Photos of people and the marks of the UPV, GE, ETSIT
+and the partners are not under either licence. A research item names its own
+licence in its front matter (`licence:`).
 
-- Finish the pages in `src/pages/_wip/`.
-- The tiers and benefits in `src/data/sponsorship.ts` come from the Partnership
-  Dossier 2026-27, which is `public/dossier.pdf`. The "Download the dossier"
-  button on `/partners` only appears while that file exists (checked at build
-  time), so there is never a link to a missing file. Update both together for
-  a new season.
-- To add a partner, drop its logo in `public/partners/` and add a line to
-  `src/data/partners.ts` with its tier; it shows up on both the home page and
-  `/partners` (grouped by tier there, Higgs first with the big cards).
-- The "Partner with Us" and "Apply to ELIAC" buttons do not lead anywhere yet;
-  they are marked with a `TODO` in the code.
-- `@astrojs/svelte` is installed but no Svelte component is used. If it is not
-  going to be needed, it can be removed.
+Fonts: TeX Gyre Heros (GUST Font License), EB Garamond and Fragment Mono (SIL
+Open Font License); their licences are served from `/licenses/`.

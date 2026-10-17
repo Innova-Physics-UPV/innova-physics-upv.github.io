@@ -1,0 +1,65 @@
+---
+// Numbers on an ultramarine sheet laid in the reading column: each one a
+// numeral, its unit and its status. A number never appears without them.
+interface Props {
+  items: { value: string; unit: string; label: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl class="datum" data-theme="ultramarine">
+  {
+    items.map((item) => (
+      <div class="datum__item">
+        <dt class="label muted datum__label">{item.label}</dt>
+        <dd class="datum__value">
+          <span class="datum__numeral">{item.value}</span>
+          <span class="datum__unit">{item.unit}</span>
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .datum {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 28px;
+    margin: 40px 0 0;
+    padding: 28px;
+  }
+
+  /* The label reads after the number, as drawn; in the markup it comes first,
+     so a screen reader hears what the number is before the number. */
+  .datum__item {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  .datum__label {
+    margin-top: 10px;
+  }
+
+  .datum__value {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .datum__numeral {
+    font-weight: 700;
+    font-size: clamp(40px, 3.9vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .datum__unit {
+    font-family: var(--mono);
+    font-size: 22px;
+  }
+</style>

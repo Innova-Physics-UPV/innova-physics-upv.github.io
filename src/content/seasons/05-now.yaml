@@ -1,0 +1,31 @@
+order: 5
+# The current season is IP3 (Marc, 10 October 2026); the last word is inked.
+season:
+  en: "IP3 · 2026-27 · NOW"
+  es: "IP3 · 2026-27 · AHORA"
+  va: "IP3 · 2026-27 · ARA"
+title:
+  en: "From simulation to the bench"
+  es: "De la simulación al banco"
+  va: "De la simulació al banc"
+body:
+  en: "This semester we build the vacuum system and its control, the bench ALOHA-0 will be tested on, and then, if time and funding allow, the cathode supply. We aim to end the season with the vacuum system pumped down and measured, and its electronics tested."
+  es: "Este cuatrimestre construimos el sistema de vacío y su control, el banco en el que se probará ALOHA-0, y después, si el tiempo y la financiación lo permiten, la fuente de alimentación del cátodo. Aspiramos a cerrar la temporada con el sistema de vacío bombeado y medido, y su electrónica probada."
+  va: "Este quadrimestre construïm el sistema de buit i el seu control, el banc on es provarà ALOHA-0, i després, si el temps i el finançament ho permeten, la font d’alimentació del càtode. Aspirem a tancar la temporada amb el sistema de buit bombat i mesurat, i la seua electrònica provada."
+marker: outlined
+now: true
+picture:
+  kind: photo
+  src: ../../assets/photos/vacuum-bench-2026.webp
+  alt:
+    en: "A team member at work on the vacuum pump of the bench."
+    es: "Un miembro del equipo trabajando en la bomba de vacío del banco."
+    va: "Un membre de l’equip treballant en la bomba de buit del banc."
+caption:
+  lead:
+    en: "At the vacuum bench."
+    es: "En el banco de vacío."
+    va: "En el banc de buit."
+  # The month and the place, once Communication sends them:
+  #   en: "[Month] 2026, [place]."  es: "[Mes] de 2026, [lugar]."  va: "[Mes] de 2026, [lloc]."
+  text: "2026."

@@ -1,0 +1,63 @@
+---
+// /research/ (and /es/, /va/): until the first item is up, only its cover,
+// RESEARCH / COMING SOON centred on ultramarine, then the footer (Marc, 16
+// October 2026). While src/content/research/ has no item the page carries
+// noindex, and the sitemap leaves it out (astro.config.mjs); both switch back
+// on their own with the first item. The list of items and the closing sheet
+// return with the posters: see src/content/research/README.md.
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { researchPage } from '../../../data/research';
+import { alternates, everyLang, inLang, type Lang } from '../../../i18n';
+
+export const getStaticPaths = everyLang;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = inLang(researchPage, lang);
+const empty = (await getCollection('research')).length === 0;
+// The longest word of the shout, in letters, as on every cover: PRÓXIMAMENTE
+// makes the shout smaller on a phone instead of running off it.
+const longest = Math.max(...t.shout.split(' ').map((word) => [...word].length));
+---
+
+<Base title={t.title} active="research" noindex={empty} languages={alternates('/research/')}>
+  <main class="soon" data-theme="ultramarine" aria-labelledby="research-title">
+    <div class="soon__inner">
+      <p class="label muted">{t.kicker}</p>
+      <h1 id="research-title" class="shout soon__shout" style={`--longest: ${longest}`}>{t.shout}</h1>
+    </div>
+    <div aria-hidden="true" data-cover-foot></div>
+  </main>
+</Base>
+
+<style>
+  /* The cover is the whole page: it fills the window under the masthead,
+     with no room after it before the footer. */
+  .soon {
+    padding-bottom: 0;
+  }
+
+  .soon__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100svh - var(--header-h));
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(40px, 6vw, 88px) var(--pad);
+    text-align: center;
+  }
+
+  /* Never wider than the page: a word of Heros Cn Bold capitals is about
+     0.6 em per letter (as in Cover.astro). */
+  .soon__shout {
+    font-size: min(var(--fs-shout), calc((100vw - 2 * var(--pad)) / (var(--longest) * 0.6)));
+  }
+</style>

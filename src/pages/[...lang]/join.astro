@@ -1,0 +1,270 @@
+---
+// /join/, /es/join/ and /va/join/: the cover with the round's status and the team at CERN, the four
+// departments, how a candidate becomes a member, the team (only those who
+// have given their consent) and the closing sheet. The round opens and
+// closes on its own: the status is decided when the site is built. The
+// student count and the month the next round opens are left out until
+// src/data/recruitment.ts has them.
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import Button from '../../components/Button.astro';
+import Caption from '../../components/Caption.astro';
+import Section from '../../components/Section.astro';
+import Sheet from '../../components/Sheet.astro';
+import StatusChip from '../../components/StatusChip.astro';
+import DeptCard from '../../components/join/DeptCard.astro';
+import PersonCard from '../../components/join/PersonCard.astro';
+import teamAtCern from '../../assets/photos/team-at-cern-2026.webp';
+import { FORM_URL, writeToJoin } from '../../consts';
+import { closesOn, nextOpensIn, round, roundIsOpen } from '../../data/recruitment';
+import { alternates, everyLang, htmlLang, inLang, langs, localise, type Lang } from '../../i18n';
+import { joinCopy } from '../../i18n/join';
+
+export const getStaticPaths = everyLang;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = joinCopy[lang];
+const open = roundIsOpen();
+const closes = closesOn(lang);
+const students = round.students;
+const action = open
+  ? { href: FORM_URL, label: t.cover.apply }
+  : { href: writeToJoin(t.cover.closedAction.subject), label: t.cover.closedAction.label };
+const others = langs.filter((l) => l !== lang);
+const people = (await getCollection('team'))
+  .filter((p) => p.data.consent)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((p) => ({ ...p, data: inLang(p.data, lang) }));
+---
+
+<Base title={t.meta.title} description={t.meta.description} active="join" languages={alternates('/join/')}>
+  <Cover id="join" kicker={t.cover.kicker(round.season)} shout={t.cover.shout} lead={t.cover.lead}>
+    <p>
+      <StatusChip marker="outlined">{(open ? t.cover.open : t.cover.closed)(round.season, closes.toUpperCase())}</StatusChip>
+    </p>
+    <div class="join__actions">
+      <Button href={action.href}>{action.label}</Button>
+      {
+        others.map((l) => (
+          <Button href={localise('/join/', l)} variant="text" arrow={false} lang={htmlLang[l]} hreflang={htmlLang[l]}>
+            {joinCopy[l].readIn}
+          </Button>
+        ))
+      }
+    </div>
+    <p class="caption join__privacy">
+      {t.privacy.before}<a href={t.privacy.href}>{t.privacy.link}</a>{t.privacy.after}
+    </p>
+    {
+      students !== undefined && (
+        <div class="join__count">
+          <p class="numeral">{students}</p>
+          <p class="label muted join__count-label">{t.cover.count.label}</p>
+        </div>
+      )
+    }
+    <figure slot="figure" class="join__photo">
+      <Picture
+        src={teamAtCern}
+        alt={t.cover.photo.alt}
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
+        widths={[640, 960, 1280, 1800]}
+        sizes="(min-width: 1040px) 56vw, 100vw"
+        class="join__img"
+        priority
+      />
+      <Caption lead={t.cover.photo.lead} text={t.cover.photo.text} />
+    </figure>
+  </Cover>
+
+  <main data-theme="gesso">
+    <Section id="departments" kicker={t.departments.kicker} title={t.departments.title}>
+      <ul class="depts">
+        {t.departments.items.map((d) => <DeptCard dept={d.key} name={d.name} body={d.body} logoLabel={d.logoLabel} />)}
+      </ul>
+    </Section>
+
+    <Section id="how" kicker={t.ladder.kicker} title={t.ladder.title}>
+      <ol class="ladder">
+        {
+          t.ladder.steps.map((step, i) => (
+            <li class="ladder__step">
+              <p class="label muted">{String(i + 1).padStart(2, '0')}</p>
+              <p class="ladder__title">{step.title}</p>
+              <p>{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </Section>
+
+    <Section id="team" kicker={t.team.kicker(round.season)} title={t.team.title}>
+      <p class="label muted team__note">{t.team.note}</p>
+      <ul class="people">
+        {
+          people.map((person) => (
+            <PersonCard
+              person={person}
+              photoMissing={t.team.photoMissing}
+              linkLabel={t.team.onLinkedIn(person.data.name)}
+            />
+          ))
+        }
+        {
+          students !== undefined && (
+            <li class="rest">
+              <div class="rest__tile">
+                <span class="rest__value">{students}</span>
+              </div>
+              <p class="rest__text">{t.team.rest.text}</p>
+            </li>
+          )
+        }
+      </ul>
+    </Section>
+
+    <Sheet id="apply" labelledby="apply-title">
+      <div class="closing__text">
+        <p class="label muted">{t.closing.kicker(round.season)}</p>
+        <h2 id="apply-title" class="headline closing__title">{t.closing.title}</h2>
+        <p class="closing__body measure">{open ? t.closing.open(closes) : t.closing.closed(closes, nextOpensIn(lang))}</p>
+        <p class="caption join__privacy">
+          {t.privacy.before}<a href={t.privacy.href}>{t.privacy.link}</a>{t.privacy.after}
+        </p>
+      </div>
+      <div class="closing__actions">
+        <Button href={action.href}>{action.label}</Button>
+      </div>
+    </Sheet>
+  </main>
+</Base>
+
+<style>
+  .join__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+  }
+
+  .join__privacy {
+    color: var(--figure-muted);
+  }
+
+  .join__privacy a {
+    color: var(--figure);
+    text-decoration-thickness: var(--hair);
+    text-underline-offset: 3px;
+  }
+
+  .closing__body + .join__privacy {
+    margin-top: 16px;
+  }
+
+  .join__count {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: var(--hair) solid var(--construction);
+  }
+
+  .join__count-label {
+    margin-top: 16px;
+  }
+
+  .join__photo :global(.join__img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  /* Departments */
+  .depts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 24px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* How it works: four steps on the beam, the page's one vermilion element. */
+  .ladder {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 0 40px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: var(--beam) solid var(--accent);
+  }
+
+  .ladder__step {
+    padding-top: 24px;
+  }
+
+  .ladder__title {
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .ladder__step > p:last-child {
+    margin-top: 8px;
+  }
+
+  /* The team */
+  .team__note {
+    margin-top: 16px;
+  }
+
+  .people {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(45%, 200px), 1fr));
+    gap: 40px 24px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rest__tile {
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 3 / 4;
+    padding: 16px;
+    border: var(--hair) solid var(--ink);
+  }
+
+  .rest__value {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .rest__text {
+    margin-top: 12px;
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+  }
+
+  /* Closing sheet */
+  .closing__text {
+    flex: 1 1 360px;
+    max-width: 560px;
+  }
+
+  .closing__title,
+  .closing__body {
+    margin-top: 24px;
+  }
+</style>

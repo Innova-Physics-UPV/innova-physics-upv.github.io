@@ -1,0 +1,125 @@
+---
+// Every page: the head (no-flash mode script, fonts, styles), the masthead,
+// the page, the footer.
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { htmlLang, inLang, langOf, type Lang } from '../i18n';
+import { ui } from '../i18n/ui';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/motion.css';
+
+type HeaderProps = Parameters<typeof Header>[0];
+
+interface Props {
+  /** The page's own title; the site name is added after it. */
+  title?: string;
+  description?: string;
+  /** Which nav item is current. */
+  active?: HeaderProps['active'];
+  /** The masthead's ground: ultramarine, or gesso on a Pentimento entry. */
+  headerTheme?: HeaderProps['theme'];
+  /** This page in each language it exists in (see alternates() in src/i18n). */
+  languages?: Partial<Record<Lang, string>>;
+  /** M10: the reading line under the masthead (research items). */
+  progress?: boolean;
+  /** The picture shown when the page is shared (1200 x 630); the site's by default. */
+  image?: string;
+  imageAlt?: string;
+  /** Keep the page out of search results (Research, while it has no item). */
+  noindex?: boolean;
+}
+
+const lang = langOf(Astro.currentLocale);
+const t = inLang(ui.site, lang);
+const {
+  title,
+  description = t.description,
+  active,
+  headerTheme = 'ultramarine',
+  languages,
+  progress,
+  image = '/og/innova-physics-upv.png',
+  imageAlt = t.imageAlt,
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} · Innova Physics UPV` : 'Innova Physics UPV';
+const ogLocale: Record<Lang, string> = { en: 'en_GB', es: 'es_ES', va: 'ca_ES' };
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = new URL(image, Astro.site).href;
+---
+
+<!doctype html>
+<html lang={htmlLang[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Before the first paint: the remembered mode (so the page never flashes
+      the wrong ground), a flag that JavaScript runs, and the motion flag,
+      set only when the reader has not asked for reduced motion. Every start
+      state of an animation hangs on [data-motion]; without it the HTML is
+      the finished state.
+    -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.setAttribute('data-js', '');
+        try {
+          var m = localStorage.getItem('mode');
+          if (m === 'light' || m === 'dark') d.setAttribute('data-mode', m);
+        } catch (e) {}
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.setAttribute('data-motion', '');
+          // If the motion module never runs, fall back to the finished HTML.
+          document.addEventListener('DOMContentLoaded', function () {
+            if (!d.hasAttribute('data-motion-ready')) d.removeAttribute('data-motion');
+          });
+        }
+      })();
+    </script>
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2338a8" />
+    <link rel="canonical" href={canonical} />
+    <!-- How the page looks when it is shared. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Innova Physics UPV" />
+    <meta property="og:title" content={title ?? 'Innova Physics UPV'} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {
+      languages &&
+        (Object.entries(languages) as [Lang, string][]).map(([code, path]) => (
+          <link rel="alternate" hreflang={htmlLang[code]} href={new URL(path, Astro.site).href} />
+        ))
+    }
+    {languages?.en && <link rel="alternate" hreflang="x-default" href={new URL(languages.en, Astro.site).href} />}
+    <Font cssVariable="--font-grotesk" preload={[{ weight: 400, style: 'normal' }]} />
+    <Font cssVariable="--font-condensed" preload />
+    <Font cssVariable="--font-art" />
+    <Font cssVariable="--font-mono" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">{t.skip}</a>
+    <Header theme={headerTheme} active={active} languages={languages} progress={progress} />
+    <span id="content" tabindex="-1"></span>
+    <slot />
+    <Footer />
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>

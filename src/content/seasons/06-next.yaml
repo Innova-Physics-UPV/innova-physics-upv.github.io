@@ -1,0 +1,29 @@
+order: 6
+# ALOHA-2, the instrument for conservation. ALOHA-1 is conditional, so it
+# stays on /machine and out of the story: the rail runs from the source to
+# the target.
+season:
+  en: "NEXT · ALOHA-2"
+  es: "PRÓXIMO · ALOHA-2"
+  va: "PRÒXIM · ALOHA-2"
+title:
+  en: "A beam that reads paintings"
+  es: "Un haz que lee cuadros"
+  va: "Un feix que llig quadres"
+body:
+  en: "Next, ALOHA-0 becomes the source of an X-ray instrument for conservation: its beam makes X-rays, and each pigment in a painting answers with its own lines, read without taking a sample. The 20 keV ceiling protects the paintings."
+  es: "Después, ALOHA-0 pasa a ser la fuente de un instrumento de rayos X para la conservación: su haz produce rayos X y cada pigmento de un cuadro responde con sus propias líneas, que se leen sin tomar ninguna muestra. El límite de 20 keV protege los cuadros."
+  va: "Després, ALOHA-0 passa a ser la font d’un instrument de raigs X per a la conservació: el seu feix produïx raigs X i cada pigment d’un quadre respon amb les seues pròpies línies, que es lligen sense prendre cap mostra. El límit de 20 keV protegix els quadres."
+marker: outlined
+picture:
+  kind: art
+  text:
+    en: "Every pigment has its own lines."
+    es: "Cada pigmento tiene sus propias líneas."
+    va: "Cada pigment té les seues pròpies línies."
+link:
+  href: "/machine/#aloha-2"
+  label:
+    en: "SEE THE MACHINE"
+    es: "VER LA MÁQUINA"
+    va: "VEURE LA MÀQUINA"

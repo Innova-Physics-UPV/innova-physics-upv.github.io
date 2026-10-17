@@ -1,0 +1,49 @@
+---
+// A status, drawn the way the machine figures draw it: solid is built or
+// measured, hatched is simulated, an outline is design or planned. The words
+// carry the status; the drawing only repeats it.
+interface Props {
+  marker: 'solid' | 'hatched' | 'outlined';
+  class?: string;
+}
+
+const { marker, class: className } = Astro.props;
+---
+
+<span class:list={['label', 'chip', `chip--${marker}`, className]}>
+  <span class="chip__text"><slot /></span>
+</span>
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    color: var(--figure, var(--ink));
+  }
+
+  .chip--solid {
+    padding: 4px 10px;
+    background: var(--figure, var(--ink));
+    color: var(--ground, var(--page));
+  }
+
+  /* Tratteggio behind the words, with a plate of the ground under them. */
+  .chip--hatched {
+    padding: 4px 10px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--figure, var(--ink)) 0 2px,
+      var(--ground, var(--page)) 2px 4px
+    );
+  }
+
+  .chip--hatched .chip__text {
+    padding: 0 6px;
+    background: var(--ground, var(--page));
+  }
+
+  .chip--outlined {
+    padding: 2px 8px;
+    border: var(--hair) solid var(--figure, var(--ink));
+  }
+</style>

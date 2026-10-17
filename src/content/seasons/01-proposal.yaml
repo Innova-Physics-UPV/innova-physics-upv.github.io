@@ -1,0 +1,19 @@
+order: 1
+# The story starts in 2026 with ALOHA; the founding is told on the past
+# seasons page (src/content/past-seasons/).
+season: "2026 · ALOHA"
+title:
+  en: "An accelerator designed by undergraduates"
+  es: "Un acelerador diseñado por estudiantes de grado"
+  va: "Un accelerador dissenyat per estudiants de grau"
+body:
+  en: "In 2026 the new coordination put a real proposal on the table: an accelerator designed and built by undergraduate students, to be published as open hardware so others can build it too. We called it ALOHA, A Linear Open-Hardware Accelerator."
+  es: "En 2026, la nueva coordinación puso sobre la mesa una propuesta real: un acelerador diseñado y construido por estudiantes de grado, pensado para publicarse como hardware abierto, de modo que otros también puedan construirlo. Lo llamamos ALOHA, A Linear Open-Hardware Accelerator."
+  va: "El 2026, la nova coordinació va posar damunt de la taula una proposta real: un accelerador dissenyat i construït per estudiants de grau, pensat per a publicar-se com a maquinari obert perquè altres també el puguen construir. El vam anomenar ALOHA, A Linear Open-Hardware Accelerator."
+marker: solid
+picture:
+  kind: art
+  text:
+    en: "What about undergraduates?"
+    es: "¿Y los estudiantes de grado?"
+    va: "I els estudiants de grau?"

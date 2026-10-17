@@ -1,0 +1,198 @@
+---
+// The cover of every page: ultramarine, the page's one shout (Heros Cn Bold
+// capitals), a kicker, a lead and its actions, and on the right a figure that
+// bleeds off the right edge. The scroll cue (M12) sits at its foot. With
+// `scene="s1"` the cover becomes a pinned scroll scene: a tall track holds a
+// sticky stage (motion.ts and motion.css); without motion it is the plain
+// cover, its finished frame. With a `wide` slot (the machine, the partners)
+// the shout and the lead share a row and the figure runs full width below.
+import ScrollCue from './ScrollCue.astro';
+
+interface Props {
+  id?: string;
+  kicker: string;
+  /** The shout, one string per line. */
+  shout: string[];
+  lead?: string;
+  /** The home's shout is larger. */
+  home?: boolean;
+  cue?: string;
+  /** The cue's words while a scroll scene runs. */
+  cueScene?: string;
+  scene?: 's1';
+  class?: string;
+}
+
+const { id = 'cover', kicker, shout, lead, home = false, cue, cueScene, scene, class: className } = Astro.props;
+const titleId = `${id}-title`;
+const hasFigure = Astro.slots.has('figure');
+const hasWide = Astro.slots.has('wide');
+// The longest word of the shout, in letters: a long single word (INVESTIGACIÓN,
+// COL·LABORADORS) makes the shout smaller on a phone instead of running off it.
+const longest = Math.max(...shout.flatMap((line) => line.split(' ')).map((word) => [...word].length));
+---
+
+<section
+  class:list={['cover', scene && `cover--${scene}`, className]}
+  id={id}
+  data-theme="ultramarine"
+  aria-labelledby={titleId}
+  data-scene={scene}
+>
+  <div class="cover__track" data-track>
+    <div class="cover__stage" data-stage>
+      <div class:list={['cover__inner', hasWide && 'cover__inner--wide']}>
+        <p class="label muted" data-words>{kicker}</p>
+        <div class:list={['cover__head', hasWide && 'cover__head--row']}>
+          <h1 id={titleId} class:list={['shout', home && 'shout--home', 'cover__shout']} style={`--longest: ${longest}`} data-words>
+            {shout.map((line) => <span class="cover__line">{line}</span>)}
+          </h1>
+          {
+            hasWide && (
+              <div class="cover__text cover__text--beside" data-words>
+                {lead && <p class="lead">{lead}</p>}
+                <slot />
+              </div>
+            )
+          }
+        </div>
+        {
+          !hasWide && (
+            <div class="cover__body">
+              <div class="cover__text" data-words>
+                {lead && <p class="lead">{lead}</p>}
+                {Astro.slots.has('actions') && (
+                  <div class="cover__actions">
+                    <slot name="actions" />
+                  </div>
+                )}
+                <slot />
+              </div>
+              {hasFigure && (
+                <div class="cover__figure">
+                  <slot name="figure" />
+                </div>
+              )}
+            </div>
+          )
+        }
+        {!hasWide && <ScrollCue text={cue} sceneText={cueScene} />}
+      </div>
+      {
+        hasWide && (
+          <>
+            <div class="cover__wide">
+              <slot name="wide" />
+            </div>
+            <div class="cover__after">
+              <ScrollCue text={cue} />
+            </div>
+          </>
+        )
+      }
+    </div>
+  </div>
+  <div class="cover__foot" aria-hidden="true" data-cover-foot></div>
+</section>
+
+<style>
+  /* clip, not hidden: hidden would make the cover a scroll container and
+     stop the sticky scroll cue (and the S1 stage) from sticking. */
+  .cover {
+    position: relative;
+    overflow: clip;
+  }
+
+  .cover__inner {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(24px, min(4.4vw, 5vh), 64px) var(--pad) clamp(64px, 7.2vw, 104px);
+  }
+
+  .cover__inner--wide {
+    padding-bottom: 0;
+  }
+
+  .cover__head {
+    margin-top: 20px;
+  }
+
+  /* Beside a wide figure, the shout and the lead share a row. */
+  .cover__head--row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 80px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .cover__head--row .cover__shout {
+    flex: 1 1 480px;
+  }
+
+  .cover__text--beside {
+    flex: 1 1 360px;
+    max-width: var(--measure);
+  }
+
+  .cover__line {
+    display: block;
+  }
+
+  /* Never wider than the page: a word of Heros Cn Bold capitals is about
+     0.6 em per letter, so the shout fits its longest word in the column. */
+  .cover__shout {
+    font-size: min(var(--fs-shout), calc((100vw - 2 * var(--pad)) / (var(--longest) * 0.6)));
+  }
+
+  .cover__shout.shout--home {
+    font-size: min(var(--fs-shout-home), calc((100vw - 2 * var(--pad)) / (var(--longest) * 0.6)));
+  }
+
+  .cover__body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: clamp(24px, min(4vw, 4.5vh), 56px);
+  }
+
+  .cover__text {
+    flex: 1 1 320px;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .cover__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* The figure bleeds off the right edge of the page. */
+  .cover__figure {
+    flex: 999 1 560px;
+    min-width: 0;
+    margin-right: calc(-1 * var(--pad));
+  }
+
+  /* A full-width figure under the head: it runs edge to edge; what it holds
+     (a legend, labels) sets its own width. */
+  .cover__wide {
+    margin-top: clamp(48px, 6vw, 88px);
+  }
+
+  .cover__after {
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: 0 var(--pad) clamp(48px, 6vw, 80px);
+  }
+
+  /* A zero-height sentinel at the cover's foot: the masthead tightens once
+     it passes under it (M2). */
+  .cover__foot {
+    height: 0;
+  }
+</style>
