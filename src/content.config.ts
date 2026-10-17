@@ -118,7 +118,7 @@ const team = defineCollection({
       role: text.optional(),
       /** As the card prints it, e.g. DIRECTION or APPLIED PHYSICS · W. */
       department: text.optional(),
-      /** In colour, 3:4. Without one the card shows a placeholder tile. */
+      /** In colour, a square bust shot. Without one the card shows a placeholder tile. */
       photo: image().optional(),
       alt: text.optional(),
       /** The LinkedIn handle, the part after linkedin.com/in/: the card links to the profile. */

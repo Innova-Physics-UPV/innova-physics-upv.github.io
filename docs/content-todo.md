@@ -32,7 +32,7 @@ talk, open to the whole school; the dossier, final.
 | A photo of Model-0 glowing, in colour, 3:2, at least 2000 px wide | `src/assets/photos/model-0-bench.webp` (the bench photo until then) |
 | The accelECR poster session and the vacuum bench, larger, at least 2000 px wide | `src/content/seasons/04-cern.yaml`, `05-now.yaml` |
 | One-ink vector logos for iTEAM and Edwards (masks of the white rasters until then) | `src/components/PartnerMark.astro` |
-| Portraits for the tutor's and the co-lead's cards, and for any member who asks for a card, 3:4, in colour | `src/content/team/` and `src/assets/team/` |
+| Portraits for the tutor's, the co-lead's and the members' cards (Daniel Isliker, Jordi Samper, Javier García), square bust shots in colour, cropped like Marc's and Yuxiao's | `src/content/team/` and `src/assets/team/` |
 
 ## Decisions for Applied Physics
 

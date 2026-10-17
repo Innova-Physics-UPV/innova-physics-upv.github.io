@@ -13,9 +13,9 @@ department:
   va: DIRECCIÓ
 photo: ../../assets/team/marc-sanchis.webp
 alt:
-  en: Marc Sanchis, in the team polo, arms crossed, smiling.
-  es: Marc Sanchis, con el polo del equipo, de brazos cruzados y sonriendo.
-  va: Marc Sanchis, amb el polo de l’equip, de braços plegats i somrient.
+  en: Marc Sanchis, in the team polo, smiling.
+  es: Marc Sanchis, con el polo del equipo, sonriendo.
+  va: Marc Sanchis, amb el polo de l’equip, somrient.
 linkedin: marc-sanchis
 consent: true
 order: 2
