@@ -143,6 +143,10 @@ New logos go through SVGO first (`design-system/README.md`).
 `main` cannot be force-pushed or deleted. If a deploy goes wrong, revert the
 merge commit on a branch (`git revert -m 1 <merge commit>`) and merge that.
 
+Every Monday Dependabot (`.github/dependabot.yml`) opens pull requests for new
+releases of the dependencies and of the workflow's actions. Review and merge
+them like any other change: the build must pass first.
+
 ## Deployment
 
 Every push to `main` runs `.github/workflows/astro.yml`: `npm ci`,
