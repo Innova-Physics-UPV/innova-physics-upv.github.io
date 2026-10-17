@@ -168,6 +168,19 @@ These addresses are used outside the site and must keep working:
 signatures), `/dossier.pdf` and `/partners/`. GitHub Pages has no server
 redirects, so a page that moves needs a forwarding page at its old address.
 
+## Security
+
+- GitHub Pages serves the site over HTTPS only.
+- Every page carries a Content Security Policy (see "Rules"), sets no cookies,
+  has no analytics and loads nothing from another server.
+- The deploy workflow pins every action to a release's commit, gives its token
+  read-only rights except in the deploy job, and keeps no credentials in the
+  clone. Dependabot proposes updates every week; `npm audit` should report
+  nothing.
+- `/.well-known/security.txt` (RFC 9116) says where to report a security
+  problem. Its `Expires` date, 17 October 2027, must be moved a year ahead
+  before then, in `public/.well-known/security.txt`.
+
 ## What is still to come
 
 - `docs/content-todo.md`: the facts, pictures and decisions still to come, and

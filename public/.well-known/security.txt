@@ -1,0 +1,5 @@
+# How to report a security problem with this website (RFC 9116).
+Contact: mailto:innovaphysicsupv@gmail.com
+Expires: 2027-10-17T00:00:00.000Z
+Preferred-Languages: en, es, ca
+Canonical: https://innova-physics-upv.github.io/.well-known/security.txt
