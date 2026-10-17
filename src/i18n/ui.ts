@@ -10,10 +10,11 @@ export const ui = {
       es: 'Un equipo de estudiantes de la Universitat Politècnica de València que diseña y construye ALOHA, un acelerador de electrones de sobremesa de hardware abierto.',
       va: 'Un equip d’estudiants de la Universitat Politècnica de València que dissenya i construïx ALOHA, un accelerador d’electrons de sobretaula de maquinari obert.',
     },
+    /** The shared-link picture: the cover's ALOHA-0 render on ultramarine. */
     imageAlt: {
-      en: 'Build the beam: Innova Physics UPV, València.',
-      es: 'Construye el haz: Innova Physics UPV, València.',
-      va: 'Construïx el feix: Innova Physics UPV, València.',
+      en: 'ALOHA-0, the electron source, simulated in COMSOL: the electrodes in white and the beam from lapis to vermilion, on ultramarine.',
+      es: 'ALOHA-0, la fuente de electrones, simulada en COMSOL: los electrodos en blanco y el haz del lapislázuli al bermellón, sobre ultramar.',
+      va: 'ALOHA-0, la font d’electrons, simulada en COMSOL: els elèctrodes en blanc i el feix del lapislàtzuli al vermelló, sobre ultramar.',
     },
     skip: { en: 'Skip to content', es: 'Saltar al contenido', va: 'Anar al contingut' },
   },
