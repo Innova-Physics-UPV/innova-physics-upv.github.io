@@ -5,9 +5,8 @@ student team at the Universitat Politècnica de València that designs and build
 ALOHA, an open-hardware tabletop electron accelerator. Built with
 [Astro](https://astro.build/) 7, static, deployed to GitHub Pages.
 
-**Status:** this is the new site, on the `new-web` branch. Its content is still
-placeholder (see [Before it goes live](#before-it-goes-live)); `main` keeps the
-current site live until the new one is merged.
+**Status:** live at https://innova-physics-upv.github.io/ since 17 October 2026.
+What is still to come is listed in `docs/content-todo.md`.
 
 **Maintainer:** Marc Sanchis (team lead), who also gives the go-live OK.
 **Contact:** innovaphysicsupv@gmail.com.
@@ -128,6 +127,21 @@ Photos go in `src/assets/` (not `public/`): Astro makes AVIF and WebP copies at
 the sizes each screen needs. Give every photo alt text that says who and what.
 New logos go through SVGO first (`design-system/README.md`).
 
+## Making a change
+
+`main` is what is live, and it only changes through a pull request:
+
+1. Branch from `main`, make the change, and check it with `npm run check`,
+   `npm run build` and `npm run preview`.
+2. Push the branch and open a pull request into `main`. The workflow checks
+   and builds it, without deploying.
+3. When the build is green and the pull request is approved (one approving
+   review; the maintainer's account is exempt), merge it. The merge deploys
+   the site in about two minutes.
+
+`main` cannot be force-pushed or deleted. If a deploy goes wrong, revert the
+merge commit on a branch (`git revert -m 1 <merge commit>`) and merge that.
+
 ## Deployment
 
 Every push to `main` runs `.github/workflows/astro.yml`: `npm ci`,
@@ -146,17 +160,19 @@ These addresses are used outside the site and must keep working:
 signatures), `/dossier.pdf` and `/partners/`. GitHub Pages has no server
 redirects, so a page that moves needs a forwarding page at its old address.
 
-## Before it goes live
+## What is still to come
 
-- `docs/content-todo.md`: every placeholder on the site and the file that holds it.
-- `docs/go-live.md`: the steps to launch, and what to check afterwards.
+- `docs/content-todo.md`: the facts, pictures and decisions still to come, and
+  the file each goes in.
+- `docs/go-live.md`: how the site was launched, and what to check after a
+  deploy.
 
 ## Branches
 
 | Branch    | What it is                                     |
 | :-------- | :--------------------------------------------- |
-| `main`    | What is live; a push deploys it                |
-| `new-web` | This site, until it is merged into `main`      |
+| `main`    | What is live; a merge deploys it               |
+| `new-web` | The rebuild, merged into `main` on 17 October 2026 (pull request #9); kept for its history |
 | `ip3-web` | The interim version of the old site            |
 | `ip2-web` | The previous website (Next.js), kept as it was |
 
