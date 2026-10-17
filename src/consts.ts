@@ -8,10 +8,10 @@ export const FORM_URL = 'https://app.formbricks.com/s/cmtu7yz8fjked01z5rk1eelti'
 
 // The PDF stays in public/dossier.pdf, since it is linked from outside the
 // site. The download button on /partners ships only once the dossier is
-// signed off as final (launch copy, 16 October 2026); until then the closing
-// sheet keeps "Write to us" alone.
+// signed off as final (it was, on 17 October 2026); while DOSSIER_FINAL is
+// false the closing sheet keeps "Write to us" alone.
 export const DOSSIER_URL = '/dossier.pdf';
-export const DOSSIER_FINAL = false;
+export const DOSSIER_FINAL = true;
 
 export const CONTACT_EMAIL = 'innovaphysicsupv@gmail.com';
 
