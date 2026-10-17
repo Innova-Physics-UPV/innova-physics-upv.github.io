@@ -43,8 +43,8 @@ const link = href ? { href, rel: 'noopener', 'aria-label': linkLabel } : {};
     }
     <p class="person__name">{p.name}</p>
   </Head>
-  <p class="person__role">{p.role}</p>
-  <p class="label muted person__dept">{p.department}</p>
+  {p.role && <p class="person__role">{p.role}</p>}
+  {p.department && <p class="label muted person__dept">{p.department}</p>}
 </li>
 
 <style>

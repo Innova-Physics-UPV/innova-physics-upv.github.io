@@ -114,9 +114,10 @@ const team = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
-      role: text,
+      /** Direction's title, e.g. Team lead. A member's card has none: just the name. */
+      role: text.optional(),
       /** As the card prints it, e.g. DIRECTION or APPLIED PHYSICS · W. */
-      department: text,
+      department: text.optional(),
       /** In colour, 3:4. Without one the card shows a placeholder tile. */
       photo: image().optional(),
       alt: text.optional(),
