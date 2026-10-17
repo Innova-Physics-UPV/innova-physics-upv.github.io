@@ -1,15 +1,17 @@
 // The home page's own copy, in the three languages. The story's stations are
 // in src/content/seasons/, the readings in src/data/readings.ts and the Join
-// call reuses the Join page's words (src/i18n/join.ts). Placeholder copy from
-// the canvas until the team's content document (docs/content-todo.md).
+// call reuses the Join page's words (src/i18n/join.ts). The launch copy is
+// the doc "Website copy for launch", tab 2 (docs/copy/02-home.md). No founding
+// year anywhere: the story starts in 2026.
+import type { Text } from '../i18n';
+import { round } from './recruitment';
+
+/** Students this season, counted once the round is decided: one number for the home and Join, set in src/data/recruitment.ts. While it is not set the facts line leaves the count out. */
+const STUDENTS = round.students;
 
 export const home = {
   cover: {
-    kicker: {
-      en: 'INNOVA PHYSICS UPV · VALÈNCIA · SINCE 2023',
-      es: 'INNOVA PHYSICS UPV · VALÈNCIA · DESDE 2023',
-      va: 'INNOVA PHYSICS UPV · VALÈNCIA · DES DE 2023',
-    },
+    kicker: 'INNOVA PHYSICS UPV · VALÈNCIA',
     shout: [
       { en: 'BUILD THE', es: 'CONSTRUYE', va: 'CONSTRUÏX' },
       { en: 'BEAM', es: 'EL HAZ', va: 'EL FEIX' },
@@ -52,15 +54,17 @@ export const home = {
     },
     /** S4 lights it word by word. */
     statement: {
-      en: 'Few universities let undergraduates near an accelerator. We are students from different degrees at the UPV who design, simulate and build one, and we aim to publish every step so other teams can build their own.',
-      es: 'Pocas universidades dejan que sus estudiantes de grado se acerquen a un acelerador. Somos estudiantes de distintas titulaciones de la UPV que diseñamos, simulamos y construimos uno, y aspiramos a publicar cada paso para que otros equipos puedan construir el suyo.',
-      va: 'Poques universitats deixen que els seus estudiants de grau s’acosten a un accelerador. Som estudiants de diferents titulacions de la UPV que dissenyem, simulem i construïm un accelerador, i aspirem a publicar cada pas perquè altres equips puguen construir el seu.',
+      en: 'Few universities let undergraduates near an accelerator. At the UPV, the accelerator elective our tutor teaches at ETSIT began as our proposal. We are students from different degrees who design, simulate and build an accelerator, and we aim to publish every step so other teams can build their own.',
+      es: 'Pocas universidades dejan que sus estudiantes de grado se acerquen a un acelerador. En la UPV, la optativa de aceleradores que imparte nuestro tutor en la ETSIT nació como una propuesta nuestra. Somos estudiantes de distintas titulaciones que diseñamos, simulamos y construimos un acelerador, y aspiramos a publicar cada paso para que otros equipos construyan el suyo.',
+      va: 'Poques universitats deixen que els seus estudiants de grau s’acosten a un accelerador. A la UPV, l’optativa d’acceleradors que impartix el nostre tutor a l’ETSIT va nàixer com una proposta nostra. Som estudiants de diferents titulacions que dissenyem, simulem i construïm un accelerador, i aspirem a publicar cada pas perquè altres equips construïsquen el seu.',
     },
-    facts: {
-      en: 'FOUNDED 2023 · 30+ STUDENTS · 4 DEPARTMENTS',
-      es: 'FUNDADO EN 2023 · 30+ ESTUDIANTES · 4 DEPARTAMENTOS',
-      va: 'FUNDAT EL 2023 · 30+ ESTUDIANTS · 4 DEPARTAMENTS',
-    },
+    /** The facts line, its parts joined with " · ". The season dates the count. */
+    facts: [
+      ...(STUDENTS
+        ? [{ en: `${STUDENTS} STUDENTS IN ${round.season}`, es: `${STUDENTS} ESTUDIANTES EN ${round.season}`, va: `${STUDENTS} ESTUDIANTS EN ${round.season}` }]
+        : []),
+      { en: '4 DEPARTMENTS', es: '4 DEPARTAMENTOS', va: '4 DEPARTAMENTS' },
+    ],
     photoAlt: {
       en: 'The Innova Physics UPV team, about thirty students in white team shirts, outdoors.',
       es: 'El equipo de Innova Physics UPV, una treintena de estudiantes con las camisetas blancas del equipo, al aire libre.',
@@ -68,16 +72,21 @@ export const home = {
     },
     caption: {
       lead: { en: 'The team.', es: 'El equipo.', va: 'L’equip.' },
-      text: { en: '[SEASON].', es: '[TEMPORADA].', va: '[TEMPORADA].' },
+      /** "[Season], [place]." ("[Temporada], [lugar]." / "[Temporada], [lloc]."), once Communication knows them. Without it the lead stands alone. */
+      text: undefined as Text | undefined,
     },
   },
   story: {
-    kicker: { en: 'OUR STORY · 2023 TO NOW', es: 'NUESTRA HISTORIA · DE 2023 A HOY', va: 'LA NOSTRA HISTÒRIA · DE 2023 A HUI' },
+    kicker: {
+      en: 'OUR STORY · ALOHA · SINCE 2026',
+      es: 'NUESTRA HISTORIA · ALOHA · DESDE 2026',
+      va: 'LA NOSTRA HISTÒRIA · ALOHA · DES DE 2026',
+    },
     title: { en: 'One beamline', es: 'Una línea de haz', va: 'Una línia de feix' },
     lead: {
-      en: 'Read it like an accelerator, from the source to the target: every season adds an element to the line.',
-      es: 'Léela como un acelerador, de la fuente al blanco: cada temporada añade un elemento a la línea.',
-      va: 'Llig-la com un accelerador, de la font al blanc: cada temporada afig un element a la línia.',
+      en: 'Read it like an accelerator, from the source to the target: every step adds an element to the line.',
+      es: 'Léela como un acelerador, de la fuente al blanco: cada paso añade un elemento a la línea.',
+      va: 'Llig-la com un accelerador, de la font al blanc: cada pas afig un element a la línia.',
     },
     past: {
       en: 'PAST SEASONS · IP0 TO IP2',

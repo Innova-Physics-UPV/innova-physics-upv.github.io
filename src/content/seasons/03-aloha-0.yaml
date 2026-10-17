@@ -1,13 +1,14 @@
-order: 3
-season: "2025-26 · ALOHA-0"
+# After CERN: the source went to CERN in its first design.
+order: 4
+season: "2026 · ALOHA-0"
 title:
   en: "The electron source, simulated"
   es: "La fuente de electrones, simulada"
   va: "La font d’electrons, simulada"
 body:
-  en: "Our first accelerator starts where every accelerator starts: a thermionic triode in telefocus configuration. A hot tungsten cathode emits, a Wehnelt cylinder shapes the emission, and an anode 30 kV above the cathode pulls the beam out."
-  es: "Nuestro primer acelerador empieza donde empiezan todos: un triodo termoiónico en configuración telefocus. Un cátodo de wolframio caliente emite, un cilindro de Wehnelt da forma a la emisión y un ánodo a 30 kV por encima del cátodo extrae el haz."
-  va: "El nostre primer accelerador comença on comencen tots: un tríode termoiònic en configuració telefocus. Un càtode de wolframi calent emet, un cilindre de Wehnelt dona forma a l’emissió i un ànode a 30 kV per damunt del càtode extrau el feix."
+  en: "Our first accelerator starts where every accelerator does, with a source. ALOHA-0 is a thermionic triode in telefocus configuration: a hot tungsten cathode emits, a Wehnelt cylinder shapes the emission, and the anode pulls the beam out. Simulated in COMSOL at 30 kV, it gave 1.5 mA in a spot under a millimetre; the build aims at 20 kV and under 1 mA."
+  es: "Nuestro primer acelerador empieza donde empiezan todos, con una fuente. ALOHA-0 es un triodo termoiónico en configuración telefocus: un cátodo de wolframio caliente emite, un cilindro de Wehnelt da forma a la emisión y el ánodo extrae el haz. Simulado en COMSOL a 30 kV, dio 1,5 mA en un foco de menos de un milímetro; la construcción apunta a 20 kV y menos de 1 mA."
+  va: "El nostre primer accelerador comença on comencen tots, amb una font. ALOHA-0 és un tríode termoiònic en configuració telefocus: un càtode de tungstè calent emet, un cilindre de Wehnelt dona forma a l’emissió i l’ànode extrau el feix. Simulat en COMSOL a 30 kV, va donar 1,5 mA en un focus de menys d’un mil·límetre; la construcció apunta a 20 kV i menys d’1 mA."
 marker: hatched
 picture:
   kind: figure
@@ -18,13 +19,12 @@ caption:
     es: "La fuente, en sección."
     va: "La font, en secció."
   text:
-    en: "Cathode, Wehnelt and anode hatched: simulated. The einzel lens outlined: planned."
-    es: "Cátodo, Wehnelt y ánodo rayados: simulados. La lente einzel en contorno: prevista."
-    va: "Càtode, Wehnelt i ànode ratllats: simulats. La lent einzel en contorn: prevista."
-# The write-up is in English: the Spanish and Valencian labels say so.
+    en: "Cathode, Wehnelt and anode hatched: simulated."
+    es: "Cátodo, Wehnelt y ánodo rayados: simulados."
+    va: "Càtode, Wehnelt i ànode ratllats: simulats."
 link:
-  href: "/research/aloha-0-electron-source/"
+  href: "/machine/#aloha-0"
   label:
-    en: "READ THE WRITE-UP"
-    es: "LEE EL INFORME, EN INGLÉS"
-    va: "LLIG L’INFORME, EN ANGLÉS"
+    en: "SEE THE MACHINE"
+    es: "VER LA MÁQUINA"
+    va: "VEURE LA MÀQUINA"

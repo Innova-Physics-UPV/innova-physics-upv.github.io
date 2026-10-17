@@ -1,4 +1,5 @@
-order: 4
+# Before ALOHA-0: the source went to CERN in its first design.
+order: 3
 season:
   en: "JULY 2026 · CERN"
   es: "JULIO 2026 · CERN"
@@ -8,9 +9,9 @@ title:
   es: "Nuestros pósteres en el CERN"
   va: "Els nostres pòsters al CERN"
 body:
-  en: "We took ALOHA-0, and our case for teaching accelerators to undergraduates, to the accelECR poster session for early-career researchers at CERN, and to IdeaSquare."
-  es: "Llevamos ALOHA-0, y nuestros argumentos para enseñar aceleradores en el grado, a la sesión de pósteres accelECR para investigadores que empiezan su carrera en el CERN, y a IdeaSquare."
-  va: "Vam portar ALOHA-0, i els nostres arguments per a ensenyar acceleradors en el grau, a la sessió de pòsters accelECR per a investigadors que comencen la seua carrera al CERN, i a IdeaSquare."
+  en: "We took ALOHA to CERN, with Model-0 and the first design of our electron source, on two posters: one on our case for teaching accelerators by building them, one on the source. We presented them at the accelECR poster session for early-career researchers, and visited IdeaSquare."
+  es: "Llevamos ALOHA al CERN, con Model-0 y el primer diseño de nuestra fuente de electrones, en dos pósteres: uno sobre por qué enseñar aceleradores construyéndolos y otro sobre la fuente. Los presentamos en la sesión de pósteres accelECR, para investigadores que empiezan su carrera, y visitamos IdeaSquare."
+  va: "Vam portar ALOHA al CERN, amb Model-0 i el primer disseny de la nostra font d’electrons, en dos pòsters: un sobre per què cal ensenyar acceleradors construint-los i un altre sobre la font. Els vam presentar a la sessió de pòsters accelECR, per a investigadors que comencen la seua carrera, i vam visitar IdeaSquare."
 marker: solid
 picture:
   kind: photo
@@ -24,7 +25,8 @@ caption:
     en: "The accelECR poster session."
     es: "La sesión de pósteres accelECR."
     va: "La sessió de pòsters accelECR."
+  # The photo is the team's own, so no credit line.
   text:
-    en: "CERN, July 2026."
-    es: "CERN, julio de 2026."
-    va: "CERN, juliol de 2026."
+    en: "CERN, 3 July 2026."
+    es: "CERN, 3 de julio de 2026."
+    va: "CERN, 3 de juliol de 2026."

@@ -5,7 +5,7 @@
   // constant speed, 48px every 480ms, and the spectrum swaps only once it has
   // stopped: data jumps, it never morphs. The server renders the vermilion
   // stratum, read, so without JavaScript the figure is finished and still.
-  import { strata as allStrata, readingsCopy, DEFAULT_STRATUM, ENERGY_MIN, ENERGY_MAX } from '../../data/readings';
+  import { strata as allStrata, readingsCopy, formatKeV, DEFAULT_STRATUM, ENERGY_MIN, ENERGY_MAX } from '../../data/readings';
   import { inLang, type Lang } from '../../i18n';
 
   interface Props {
@@ -20,6 +20,8 @@
   // svelte-ignore state_referenced_locally
   const t = inLang(readingsCopy, lang);
   type XrayLine = (typeof strata)[number]['lines'][number];
+  // Energies with the page's decimal mark: 9.99 keV, or 9,99 keV in es and va.
+  const kev = (keV: number) => formatKeV(keV, lang);
 
   const STEP = 48; // a stratum's height, px
   const MS_PER_PX = 480 / STEP;
@@ -123,7 +125,7 @@
           class="readings__line"
           style:left={at(l.keV, 12)}
           style:height="{Math.max(24, tall(l))}px"
-          aria-label="{l.element} {l.line}, {l.keV.toFixed(2)} keV"
+          aria-label="{l.element} {l.line}, {kev(l.keV)} keV"
           onpointerenter={() => (named = i)}
           onpointerleave={() => (named = null)}
           onfocus={() => (named = i)}
@@ -172,7 +174,7 @@
 
   <p class="label readings__legend" aria-live="polite">
     <span class="muted">{t.line} ·</span>
-    {legendLine ? `${legendLine.element} ${legendLine.line} · ${legendLine.keV.toFixed(2)} keV · ${legendLine.from}` : t.none}
+    {legendLine ? `${legendLine.element} ${legendLine.line} · ${kev(legendLine.keV)} keV · ${legendLine.from}` : t.none}
   </p>
   <p class="caption readings__note">
     <strong>{t.caption.lead}</strong> {t.caption.text}<span class="js-only"> {t.caption.how}</span>

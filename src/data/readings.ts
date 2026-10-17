@@ -3,8 +3,9 @@
 // tabulated (X-ray Data Booklet, as in design-system/tokens.json); heights
 // are design values, a fraction of the 180px tallest line, not measured
 // intensities. Ca Kβ is drawn on the canvas but not yet in tokens.json.
-// Words in the three languages; element symbols and energies are the same.
-import type { Text } from '../i18n';
+// Words in the three languages; element symbols and energies are the same,
+// but Spanish and Valencian write them with the decimal comma.
+import type { Lang, Text } from '../i18n';
 
 export interface XrayLine {
   element: string;
@@ -30,6 +31,12 @@ export interface Stratum {
 export const ENERGY_MIN = 1;
 export const ENERGY_MAX = 15;
 
+/** An energy to two decimals, as the page's language writes it: 9.99 in English, 9,99 in Spanish and Valencian. */
+export const formatKeV = (keV: number, lang: Lang) => {
+  const fixed = keV.toFixed(2);
+  return lang === 'en' ? fixed : fixed.replace('.', ',');
+};
+
 const lazurite = (element: Record<'en' | 'es' | 'va', string>) => ({
   en: `${element.en}, from the lapis lazuli ground to a blue`,
   es: `${element.es}, del lapislázuli molido hasta dar un azul`,
@@ -53,7 +60,7 @@ export const strata: Stratum[] = [
   },
   {
     name: { en: 'ULTRAMARINE', es: 'ULTRAMAR', va: 'ULTRAMAR' },
-    label: { en: 'ULTRAMARINE · S Kα 2.31 keV', es: 'ULTRAMAR · S Kα 2.31 keV', va: 'ULTRAMAR · S Kα 2.31 keV' },
+    label: { en: 'ULTRAMARINE · S Kα 2.31 keV', es: 'ULTRAMAR · S Kα 2,31 keV', va: 'ULTRAMAR · S Kα 2,31 keV' },
     ground: 'var(--ultramarine)',
     ink: 'var(--lead-white)',
     aside: {
@@ -69,7 +76,7 @@ export const strata: Stratum[] = [
   },
   {
     name: { en: 'VERMILION', es: 'BERMELLÓN', va: 'VERMELLÓ' },
-    label: { en: 'VERMILION · Hg Lα 9.99 keV', es: 'BERMELLÓN · Hg Lα 9.99 keV', va: 'VERMELLÓ · Hg Lα 9.99 keV' },
+    label: { en: 'VERMILION · Hg Lα 9.99 keV', es: 'BERMELLÓN · Hg Lα 9,99 keV', va: 'VERMELLÓ · Hg Lα 9,99 keV' },
     ground: 'var(--vermilion)',
     ink: 'var(--white)',
     aside: {
@@ -96,7 +103,7 @@ export const strata: Stratum[] = [
   },
   {
     name: { en: 'GESSO', es: 'YESO', va: 'GUIX' },
-    label: { en: 'GESSO · Ca Kα 3.69 keV', es: 'YESO · Ca Kα 3.69 keV', va: 'GUIX · Ca Kα 3.69 keV' },
+    label: { en: 'GESSO · Ca Kα 3.69 keV', es: 'YESO · Ca Kα 3,69 keV', va: 'GUIX · Ca Kα 3,69 keV' },
     ground: 'var(--gesso-layer)',
     ink: 'var(--bone-black)',
     aside: {

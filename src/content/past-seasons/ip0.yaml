@@ -1,14 +1,16 @@
 order: 0
-# Placeholder: the team's copy and photo for IP0 are still to come; the
-# season's years are confirmed (Marc, 10 October 2026).
+# The founding moved here from the home's story with the launch copy (16
+# October 2026), as a draft for IP0's coordinators to rewrite in their own
+# words; their photo is still to come. The season's years are confirmed
+# (Marc, 10 October 2026).
 season: "IP0 · 2023-24"
 title:
-  en: "[TITLE]"
-  es: "[TÍTULO]"
-  va: "[TÍTOL]"
+  en: "A question at the UPV"
+  es: "Una pregunta en la UPV"
+  va: "Una pregunta a la UPV"
 body:
-  en: "[Two or three lines on what this season built, from the team.]"
-  es: "[Dos o tres líneas del equipo sobre lo que construyó esta temporada.]"
-  va: "[Dues o tres línies de l’equip sobre el que va construir esta temporada.]"
+  en: "Few universities teach how accelerators work before graduate school. Students at the Universitat Politècnica de València start a team to ask why, and to answer by building one."
+  es: "Pocas universidades enseñan cómo funcionan los aceleradores antes del máster o el doctorado. Estudiantes de la Universitat Politècnica de València forman un equipo para preguntar por qué, y para responder construyendo uno."
+  va: "Poques universitats ensenyen com funcionen els acceleradors abans del màster o el doctorat. Estudiants de la Universitat Politècnica de València formen un equip per a preguntar per què, i per a respondre construint-ne un."
 marker: solid
 placeholder: true

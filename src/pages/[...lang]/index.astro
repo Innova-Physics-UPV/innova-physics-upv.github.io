@@ -18,7 +18,7 @@ import TwoReadings from '../../components/islands/TwoReadings.svelte';
 import team from '../../assets/photos/team.webp';
 import { FORM_URL, PAST_SEASONS_LIVE, writeToJoin } from '../../consts';
 import { home } from '../../data/home';
-import { closesOn, round, roundIsOpen } from '../../data/recruitment';
+import { closesOn, nextOpensIn, round, roundIsOpen } from '../../data/recruitment';
 import { alternates, everyLang, inLang, localise, type Lang } from '../../i18n';
 import { joinCopy } from '../../i18n/join';
 import { ui } from '../../i18n/ui';
@@ -68,7 +68,7 @@ const words = t.team.statement.split(' ');
           <p class="team__statement measure" data-statement>
             {words.map((word, i) => <span class="w">{i < words.length - 1 ? `${word} ` : word}</span>)}
           </p>
-          <p class="label muted team__facts">{t.team.facts}</p>
+          <p class="label muted team__facts">{t.team.facts.join(' · ')}</p>
         </div>
         <figure class="team__figure">
           <div class="team__photo" data-team-photo>
@@ -91,7 +91,7 @@ const words = t.team.statement.split(' ');
       </div>
     </section>
 
-    <!-- Our story: one beamline, season by season. -->
+    <!-- Our story: one beamline, step by step. -->
     <section id="story" class="story" aria-labelledby="story-title">
       <div class="story__wrap">
         <div class="story__head">
@@ -131,7 +131,7 @@ const words = t.team.statement.split(' ');
         <p class="label muted">{j.closing.kicker(round.season)}</p>
         <h2 id="join-title" class="headline join__title">{j.closing.title}</h2>
         <p class="join__body measure">
-          {t.join.body}{' '}{open ? j.closing.open(closes) : j.closing.closed(closes)}
+          {t.join.body}{' '}{open ? j.closing.open(closes) : j.closing.closed(closes, nextOpensIn(lang))}
         </p>
         <p class="caption join__privacy">{j.privacy.before}<a href={j.privacy.href}>{j.privacy.link}</a>{j.privacy.after}</p>
       </div>

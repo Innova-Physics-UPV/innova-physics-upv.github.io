@@ -1,14 +1,13 @@
 order: 2
-# [SEASON]: the season of Model-0 is still to come from the team.
-season: "[SEASON] · MODEL-0"
+season: "2026 · MODEL-0"
 title:
   en: "A beam you can see"
   es: "Un haz que se puede ver"
   va: "Un feix que es pot veure"
 body:
-  en: "Our first device is a demonstrator for science communication: a glass bottle, a vacuum pump and a high-voltage supply. At about 1 Torr the gas glows along the path of the electrons. It brought Edwards Vacuum on board as our first sponsor."
-  es: "Nuestro primer dispositivo es un demostrador para divulgación científica: una botella de vidrio, una bomba de vacío y una fuente de alta tensión. A cerca de 1 Torr, el gas brilla a lo largo del camino de los electrones. Gracias a él, Edwards Vacuum se unió como nuestro primer patrocinador."
-  va: "El nostre primer dispositiu és un demostrador per a divulgació científica: una botella de vidre, una bomba de buit i una font d’alta tensió. A prop d’1 Torr, el gas brilla al llarg del camí dels electrons. Gràcies a ell, Edwards Vacuum es va unir com el nostre primer patrocinador."
+  en: "Our first device is a demonstrator for science communication: a glass bottle, a vacuum pump and a high-voltage supply. Pump most of the air out, switch on the voltage, and the thin gas glows where the electrons pass. Proposed the season before and finished as the coordination changed hands, it brought Edwards Vacuum on board as our first sponsor."
+  es: "Nuestro primer dispositivo es un demostrador de divulgación científica: una botella de vidrio, una bomba de vacío y una fuente de alta tensión. Se extrae casi todo el aire, se enciende la tensión y el gas enrarecido brilla allí por donde pasan los electrones. Propuesto la temporada anterior y terminado con el relevo de la coordinación, trajo a Edwards Vacuum como nuestro primer patrocinador."
+  va: "El nostre primer dispositiu és un demostrador de divulgació científica: una botella de vidre, una bomba de buit i una font d’alta tensió. Se n’extrau quasi tot l’aire, s’encén la tensió i el gas enrarit brilla allà per on passen els electrons. Proposat la temporada anterior i acabat amb el relleu de la coordinació, va portar Edwards Vacuum com a primer patrocinador nostre."
 marker: solid
 picture:
   kind: photo
