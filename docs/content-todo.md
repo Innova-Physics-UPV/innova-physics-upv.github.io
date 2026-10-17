@@ -32,7 +32,7 @@ talk, open to the whole school; the dossier, final.
 | A photo of Model-0 glowing, in colour, 3:2, at least 2000 px wide | `src/assets/photos/model-0-bench.webp` (the bench photo until then) |
 | The accelECR poster session and the vacuum bench, larger, at least 2000 px wide | `src/content/seasons/04-cern.yaml`, `05-now.yaml` |
 | One-ink vector logos for iTEAM and Edwards (masks of the white rasters until then) | `src/components/PartnerMark.astro` |
-| Portraits for the tutor's, the co-lead's and the members' cards (Daniel Isliker, Jordi Samper, Javier García), square bust shots in colour, cropped like Marc's and Yuxiao's | `src/content/team/` and `src/assets/team/` |
+| Portraits for the tutor's, Arlen Boesch's and the members' cards (Daniel Isliker, Jordi Samper, Javier García), square bust shots in colour, cropped like Marc's and Yuxiao's | `src/content/team/` and `src/assets/team/` |
 
 ## Decisions for Applied Physics
 
@@ -52,9 +52,10 @@ description go in with the posters.
 ## The team (`/join/#team`)
 
 Direction's three cards show, with consent: Lluís Miquel García-Raffi
-(tutor), Marc Sanchis (team lead) and Arlen Boesch (co-lead). The tutor's and
-the co-lead's show a placeholder tile until their photos come. Any member who
-asks for a card gets one, with `consent: true` in its file
+(tutor), then the two team leads, Marc Sanchis and Arlen Boesch. The members'
+cards follow, name only: Daniel Isliker, Jordi Samper, Javier García and
+Yuxiao Lin. A card without a photo shows a placeholder tile until it comes.
+Any member who asks for a card gets one, with `consent: true` in its file
 (`src/content/team/`).
 
 ## Past seasons (`/seasons/`, hidden)
