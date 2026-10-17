@@ -190,12 +190,20 @@ redirects, so a page that moves needs a forwarding page at its old address.
 
 ## Branches
 
-| Branch    | What it is                                     |
-| :-------- | :--------------------------------------------- |
-| `main`    | What is live; a merge deploys it               |
-| `new-web` | The rebuild, merged into `main` on 17 October 2026 (pull request #9); kept for its history |
-| `ip3-web` | The interim version of the old site            |
-| `ip2-web` | The previous website (Next.js), kept as it was |
+`main` is the only branch: what is live; a merge deploys it. Changes are made
+on short-lived branches that are deleted once their pull request is merged.
+
+The earlier branches were archived as tags on 17 October 2026:
+
+| Tag                                                                            | What it was                                                                    |
+| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+| `archive/new-web`                                                              | The rebuild of this site, merged into `main` on 17 October 2026 (pull request #9) |
+| `archive/ip3-web`                                                              | The interim version of the old site                                            |
+| `archive/ip2-web`                                                              | The previous website (Next.js), as it was                                      |
+| `archive/web-v3`, `archive/Home`, `archive/Partners`, `archive/Get-Involved` | Work on the old site, 2026                                                     |
+| `archive/prueba`, `archive/testing`                                            | Tests on the old site, December 2025, with eight commits never merged          |
+
+To bring one back as a branch: `git push origin archive/<name>:refs/heads/<name>`.
 
 ## Licences
 
