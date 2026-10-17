@@ -16,14 +16,14 @@ and the small labels share are in `src/i18n/ui.ts`.
 
 | What | Where | While it is empty |
 | --- | --- | --- |
-| Students in the team once the round is decided | `src/data/recruitment.ts` → `students` | The home's facts line reads only "4 DEPARTMENTS"; Join hides its count and the "students across the departments" tile |
-| The month the next round aims to open | `src/data/recruitment.ts` → `nextOpens` (`'2027-02'`) | The closed Join sentence ends without "We aim to open it in …" |
-| The team photo's season and place | `src/data/home.ts` → `team.caption.text` | The caption is only "The team." |
 | The vacuum-bench photo's month and place | `src/content/seasons/05-now.yaml` → `caption.text` | The caption reads "2026." |
-| Model-0's pressure: the date it was measured | `src/data/machine.ts` → Model-0's specs | MEASURED · PIRANI GAUGE, without a date |
 | The page each partner wants linked | `src/data/partners.ts` → `url` | The current links stay |
-| ETSIT's written OK for the recruiting talk and the CV book | `src/data/sponsorship.ts` → `ETSIT_RECRUITING_OK` | That Higgs benefit is left out of the table |
-| The dossier, signed off as final | `src/consts.ts` → `DOSSIER_FINAL` | The partners' closing sheet shows only "Write to us" |
+
+Set on 17 October 2026: 50 students in 2026-27 and the next round in
+February 2027 (`src/data/recruitment.ts`, change them each round); the team
+photo's caption, "25/26 team photo."; Model-0's operating pressure, 1.7 Torr,
+measured with a Pirani gauge on 7 July 2026; ETSIT's OK for the recruiting
+talk, open to the whole school; the dossier, final.
 
 ## Pictures
 
@@ -32,7 +32,7 @@ and the small labels share are in `src/i18n/ui.ts`.
 | A photo of Model-0 glowing, in colour, 3:2, at least 2000 px wide | `src/assets/photos/model-0-bench.webp` (the bench photo until then) |
 | The accelECR poster session and the vacuum bench, larger, at least 2000 px wide | `src/content/seasons/04-cern.yaml`, `05-now.yaml` |
 | One-ink vector logos for iTEAM and Edwards (masks of the white rasters until then) | `src/components/PartnerMark.astro` |
-| Portraits for more team cards, 3:4, in colour, with each person's consent | `src/content/team/` and `src/assets/team/` |
+| Portraits for the tutor's and the co-lead's cards, and for any member who asks for a card, 3:4, in colour | `src/content/team/` and `src/assets/team/` |
 
 ## Decisions for Applied Physics
 
@@ -51,9 +51,11 @@ description go in with the posters.
 
 ## The team (`/join/#team`)
 
-Only Marc's card shows. The tutor and the co-lead each get a card once they
-give their consent and the name they want shown; the order numbers leave
-slots 1 and 3 for them (`src/content/team/`).
+Direction's three cards show, with consent: Lluís Miquel García-Raffi
+(tutor), Marc Sanchis (team lead) and Arlen Boesch (co-lead). The tutor's and
+the co-lead's show a placeholder tile until their photos come. Any member who
+asks for a card gets one, with `consent: true` in its file
+(`src/content/team/`).
 
 ## Past seasons (`/seasons/`, hidden)
 
