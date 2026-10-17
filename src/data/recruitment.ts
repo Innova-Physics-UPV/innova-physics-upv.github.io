@@ -16,12 +16,12 @@ export const round: {
    * Students in the team once the round is decided, counted by Direction; the
    * home's facts line gives the same number. Left out, Join shows no count.
    */
-  students: undefined,
+  students: 50,
   /**
    * The month the next round aims to open, as YYYY-MM (e.g. '2027-02'). Left
    * out, the closed sentence ends without "We aim to open it in …".
    */
-  nextOpens: undefined,
+  nextOpens: '2027-02',
 };
 
 export function roundIsOpen(today: Date = new Date()): boolean {
