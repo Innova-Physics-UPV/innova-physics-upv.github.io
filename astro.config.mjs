@@ -64,6 +64,8 @@ export default defineConfig({
     sitemap({
       i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es', va: 'ca-ES-valencia' } },
       filter: (page) => hasResearch || !researchIndex.test(new URL(page).pathname),
+      // The team handbook is its own site (mdBook) under this address.
+      customPages: ['https://innova-physics-upv.github.io/handbook/'],
     }),
   ],
   // Research items are Markdown (MDX when they use a component): math is

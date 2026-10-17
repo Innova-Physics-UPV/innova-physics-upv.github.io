@@ -60,6 +60,8 @@ export const ui = {
     open: { en: 'OPEN', es: 'ABIERTO', va: 'OBERT' },
     docs: { en: 'DOCS · GITHUB', es: 'DOCUMENTACIÓN · GITHUB', va: 'DOCUMENTACIÓ · GITHUB' },
     texts: { en: 'TEXTS', es: 'TEXTOS', va: 'TEXTOS' },
+    /** The team handbook, in English. */
+    handbook: { en: 'HANDBOOK', es: 'MANUAL DEL EQUIPO, EN INGLÉS', va: 'MANUAL DE L’EQUIP, EN ANGLÉS' },
     /** Creative Commons' own page for the licence, in each language. */
     ccDeed: { en: '', es: 'deed.es', va: 'deed.ca' },
     type: { en: 'TYPE', es: 'TIPOGRAFÍA', va: 'TIPOGRAFIA' },

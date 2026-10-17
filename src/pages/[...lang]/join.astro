@@ -17,7 +17,7 @@ import StatusChip from '../../components/StatusChip.astro';
 import DeptCard from '../../components/join/DeptCard.astro';
 import PersonCard from '../../components/join/PersonCard.astro';
 import teamAtCern from '../../assets/photos/team-at-cern-2026.webp';
-import { FORM_URL, writeToJoin } from '../../consts';
+import { FORM_URL, HANDBOOK_JOINING, writeToJoin } from '../../consts';
 import { closesOn, nextOpensIn, round, roundIsOpen } from '../../data/recruitment';
 import { alternates, everyLang, htmlLang, inLang, langs, localise, type Lang } from '../../i18n';
 import { joinCopy } from '../../i18n/join';
@@ -103,6 +103,9 @@ const people = (await getCollection('team'))
           ))
         }
       </ol>
+      <p class="ladder__more">
+        <Button href={HANDBOOK_JOINING} variant="text" hreflang="en">{t.ladder.handbook}</Button>
+      </p>
     </Section>
 
     <Section id="team" kicker={t.team.kicker(round.season)} title={t.team.title}>
@@ -205,6 +208,10 @@ const people = (await getCollection('team'))
     padding: 0;
     list-style: none;
     border-top: var(--beam) solid var(--accent);
+  }
+
+  .ladder__more {
+    margin-top: 40px;
   }
 
   .ladder__step {

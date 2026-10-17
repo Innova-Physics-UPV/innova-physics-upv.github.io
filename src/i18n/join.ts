@@ -27,7 +27,13 @@ export interface JoinCopy {
     title: string;
     items: { key: 'applied-physics' | 'electronics-control' | 'technical-design' | 'communication'; name: string; body: string; logoLabel: string }[];
   };
-  ladder: { kicker: string; title: string; steps: { title: string; body: string }[] };
+  ladder: {
+    kicker: string;
+    title: string;
+    steps: { title: string; body: string }[];
+    /** The link to the handbook's chapter "Joining the team", in English. */
+    handbook: string;
+  };
   team: {
     kicker: (season: string) => string;
     title: string;
@@ -129,6 +135,7 @@ const en: JoinCopy = {
       { title: 'Member', body: 'You join a department and pick up tasks. Each task team forms around one deliverable and dissolves when it ships.' },
       { title: 'Qualified', body: 'Recognised in an area, one area at a time.' },
     ],
+    handbook: 'THE HANDBOOK: JOINING THE TEAM',
   },
   team: {
     kicker: (season) => `THE TEAM · ${season}`,
@@ -210,6 +217,7 @@ const es: JoinCopy = {
       { title: 'Miembro', body: 'Entras en un departamento y asumes tareas. Cada equipo de tarea se forma en torno a un entregable y se disuelve al entregarlo.' },
       { title: 'Cualificación', body: 'Reconocimiento en un área, de una en una.' },
     ],
+    handbook: 'EL MANUAL DEL EQUIPO, EN INGLÉS: CÓMO UNIRSE',
   },
   team: {
     kicker: (season) => `EL EQUIPO · ${season}`,
@@ -295,6 +303,7 @@ const va: JoinCopy = {
       { title: 'Membre', body: 'Entres en un departament i assumixes tasques. Cada equip de tasca es forma al voltant d’un lliurable i es dissol en lliurar-lo.' },
       { title: 'Qualificació', body: 'Reconeixement en una àrea, d’una en una.' },
     ],
+    handbook: 'EL MANUAL DE L’EQUIP, EN ANGLÉS: COM UNIR-SE',
   },
   team: {
     kicker: (season) => `L’EQUIP · ${season}`,
