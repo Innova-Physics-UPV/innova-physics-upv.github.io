@@ -36,9 +36,9 @@ const link = href ? { href, rel: 'noopener', 'aria-label': linkLabel } : {};
           class="person__photo"
         />
       ) : (
-        <div class="person__photo person__photo--none">
-          <span class="label muted">{photoMissing}</span>
-        </div>
+        // Decorative, so drawn by CSS from data-note: it is no text of the
+        // link, whose name stays "Name on LinkedIn" (WCAG 2.5.3).
+        <div class="person__photo person__photo--none" data-note={photoMissing} />
       )
     }
     <p class="person__name">{p.name}</p>
@@ -61,6 +61,17 @@ const link = href ? { href, rel: 'noopener', 'aria-label': linkLabel } : {};
     align-items: flex-end;
     padding: 12px;
     background: var(--line);
+  }
+
+  /* PHOTO TO COME, in the label style. The ink, not the muted colour: on
+     the tile's ground the muted colour falls below 4.5:1. */
+  .person__photo--none::after {
+    content: attr(data-note);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+    letter-spacing: 0.06em;
   }
 
   .person__head {
