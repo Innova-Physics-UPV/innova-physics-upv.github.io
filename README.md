@@ -9,7 +9,7 @@ ALOHA, an open-hardware tabletop electron accelerator. Built with
 placeholder (see [Before it goes live](#before-it-goes-live)); `main` keeps the
 current site live until the new one is merged.
 
-**Maintainer:** Marc Sanchis (coordinator), who also gives the go-live OK.
+**Maintainer:** Marc Sanchis (team lead), who also gives the go-live OK.
 **Contact:** innovaphysicsupv@gmail.com.
 
 ## Getting started

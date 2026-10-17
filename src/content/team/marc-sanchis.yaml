@@ -1,12 +1,12 @@
 # Published with consent (Marc, 7 October 2026). Role and department as the
 # launch copy gives them (docs/copy/03-join.md, 3.4). Order: Direction first,
-# tutor 1, coordinator 2, co-lead 3; then each member who asks for a card, in
+# tutor 1, team lead 2, co-lead 3; then each member who asks for a card, in
 # alphabetical order, from 10.
 name: Marc Sanchis
 role:
-  en: Coordinator
-  es: Coordinador
-  va: Coordinador
+  en: Team lead
+  es: Líder del equipo
+  va: Líder de l’equip
 department:
   en: DIRECTION
   es: DIRECCIÓN
