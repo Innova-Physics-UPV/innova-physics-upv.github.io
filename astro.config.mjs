@@ -1,4 +1,5 @@
 // @ts-check
+import { existsSync, readdirSync } from 'node:fs';
 import { defineConfig, fontProviders } from 'astro/config';
 
 import svelte from '@astrojs/svelte';
@@ -12,6 +13,21 @@ import { katexMath, captionedFigures, scrollingTables } from './src/lib/markdown
 // from their @fontsource packages. Nothing is fetched from a font CDN.
 const local = fontProviders.local();
 
+// Research launched with no items (Marc, 16 October 2026): while it has none,
+// /research/ shows only COMING SOON, carries noindex and stays out of the
+// sitemap in every language. An item is a folder in src/content/research/
+// with an index.md or index.mdx (the collection's glob in
+// src/content.config.ts), so with the first one the page is listed again on
+// its own, at the next build.
+const researchDir = new URL('./src/content/research/', import.meta.url);
+const hasResearch =
+  existsSync(researchDir) &&
+  readdirSync(researchDir, { withFileTypes: true }).some(
+    (entry) =>
+      entry.isDirectory() && ['index.md', 'index.mdx'].some((file) => existsSync(new URL(`${entry.name}/${file}`, researchDir))),
+  );
+const researchIndex = /^\/(?:(?:es|va)\/)?research\/$/;
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://innova-physics-upv.github.io',
@@ -22,6 +38,7 @@ export default defineConfig({
     mdx(),
     sitemap({
       i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es', va: 'ca-ES-valencia' } },
+      filter: (page) => hasResearch || !researchIndex.test(new URL(page).pathname),
     }),
   ],
   // Research items are Markdown (MDX when they use a component): math is

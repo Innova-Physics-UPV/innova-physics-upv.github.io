@@ -1,15 +1,12 @@
 ---
-// /research/ (and /es/, /va/): every paper, poster and write-up as a block. A block opens the
-// item's page; its venue links out to the publication itself. Published
-// items newest first, then the ones still to come. To add one, add a folder
-// to src/content/research/.
+// /research/ (and /es/, /va/): until the first item is up, only its cover,
+// RESEARCH / COMING SOON centred on ultramarine, then the footer (Marc, 16
+// October 2026). While src/content/research/ has no item the page carries
+// noindex, and the sitemap leaves it out (astro.config.mjs); both switch back
+// on their own with the first item. The list of items and the closing sheet
+// return with the posters: see src/content/research/README.md.
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import Cover from '../../../components/Cover.astro';
-import Section from '../../../components/Section.astro';
-import Sheet from '../../../components/Sheet.astro';
-import Button from '../../../components/Button.astro';
-import ResearchCard from '../../../components/ResearchCard.astro';
 import { researchPage } from '../../../data/research';
 import { alternates, everyLang, inLang, type Lang } from '../../../i18n';
 
@@ -21,75 +18,46 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = inLang(researchPage, lang);
-const all = await getCollection('research');
-const byDate = (a: (typeof all)[number], b: (typeof all)[number]) => b.data.date.valueOf() - a.data.date.valueOf();
-const items = [
-  ...all.filter((i) => i.data.status !== 'coming').sort(byDate),
-  ...all.filter((i) => i.data.status === 'coming').sort(byDate).reverse(),
-];
-const { closing } = t;
+const empty = (await getCollection('research')).length === 0;
+// The longest word of the shout, in letters, as on every cover: PRÓXIMAMENTE
+// makes the shout smaller on a phone instead of running off it.
+const longest = Math.max(...t.shout.split(' ').map((word) => [...word].length));
 ---
 
-<Base title={t.title} active="research" description={t.lead} languages={alternates('/research/')}>
-  <Cover id="research" kicker={t.kicker} shout={[t.shout]} lead={t.lead} />
-
-  <main data-theme="gesso">
-    <Section id="published" kicker={`${items.length} ${t.items}`} title={t.listTitle}>
-      <ul class="grid">
-        {
-          items.map((item) => (
-            <li>
-              <ResearchCard item={item} />
-            </li>
-          ))
-        }
-      </ul>
-    </Section>
-
-    <Sheet id="open" labelledby="open-title">
-      <div class="closing__text">
-        <p class="label muted">{closing.kicker}</p>
-        <h2 id="open-title" class="headline closing__title">{closing.title}</h2>
-        <p class="closing__body measure">{closing.text}</p>
-      </div>
-      <div class="closing__actions">
-        <Button href={closing.action.href}>{closing.action.label}</Button>
-      </div>
-    </Sheet>
+<Base title={t.title} active="research" noindex={empty} languages={alternates('/research/')}>
+  <main class="soon" data-theme="ultramarine" aria-labelledby="research-title">
+    <div class="soon__inner">
+      <p class="label muted">{t.kicker}</p>
+      <h1 id="research-title" class="shout soon__shout" style={`--longest: ${longest}`}>{t.shout}</h1>
+    </div>
+    <div aria-hidden="true" data-cover-foot></div>
   </main>
 </Base>
 
 <style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-    gap: 24px;
-    margin: 48px 0 0;
-    padding: 0;
-    list-style: none;
+  /* The cover is the whole page: it fills the window under the masthead,
+     with no room after it before the footer. */
+  .soon {
+    padding-bottom: 0;
   }
 
-  .grid > li {
+  .soon__inner {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100svh - var(--header-h));
+    max-width: var(--content);
+    margin-inline: auto;
+    padding: clamp(40px, 6vw, 88px) var(--pad);
+    text-align: center;
   }
 
-  .grid > li > :global(*) {
-    flex: 1;
-  }
-
-  .closing__text {
-    flex: 1 1 360px;
-    max-width: 560px;
-  }
-
-  .closing__title,
-  .closing__body {
-    margin-top: 24px;
-  }
-
-  .closing__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+  /* Never wider than the page: a word of Heros Cn Bold capitals is about
+     0.6 em per letter (as in Cover.astro). */
+  .soon__shout {
+    font-size: min(var(--fs-shout), calc((100vw - 2 * var(--pad)) / (var(--longest) * 0.6)));
   }
 </style>

@@ -1,8 +1,6 @@
 // The research pages' own copy and labels, in the three languages. The items
 // themselves are Markdown in src/content/research/<item>/index.md(x), in the
-// language they were written in (English so far). Placeholder copy until the
-// team's content document (docs/content-todo.md).
-import { CONTACT_EMAIL } from '../consts';
+// language they were written in (English so far).
 
 export const researchLabels = {
   type: {
@@ -20,37 +18,12 @@ export const researchLabels = {
   inEnglish: { en: 'IN ENGLISH', es: 'EN INGLÉS', va: 'EN ANGLÉS' },
 };
 
+// Until the first item is up, the page is only its cover (Marc, 16 October
+// 2026). The list's copy (tab 5.1) and the page's description (tab 7.1) are
+// in docs/copy/ and come here, in the three languages, with the first item:
+// see src/content/research/README.md.
 export const researchPage = {
   title: { en: 'Research', es: 'Investigación', va: 'Recerca' },
-  shout: { en: 'RESEARCH', es: 'INVESTIGACIÓN', va: 'RECERCA' },
-  kicker: {
-    en: 'RESEARCH · PAPERS, POSTERS AND WRITE-UPS',
-    es: 'INVESTIGACIÓN · ARTÍCULOS, PÓSTERES E INFORMES',
-    va: 'RECERCA · ARTICLES, PÒSTERS I INFORMES',
-  },
-  lead: {
-    en: 'What we design, simulate and measure, written up and published in the open: the papers, the posters we present and the write-ups of every stage of ALOHA.',
-    es: 'Lo que diseñamos, simulamos y medimos, escrito y publicado en abierto: los artículos, los pósteres que presentamos y los informes de cada etapa de ALOHA. Los publicamos en inglés.',
-    va: 'El que dissenyem, simulem i mesurem, escrit i publicat en obert: els articles, els pòsters que presentem i els informes de cada etapa d’ALOHA. Els publiquem en anglés.',
-  },
-  /** After the number of items. */
-  items: { en: 'ITEMS', es: 'ENTRADAS', va: 'ENTRADES' },
-  listTitle: { en: 'Everything we have published', es: 'Todo lo que hemos publicado', va: 'Tot el que hem publicat' },
-  closing: {
-    kicker: { en: 'OPEN', es: 'ABIERTO', va: 'OBERT' },
-    title: {
-      en: 'Read it, reuse it, build on it',
-      es: 'Léelo, reutilízalo, construye sobre ello',
-      va: 'Llig-ho, reutilitza-ho, construïx sobre això',
-    },
-    text: {
-      en: 'Our write-ups and designs are open. If you work on something close, or want to build your own source, write to us.',
-      es: 'Nuestros informes y diseños son abiertos. Si trabajas en algo parecido, o quieres construir tu propia fuente, escríbenos.',
-      va: 'Els nostres informes i dissenys són oberts. Si treballes en alguna cosa semblant, o vols construir la teua pròpia font, escriu-nos.',
-    },
-    action: {
-      label: { en: 'Write to us', es: 'Escríbenos', va: 'Escriu-nos' },
-      href: `mailto:${CONTACT_EMAIL}?subject=Research`,
-    },
-  },
+  kicker: { en: 'RESEARCH', es: 'INVESTIGACIÓN', va: 'RECERCA' },
+  shout: { en: 'COMING SOON', es: 'PRÓXIMAMENTE', va: 'PRÒXIMAMENT' },
 };

@@ -67,6 +67,8 @@ const caption = z.object({ lead: z.string(), text: z.string().optional(), credit
 const research = defineCollection({
   loader: glob({
     base: './src/content/research',
+    // Only an item folder's index: the folder's README.md is not an item, and
+    // the collection loads with none (the state at launch).
     pattern: '*/index.{md,mdx}',
     // The folder's name is the item's address: /research/<folder>/.
     generateId: ({ entry }) => entry.split('/')[0],

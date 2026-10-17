@@ -27,6 +27,8 @@ interface Props {
   /** The picture shown when the page is shared (1200 x 630); the site's by default. */
   image?: string;
   imageAlt?: string;
+  /** Keep the page out of search results (Research, while it has no item). */
+  noindex?: boolean;
 }
 
 const lang = langOf(Astro.currentLocale);
@@ -40,6 +42,7 @@ const {
   progress,
   image = '/og/innova-physics-upv.png',
   imageAlt = t.imageAlt,
+  noindex = false,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · Innova Physics UPV` : 'Innova Physics UPV';
@@ -79,6 +82,7 @@ const imageUrl = new URL(image, Astro.site).href;
     </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#2338a8" />
