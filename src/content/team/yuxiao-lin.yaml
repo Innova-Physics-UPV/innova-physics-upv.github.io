@@ -1,5 +1,10 @@
 # A member, published with consent (Marc, 17 October 2026). No title, only
-# the name; no photo yet.
+# the name.
 name: Yuxiao Lin
+photo: ../../assets/team/yuxiao-lin.webp
+alt:
+  en: Yuxiao Lin, in the team polo.
+  es: Yuxiao Lin, con el polo del equipo.
+  va: Yuxiao Lin, amb el polo de l’equip.
 consent: true
 order: 13
