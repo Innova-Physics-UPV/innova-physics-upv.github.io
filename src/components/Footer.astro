@@ -7,7 +7,7 @@ import InnovaLogo from '../assets/logos/innova-logo.svg';
 import Upv from '../assets/logos/upv.svg';
 import Ge from '../assets/logos/generacion-espontanea.svg';
 import Etsit from '../assets/logos/etsit.svg';
-import { CC_BY_URL, CERN_OHL_URL, CONTACT_EMAIL, PAST_SEASONS_LIVE } from '../consts';
+import { CC_BY_URL, CERN_OHL_URL, CONTACT_EMAIL, HANDBOOK_URL, PAST_SEASONS_LIVE } from '../consts';
 import { inLang, langOf, localise } from '../i18n';
 import { ui } from '../i18n/ui';
 
@@ -75,6 +75,7 @@ const site = [
         <ul class="footer__list label">
           <li><a href={CERN_OHL_URL} rel="noopener">HARDWARE · CERN-OHL-S</a></li>
           <li><a href={CC_BY_URL + t.ccDeed} rel="noopener">{t.texts} · CC BY 4.0</a></li>
+          <li><a href={HANDBOOK_URL} hreflang="en">{t.handbook}</a></li>
           <li>{t.docs}</li>
           <li><a href="/licenses/GUST-FONT-LICENSE.txt">{t.type} · TeX Gyre Heros, GUST</a></li>
           <li>

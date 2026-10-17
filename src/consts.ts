@@ -26,6 +26,12 @@ export const writeToJoin = (subject: string) => `mailto:${CONTACT_EMAIL}?subject
 // publish it.
 export const PAST_SEASONS_LIVE = false;
 
+// The team handbook: its own repository (Innova-Physics-UPV/handbook), built
+// with mdBook and served by GitHub Pages under this site's address. In
+// English only. HANDBOOK_JOINING is its chapter for applicants.
+export const HANDBOOK_URL = '/handbook/';
+export const HANDBOOK_JOINING = '/handbook/joining.html';
+
 // The CERN Open Hardware Licence, strongly reciprocal (CERN-OHL-S v2).
 export const CERN_OHL_URL = 'https://cern-ohl.web.cern.ch/';
 

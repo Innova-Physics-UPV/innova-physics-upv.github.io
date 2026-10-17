@@ -7,7 +7,7 @@
 import type { ImageMetadata } from 'astro';
 import modelZero from '../assets/photos/model-0-bench.webp';
 import alohaZeroRender from '../assets/photos/aloha-0-source-render.webp';
-import { CERN_OHL_URL } from '../consts';
+import { CERN_OHL_URL, HANDBOOK_URL } from '../consts';
 import type { Text } from '../i18n';
 
 export type Marker = 'solid' | 'hatched' | 'outlined';
@@ -372,7 +372,9 @@ export const open = {
         es: 'Cómo trabaja el equipo, como un libro público en línea.',
         va: 'Com treballa l’equip, com un llibre públic en línia.',
       },
-      status: BEFORE_JANUARY,
+      // Published on 17 October 2026, in English.
+      link: { href: HANDBOOK_URL, label: { en: 'READ THE HANDBOOK', es: 'LEE EL MANUAL', va: 'LLIG EL MANUAL' } },
+      status: { en: 'EDITION 2026-27', es: 'EDICIÓN 2026-27 · EN INGLÉS', va: 'EDICIÓ 2026-27 · EN ANGLÉS' },
     },
   ] as { title: Text; body: Text; link?: { href: string; label: Text }; status?: Text }[],
 };

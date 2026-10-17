@@ -188,6 +188,15 @@ redirects, so a page that moves needs a forwarding page at its old address.
 - `docs/go-live.md`: how the site was launched, and what to check after a
   deploy.
 
+## The handbook
+
+The team handbook is its own project,
+[Innova-Physics-UPV/handbook](https://github.com/Innova-Physics-UPV/handbook)
+(mdBook, in English), published at `/handbook/` by its own workflow under this
+site's address. The site links to it from the machine page, Join and the footer
+(`HANDBOOK_URL` and `HANDBOOK_JOINING` in `src/consts.ts`), and lists it in the
+sitemap.
+
 ## Branches
 
 `main` is the only branch: what is live; a merge deploys it. Changes are made
