@@ -1,6 +1,7 @@
-// The Join page's words, one object per language. Placeholder copy from the
-// canvas until the team's content document (docs/content-todo.md); the team
-// reviewed the Spanish and Valencian on 9 October 2026.
+// The Join page's words, one object per language: the launch copy approved by
+// Marc on 16 October 2026 (docs/copy/03-join.md, Spanish and Valencian in
+// docs/copy/08-spanish-and-valencian.md, 8.2). The student count and the month
+// the next round opens are facts, not words: src/data/recruitment.ts.
 
 import type { Lang } from './index';
 
@@ -17,7 +18,8 @@ export interface JoinCopy {
     apply: string;
     /** Once the round has closed: write to the team, to apply late or to hear of the next round. */
     closedAction: { label: string; subject: string };
-    count: { value: string; label: string };
+    /** Under the student count (src/data/recruitment.ts); without a count, neither shows. */
+    count: { label: string };
     photo: { alt: string; lead: string; text: string };
   };
   departments: {
@@ -30,7 +32,8 @@ export interface JoinCopy {
     kicker: (season: string) => string;
     title: string;
     note: string;
-    rest: { value: string; text: string };
+    /** Beside the student count, after the cards; without a count, the tile is left out. */
+    rest: { text: string };
     photoMissing: string;
     /** The name of the link from a card to the person's LinkedIn profile. */
     onLinkedIn: (name: string) => string;
@@ -41,27 +44,28 @@ export interface JoinCopy {
     kicker: (season: string) => string;
     title: string;
     open: (date: string) => string;
-    closed: (date: string) => string;
+    /** With the month the next round aims to open, a last sentence says so; without it, the sentence is left out. */
+    closed: (date: string, nextMonth?: string) => string;
   };
 }
 
-/** Tools are the same in every language; the fingerprint line names its element's role in each. */
+/** Tools are the same in every language; the fingerprint line names its element's role in each, with the decimal comma in Spanish and Valencian. */
 export const departmentFacts = {
   'applied-physics': {
     tools: 'COMSOL · RF-Track · GEANT4 · CST',
-    line: { en: 'W Lα 8.40 keV · THE CATHODE', es: 'W Lα 8.40 keV · EL CÁTODO', va: 'W Lα 8.40 keV · EL CÀTODE' },
+    line: { en: 'W Lα 8.40 keV · THE CATHODE', es: 'W Lα 8,40 keV · EL CÁTODO', va: 'W Lα 8,40 keV · EL CÀTODE' },
   },
   'electronics-control': {
     tools: 'KiCad · STM32',
-    line: { en: 'Cu Kα 8.05 keV · EVERY CONDUCTOR', es: 'Cu Kα 8.05 keV · CADA CONDUCTOR', va: 'Cu Kα 8.05 keV · CADA CONDUCTOR' },
+    line: { en: 'Cu Kα 8.05 keV · EVERY CONDUCTOR', es: 'Cu Kα 8,05 keV · CADA CONDUCTOR', va: 'Cu Kα 8,05 keV · CADA CONDUCTOR' },
   },
   'technical-design': {
     tools: 'FreeCAD',
-    line: { en: 'Fe Kα 6.40 keV · STAINLESS STEEL', es: 'Fe Kα 6.40 keV · ACERO INOXIDABLE', va: 'Fe Kα 6.40 keV · ACER INOXIDABLE' },
+    line: { en: 'Fe Kα 6.40 keV · STAINLESS STEEL', es: 'Fe Kα 6,40 keV · ACERO INOXIDABLE', va: 'Fe Kα 6,40 keV · ACER INOXIDABLE' },
   },
   communication: {
     tools: 'Figma · Manim · Astro',
-    line: { en: 'Hg Lα 9.99 keV · VERMILION', es: 'Hg Lα 9.99 keV · BERMELLÓN', va: 'Hg Lα 9.99 keV · VERMELLÓ' },
+    line: { en: 'Hg Lα 9.99 keV · VERMILION', es: 'Hg Lα 9,99 keV · BERMELLÓN', va: 'Hg Lα 9,99 keV · VERMELLÓ' },
   },
 };
 
@@ -69,21 +73,21 @@ const en: JoinCopy = {
   readIn: 'READ IN ENGLISH',
   meta: {
     title: 'Join the team',
-    description: 'Join Innova Physics UPV: students from different degrees design, simulate and build an electron accelerator at the UPV, in four departments.',
+    description: 'Join Innova Physics UPV: students from different degrees designing and building ALOHA, an open-hardware electron accelerator, in four departments.',
   },
   cover: {
     kicker: (season) => `JOIN · ${season}`,
     shout: ['JOIN THE TEAM'],
-    lead: 'Students from different degrees design, simulate and build an electron accelerator at the UPV. You learn by building, in one of four departments.',
+    lead: 'Students from different degrees design, simulate and build ALOHA, an open-hardware electron accelerator, at the UPV. You learn by building, in one of four departments.',
     open: (season, date) => `APPLICATIONS FOR ${season} OPEN UNTIL ${date}`,
     closed: (season, date) => `APPLICATIONS FOR ${season} CLOSED ON ${date}`,
     apply: 'Apply now',
     closedAction: { label: 'Write to us', subject: 'Joining Innova Physics UPV' },
-    count: { value: '30+', label: 'STUDENTS · OCTOBER 2026' },
+    count: { label: 'STUDENTS · OCTOBER 2026' },
     photo: {
       alt: 'Seven team members with CERN visitor lanyards, smiling in front of their posters at CERN.',
       lead: 'The team at CERN.',
-      text: 'July 2026.',
+      text: 'At the accelECR poster session, 3 July 2026.',
     },
   },
   departments: {
@@ -99,13 +103,13 @@ const en: JoinCopy = {
       {
         key: 'electronics-control',
         name: 'Electronics & Control',
-        body: 'Design the supplies and the control. This semester: the cathode supply and the control of the vacuum system.',
+        body: 'Design the supplies and the control. This semester: the control of the vacuum system, then the cathode supply.',
         logoLabel: 'Innova Physics, with the fingerprint of copper',
       },
       {
         key: 'technical-design',
         name: 'Technical Design',
-        body: 'Turn the physics into parts: chambers, supports and the mechanics of the cavities.',
+        body: 'Turn the physics into parts: the vacuum chamber, the electrodes and their supports, and the frame that holds it all, drawn for a machinist.',
         logoLabel: 'Innova Physics, with the fingerprint of stainless steel',
       },
       {
@@ -122,7 +126,7 @@ const en: JoinCopy = {
     steps: [
       { title: 'Apply', body: 'When a round opens, fill in the form.' },
       { title: 'Candidate', body: 'A trial on a real task, with a mentor.' },
-      { title: 'Member', body: 'Part of a department and its tasks.' },
+      { title: 'Member', body: 'You join a department and pick up tasks. Each task team forms around one deliverable and dissolves when it ships.' },
       { title: 'Qualified', body: 'Recognised in an area, one area at a time.' },
     ],
   },
@@ -130,7 +134,7 @@ const en: JoinCopy = {
     kicker: (season) => `THE TEAM · ${season}`,
     title: 'The people you would build with',
     note: 'PHOTOS IN COLOUR · PUBLISHED WITH CONSENT',
-    rest: { value: '30+', text: 'students across the four departments' },
+    rest: { text: 'students across the four departments' },
     photoMissing: 'PHOTO TO COME',
     onLinkedIn: (name) => `${name} on LinkedIn`,
   },
@@ -139,31 +143,32 @@ const en: JoinCopy = {
     kicker: (season) => `JOIN · ${season}`,
     title: 'Build it with us',
     open: (date) => `Applications are open until ${date}.`,
-    closed: (date) =>
-      `Applications closed on ${date}. Write to us to apply late, as an exception, or to hear when the next round opens.`,
+    closed: (date, nextMonth) =>
+      `Applications closed on ${date}. Write to us to apply late, as an exception, or to hear when the next round opens.` +
+      (nextMonth ? ` We aim to open it in ${nextMonth}.` : ''),
   },
 };
 
-// Spanish, reviewed by Marc on 9 October 2026.
+// Spanish, reviewed by Marc on 9 October 2026; launch copy from tab 8.2.
 const es: JoinCopy = {
   readIn: 'LEER EN ESPAÑOL',
   meta: {
     title: 'Únete al equipo',
-    description: 'Únete a Innova Physics UPV: estudiantes de distintas titulaciones diseñan, simulan y construyen un acelerador de electrones en la UPV, en cuatro departamentos.',
+    description: 'Únete a Innova Physics UPV: estudiantes de distintas titulaciones que diseñan y construyen ALOHA, un acelerador de electrones de hardware abierto, en cuatro departamentos.',
   },
   cover: {
     kicker: (season) => `ÚNETE · ${season}`,
     shout: ['ÚNETE AL EQUIPO'],
-    lead: 'Estudiantes de distintas titulaciones diseñan, simulan y construyen un acelerador de electrones en la UPV. Aprendes construyendo, en uno de los cuatro departamentos.',
+    lead: 'Estudiantes de distintas titulaciones diseñan, simulan y construyen ALOHA, un acelerador de electrones de hardware abierto, en la UPV. Aprendes construyendo, en uno de los cuatro departamentos.',
     open: (season, date) => `INSCRIPCIONES ${season} ABIERTAS HASTA EL ${date}`,
     closed: (season, date) => `INSCRIPCIONES ${season} CERRADAS EL ${date}`,
     apply: 'Inscríbete',
     closedAction: { label: 'Escríbenos', subject: 'Unirme a Innova Physics UPV' },
-    count: { value: '30+', label: 'ESTUDIANTES · OCTUBRE 2026' },
+    count: { label: 'ESTUDIANTES · OCTUBRE 2026' },
     photo: {
       alt: 'Siete miembros del equipo con acreditaciones de visitante del CERN, sonriendo delante de sus pósteres en el CERN.',
       lead: 'El equipo en el CERN.',
-      text: 'Julio de 2026.',
+      text: 'En la sesión de pósteres accelECR, 3 de julio de 2026.',
     },
   },
   departments: {
@@ -179,13 +184,13 @@ const es: JoinCopy = {
       {
         key: 'electronics-control',
         name: 'Electrónica y Control',
-        body: 'Diseña las fuentes y el control. Este cuatrimestre: la fuente del cátodo y el control del sistema de vacío.',
+        body: 'Diseñar las fuentes de alimentación y el control. Este cuatrimestre: el control del sistema de vacío y, después, la fuente del cátodo.',
         logoLabel: 'Innova Physics, con la huella del cobre',
       },
       {
         key: 'technical-design',
         name: 'Diseño Técnico',
-        body: 'Convierte la física en piezas: cámaras, soportes y la mecánica de las cavidades.',
+        body: 'Convertir la física en piezas: la cámara de vacío, los electrodos y sus soportes, y la estructura que lo sostiene todo, dibujados para un taller de mecanizado.',
         logoLabel: 'Innova Physics, con la huella del acero inoxidable',
       },
       {
@@ -202,7 +207,7 @@ const es: JoinCopy = {
     steps: [
       { title: 'Inscripción', body: 'Cuando abra una convocatoria, rellena el formulario.' },
       { title: 'Candidatura', body: 'Una prueba en una tarea real, con una persona mentora.' },
-      { title: 'Miembro', body: 'Parte de un departamento y de sus tareas.' },
+      { title: 'Miembro', body: 'Entras en un departamento y asumes tareas. Cada equipo de tarea se forma en torno a un entregable y se disuelve al entregarlo.' },
       { title: 'Cualificación', body: 'Reconocimiento en un área, de una en una.' },
     ],
   },
@@ -210,7 +215,7 @@ const es: JoinCopy = {
     kicker: (season) => `EL EQUIPO · ${season}`,
     title: 'Las personas con las que construirías',
     note: 'FOTOS EN COLOR · PUBLICADAS CON CONSENTIMIENTO',
-    rest: { value: '30+', text: 'estudiantes en los cuatro departamentos' },
+    rest: { text: 'estudiantes en los cuatro departamentos' },
     photoMissing: 'FOTO PENDIENTE',
     onLinkedIn: (name) => `${name} en LinkedIn`,
   },
@@ -219,8 +224,9 @@ const es: JoinCopy = {
     kicker: (season) => `ÚNETE · ${season}`,
     title: 'Constrúyelo con nosotros',
     open: (date) => `Las inscripciones están abiertas hasta el ${date}.`,
-    closed: (date) =>
-      `Las inscripciones se cerraron el ${date}. Escríbenos para presentar una candidatura fuera de plazo, de forma excepcional, o para saber cuándo abre la próxima convocatoria.`,
+    closed: (date, nextMonth) =>
+      `Las candidaturas se cerraron el ${date}. Escríbenos para presentar una candidatura fuera de plazo, como excepción, o para saber cuándo se abre la próxima convocatoria.` +
+      (nextMonth ? ` Aspiramos a abrirla en ${nextMonth}.` : ''),
   },
 };
 
@@ -228,26 +234,26 @@ const es: JoinCopy = {
 const el = (date: string) => (/^1{1,2}\s/.test(date) ? `l’${date}` : `el ${date}`);
 const al = (date: string) => (/^1{1,2}\s/.test(date) ? `a l’${date}` : `al ${date}`);
 
-// Valencian (AVL norms), reviewed by Marc on 9 October 2026.
+// Valencian (AVL norms), reviewed by Marc on 9 October 2026; launch copy from tab 8.2.
 const va: JoinCopy = {
   readIn: 'LLEGIR EN VALENCIÀ',
   meta: {
     title: 'Unix-te a l’equip',
-    description: 'Unix-te a Innova Physics UPV: estudiants de diferents titulacions dissenyen, simulen i construïxen un accelerador d’electrons a la UPV, en quatre departaments.',
+    description: 'Unix-te a Innova Physics UPV: estudiants de diferents titulacions que dissenyen i construïxen ALOHA, un accelerador d’electrons de maquinari obert, en quatre departaments.',
   },
   cover: {
     kicker: (season) => `UNIX-TE · ${season}`,
     shout: ['UNIX-TE A L’EQUIP'],
-    lead: 'Estudiants de diferents titulacions dissenyen, simulen i construïxen un accelerador d’electrons a la UPV. Aprens construint, en un dels quatre departaments.',
+    lead: 'Estudiants de diferents titulacions dissenyen, simulen i construïxen ALOHA, un accelerador d’electrons de maquinari obert, a la UPV. Aprens construint, en un dels quatre departaments.',
     open: (season, date) => `INSCRIPCIONS ${season} OBERTES FINS ${al(date).toUpperCase()}`,
     closed: (season, date) => `INSCRIPCIONS ${season} TANCADES ${el(date).toUpperCase()}`,
     apply: 'Inscriu-te',
     closedAction: { label: 'Escriu-nos', subject: 'Unir-me a Innova Physics UPV' },
-    count: { value: '30+', label: 'ESTUDIANTS · OCTUBRE 2026' },
+    count: { label: 'ESTUDIANTS · OCTUBRE 2026' },
     photo: {
       alt: 'Set membres de l’equip amb acreditacions de visitant del CERN, somrient davant dels seus pòsters al CERN.',
       lead: 'L’equip al CERN.',
-      text: 'Juliol de 2026.',
+      text: 'A la sessió de pòsters accelECR, 3 de juliol de 2026.',
     },
   },
   departments: {
@@ -263,13 +269,13 @@ const va: JoinCopy = {
       {
         key: 'electronics-control',
         name: 'Electrònica i Control',
-        body: 'Dissenya les fonts i el control. Este quadrimestre: la font del càtode i el control del sistema de buit.',
+        body: 'Dissenyar les fonts d’alimentació i el control. Este quadrimestre: el control del sistema de buit i, després, la font del càtode.',
         logoLabel: 'Innova Physics, amb l’empremta del coure',
       },
       {
         key: 'technical-design',
         name: 'Disseny Tècnic',
-        body: 'Convertix la física en peces: cambres, suports i la mecànica de les cavitats.',
+        body: 'Convertir la física en peces: la cambra de buit, els elèctrodes i els seus suports, i l’estructura que ho sosté tot, dibuixats per a un taller de mecanitzat.',
         logoLabel: 'Innova Physics, amb l’empremta de l’acer inoxidable',
       },
       {
@@ -286,7 +292,7 @@ const va: JoinCopy = {
     steps: [
       { title: 'Inscripció', body: 'Quan s’òbriga una convocatòria, emplena el formulari.' },
       { title: 'Candidatura', body: 'Una prova en una tasca real, amb una persona mentora.' },
-      { title: 'Membre', body: 'Part d’un departament i de les seues tasques.' },
+      { title: 'Membre', body: 'Entres en un departament i assumixes tasques. Cada equip de tasca es forma al voltant d’un lliurable i es dissol en lliurar-lo.' },
       { title: 'Qualificació', body: 'Reconeixement en una àrea, d’una en una.' },
     ],
   },
@@ -294,7 +300,7 @@ const va: JoinCopy = {
     kicker: (season) => `L’EQUIP · ${season}`,
     title: 'Les persones amb qui construiries',
     note: 'FOTOS EN COLOR · PUBLICADES AMB CONSENTIMENT',
-    rest: { value: '30+', text: 'estudiants en els quatre departaments' },
+    rest: { text: 'estudiants en els quatre departaments' },
     photoMissing: 'FOTO PENDENT',
     onLinkedIn: (name) => `${name} a LinkedIn`,
   },
@@ -303,8 +309,9 @@ const va: JoinCopy = {
     kicker: (season) => `UNIX-TE · ${season}`,
     title: 'Construïx-lo amb nosaltres',
     open: (date) => `Les inscripcions estan obertes fins ${al(date)}.`,
-    closed: (date) =>
-      `Les inscripcions es van tancar ${el(date)}. Escriu-nos per a presentar una candidatura fora de termini, de manera excepcional, o per a saber quan s’obri la pròxima convocatòria.`,
+    closed: (date, nextMonth) =>
+      `Les candidatures es van tancar ${el(date)}. Escriu-nos per a presentar una candidatura fora de termini, com a excepció, o per a saber quan s’obri la pròxima convocatòria.` +
+      (nextMonth ? ` Aspirem a obrir-la en ${nextMonth}.` : ''),
   },
 };
 

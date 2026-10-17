@@ -2,7 +2,9 @@
 // /join/, /es/join/ and /va/join/: the cover with the round's status and the team at CERN, the four
 // departments, how a candidate becomes a member, the team (only those who
 // have given their consent) and the closing sheet. The round opens and
-// closes on its own: the status is decided when the site is built.
+// closes on its own: the status is decided when the site is built. The
+// student count and the month the next round opens are left out until
+// src/data/recruitment.ts has them.
 import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
@@ -16,7 +18,7 @@ import DeptCard from '../../components/join/DeptCard.astro';
 import PersonCard from '../../components/join/PersonCard.astro';
 import teamAtCern from '../../assets/photos/team-at-cern-2026.webp';
 import { FORM_URL, writeToJoin } from '../../consts';
-import { closesOn, round, roundIsOpen } from '../../data/recruitment';
+import { closesOn, nextOpensIn, round, roundIsOpen } from '../../data/recruitment';
 import { alternates, everyLang, htmlLang, inLang, langs, localise, type Lang } from '../../i18n';
 import { joinCopy } from '../../i18n/join';
 
@@ -30,6 +32,7 @@ const { lang } = Astro.props;
 const t = joinCopy[lang];
 const open = roundIsOpen();
 const closes = closesOn(lang);
+const students = round.students;
 const action = open
   ? { href: FORM_URL, label: t.cover.apply }
   : { href: writeToJoin(t.cover.closedAction.subject), label: t.cover.closedAction.label };
@@ -58,10 +61,14 @@ const people = (await getCollection('team'))
     <p class="caption join__privacy">
       {t.privacy.before}<a href={t.privacy.href}>{t.privacy.link}</a>{t.privacy.after}
     </p>
-    <div class="join__count">
-      <p class="numeral">{t.cover.count.value}</p>
-      <p class="label muted join__count-label">{t.cover.count.label}</p>
-    </div>
+    {
+      students !== undefined && (
+        <div class="join__count">
+          <p class="numeral">{students}</p>
+          <p class="label muted join__count-label">{t.cover.count.label}</p>
+        </div>
+      )
+    }
     <figure slot="figure" class="join__photo">
       <Picture
         src={teamAtCern}
@@ -110,12 +117,16 @@ const people = (await getCollection('team'))
             />
           ))
         }
-        <li class="rest">
-          <div class="rest__tile">
-            <span class="rest__value">{t.team.rest.value}</span>
-          </div>
-          <p class="rest__text">{t.team.rest.text}</p>
-        </li>
+        {
+          students !== undefined && (
+            <li class="rest">
+              <div class="rest__tile">
+                <span class="rest__value">{students}</span>
+              </div>
+              <p class="rest__text">{t.team.rest.text}</p>
+            </li>
+          )
+        }
       </ul>
     </Section>
 
@@ -123,7 +134,7 @@ const people = (await getCollection('team'))
       <div class="closing__text">
         <p class="label muted">{t.closing.kicker(round.season)}</p>
         <h2 id="apply-title" class="headline closing__title">{t.closing.title}</h2>
-        <p class="closing__body measure">{open ? t.closing.open(closes) : t.closing.closed(closes)}</p>
+        <p class="closing__body measure">{open ? t.closing.open(closes) : t.closing.closed(closes, nextOpensIn(lang))}</p>
         <p class="caption join__privacy">
           {t.privacy.before}<a href={t.privacy.href}>{t.privacy.link}</a>{t.privacy.after}
         </p>

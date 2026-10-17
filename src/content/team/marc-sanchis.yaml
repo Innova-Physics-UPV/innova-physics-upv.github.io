@@ -1,5 +1,7 @@
-# Published with consent (Marc, 7 October 2026). Role and department are
-# placeholders from the canvas until the team's content document.
+# Published with consent (Marc, 7 October 2026). Role and department as the
+# launch copy gives them (docs/copy/03-join.md, 3.4). Order: Direction first,
+# tutor 1, coordinator 2, co-lead 3; then each member who asks for a card, in
+# alphabetical order, from 10.
 name: Marc Sanchis
 role:
   en: Coordinator
@@ -16,4 +18,4 @@ alt:
   va: Marc Sanchis, amb el polo de l’equip, de braços plegats i somrient.
 linkedin: marc-sanchis
 consent: true
-order: 1
+order: 2
