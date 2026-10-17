@@ -1,0 +1,41 @@
+# Dependabot opens pull requests when a dependency or a workflow action has
+# a new release, so the site stays current without anyone watching for it.
+# A week's minor and patch updates arrive as one pull request per ecosystem;
+# majors come one by one. Each must pass the build before it is merged
+# (README, "Making a change"). A release is only proposed after a few days
+# (cooldown), so a compromised version is usually pulled before it gets here.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Madrid
+    cooldown:
+      default-days: 3
+      semver-major-days: 7
+    groups:
+      npm-minor-and-patch:
+        update-types: ["minor", "patch"]
+    ignore:
+      # @astrojs/check supports TypeScript 5 and 6, not 7 yet.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      # Node's types follow the Node version in .node-version, not the latest.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Madrid
+    cooldown:
+      default-days: 3
+    groups:
+      actions:
+        patterns: ["*"]

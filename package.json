@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.22.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -14,19 +14,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "^0.4.3",
-    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/markdown-satteri": "^0.4.4",
+    "@astrojs/mdx": "^8.1.0",
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/svelte": "^9.0.1",
+    "@astrojs/svelte": "^9.1.0",
     "@fontsource/eb-garamond": "^5.3.0",
     "@fontsource/fragment-mono": "^5.3.0",
-    "astro": "^7.3.6",
+    "astro": "^7.4.0",
     "katex": "^0.19.0",
     "svelte": "^5.57.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@types/node": "^22.20.5",
-    "typescript": "^5.9.3"
+    "@types/node": "^24.19.2",
+    "typescript": "^6.0.3"
   }
 }

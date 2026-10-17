@@ -4,11 +4,15 @@ name: Deploy Astro site to GitHub Pages
 # and builds, so a branch is tested before it is merged.
 #
 # The site also rebuilds every night, because what it shows depends on the
-# date it was built: "Apply now" turns into "Tell me when it opens" on the
-# first build after a round closes (src/data/recruitment.ts). 03:30 UTC is
-# 05:30 in Valencia in summer and 04:30 in winter. GitHub runs schedules only
-# on main, and pauses them after 60 days without a commit to the repository;
-# a commit or "Enable workflow" in the Actions tab turns them back on.
+# date it was built: "Apply now" turns into "Write to us" on the first build
+# after a round closes (src/data/recruitment.ts). 03:30 UTC is 05:30 in
+# Valencia in summer and 04:30 in winter. GitHub runs schedules only on main,
+# and pauses them after 60 days without a commit to the repository; a commit
+# or "Enable workflow" in the Actions tab turns them back on.
+#
+# Every action is pinned to the commit of a release (its version in the
+# comment), so a moved tag cannot change what runs here; Dependabot
+# (.github/dependabot.yml) proposes the updates.
 on:
   push:
     branches: ["main"]
@@ -18,27 +22,26 @@ on:
     - cron: "30 3 * * *"
   workflow_dispatch:
 
+# Least privilege: the build only reads the repository. Only the deploy job
+# may write to Pages, and only it gets an identity token.
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: "22"
-          cache: "npm"
+          node-version-file: .node-version
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -49,24 +52,30 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Configure Pages
-        if: github.event_name != 'pull_request'
-        uses: actions/configure-pages@v5
-
       - name: Upload artifact
         if: github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ./dist
+          # dist/.well-known/security.txt is a hidden folder.
+          include-hidden-files: true
 
   deploy:
     if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    # One deploy at a time: a newer one waits rather than cancel one in progress.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

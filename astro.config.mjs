@@ -31,6 +31,31 @@ const researchIndex = /^\/(?:(?:es|va)\/)?research\/$/;
 // https://astro.build/config
 export default defineConfig({
   site: 'https://innova-physics-upv.github.io',
+  // A Content Security Policy in every page's <head>: the browser runs only
+  // the site's own scripts (its files, and each inline script by the hash
+  // Astro computes at build) and loads nothing from another server. Inline
+  // style="" attributes stay allowed, since the layout sets custom properties
+  // through them (--longest, --col, the motion's measurements); they cannot
+  // run code. KaTeX embeds one font as a data: URL, for research items' math.
+  // GitHub Pages sends no headers of ours, so frame-ancestors (which only
+  // works as a header) cannot be set here.
+  security: {
+    csp: {
+      algorithm: 'SHA-256',
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' data:",
+        "font-src 'self' data:",
+        "connect-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'none'",
+        'upgrade-insecure-requests',
+      ],
+      scriptDirective: { resources: ["'self'"] },
+      styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] },
+    },
+  },
   // The sitemap lists every page with its language versions (hreflang), for
   // search engines; robots.txt points to it.
   integrations: [

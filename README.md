@@ -5,16 +5,16 @@ student team at the Universitat Politècnica de València that designs and build
 ALOHA, an open-hardware tabletop electron accelerator. Built with
 [Astro](https://astro.build/) 7, static, deployed to GitHub Pages.
 
-**Status:** this is the new site, on the `new-web` branch. Its content is still
-placeholder (see [Before it goes live](#before-it-goes-live)); `main` keeps the
-current site live until the new one is merged.
+**Status:** live at https://innova-physics-upv.github.io/ since 17 October 2026.
+What is still to come is listed in `docs/content-todo.md`.
 
 **Maintainer:** Marc Sanchis (team lead), who also gives the go-live OK.
 **Contact:** innovaphysicsupv@gmail.com.
 
 ## Getting started
 
-Requires Node 22.12 or later (CI uses Node 22).
+Requires Node 22.22 or later; CI uses Node 24, the current LTS, as written in
+`.node-version` (fnm and mise read the same file).
 
 ```sh
 npm install
@@ -90,7 +90,10 @@ For anyone who changes the site, by hand or with an AI assistant:
   partnership.
 - **The page reads without JavaScript:** the HTML is the finished state, and
   the scripts (`src/scripts/`, the Two readings island) only add movement.
-  Fonts are self-hosted; nothing is loaded from another server.
+  Fonts are self-hosted; nothing is loaded from another server. A Content
+  Security Policy (`security.csp` in `astro.config.mjs`) holds every page to
+  that: a script, font or image from another server, or an inline script
+  Astro did not hash at build, is refused by the browser.
 - **No new dependency** without its reason in the commit message.
 - **`new-web` is never merged into `main`** without the maintainer's OK.
 
@@ -128,6 +131,25 @@ Photos go in `src/assets/` (not `public/`): Astro makes AVIF and WebP copies at
 the sizes each screen needs. Give every photo alt text that says who and what.
 New logos go through SVGO first (`design-system/README.md`).
 
+## Making a change
+
+`main` is what is live, and it only changes through a pull request:
+
+1. Branch from `main`, make the change, and check it with `npm run check`,
+   `npm run build` and `npm run preview`.
+2. Push the branch and open a pull request into `main`. The workflow checks
+   and builds it, without deploying.
+3. When the build is green and the pull request is approved (one approving
+   review; the maintainer's account is exempt), merge it. The merge deploys
+   the site in about two minutes.
+
+`main` cannot be force-pushed or deleted. If a deploy goes wrong, revert the
+merge commit on a branch (`git revert -m 1 <merge commit>`) and merge that.
+
+Every Monday Dependabot (`.github/dependabot.yml`) opens pull requests for new
+releases of the dependencies and of the workflow's actions. Review and merge
+them like any other change: the build must pass first.
+
 ## Deployment
 
 Every push to `main` runs `.github/workflows/astro.yml`: `npm ci`,
@@ -146,17 +168,32 @@ These addresses are used outside the site and must keep working:
 signatures), `/dossier.pdf` and `/partners/`. GitHub Pages has no server
 redirects, so a page that moves needs a forwarding page at its old address.
 
-## Before it goes live
+## Security
 
-- `docs/content-todo.md`: every placeholder on the site and the file that holds it.
-- `docs/go-live.md`: the steps to launch, and what to check afterwards.
+- GitHub Pages serves the site over HTTPS only.
+- Every page carries a Content Security Policy (see "Rules"), sets no cookies,
+  has no analytics and loads nothing from another server.
+- The deploy workflow pins every action to a release's commit, gives its token
+  read-only rights except in the deploy job, and keeps no credentials in the
+  clone. Dependabot proposes updates every week; `npm audit` should report
+  nothing.
+- `/.well-known/security.txt` (RFC 9116) says where to report a security
+  problem. Its `Expires` date, 17 October 2027, must be moved a year ahead
+  before then, in `public/.well-known/security.txt`.
+
+## What is still to come
+
+- `docs/content-todo.md`: the facts, pictures and decisions still to come, and
+  the file each goes in.
+- `docs/go-live.md`: how the site was launched, and what to check after a
+  deploy.
 
 ## Branches
 
 | Branch    | What it is                                     |
 | :-------- | :--------------------------------------------- |
-| `main`    | What is live; a push deploys it                |
-| `new-web` | This site, until it is merged into `main`      |
+| `main`    | What is live; a merge deploys it               |
+| `new-web` | The rebuild, merged into `main` on 17 October 2026 (pull request #9); kept for its history |
 | `ip3-web` | The interim version of the old site            |
 | `ip2-web` | The previous website (Next.js), kept as it was |
 
