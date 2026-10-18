@@ -53,8 +53,8 @@ description go in with the posters.
 
 Direction's three cards show, with consent: Lluís Miquel García-Raffi
 (tutor), then the two team leads, Marc Sanchis and Arlen Boesch. The members'
-cards follow, name only: Daniel Isliker, Jordi Samper, Javier García and
-Yuxiao Lin. A card without a photo shows a placeholder tile until it comes.
+cards follow, name only: Daniel Isliker, Jordi Samper, Javier García,
+Yuxiao Lin and Luiscarlos Hernández. A card without a photo shows a placeholder tile until it comes.
 Any member who asks for a card gets one, with `consent: true` in its file
 (`src/content/team/`).
 
