@@ -1,6 +1,11 @@
 # A member, published with consent (Marc, 17 October 2026). No title, only
-# the name; no photo yet.
+# the name; photo since 31 October 2026.
 name: Jordi Samper
+photo: ../../assets/team/jordi-samper.webp
+alt:
+  en: Jordi Samper, in a dark suit and tie, smiling.
+  es: Jordi Samper, con traje oscuro y corbata, sonriendo.
+  va: Jordi Samper, amb vestit fosc i corbata, somrient.
 linkedin: jordi-samper-bolufer
 consent: true
 order: 11
