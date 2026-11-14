@@ -1,6 +1,11 @@
 # A member, published with consent (Marc, 17 October 2026). No title, only
-# the name; no photo yet.
+# the name; photo since 12 November 2026.
 name: Daniel Isliker
+photo: ../../assets/team/daniel-isliker.webp
+alt:
+  en: Daniel Isliker, in a white polo.
+  es: Daniel Isliker, con un polo blanco.
+  va: Daniel Isliker, amb un polo blanc.
 linkedin: daniel-isliker-casta%C3%B1o-a83569382
 consent: true
 order: 10
